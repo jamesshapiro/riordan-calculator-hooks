@@ -1,11 +1,12 @@
 import React from 'react';
 
-// Note: replace "Generic" with the name of the thing being provided.
-// For usage, see the "GenericContextUser" component.
+// Note: replace "Data" with the name of the thing being provided.
+// For usage, see the "DataContextUser" component.
 
-export const GenericContext = React.createContext();
+export const DataContext = React.createContext();
 
-function GenericProvider({ children }) {
+function DataProvider({ children }) {
+  const randomItem = 'random item';
   const [items, setItems] = React.useState([]);
 
   function createItem(content, variant) {
@@ -14,7 +15,7 @@ function GenericProvider({ children }) {
       {
         id: crypto.randomUUID(),
         content,
-        variant
+        variant,
       },
     ];
 
@@ -29,16 +30,17 @@ function GenericProvider({ children }) {
   }
 
   return (
-    <GenericContext.Provider
+    <DataContext.Provider
       value={{
         items,
         createItem,
         clearItem,
+        randomItem,
       }}
     >
       {children}
-    </GenericContext.Provider>
+    </DataContext.Provider>
   );
 }
 
-export default GenericProvider;
+export default DataProvider;

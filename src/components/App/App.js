@@ -1,10 +1,15 @@
 import Header from '../Header';
+import React from 'react';
+
+import DataProvider from '../DataProvider';
 
 function App() {
   return (
-    <div className="wrapper">
-      <Header />
-    </div>
+    <DataProvider>
+      <div className="wrapper">
+        <Header />
+      </div>
+    </DataProvider>
   );
 }
 

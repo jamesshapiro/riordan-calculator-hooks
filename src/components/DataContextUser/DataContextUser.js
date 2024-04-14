@@ -1,11 +1,10 @@
 import React from 'react';
-import * as style from './GenericContextUser.module.css'
 
-import { GenericContext } from '../components/GenericProvider';
+import { DataContext } from '../components/DataProvider';
 
 
-function GenericContextUser() {
-  const { createItem } = React.useContext(GenericContext);
+function DataContextUser() {
+  const { createItem } = React.useContext(DataContext);
   function handleSubmit(event) {
     event.preventDefault();
     createItem('Content Submitted.', 'success')
@@ -28,6 +27,6 @@ function GenericContextUser() {
   );
 }
 
-export default GenericContextUser;
+export default DataContextUser;
 
 
