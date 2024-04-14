@@ -1,0 +1,23 @@
+.header {
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1px;
+    margin-top: 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.headerSuccess {
+    color: black;
+    background-color: yellow;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: 3px solid black;
+    box-shadow: var(--box-shadow-distance) var(--box-shadow-distance) 0 0 hsl(0, 0%, 25%);
+}
+
+.invisiblePlaceholder {
+    visibility: hidden;
+    display: inline;
+}
