@@ -21,8 +21,7 @@ export default SequenceControlPanel;
 const Wrapper = styled.div`
   color: var(--number-box-font-color);
   z-index: 1;
-  position: fixed;
-  top: 200px;
+  transform: translateY(8px);
   /* margin-top: 0px; */
   font-family: 'Lato', sans-serif;
   border-right: var(--audio-player-border);

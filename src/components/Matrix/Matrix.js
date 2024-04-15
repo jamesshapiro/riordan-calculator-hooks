@@ -4,14 +4,20 @@ import { range } from '../../utils';
 
 import styled from 'styled-components';
 
+const StyledSVG = styled.svg`
+  &:visited {
+    --link-color: : var(--number-box-font-color);
+  }
+`;
+
 const SearchSVG = (
-  <svg
+  <StyledSVG
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    stroke="var(--number-box-font-color)"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
@@ -19,7 +25,7 @@ const SearchSVG = (
   >
     <circle cx="11" cy="11" r="8" />
     <path d="m21 21-4.3-4.3" />
-  </svg>
+  </StyledSVG>
 );
 
 function Matrix() {
@@ -36,18 +42,33 @@ function Matrix() {
         <tbody>
           <tr>
             {range(0, riordanGroupElem[0].length + 1).map((item, colIndex) => {
+              const searchEntries = riordanGroupElem
+                .map((row) => row[colIndex - 1])
+                .slice(colIndex - 1);
+              const searchQueryParam = searchEntries.join('%2C');
               return (
                 <MatrixCell
                   style={{ paddingLeft: '15px' }}
                   row={0}
                   col={colIndex}
                 >
-                  {SearchSVG}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                  >
+                    {colIndex > 0 ? SearchSVG : ''}
+                  </a>
                 </MatrixCell>
               );
             })}
           </tr>
           {riordanGroupElem.map((row, rowIndex) => {
+            const searchEntries = riordanGroupElem[rowIndex].slice(
+              0,
+              rowIndex + 1
+            );
+            const searchQueryParam = searchEntries.join('%2C');
             return (
               <tr>
                 <MatrixCell
@@ -55,7 +76,13 @@ function Matrix() {
                   row={rowIndex}
                   col={0}
                 >
-                  {SearchSVG}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                  >
+                    {SearchSVG}
+                  </a>
                 </MatrixCell>
                 {row.map((num, colIndex) => {
                   return (

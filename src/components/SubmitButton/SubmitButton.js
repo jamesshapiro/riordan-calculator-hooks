@@ -1,12 +1,34 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
+import { SpinnerInfinity } from 'spinners-react';
 
 function SubmitButton() {
-  const { handleCompute } = React.useContext(DataContext);
+  const { handleCompute, computeWasRequested, matrixWasFetched } =
+    React.useContext(DataContext);
+
+  console.log(
+    `computeWasRequested: ${computeWasRequested}, matrixWasFetched: ${matrixWasFetched}`
+  );
+
+  const buttonContents =
+    computeWasRequested && !matrixWasFetched ? (
+      <SpinnerInfinity
+        size={40}
+        thickness={100}
+        speed={100}
+        color="var(--submit-button-border)"
+        secondaryColor="white"
+      />
+    ) : (
+      'Compute'
+    );
 
   return (
-    <StyledSubmitButton onClick={handleCompute}>Compute</StyledSubmitButton>
+    // <StyledSubmitButton onClick={handleCompute}>Compute</StyledSubmitButton>
+    <StyledSubmitButton onClick={handleCompute}>
+      {buttonContents}
+    </StyledSubmitButton>
   );
 }
 
@@ -14,7 +36,11 @@ export default SubmitButton;
 
 const StyledSubmitButton = styled.button`
   z-index: 10000;
-  margin: 0 auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 65px;
+  width: fit-content;
+  height: 19px;
   border: 1px solid var(--submit-button-border);
   padding: 10px;
   border-radius: var(--number-box-border-radius);

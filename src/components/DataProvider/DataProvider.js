@@ -93,6 +93,8 @@ function DataProvider({ children }) {
     }
     if (computeWasRequested && !matrixWasFetched) {
       fetchMatrix(sequenceLength, gSequence, fSequence, mode, metaMode);
+      setComputeWasRequested(false);
+      setMatrixWasFetched(true);
     }
   }, [computeWasRequested, matrixWasFetched]);
 
@@ -176,6 +178,8 @@ function DataProvider({ children }) {
         matrix,
         setMetaMode,
         handleCompute,
+        computeWasRequested,
+        matrixWasFetched,
       }}
     >
       {children}

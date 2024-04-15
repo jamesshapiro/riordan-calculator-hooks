@@ -9,10 +9,7 @@ function Header() {
   return (
     <Wrapper>
       <HeaderWrapper>
-        <StyledHeader>
-          <CalculatorIconSpan>🖩</CalculatorIconSpan> Riordan Calculator{' '}
-          <CalculatorIconSpan>🖩</CalculatorIconSpan>
-        </StyledHeader>
+        <StyledHeader>Riordan Calculator</StyledHeader>
       </HeaderWrapper>
       <StyledButton
         isSelected={isClassicSelected}
@@ -31,9 +28,7 @@ function Header() {
 }
 
 const Wrapper = styled.div`
-  display: block;
-  margin: 0 auto;
-  margin-left: 400px;
+  /* flex-direction: column; */
 `;
 
 const HeaderWrapper = styled.header`
@@ -78,16 +73,4 @@ const StyledButton = styled.button`
   }
 `;
 
-const Invisible = styled.span`
-  visibility: hidden;
-  display: inline;
-`;
-
 export default Header;
-
-const CalculatorIconSpan = styled.span`
-  display: inline-block;
-  position: relative;
-  font-size: 40px;
-  transform: translateY(2px);
-`;
