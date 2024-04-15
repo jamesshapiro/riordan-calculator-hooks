@@ -6,22 +6,22 @@ body {
   --number-box-height: 45px;
   --number-box-width: 60px;
 
-  --number-box-background-color: hsl(243, 10%, 95%);
-  --number-box-hover-background-color: hsl(243, 10%, 85%);
+  --number-box-background-color: hsl(240, 10%, 95%);
+  --number-box-hover-background-color: hsl(240, 10%, 85%);
   --matrix-cell-background-color: hsl(240, 50%, 93%);
 
-  --number-box-hover-font-color: hsl(243, 100%, 50%);
-  --number-box-font-color: hsl(243, 85%, 40%);
-  --number-box-border-color: hsl(243, 85%, 65%);
+  --number-box-hover-font-color: hsl(240, 100%, 50%);
+  --number-box-font-color: hsl(240, 85%, 40%);
+  --number-box-border-color: hsl(240, 85%, 65%);
   --number-box-border-radius: 8px;
-  --header-color: hsl(243, 85%, 35%);
-  --active-button-color: hsl(243, 85%, 35%);
-  --hover-button-color: hsl(243, 60%, 55%);
-  --mode-button-selected: hsl(243, 85%, 35%);
+  --header-color: hsl(240, 85%, 35%);
+  --active-button-color: hsl(240, 85%, 35%);
+  --hover-button-color: hsl(240, 60%, 55%);
+  --mode-button-selected: hsl(240, 85%, 35%);
   --min-cell-width: 20px;
   --min-button-width: 20px;
   --background-gradient-top: #fff;
-  --background-gradient-bottom: hsl(242, 83%, 91%);
+  --background-gradient-bottom: hsl(2402, 83%, 91%);
   --select-td-background: hsl(240, 75%, 89%);
   --submit-button-background: hsl(240, 100%, 71%);
   --submit-button-border: hsl(240, 42%, 40%);
@@ -40,7 +40,7 @@ html {
 }
 
 .nonexistent {
-  color: hsl(243, 85%, 65%);
+  color: hsl(240, 85%, 65%);
 }
 
 button {

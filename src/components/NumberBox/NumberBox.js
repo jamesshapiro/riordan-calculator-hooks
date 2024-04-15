@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
 
-function NumberBox({ value, index, children }) {
+function NumberBox({ value, index, onChange, children }) {
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   // const [manuallyClicked, setManuallyClicked] = React.useState(false)
@@ -41,6 +41,8 @@ function NumberBox({ value, index, children }) {
   function handleKeyPress(value) {
     const cleaned = value.replace(/[^0-9]/g, '');
     setDigits(cleaned);
+    console.log(`index: ${index}`);
+    onChange(index, cleaned);
   }
 
   const handleFocus = (event) => {

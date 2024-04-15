@@ -30,12 +30,6 @@ function DataProvider({ children }) {
       mode,
       metaMode
     ) {
-      console.log('computing...');
-      console.log(`sequenceLength: ${sequenceLength}`);
-      console.log(`gSequence: ${gSequence}`);
-      console.log(`fSequence: ${fSequence}`);
-      console.log(`mode: ${mode}`);
-      console.log(`metaMode: ${metaMode}`);
       let fSequenceSubmit = fSequence;
       let gSequenceSubmit = gSequence;
       if (mode === 'bell') {
@@ -76,7 +70,7 @@ function DataProvider({ children }) {
         g: gSequenceSubmit.slice(0, sequenceLength),
         f: fSequenceSubmit.slice(0, sequenceLength),
       };
-      console.log(payload);
+
       const request = new Request(ENDPOINT, {
         method: 'PUT',
         headers: {
@@ -86,7 +80,6 @@ function DataProvider({ children }) {
         timeout: 100000,
       });
       const response = await fetch(request);
-      console.log('received response');
       const json = await response.json();
       setMatrix((oldData) => json);
       return json;
@@ -116,11 +109,34 @@ function DataProvider({ children }) {
     }
   }
   function handleSelectSequence(targetSequence, selectedSequence) {
-    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+    // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
       .sequence;
+    console.log(targetSequence);
     const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
-    setSequence(finalSequence);
+    // setSequence(finalSequence);
+    handleSequenceChange(targetSequence, finalSequence, false);
+  }
+
+  function handleSequenceChange(sequenceId, newSequence, isCustom = true) {
+    // console.log(`sequenceId: ${sequenceId}`);
+    const setSequence = sequenceId === 'g' ? setGSequence : setFSequence;
+    // const setAlternate = sequenceId === 'g' ? setFSequence : setGSequence;
+    // console.log(mode);
+    if (mode === 'normal') {
+      setSequence(newSequence);
+      return;
+    }
+    if (mode === 'bell') {
+      console.log(`setting to... ${JSON.stringify(newSequence)}`);
+      // console.log('hello bello');
+      setGSequence(newSequence);
+      setFSequence([0, ...newSequence]);
+      return;
+    }
+    if (mode === 'appell') {
+      setGSequence(newSequence);
+    }
   }
 
   function handleSelectMode(selectedMode) {
@@ -145,9 +161,18 @@ function DataProvider({ children }) {
   function tabFocus(event, shiftWasPressed) {
     const increment = shiftWasPressed ? -1 : 1;
     setTargetBoxIndex((oldValue) => {
-      let result = (oldValue + increment) % (sequenceLength * 2);
+      let result = 0;
+      let divisor = sequenceLength * 2;
+      let delta = 0;
+      if (['bell', 'appell', 'twobell'].includes(mode)) {
+        divisor = sequenceLength;
+      } else if (['derivative', 'associated'].includes(mode)) {
+        divisor = sequenceLength;
+        delta = sequenceLength;
+      }
+      result = (oldValue + increment) % divisor;
       if (result < 0) {
-        result += sequenceLength * 2;
+        result += divisor + delta;
       }
       return result;
     });
@@ -180,6 +205,7 @@ function DataProvider({ children }) {
         handleCompute,
         computeWasRequested,
         matrixWasFetched,
+        handleSequenceChange,
       }}
     >
       {children}

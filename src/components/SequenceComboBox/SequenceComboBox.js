@@ -18,7 +18,6 @@ const SequenceComboBox = ({ sequenceId }) => {
   const { handleSelectSequence } = React.useContext(DataContext);
 
   function handleSelectValue(selection) {
-    console.log(selection);
     setValue(selection);
     handleSelectSequence(sequenceId, selection);
   }

@@ -7,10 +7,6 @@ function SubmitButton() {
   const { handleCompute, computeWasRequested, matrixWasFetched } =
     React.useContext(DataContext);
 
-  console.log(
-    `computeWasRequested: ${computeWasRequested}, matrixWasFetched: ${matrixWasFetched}`
-  );
-
   const buttonContents =
     computeWasRequested && !matrixWasFetched ? (
       <SpinnerInfinity

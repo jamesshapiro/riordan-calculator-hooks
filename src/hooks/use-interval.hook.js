@@ -12,7 +12,7 @@
 
 // JS
 // useInterval(() => {
-//   console.log('I fire every second!');
+//   // do something;
 // }, 1000);
 
 // Here's an example of a "Stopwatch" component. useInterval lets us track how much time has elapsed since the user has started the stopwatch.
