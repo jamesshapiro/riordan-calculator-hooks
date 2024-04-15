@@ -2,9 +2,20 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-function NumberBox({ initialValue, children }) {
+import { DataContext } from '../DataProvider';
+
+function NumberBox({ initialValue, index, children }) {
   const [digits, setDigits] = React.useState(initialValue);
   const [isSelected, setIsSelected] = React.useState(false);
+  // const [manuallyClicked, setManuallyClicked] = React.useState(false)
+  const buttonRef = React.useRef(null);
+  const { targetBoxIndex, setTargetBoxIndex } = React.useContext(DataContext);
+  React.useEffect(() => {
+    if (targetBoxIndex === index && buttonRef.current) {
+      buttonRef.current.click();
+    }
+  }, [targetBoxIndex, index]);
+
   const bodyStyles = getComputedStyle(document.body);
   const boxLength = bodyStyles
     .getPropertyValue('--number-box-width')
@@ -20,9 +31,16 @@ function NumberBox({ initialValue, children }) {
 
   function handleClick() {
     setIsSelected(true);
+    setTargetBoxIndex(index);
+    // setManuallyClicked(true)
   }
   function handleBlur() {
     setIsSelected(false);
+  }
+
+  function handleKeyPress(value) {
+    const cleaned = value.replace(/[^0-9]/g, '');
+    setDigits(cleaned);
   }
 
   const inputNumberBox = (
@@ -38,7 +56,7 @@ function NumberBox({ initialValue, children }) {
         minFontSize={minFontSize}
         fontSize={maxFontSizeRem}
         maxFontSize={maxFontSize}
-        onChange={(event) => setDigits(event.target.value)}
+        onChange={(event) => handleKeyPress(event.target.value)}
         onBlur={handleBlur}
         autoFocus
       />
@@ -52,14 +70,14 @@ function NumberBox({ initialValue, children }) {
       minFontSize={minFontSize}
       fontSize={maxFontSizeRem}
       maxFontSize={maxFontSize}
-      onClick={handleClick}
+      ref={buttonRef}
     >
       {digits}
     </InnerElement>
   );
 
   return (
-    <Wrapper>
+    <Wrapper onClick={handleClick}>
       <InnerContainer>{boxContents}</InnerContainer>
     </Wrapper>
   );
@@ -73,6 +91,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   width: fit-content;
   min-width: var(--number-box-width);
+  width: 100%;
   height: var(--number-box-height);
   margin: 1px;
   border: 1px solid hsl(243, 85%, 65%);
@@ -84,7 +103,7 @@ const InnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 65%);
+  color: hsl(243, 85%, 40%);
   width: fit-content;
   height: 100%;
   width: 100%;
@@ -101,7 +120,7 @@ const InnerElement = styled.p`
 
 const StyledInput = styled.input`
   font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 65%);
+  color: hsl(243, 85%, 40%);
   font-size: clamp(
     ${(p) => p.minFontSize},
     ${(p) => p.fontSize},

@@ -10,14 +10,6 @@ function Header() {
       <Wrapper>
         <StyledHeader>Riordan Calculator</StyledHeader>
       </Wrapper>
-      <span>
-        Invisible
-        <Invisible>PLACEHOLDER</Invisible>
-        placeholder
-        <Invisible>DEMO</Invisible>
-        Demo
-      </span>
-      <span>Random Data Context Item: {randomItem}</span>
     </>
   );
 }

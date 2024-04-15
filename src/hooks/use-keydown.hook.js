@@ -10,7 +10,12 @@ function useKeydown(key, callback) {
   React.useEffect(() => {
     function handleKeyDown(event) {
       if (event.code === key) {
-        callback();
+        event.preventDefault();
+        if (event.shiftKey) {
+          callback(event, true);
+        } else {
+          callback(event, false);
+        }
       }
     }
 

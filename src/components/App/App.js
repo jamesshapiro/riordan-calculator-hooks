@@ -13,8 +13,12 @@ function App() {
     <DataProvider>
       <Wrapper>
         <Header />
-        <Sequence initialSequence={INITIAL_SEQUENCE.f} />
-        <Sequence initialSequence={INITIAL_SEQUENCE.g} />
+        <table>
+          <tbody>
+            <Sequence initialSequence={INITIAL_SEQUENCE.f} sequenceId={'g'} />
+            <Sequence initialSequence={INITIAL_SEQUENCE.g} sequenceId={'f'} />
+          </tbody>
+        </table>
       </Wrapper>
     </DataProvider>
   );
