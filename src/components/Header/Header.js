@@ -3,19 +3,41 @@ import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
 
 function Header() {
+  const { metaMode, setMetaMode } = React.useContext(DataContext);
+  const isClassicSelected = metaMode === 'classic';
+
   return (
-    <>
-      <Wrapper>
+    <Wrapper>
+      <HeaderWrapper>
         <StyledHeader>Riordan Calculator</StyledHeader>
-      </Wrapper>
-    </>
+      </HeaderWrapper>
+      <StyledButton
+        isSelected={isClassicSelected}
+        onClick={() => setMetaMode('classic')}
+      >
+        Classic
+      </StyledButton>
+      <StyledButton
+        isSelected={!isClassicSelected}
+        onClick={() => setMetaMode('exponential')}
+      >
+        Exponential
+      </StyledButton>
+    </Wrapper>
   );
 }
 
-const Wrapper = styled.header`
-  width: 300px;
+const Wrapper = styled.div`
+  display: block;
   margin: 0 auto;
-  margin-bottom: 1px;
+  margin-left: 400px;
+`;
+
+const HeaderWrapper = styled.header`
+  width: 300px;
+  display: inline;
+
+  /* margin-bottom: 1px; */
   border: 1px solid var(--number-box-border-color);
   /* border-radius: 4px; */
   padding: 20px;
@@ -25,9 +47,24 @@ const Wrapper = styled.header`
 `;
 
 const StyledHeader = styled.h1`
+  display: inline;
   font-size: 24px;
   font-weight: 500;
   color: var(--header-color);
+`;
+
+const StyledButton = styled.button`
+  font-size: 16px;
+  background-color: ${(p) =>
+    p.isSelected ? 'var(--mode-button-selected)' : 'white'};
+  border: 1px solid var(--mode-button-selected);
+  color: ${(p) => (p.isSelected ? 'white' : 'var(--mode-button-selected)')};
+  padding: 10px;
+  border-radius: 12px;
+  margin: 3px;
+  &:first-of-type {
+    margin-left: 30px;
+  }
 `;
 
 const Invisible = styled.span`

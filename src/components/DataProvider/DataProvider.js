@@ -15,6 +15,7 @@ function DataProvider({ children }) {
   const [gSequence, setGSequence] = React.useState(INITIAL_SEQUENCE.g);
   const [fSequence, setFSequence] = React.useState(INITIAL_SEQUENCE.f);
   const [mode, setMode] = React.useState('normal');
+  const [metaMode, setMetaMode] = React.useState('classic');
 
   function handleAddZero(targetSequence) {
     const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
@@ -86,6 +87,8 @@ function DataProvider({ children }) {
         handleLeftShift,
         handleSelectSequence,
         handleSelectMode,
+        metaMode,
+        setMetaMode,
       }}
     >
       {children}

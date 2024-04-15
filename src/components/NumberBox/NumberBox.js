@@ -43,6 +43,10 @@ function NumberBox({ value, index, children }) {
     setDigits(cleaned);
   }
 
+  const handleFocus = (event) => {
+    event.target.select();
+  };
+
   const inputNumberBox = (
     <form
       onSubmit={(event) => {
@@ -57,6 +61,7 @@ function NumberBox({ value, index, children }) {
         maxFontSize={maxFontSize}
         onChange={(event) => handleKeyPress(event.target.value)}
         onBlur={handleBlur}
+        onFocus={handleFocus}
         autoFocus
       />
     </form>
