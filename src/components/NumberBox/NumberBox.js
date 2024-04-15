@@ -7,7 +7,8 @@ import { DataContext } from '../DataProvider';
 function NumberBox({ value, index, onChange, children }) {
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
-  // const [manuallyClicked, setManuallyClicked] = React.useState(false)
+  const [manuallyClicked, setManuallyClicked] = React.useState(false);
+  const [handlingClick, setHandlingClick] = React.useState(false);
   const buttonRef = React.useRef(null);
   const { targetBoxIndex, setTargetBoxIndex } = React.useContext(DataContext);
   React.useEffect(() => {
@@ -32,21 +33,26 @@ function NumberBox({ value, index, onChange, children }) {
   function handleClick() {
     setIsSelected(true);
     setTargetBoxIndex(index);
-    // setManuallyClicked(true)
+    setManuallyClicked(true);
   }
   function handleBlur() {
     setIsSelected(false);
+    setHandlingClick(false);
   }
 
   function handleKeyPress(value) {
     const cleaned = value.replace(/[^0-9]/g, '');
     setDigits(cleaned);
-    console.log(`index: ${index}`);
     onChange(index, cleaned);
   }
 
   const handleFocus = (event) => {
-    event.target.select();
+    console.log(manuallyClicked);
+    if (manuallyClicked && !handlingClick) {
+      event.target.select();
+      setHandlingClick(true);
+    }
+    setManuallyClicked(false);
   };
 
   const inputNumberBox = (
@@ -54,6 +60,7 @@ function NumberBox({ value, index, onChange, children }) {
       onSubmit={(event) => {
         event.preventDefault();
         setIsSelected(false);
+        setHandlingClick(false);
       }}
     >
       <StyledInput

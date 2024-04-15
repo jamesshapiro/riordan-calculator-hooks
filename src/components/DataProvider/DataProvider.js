@@ -21,6 +21,8 @@ function DataProvider({ children }) {
   const [matrix, setMatrix] = React.useState(null);
   const [computeWasRequested, setComputeWasRequested] = React.useState(false);
   const [matrixWasFetched, setMatrixWasFetched] = React.useState(false);
+  const [currentGSelection, setCurrentGSelection] = React.useState('catalan');
+  const [currentFSelection, setCurrentFSelection] = React.useState('ones');
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -206,6 +208,8 @@ function DataProvider({ children }) {
         computeWasRequested,
         matrixWasFetched,
         handleSequenceChange,
+        currentGSelection,
+        currentFSelection,
       }}
     >
       {children}
