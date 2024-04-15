@@ -13,12 +13,12 @@ function App() {
     <DataProvider>
       <Wrapper>
         <Header />
-        <table>
+        <TableWrapper>
           <tbody>
             <Sequence initialSequence={INITIAL_SEQUENCE.f} sequenceId={'g'} />
             <Sequence initialSequence={INITIAL_SEQUENCE.g} sequenceId={'f'} />
           </tbody>
-        </table>
+        </TableWrapper>
       </Wrapper>
     </DataProvider>
   );
@@ -28,4 +28,10 @@ export default App;
 
 const Wrapper = styled.div`
   height: 100%;
+`;
+
+const TableWrapper = styled.table`
+  width: min(70%, 1100px);
+  margin: 0 auto;
+  margin-top: 100px;
 `;

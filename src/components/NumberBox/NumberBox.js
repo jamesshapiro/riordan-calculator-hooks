@@ -87,14 +87,18 @@ export default NumberBox;
 
 const Wrapper = styled.div`
   display: inline-block;
-  background-color: hsl(243, 10%, 95%);
+  background-color: var(--number-box-background-color);
+  &:hover {
+    background-color: var(--number-box-hover-background-color);
+    color: var(--number-box-hover-font-color);
+  }
   border-radius: 8px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 1px solid hsl(243, 85%, 65%);
+  border: 1px solid var(--number-box-border-color);
   /* padding: 10%; */
 `;
 
@@ -103,7 +107,10 @@ const InnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 40%);
+  color: var(--number-box-font-color);
+  &:hover {
+    color: var(--number-box-hover-font-color);
+  }
   width: fit-content;
   height: 100%;
   width: 100%;

@@ -18,7 +18,11 @@
     "predev": "rimraf .parcel-cache dist",
     "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
-    "new-component": "new-component"
+    "new-component": "new-component",
+    "build:upload-to-aws": "aws s3 sync dist s3://riordan-demo.weakerpotions.com --delete --size-only && aws s3 cp dist/index.html s3://riordan-demo.weakerpotions.com/index.html",
+    "build:invalidate-cf-cache": "aws cloudfront create-invalidation --distribution-id E14BH8WEKGBSJ --paths '/*'",
+    "build:clean-build-files": "rm -rf dist/",
+    "postbuild": "npm run build:upload-to-aws && npm run build:invalidate-cf-cache && npm run build:clean-build-files"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {

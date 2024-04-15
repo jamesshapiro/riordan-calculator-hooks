@@ -19,18 +19,18 @@ const Wrapper = styled.header`
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 1px;
-  border: 3px solid black;
+  border: 1px solid var(--number-box-border-color);
+  border-radius: 4px;
+  padding: 20px;
+  background-color: var(--number-box-background-color);
   box-shadow: var(--box-shadow-distance) var(--box-shadow-distance) 0 0
     hsl(0, 0%, 25%);
 `;
 
 const StyledHeader = styled.h1`
-  font-size: 30px;
-  color: #333;
-  font-weight: 600;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: black;
-  background-color: yellow;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--header-color);
 `;
 
 const Invisible = styled.span`
