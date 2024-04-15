@@ -3,11 +3,21 @@ import React from 'react';
 // Note: replace "Data" with the name of the thing being provided.
 // For usage, see the "DataContextUser" component.
 
+import useKeydown from '../../hooks/use-keydown.hook';
+
 export const DataContext = React.createContext();
 
 function DataProvider({ children }) {
   const randomItem = 'random item';
+  const [sequenceLength, setSequenceLength] = React.useState(11);
   const [items, setItems] = React.useState([]);
+
+  function tabFocus() {
+    console.log('tab registered!');
+  }
+
+  const handleTab = React.useCallback(tabFocus, []);
+  useKeydown('Tab', handleTab);
 
   function createItem(content, variant) {
     const nextItems = [
@@ -36,6 +46,8 @@ function DataProvider({ children }) {
         createItem,
         clearItem,
         randomItem,
+        sequenceLength,
+        setSequenceLength,
       }}
     >
       {children}

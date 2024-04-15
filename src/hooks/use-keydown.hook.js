@@ -1,8 +1,8 @@
 // Usage:
 
-// import useKeypress from '../../hooks/use-keypress.hook'
+// import useKeydown from '../../hooks/use-keydown.hook'
 // const handleEscape = React.useCallback(removeItems, []);
-// useKeypress('Escape', handleEscape)
+// useKeydown('Escape', handleEscape)
 
 import React from 'react';
 

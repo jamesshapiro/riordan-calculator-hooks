@@ -2,16 +2,19 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-function NumberBox({ children }) {
-  const [digits, setDigits] = React.useState(12345);
+function NumberBox({ initialValue, children }) {
+  const [digits, setDigits] = React.useState(initialValue);
   const [isSelected, setIsSelected] = React.useState(false);
   const bodyStyles = getComputedStyle(document.body);
   const boxLength = bodyStyles
     .getPropertyValue('--number-box-width')
     .replace('px', '');
+  const minFontSize = '0.8rem';
+  const maxFontSize = '1.1rem';
 
   const containerWidthPx = parseInt(boxLength);
-  const maxWidthPerCharacter = containerWidthPx / digits.toString().length;
+  const maxWidthPerCharacter =
+    (containerWidthPx * 1.4) / digits.toString().length;
   const rootFontSizePx = 16;
   const maxFontSizeRem = `${maxWidthPerCharacter / rootFontSizePx}rem`;
 
@@ -32,7 +35,9 @@ function NumberBox({ children }) {
     >
       <StyledInput
         value={digits}
+        minFontSize={minFontSize}
         fontSize={maxFontSizeRem}
+        maxFontSize={maxFontSize}
         onChange={(event) => setDigits(event.target.value)}
         onBlur={handleBlur}
         autoFocus
@@ -43,12 +48,19 @@ function NumberBox({ children }) {
   const boxContents = isSelected ? (
     inputNumberBox
   ) : (
-    <InnerElement onClick={handleClick}>{digits}</InnerElement>
+    <InnerElement
+      minFontSize={minFontSize}
+      fontSize={maxFontSizeRem}
+      maxFontSize={maxFontSize}
+      onClick={handleClick}
+    >
+      {digits}
+    </InnerElement>
   );
 
   return (
     <Wrapper>
-      <InnerContainer fontSize={maxFontSizeRem}>{boxContents}</InnerContainer>
+      <InnerContainer>{boxContents}</InnerContainer>
     </Wrapper>
   );
 }
@@ -59,7 +71,8 @@ const Wrapper = styled.div`
   display: inline-block;
   background-color: hsl(243, 10%, 95%);
   border-radius: 8px;
-  width: var(--number-box-width);
+  width: fit-content;
+  min-width: var(--number-box-width);
   height: var(--number-box-height);
   margin: 1px;
   border: 1px solid hsl(243, 85%, 65%);
@@ -72,7 +85,6 @@ const InnerContainer = styled.div`
   align-items: center;
   font-family: 'Lato', sans-serif;
   color: hsl(243, 85%, 65%);
-  font-size: clamp(1rem, ${(p) => p.fontSize}, 3rem);
   width: fit-content;
   height: 100%;
   width: 100%;
@@ -80,15 +92,23 @@ const InnerContainer = styled.div`
 
 const InnerElement = styled.p`
   width: fit-content;
+  font-size: clamp(
+    ${(p) => p.minFontSize},
+    ${(p) => p.fontSize},
+    ${(p) => p.maxFontSize}
+  );
 `;
 
 const StyledInput = styled.input`
   font-family: 'Lato', sans-serif;
   color: hsl(243, 85%, 65%);
-  font-size: clamp(1rem, ${(p) => p.fontSize}, 3rem);
-  width: fit-content;
+  font-size: clamp(
+    ${(p) => p.minFontSize},
+    ${(p) => p.fontSize},
+    ${(p) => p.maxFontSize}
+  );
   height: 100%;
-  width: 90%;
-  margin-left: 5px;
+  width: max(var(--number-box-width), var(--number-box-width));
+  margin-left: 2px;
   text-align: center;
 `;
