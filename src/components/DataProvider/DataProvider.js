@@ -14,6 +14,7 @@ function DataProvider({ children }) {
   const [targetBoxIndex, setTargetBoxIndex] = React.useState(-1);
   const [gSequence, setGSequence] = React.useState(INITIAL_SEQUENCE.g);
   const [fSequence, setFSequence] = React.useState(INITIAL_SEQUENCE.f);
+  const [mode, setMode] = React.useState('normal');
 
   function handleAddZero(targetSequence) {
     const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
@@ -32,6 +33,18 @@ function DataProvider({ children }) {
       .sequence;
     const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
     setSequence(finalSequence);
+  }
+
+  function handleSelectMode(selectedMode) {
+    setMode(selectedMode);
+    if (selectedMode === 'bell') {
+      setFSequence([0, ...gSequence]);
+    }
+    if (selectedMode === 'appell') {
+      const appellArray = new Array(gSequence.length).fill(0);
+      appellArray[1] = 1;
+      setFSequence(appellArray);
+    }
   }
 
   function handleAugmentSequence() {
@@ -66,11 +79,13 @@ function DataProvider({ children }) {
         setTargetBoxIndex,
         gSequence,
         fSequence,
+        mode,
         handleAddZero,
         handleAugmentSequence,
         handleTruncateSequence,
         handleLeftShift,
         handleSelectSequence,
+        handleSelectMode,
       }}
     >
       {children}

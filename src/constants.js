@@ -8,3 +8,12 @@ export const INITIAL_SEQUENCE = {
     2674440, 9694845, 35357670, 129644790,
   ],
 };
+
+export const MODES = [
+  { id: 'normal', name: 'Normal' },
+  { id: 'bell', name: 'Bell Subgroup' },
+  { id: 'derivative', name: 'Derivative Subgroup' },
+  { id: 'appell', name: 'Appell Subgroup' },
+  { id: 'associated', name: 'Associated (Lagrange) Subgroup' },
+  { id: 'twobell', name: '2-Bell Subgroup' },
+];

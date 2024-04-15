@@ -7,6 +7,7 @@ import SequenceComboBox from '../SequenceComboBox';
 
 function SequenceControl({ sequenceId }) {
   const {
+    mode,
     handleAddZero,
     handleAugmentSequence,
     handleTruncateSequence,
@@ -14,7 +15,7 @@ function SequenceControl({ sequenceId }) {
   } = React.useContext(DataContext);
 
   return (
-    <tr>
+    <Wrapper sequenceId={sequenceId} mode={mode}>
       <td>{sequenceId}:</td>
       <SelectWrapper>
         <SequenceComboBox sequenceId={sequenceId} />
@@ -29,11 +30,19 @@ function SequenceControl({ sequenceId }) {
         <ButtonWrapper onClick={handleAugmentSequence}>+</ButtonWrapper>
         <ButtonWrapper onClick={handleTruncateSequence}>-</ButtonWrapper>
       </TDWrapper>
-    </tr>
+    </Wrapper>
   );
 }
 
 export default SequenceControl;
+
+const Wrapper = styled.tr`
+  visibility: ${(p) =>
+    (p.sequenceId === 'f' && ['bell', 'appell', 'twobell'].includes(p.mode)) ||
+    (p.sequenceId === 'g' && ['derivative', 'associated'].includes(p.mode))
+      ? 'hidden'
+      : 'revert'};
+`;
 
 const ButtonWrapper = styled.button`
   cursor: pointer;

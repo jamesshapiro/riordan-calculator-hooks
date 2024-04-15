@@ -6,12 +6,14 @@ import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 
 import styled from 'styled-components';
+import ModeComboBox from '../ModeComboBox';
 
 function App() {
   return (
     <DataProvider>
       <Wrapper>
         <Header />
+        <ModeComboBox />
         <SequenceControlPanel />
         <TableWrapper>
           <tbody>
@@ -38,5 +40,5 @@ const Wrapper = styled.div`
 const TableWrapper = styled.table`
   margin-left: 450px;
   margin-right: auto;
-  padding-top: 50px;
+  padding-top: 13px;
 `;
