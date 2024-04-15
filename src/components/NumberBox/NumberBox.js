@@ -91,12 +91,13 @@ export default NumberBox;
 
 const Wrapper = styled.div`
   display: inline-block;
+  cursor: text;
   background-color: var(--number-box-background-color);
   &:hover {
     background-color: var(--number-box-hover-background-color);
     color: var(--number-box-hover-font-color);
   }
-  border-radius: 6px;
+  border-radius: var(--number-box-border-radius);
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;

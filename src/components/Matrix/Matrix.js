@@ -1,0 +1,106 @@
+import React from 'react';
+import { DataContext } from '../DataProvider';
+import { range } from '../../utils';
+
+import styled from 'styled-components';
+
+const SearchSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="lucide lucide-search"
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+
+function Matrix() {
+  const { matrix } = React.useContext(DataContext);
+  if (!matrix) {
+    return <></>;
+  }
+  const parsedMatrix = JSON.parse(matrix);
+  const riordanGroupElem = parsedMatrix['riordan group elem'];
+
+  return (
+    <>
+      <MatrixTable>
+        <tbody>
+          <tr>
+            {range(0, riordanGroupElem[0].length + 1).map((item, colIndex) => {
+              return (
+                <MatrixCell
+                  style={{ paddingLeft: '15px' }}
+                  row={0}
+                  col={colIndex}
+                >
+                  {SearchSVG}
+                </MatrixCell>
+              );
+            })}
+          </tr>
+          {riordanGroupElem.map((row, rowIndex) => {
+            return (
+              <tr>
+                <MatrixCell
+                  style={{ paddingLeft: '15px' }}
+                  row={rowIndex}
+                  col={0}
+                >
+                  {SearchSVG}
+                </MatrixCell>
+                {row.map((num, colIndex) => {
+                  return (
+                    <MatrixCell row={rowIndex + 1} col={colIndex + 1}>
+                      {num}
+                    </MatrixCell>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </MatrixTable>
+    </>
+  );
+}
+
+export default Matrix;
+
+const MatrixTable = styled.table`
+  margin-top: 20px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+`;
+
+const MatrixRow = styled.tr``;
+
+const MatrixCell = styled.td`
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: ${(p) =>
+    p.col == 0 || p.row == 0
+      ? 'var(--select-td-background)'
+      : p.row > 0 && p.col > p.row
+        ? 'black'
+        : 'var(--matrix-cell-background-color)'};
+
+  background-image: ${(p) =>
+    p.col == 0 || p.row == 0
+      ? 'revert'
+      : p.col > p.row
+        ? 'revert'
+        : 'var(--box-gradient)'};
+  color: ${(p) =>
+    p.row > 0 && p.col > p.row ? 'white' : 'var(--number-box-font-color)'};
+`;

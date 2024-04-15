@@ -7,6 +7,8 @@ import SequenceControlPanel from '../SequenceControlPanel';
 
 import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
+import SubmitButton from '../SubmitButton';
+import Matrix from '../Matrix';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             <Sequence sequenceId={'f'} />
           </tbody>
         </TableWrapper>
+        <SubmitButton />
+        <Matrix />
       </Wrapper>
     </DataProvider>
   );
@@ -29,6 +33,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
+  padding-left: 35px;
   height: 100%;
   padding-top: 70px;
   background-image: linear-gradient(

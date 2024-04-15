@@ -5,20 +5,32 @@ body {
   font-family: 'Lato', sans-serif;
   --number-box-height: 45px;
   --number-box-width: 60px;
+
   --number-box-background-color: hsl(243, 10%, 95%);
   --number-box-hover-background-color: hsl(243, 10%, 85%);
+  --matrix-cell-background-color: hsl(240, 50%, 93%);
+
   --number-box-hover-font-color: hsl(243, 100%, 50%);
   --number-box-font-color: hsl(243, 85%, 40%);
   --number-box-border-color: hsl(243, 85%, 65%);
+  --number-box-border-radius: 8px;
   --header-color: hsl(243, 85%, 35%);
   --active-button-color: hsl(243, 85%, 35%);
+  --hover-button-color: hsl(243, 60%, 55%);
   --mode-button-selected: hsl(243, 85%, 35%);
   --min-cell-width: 20px;
   --min-button-width: 20px;
   --background-gradient-top: #fff;
   --background-gradient-bottom: hsl(242, 83%, 91%);
   --select-td-background: hsl(240, 75%, 89%);
+  --submit-button-background: hsl(240, 100%, 71%);
+  --submit-button-border: hsl(240, 42%, 40%);
   --box-shadow-distance: 2px;
+  --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
+  --box-gradient-reverse: linear-gradient(
+    hsl(240, 75%, 89%),
+    hsl(240, 50%, 93%)
+  );
   /* --background-gradient-bottom: #f00; */
 }
 

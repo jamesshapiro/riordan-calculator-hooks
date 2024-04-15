@@ -22,12 +22,12 @@ const Wrapper = styled.div`
   color: var(--number-box-font-color);
   z-index: 1;
   position: fixed;
-  top: 187px;
+  top: 200px;
   /* margin-top: 0px; */
   font-family: 'Lato', sans-serif;
   border-right: var(--audio-player-border);
   width: var(--playlists-width);
-  height: 100vh;
+
   text-align: left;
   padding: none;
   padding-top: 5px;
