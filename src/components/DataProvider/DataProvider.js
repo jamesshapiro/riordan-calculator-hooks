@@ -5,6 +5,7 @@ import React from 'react';
 
 import useKeydown from '../../hooks/use-keydown.hook';
 import { INITIAL_SEQUENCE } from '../../constants';
+import { sequences } from '../../data';
 
 export const DataContext = React.createContext();
 
@@ -24,6 +25,13 @@ function DataProvider({ children }) {
     if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
       setSequenceLength(Math.min(gSequence.length, fSequence.length));
     }
+  }
+  function handleSelectSequence(targetSequence, selectedSequence) {
+    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+    const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
+      .sequence;
+    const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
+    setSequence(finalSequence);
   }
 
   function handleAugmentSequence() {
@@ -62,6 +70,7 @@ function DataProvider({ children }) {
         handleAugmentSequence,
         handleTruncateSequence,
         handleLeftShift,
+        handleSelectSequence,
       }}
     >
       {children}

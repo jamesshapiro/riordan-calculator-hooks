@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
+import SequenceComboBox from '../SequenceComboBox';
 
 function SequenceControl({ sequenceId }) {
   const {
@@ -15,6 +16,9 @@ function SequenceControl({ sequenceId }) {
   return (
     <tr>
       <td>{sequenceId}:</td>
+      <SelectWrapper>
+        <SequenceComboBox sequenceId={sequenceId} />
+      </SelectWrapper>
       <TDWrapper>
         <ButtonWrapper onClick={() => handleAddZero(sequenceId)}>
           +0
@@ -44,16 +48,23 @@ const ButtonWrapper = styled.button`
     color: white;
     transform: scale(1.1);
   }
-  padding-left: 5px;
-  padding-right: 30px;
+  padding-left: 10px;
+  padding-right: 15px;
   &:not(:last-of-type) {
     border-right: 1px solid var(--number-box-border-color);
   }
 `;
 
+const SelectWrapper = styled.td`
+  width: 210px;
+  display: relative;
+  flex-direction: column;
+  background-color: var(--select-td-background);
+`;
+
 const TDWrapper = styled.td`
   cursor: pointer;
-  display: block;
+  display: inline-block;
   border-radius: 0px;
   background-color: var(--number-box-background-color);
 

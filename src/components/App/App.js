@@ -5,8 +5,6 @@ import DataProvider from '../DataProvider';
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 
-import { INITIAL_SEQUENCE } from '../../constants';
-
 import styled from 'styled-components';
 
 function App() {
@@ -30,10 +28,15 @@ export default App;
 
 const Wrapper = styled.div`
   height: 100%;
+  padding-top: 70px;
+  background-image: linear-gradient(
+    var(--background-gradient-top),
+    var(--background-gradient-bottom)
+  );
 `;
 
 const TableWrapper = styled.table`
-  margin-left: 200px;
+  margin-left: 450px;
   margin-right: auto;
-  margin-top: 100px;
+  padding-top: 50px;
 `;

@@ -4,6 +4,9 @@
   "private": true,
   "author": "James Shapiro <james@jamesshapiro.com>",
   "dependencies": {
+    "@radix-ui/colors": "^3.0.0",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-select": "^2.0.0",
     "eslint": "8.49.0",
     "eslint-config-react-app": "7.0.1",
     "new-component": "5.0.2",
