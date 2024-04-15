@@ -33,6 +33,7 @@ const Wrapper = styled.div`
 `;
 
 const TableWrapper = styled.table`
-  margin-left: auto;
+  margin-left: 200px;
+  margin-right: auto;
   margin-top: 100px;
 `;
