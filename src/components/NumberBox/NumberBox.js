@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
 
-function NumberBox({ initialValue, index, children }) {
-  const [digits, setDigits] = React.useState(initialValue);
+function NumberBox({ value, index, children }) {
+  const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   // const [manuallyClicked, setManuallyClicked] = React.useState(false)
   const buttonRef = React.useRef(null);
@@ -46,7 +46,6 @@ function NumberBox({ initialValue, index, children }) {
   const inputNumberBox = (
     <form
       onSubmit={(event) => {
-        console.log('submitting');
         event.preventDefault();
         setIsSelected(false);
       }}
@@ -92,7 +91,7 @@ const Wrapper = styled.div`
     background-color: var(--number-box-hover-background-color);
     color: var(--number-box-hover-font-color);
   }
-  border-radius: 8px;
+  border-radius: 6px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;

@@ -3,6 +3,7 @@ import React from 'react';
 
 import DataProvider from '../DataProvider';
 import Sequence from '../Sequence';
+import SequenceControlPanel from '../SequenceControlPanel';
 
 import { INITIAL_SEQUENCE } from '../../constants';
 
@@ -13,10 +14,11 @@ function App() {
     <DataProvider>
       <Wrapper>
         <Header />
+        <SequenceControlPanel />
         <TableWrapper>
           <tbody>
-            <Sequence initialSequence={INITIAL_SEQUENCE.f} sequenceId={'g'} />
-            <Sequence initialSequence={INITIAL_SEQUENCE.g} sequenceId={'f'} />
+            <Sequence sequenceId={'g'} />
+            <Sequence sequenceId={'f'} />
           </tbody>
         </TableWrapper>
       </Wrapper>
@@ -31,7 +33,6 @@ const Wrapper = styled.div`
 `;
 
 const TableWrapper = styled.table`
-  width: min(70%, 1100px);
-  margin: 0 auto;
+  margin-left: auto;
   margin-top: 100px;
 `;

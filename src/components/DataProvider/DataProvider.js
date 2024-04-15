@@ -4,14 +4,34 @@ import React from 'react';
 // For usage, see the "DataContextUser" component.
 
 import useKeydown from '../../hooks/use-keydown.hook';
+import { INITIAL_SEQUENCE } from '../../constants';
 
 export const DataContext = React.createContext();
 
 function DataProvider({ children }) {
-  const randomItem = 'random item';
   const [sequenceLength, setSequenceLength] = React.useState(11);
-  const [items, setItems] = React.useState([]);
   const [targetBoxIndex, setTargetBoxIndex] = React.useState(-1);
+  const [gSequence, setGSequence] = React.useState(INITIAL_SEQUENCE.g);
+  const [fSequence, setFSequence] = React.useState(INITIAL_SEQUENCE.f);
+
+  function handleAddZero(targetSequence) {
+    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+    setSequence((oldSequence) => [0, ...oldSequence]);
+  }
+  function handleLeftShift(targetSequence) {
+    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+    setSequence((oldSequence) => [...oldSequence.slice(1)]);
+    if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
+      setSequenceLength(Math.min(gSequence.length, fSequence.length));
+    }
+  }
+
+  function handleAugmentSequence() {
+    setSequenceLength((oldValue) => oldValue + 1);
+  }
+  function handleTruncateSequence() {
+    setSequenceLength((oldValue) => oldValue - 1);
+  }
 
   function tabFocus(event, shiftWasPressed) {
     const increment = shiftWasPressed ? -1 : 1;
@@ -20,7 +40,6 @@ function DataProvider({ children }) {
       if (result < 0) {
         result += sequenceLength * 2;
       }
-      console.log(result);
       return result;
     });
   }
@@ -30,37 +49,19 @@ function DataProvider({ children }) {
     tabFocus(event, shiftWasPressed)
   );
 
-  function createItem(content, variant) {
-    const nextItems = [
-      ...items,
-      {
-        id: crypto.randomUUID(),
-        content,
-        variant,
-      },
-    ];
-
-    setItems(nextItems);
-  }
-
-  function clearItem(id) {
-    const nextItems = items.filter((item) => {
-      return item.id !== id;
-    });
-    setItems(nextItems);
-  }
-
   return (
     <DataContext.Provider
       value={{
-        items,
-        createItem,
-        clearItem,
-        randomItem,
         sequenceLength,
         setSequenceLength,
         targetBoxIndex,
         setTargetBoxIndex,
+        gSequence,
+        fSequence,
+        handleAddZero,
+        handleAugmentSequence,
+        handleTruncateSequence,
+        handleLeftShift,
       }}
     >
       {children}

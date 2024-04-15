@@ -3,8 +3,6 @@ import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
 
 function Header() {
-  const { randomItem } = React.useContext(DataContext);
-
   return (
     <>
       <Wrapper>

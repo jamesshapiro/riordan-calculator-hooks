@@ -13,6 +13,7 @@ body {
   --header-color: hsl(243, 85%, 35%);
   --active-button-color: hsl(243, 85%, 35%);
   --min-cell-width: 20px;
+  --min-button-width: 25px;
 }
 
 body,
