@@ -164,6 +164,7 @@ const CloseBubble = styled.div`
   &:hover {
     background-color: var(--bubble-hover-background-color);
     color: white;
+    border: 2px dashed var(--bubble-hover-border-color);
   }
   border-radius: 15px;
   width: 30px;

@@ -6,7 +6,7 @@ import { DataContext } from '../DataProvider';
 function ActionBox({ actionType, sequenceId }) {
   const { handleAddZero, handleAugmentSequence } =
     React.useContext(DataContext);
-  const symbol = actionType === 'prependZero' ? '>' : '?';
+  const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
     if (actionType === 'prependZero') {

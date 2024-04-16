@@ -10,6 +10,7 @@ import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
 import DeepBackdrop from '../DeepBackdrop';
+import NavBar from '../NavBar';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <DeepBackdrop />
       <Backdrop />
       <FlexColumnWrapper>
+        <NavBar />
         <HeaderDiv>
           <Header />
         </HeaderDiv>
@@ -79,9 +81,8 @@ const FlexColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: fit-content;
+  width: 100%;
   align-items: center;
-  padding-top: 70px;
   /* background-color: hsl(240, 40%, 90%); */
   margin-left: 0px;
 `;
