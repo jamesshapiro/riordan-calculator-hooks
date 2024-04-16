@@ -193,6 +193,7 @@ const Wrapper = styled.div`
   height: var(--number-box-height);
   margin: 1px;
   border: 1px solid var(--number-box-border-color);
+  z-index: 1;
   /* padding: 10%; */
 `;
 

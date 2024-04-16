@@ -30,6 +30,7 @@ function ActionBox({ actionType, sequenceId }) {
 export default ActionBox;
 
 const Wrapper = styled.div`
+  position: relative;
   display: inline-block;
   cursor: pointer;
   background-color: var(--action-box-background-color);
@@ -44,6 +45,7 @@ const Wrapper = styled.div`
   height: var(--number-box-height);
   margin: 1px;
   border: 2px dashed var(--action-box-border-color);
+  z-index: 0;
   /* padding: 10%; */
 `;
 

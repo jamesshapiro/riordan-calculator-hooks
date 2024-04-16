@@ -49,10 +49,11 @@ function Sequence({ sequenceId }) {
     );
   });
   const prependZeroElement = (
-    <td key={`prependzero-${delta}`}>
+    <td key={`prependzero-${delta}`} style={{ zIndex: 0 }}>
       <motion.div
         layoutId={`${sequenceId}-prepend-box`}
         key={`${sequenceId}-prepend-box`}
+        style={{ zIndex: 0 }}
         transition={{
           type: 'spring',
           stiffness: 300,
@@ -71,10 +72,11 @@ function Sequence({ sequenceId }) {
 
   const augmentElement =
     sequenceLength < Math.min(fSequence.length, gSequence.length) ? (
-      <td key={`augment-${delta}`}>
+      <td key={`augment-${delta}`} style={{ zIndex: 0 }}>
         <motion.div
           layoutId={`${sequenceId}-augment-box`}
           key={`${sequenceId}-augment-box`}
+          style={{ zIndex: 0 }}
           transition={{
             type: 'spring',
             stiffness: 300,
