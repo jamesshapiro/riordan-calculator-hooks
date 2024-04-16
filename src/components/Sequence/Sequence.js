@@ -4,6 +4,7 @@ import { DataContext } from '../DataProvider';
 import NumberBox from '../NumberBox';
 import ActionBox from '../ActionBox';
 import Spacer from '../Spacer';
+import { motion } from 'framer-motion';
 
 import styled from 'styled-components';
 
@@ -22,40 +23,71 @@ function Sequence({ sequenceId }) {
   const elements = sequence.slice(0, sequenceLength).map((num, index) => {
     const isLast = index === sequenceLength - 1;
     const isFirst = index === 0;
+    const distanceToSequenceEnd = sequence.length - 1 - index;
     return (
       <td key={`${index + delta}-${num}`}>
-        <NumberBox
-          value={num}
-          index={index + delta}
-          sequenceId={sequenceId}
-          key={`${index + delta}-${num}`}
-          isFirst={isFirst}
-          isLast={isLast}
-          onSubmit={handleNumberChange}
-        />
+        <motion.div
+          layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+          key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30 + 5 * index,
+          }}
+        >
+          <NumberBox
+            value={num}
+            index={index + delta}
+            sequenceId={sequenceId}
+            key={`${index + delta}-${num}`}
+            isFirst={isFirst}
+            isLast={isLast}
+            onSubmit={handleNumberChange}
+          />
+        </motion.div>
       </td>
     );
   });
   const prependZeroElement = (
     <td key={`prependzero-${delta}`}>
-      <ActionBox
-        actionType={'prependZero'}
-        sequenceId={sequenceId}
-        key={`prependzero-${delta}`}
-        onSubmit={handleNumberChange}
-      />
+      <motion.div
+        layoutId={`${sequenceId}-prepend-box`}
+        key={`${sequenceId}-prepend-box`}
+        transition={{
+          type: 'spring',
+          stiffness: 300,
+          damping: 30 + 5 * 0,
+        }}
+      >
+        <ActionBox
+          actionType={'prependZero'}
+          sequenceId={sequenceId}
+          key={`prependzero-${delta}`}
+          onSubmit={handleNumberChange}
+        />
+      </motion.div>
     </td>
   );
 
   const augmentElement =
     sequenceLength < Math.min(fSequence.length, gSequence.length) ? (
       <td key={`augment-${delta}`}>
-        <ActionBox
-          actionType={'augment'}
-          sequenceId={sequenceId}
-          key={`augment-${delta}`}
-          onSubmit={handleNumberChange}
-        />
+        <motion.div
+          layoutId={`${sequenceId}-augment-box`}
+          key={`${sequenceId}-augment-box`}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30 + 5 * sequenceLength,
+          }}
+        >
+          <ActionBox
+            actionType={'augment'}
+            sequenceId={sequenceId}
+            key={`augment-${delta}`}
+            onSubmit={handleNumberChange}
+          />
+        </motion.div>
       </td>
     ) : null;
 

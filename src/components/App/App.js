@@ -5,6 +5,8 @@ import DataProvider from '../DataProvider';
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 
+import { LayoutGroup, motion } from 'framer-motion';
+
 import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
@@ -27,12 +29,14 @@ function App() {
         </LeftDiv>
         <FlexRowWrapper>
           <SequenceControlPanel />
-          <TableWrapper>
-            <tbody>
-              <Sequence sequenceId={'g'} />
-              <Sequence sequenceId={'f'} />
-            </tbody>
-          </TableWrapper>
+          <LayoutGroup>
+            <TableWrapper>
+              <tbody>
+                <Sequence sequenceId={'g'} />
+                <Sequence sequenceId={'f'} />
+              </tbody>
+            </TableWrapper>
+          </LayoutGroup>
         </FlexRowWrapper>
         <FlexRowWrapper>
           <LeftDiv>
