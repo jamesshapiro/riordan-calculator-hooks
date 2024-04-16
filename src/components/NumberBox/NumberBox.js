@@ -4,18 +4,18 @@ import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
 
-function NumberBox({ value, index, onChange, children }) {
+function NumberBox({ value, index, onSubmit, children }) {
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
-  const [manuallyClicked, setManuallyClicked] = React.useState(false);
-  const [handlingClick, setHandlingClick] = React.useState(false);
   const buttonRef = React.useRef(null);
   const { targetBoxIndex, setTargetBoxIndex } = React.useContext(DataContext);
+  const [notMounting, setNotMounting] = React.useState(false);
   React.useEffect(() => {
-    if (targetBoxIndex === index && buttonRef.current) {
+    console.log(`clicking: ${targetBoxIndex} ${index}`);
+    if (targetBoxIndex === index && buttonRef.current && notMounting) {
       buttonRef.current.click();
     }
-  }, [targetBoxIndex, index]);
+  }, [targetBoxIndex, index, notMounting]);
 
   const bodyStyles = getComputedStyle(document.body);
   const boxLength = bodyStyles
@@ -30,29 +30,25 @@ function NumberBox({ value, index, onChange, children }) {
   const rootFontSizePx = 16;
   const maxFontSizeRem = `${maxWidthPerCharacter / rootFontSizePx}rem`;
 
-  function handleClick() {
+  function handleClick(event) {
     setIsSelected(true);
     setTargetBoxIndex(index);
-    setManuallyClicked(true);
+    setNotMounting(true);
   }
+
   function handleBlur() {
     setIsSelected(false);
-    setHandlingClick(false);
+    onSubmit(index, digits);
   }
 
   function handleKeyPress(value) {
     const cleaned = value.replace(/[^0-9]/g, '');
     setDigits(cleaned);
-    onChange(index, cleaned);
   }
 
   const handleFocus = (event) => {
-    console.log(manuallyClicked);
-    if (manuallyClicked && !handlingClick) {
-      event.target.select();
-      setHandlingClick(true);
-    }
-    setManuallyClicked(false);
+    console.log(event);
+    event.target.select();
   };
 
   const inputNumberBox = (
@@ -60,7 +56,7 @@ function NumberBox({ value, index, onChange, children }) {
       onSubmit={(event) => {
         event.preventDefault();
         setIsSelected(false);
-        setHandlingClick(false);
+        onSubmit(index, digits);
       }}
     >
       <StyledInput
@@ -90,7 +86,7 @@ function NumberBox({ value, index, onChange, children }) {
   );
 
   return (
-    <Wrapper onClick={handleClick}>
+    <Wrapper onClick={(event) => handleClick(event)}>
       <InnerContainer>{boxContents}</InnerContainer>
     </Wrapper>
   );

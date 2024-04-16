@@ -10,7 +10,7 @@ function Sequence({ sequenceId }) {
     React.useContext(DataContext);
   const sequence = sequenceId === 'g' ? gSequence : fSequence;
   function handleNumberChange(index, newValue) {
-    // console.log(`newValue: ${newValue}`);
+    console.log(`newValue: ${newValue}`);
     const newSequence = [...sequence];
     const targetIndex = index % sequenceLength;
     newSequence[targetIndex] = newValue;
@@ -26,7 +26,7 @@ function Sequence({ sequenceId }) {
           value={num}
           index={index + delta}
           key={`${index + delta}-${num}`}
-          onChange={handleNumberChange}
+          onSubmit={handleNumberChange}
         />
       </td>
     );
