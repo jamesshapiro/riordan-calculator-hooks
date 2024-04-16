@@ -64,7 +64,6 @@ function Sequence({ sequenceId }) {
       {prependZeroElement}
       <Spacer />
       {elements}
-      <Spacer />
       {augmentElement}
     </Wrapper>
   );

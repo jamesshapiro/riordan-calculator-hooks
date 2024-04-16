@@ -17,9 +17,9 @@ function App() {
       <DeepBackdrop />
       <Backdrop />
       <FlexColumnWrapper>
-        <div>
+        <HeaderDiv>
           <Header />
-        </div>
+        </HeaderDiv>
         <LeftDiv>
           <ModeComboBox />
         </LeftDiv>
@@ -46,6 +46,11 @@ function App() {
 }
 
 export default App;
+
+const HeaderDiv = styled.div`
+  align-self: flex-start;
+  padding-left: 300px;
+`;
 
 const LeftDiv = styled.div`
   align-self: flex-start;

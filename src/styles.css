@@ -16,6 +16,7 @@ body {
   --action-box-hover-font-color: hsl(240 90% 50% / 50%);
   --action-box-font-color: hsl(240 65% 40% / 50%);
   --action-box-border-color: hsl(240 65% 65% / 50%);
+  --bubble-hover-background-color: rgb(255, 0, 136);
 
   --number-box-hover-font-color: hsl(240, 100%, 50%);
   --number-box-font-color: hsl(240, 85%, 40%);
