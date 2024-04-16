@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
+import useSound from 'use-sound';
+import whooshSound from '../../sounds/whoosh.mp3';
 
 function NumberBox({
   value,
@@ -17,6 +19,7 @@ function NumberBox({
   const [isSelected, setIsSelected] = React.useState(false);
   const buttonRef = React.useRef(null);
   const divRef = React.useRef(null);
+  const [playWhoosh] = useSound(whooshSound);
   const {
     targetBoxIndex,
     setTargetBoxIndex,
@@ -33,6 +36,7 @@ function NumberBox({
     } else {
       handleTruncateSequence();
     }
+    playWhoosh();
   }
 
   const [notMounting, setNotMounting] = React.useState(false);
@@ -82,8 +86,6 @@ function NumberBox({
       console.log('Click in upper right quadrant: ignored');
       return; // Ignore the click
     }
-
-    console.log('click!');
     setIsSelected(true);
     setTargetBoxIndex(index);
     setNotMounting(true);

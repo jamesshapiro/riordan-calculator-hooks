@@ -6,6 +6,8 @@ import ActionBox from '../ActionBox';
 import Spacer from '../Spacer';
 import { motion } from 'framer-motion';
 
+// import * as whooshSfx from '../../../public/sounds/delete-item.wav'; // 'sounds/delete-item.wav';
+
 import styled from 'styled-components';
 
 function Sequence({ sequenceId }) {
@@ -16,10 +18,9 @@ function Sequence({ sequenceId }) {
     handleSequenceChange,
     fJustIncreased,
     gJustIncreased,
-    setFJustIncreased,
-    setGJustIncreased,
   } = React.useContext(DataContext);
   const sequence = sequenceId === 'g' ? gSequence : fSequence;
+
   function handleNumberChange(index, newValue) {
     const newSequence = [...sequence];
     const targetIndex = index % sequenceLength;

@@ -2,18 +2,25 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
+import useSound from 'use-sound';
+import clickSound from '../../sounds/click.wav';
 
 function ActionBox({ actionType, sequenceId }) {
+  const [playClick] = useSound(clickSound);
+  // playWhoosh();
+
   const { handleAddZero, handleAugmentSequence } =
     React.useContext(DataContext);
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
     if (actionType === 'prependZero') {
+      console.log('attempt whoosh');
       handleAddZero(sequenceId);
     } else {
       handleAugmentSequence();
     }
+    playClick();
   }
 
   return (
