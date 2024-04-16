@@ -25,7 +25,9 @@ function DataProvider({ children }) {
   const [matrixWasFetched, setMatrixWasFetched] = React.useState(false);
   const [currentGSelection, setCurrentGSelection] = React.useState('catalan');
   const [currentFSelection, setCurrentFSelection] = React.useState('catalan');
-  const [tabWasPressed, setTabWasPressed] = React.useState('false');
+  const [tabWasPressed, setTabWasPressed] = React.useState(false);
+  const [fJustIncreased, setFJustIncreased] = React.useState(false);
+  const [gJustIncreased, setGJustIncreased] = React.useState(false);
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -103,7 +105,10 @@ function DataProvider({ children }) {
 
   function handleAddZero(targetSequence) {
     const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+    const increasedSetter =
+      targetSequence === 'g' ? setGJustIncreased : setFJustIncreased;
     setSequence((oldSequence) => [0, ...oldSequence]);
+    increasedSetter(true);
   }
 
   function handleLeftShift(targetSequence) {
@@ -112,6 +117,8 @@ function DataProvider({ children }) {
     if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
       setSequenceLength(Math.min(gSequence.length, fSequence.length));
     }
+    setGJustIncreased(false);
+    setFJustIncreased(false);
   }
   function handleSelectSequence(targetSequence, selectedSequence) {
     const setCurrentSelection =
@@ -221,6 +228,10 @@ function DataProvider({ children }) {
         currentFSelection,
         tabWasPressed,
         setTabWasPressed,
+        fJustIncreased,
+        setFJustIncreased,
+        gJustIncreased,
+        setGJustIncreased,
       }}
     >
       {children}
