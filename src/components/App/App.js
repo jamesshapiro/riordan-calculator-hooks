@@ -32,12 +32,14 @@ function App() {
             </tbody>
           </TableWrapper>
         </FlexRowWrapper>
-        <LeftDiv>
-          <SubmitButton />
-        </LeftDiv>
-        <div>
-          <Matrix />
-        </div>
+        <FlexRowWrapper>
+          <LeftDiv>
+            <SubmitButton />
+          </LeftDiv>
+          <CenterDiv>
+            <Matrix />
+          </CenterDiv>
+        </FlexRowWrapper>
       </FlexColumnWrapper>
     </DataProvider>
   );
@@ -46,6 +48,10 @@ function App() {
 export default App;
 
 const LeftDiv = styled.div`
+  align-self: flex-start;
+`;
+
+const CenterDiv = styled.div`
   align-self: flex-start;
 `;
 
@@ -68,9 +74,11 @@ const FlexColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
+  width: fit-content;
   align-items: center;
   padding-top: 70px;
+  /* background-color: hsl(240, 40%, 90%); */
+  margin-left: 0px;
 `;
 
 const FlexRowWrapper = styled.div`
@@ -80,6 +88,6 @@ const FlexRowWrapper = styled.div`
 `;
 
 const TableWrapper = styled.table`
-  margin-left: 50px;
+  margin-left: 10px;
   padding-top: 13px;
 `;

@@ -51,7 +51,9 @@ const StyledHeader = styled.h1`
   color: var(--header-color);
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled(({ isSelected, ...props }) => (
+  <button {...props} />
+))`
   font-size: 16px;
   background-color: ${(p) =>
     p.isSelected ? 'var(--mode-button-selected)' : 'white'};

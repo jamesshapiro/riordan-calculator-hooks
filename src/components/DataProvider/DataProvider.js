@@ -11,7 +11,7 @@ export const DataContext = React.createContext();
 const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
 
 function DataProvider({ children }) {
-  const [sequenceLength, setSequenceLength] = React.useState(11);
+  const [sequenceLength, setSequenceLength] = React.useState(8);
   const [targetBoxIndex, setTargetBoxIndex] = React.useState(-1);
   const [gSequence, setGSequence] = React.useState(sequences[1].sequence);
   const [fSequence, setFSequence] = React.useState([
@@ -117,7 +117,6 @@ function DataProvider({ children }) {
     const setCurrentSelection =
       targetSequence === 'g' ? setCurrentGSelection : setCurrentFSelection;
     setCurrentSelection(selectedSequence);
-    console.log('selecting...');
     if (selectedSequence === 'custom') {
       if (mode !== 'normal') {
         setCurrentGSelection('custom');

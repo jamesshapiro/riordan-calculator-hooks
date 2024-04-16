@@ -14,7 +14,6 @@ import './styles.css';
 const SequenceComboBox = ({ sequenceId }) => {
   const { handleSelectSequence, currentGSelection, currentFSelection } =
     React.useContext(DataContext);
-  console.log(currentGSelection);
   const currentSelection =
     sequenceId === 'g' ? currentGSelection : currentFSelection;
 
@@ -45,9 +44,15 @@ const SequenceComboBox = ({ sequenceId }) => {
           </Select.ScrollUpButton>
           <Select.Viewport className="SelectViewport">
             <Select.Group>
-              <Select.Label className="SelectLabel">Sequences</Select.Label>
+              <Select.Label key="grouplabel" className="SelectLabel">
+                Sequences
+              </Select.Label>
               {sequences.map((item) => {
-                return <SelectItem value={item.id}>{item.name}</SelectItem>;
+                return (
+                  <SelectItem key={item.id} value={item.id}>
+                    {item.name}
+                  </SelectItem>
+                );
               })}
               <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>

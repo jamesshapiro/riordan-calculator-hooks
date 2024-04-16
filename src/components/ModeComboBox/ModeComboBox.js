@@ -43,10 +43,16 @@ const ModeComboBox = ({ sequenceId }) => {
               <ChevronUpIcon />
             </Select.ScrollUpButton>
             <Select.Viewport className="SelectViewport">
-              <Select.Group>
-                <Select.Label className="SelectLabel">Modes</Select.Label>
+              <Select.Group key="modes">
+                <Select.Label key="grouplabel" className="SelectLabel">
+                  Modes
+                </Select.Label>
                 {MODES.map((item) => {
-                  return <SelectItem value={item.id}>{item.name}</SelectItem>;
+                  return (
+                    <SelectItem key={item.id} value={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  );
                 })}
               </Select.Group>
               {/* <Select.Separator className="SelectSeparator" />

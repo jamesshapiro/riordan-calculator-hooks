@@ -103,6 +103,7 @@ function Matrix() {
 export default Matrix;
 
 const MatrixTable = styled.table`
+  margin-left: 100px;
   margin-top: 20px;
   border-spacing: 0px;
   border-collapse: collapse;

@@ -5,15 +5,23 @@ body {
   font-family: 'Lato', sans-serif;
   --number-box-height: 45px;
   --number-box-width: 60px;
+  --spacer-width: 15px;
 
   --number-box-background-color: hsl(240, 10%, 95%);
   --number-box-hover-background-color: hsl(240, 10%, 85%);
   --matrix-cell-background-color: hsl(240, 50%, 93%);
 
+  --action-box-background-color: hsl(240 10% 95% / 50%);
+  --action-box-hover-background-color: hsl(240 10% 85% / 50%);
+  --action-box-hover-font-color: hsl(240 90% 50% / 50%);
+  --action-box-font-color: hsl(240 65% 40% / 50%);
+  --action-box-border-color: hsl(240 65% 65% / 50%);
+
   --number-box-hover-font-color: hsl(240, 100%, 50%);
   --number-box-font-color: hsl(240, 85%, 40%);
   --number-box-border-color: hsl(240, 85%, 65%);
   --number-box-border-radius: 8px;
+
   --header-color: hsl(240, 85%, 35%);
   --active-button-color: hsl(240, 85%, 35%);
   --hover-button-color: hsl(240, 60%, 55%);

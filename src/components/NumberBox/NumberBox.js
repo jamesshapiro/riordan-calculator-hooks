@@ -4,30 +4,42 @@ import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
 
-function NumberBox({ value, index, onSubmit, sequenceId, children }) {
+function NumberBox({
+  value,
+  index,
+  onSubmit,
+  sequenceId,
+  isFirst,
+  isLast,
+  children,
+}) {
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   const buttonRef = React.useRef(null);
+  const divRef = React.useRef(null);
   const {
     targetBoxIndex,
     setTargetBoxIndex,
     handleSelectSequence,
-    setNumberBoxRefs,
     tabWasPressed,
     setTabWasPressed,
+    handleTruncateSequence,
+    handleLeftShift,
   } = React.useContext(DataContext);
+
+  function handleCloseOption() {
+    if (isFirst) {
+      handleLeftShift(sequenceId);
+    } else {
+      handleTruncateSequence();
+    }
+  }
 
   const [notMounting, setNotMounting] = React.useState(false);
   React.useEffect(() => {
-    console.log('mounting');
     setNotMounting(true);
   }, []);
   React.useEffect(() => {
-    if (targetBoxIndex === index) {
-      console.log(`targetBoxIndex: ${targetBoxIndex}`);
-      console.log(`index: ${index}`);
-      console.log(`notMounting: ${notMounting}`);
-    }
     if (
       targetBoxIndex === index &&
       buttonRef.current &&
@@ -50,16 +62,28 @@ function NumberBox({ value, index, onSubmit, sequenceId, children }) {
   const boxLength = bodyStyles
     .getPropertyValue('--number-box-width')
     .replace('px', '');
-  const minFontSize = '0.8rem';
-  const maxFontSize = '1.1rem';
+  const minfontsize = '0.8rem';
+  const maxfontsize = '1.1rem';
 
   const containerWidthPx = parseInt(boxLength);
   const maxWidthPerCharacter =
     (containerWidthPx * 1.4) / digits.toString().length;
   const rootFontSizePx = 16;
-  const maxFontSizeRem = `${maxWidthPerCharacter / rootFontSizePx}rem`;
+  const maxfontsizeRem = `${maxWidthPerCharacter / rootFontSizePx}rem`;
 
   function handleClick(event) {
+    if (!divRef.current) return;
+
+    const { offsetWidth: width, offsetHeight: height } = divRef.current;
+    const rect = divRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    if (x > width / 8 && y < height / 8) {
+      console.log('Click in upper right quadrant: ignored');
+      return; // Ignore the click
+    }
+
+    console.log('click!');
     setIsSelected(true);
     setTargetBoxIndex(index);
     setNotMounting(true);
@@ -91,9 +115,9 @@ function NumberBox({ value, index, onSubmit, sequenceId, children }) {
     >
       <StyledInput
         value={digits}
-        minFontSize={minFontSize}
-        fontSize={maxFontSizeRem}
-        maxFontSize={maxFontSize}
+        minfontsize={minfontsize}
+        fontSize={maxfontsizeRem}
+        maxfontsize={maxfontsize}
         onChange={(event) => handleKeyPress(event.target.value)}
         onBlur={handleBlur}
         onFocus={handleFocus}
@@ -106,25 +130,54 @@ function NumberBox({ value, index, onSubmit, sequenceId, children }) {
     inputNumberBox
   ) : (
     <InnerElement
-      minFontSize={minFontSize}
-      fontSize={maxFontSizeRem}
-      maxFontSize={maxFontSize}
+      minfontsize={minfontsize}
+      fontSize={maxfontsizeRem}
+      maxfontsize={maxfontsize}
       ref={buttonRef}
     >
       {digits}
     </InnerElement>
   );
 
+  const closeSymbol = isFirst ? 'X' : '<';
+  const closeBubble =
+    isLast || isFirst ? (
+      <CloseBubble onClick={handleCloseOption}>{closeSymbol}</CloseBubble>
+    ) : null;
+
   return (
-    <Wrapper onClick={(event) => handleClick(event)}>
-      <InnerContainer>{boxContents}</InnerContainer>
+    <Wrapper ref={divRef} onClick={(event) => handleClick(event)}>
+      <InnerContainer>
+        {closeBubble}
+        {boxContents}
+      </InnerContainer>
     </Wrapper>
   );
 }
 
 export default NumberBox;
 
+const CloseBubble = styled.div`
+  position: absolute;
+  background-color: var(--number-box-background-color);
+  border: 2px dashed var(--action-box-border-color);
+  &:hover {
+    background-color: var(--number-box-hover-background-color);
+    color: var(--number-box-hover-font-color);
+  }
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  top: -20px;
+  left: 37px;
+  z-index: 10;
+  text-align: center;
+  padding-top: 5px;
+`;
+
 const Wrapper = styled.div`
+  position: relative;
   display: inline-block;
   cursor: text;
   background-color: var(--number-box-background-color);
@@ -159,9 +212,9 @@ const InnerContainer = styled.div`
 const InnerElement = styled.p`
   width: fit-content;
   font-size: clamp(
-    ${(p) => p.minFontSize},
+    ${(p) => p.minfontsize},
     ${(p) => p.fontSize},
-    ${(p) => p.maxFontSize}
+    ${(p) => p.maxfontsize}
   );
 `;
 
@@ -169,9 +222,9 @@ const StyledInput = styled.input`
   font-family: 'Lato', sans-serif;
   color: hsl(243, 85%, 40%);
   font-size: clamp(
-    ${(p) => p.minFontSize},
+    ${(p) => p.minfontsize},
     ${(p) => p.fontSize},
-    ${(p) => p.maxFontSize}
+    ${(p) => p.maxfontsize}
   );
   height: 100%;
   width: max(var(--number-box-width), var(--number-box-width));
