@@ -9,10 +9,8 @@ function DeepBackdrop() {
 
   React.useEffect(() => {
     function handleResize(newHeight) {
-      console.log('running effect');
       const totalHeight = document.body.scrollHeight;
       const totalHeightPx = `${totalHeight}px`;
-      console.log(`${totalHeightPx}`);
       setHeight(totalHeightPx);
     }
     handleResize();

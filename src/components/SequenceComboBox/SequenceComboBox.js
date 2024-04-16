@@ -1,11 +1,9 @@
 import React from 'react';
 
-// import styled from 'styled-components';
 import { sequences } from '../../data';
 import { DataContext } from '../DataProvider';
 
 import * as Select from '@radix-ui/react-select';
-// import classnames from 'classnames';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -16,33 +14,25 @@ import './styles.css';
 const SequenceComboBox = ({ sequenceId }) => {
   const { handleSelectSequence, currentGSelection, currentFSelection } =
     React.useContext(DataContext);
-  const initialValue =
+  console.log(currentGSelection);
+  const currentSelection =
     sequenceId === 'g' ? currentGSelection : currentFSelection;
-  if (sequenceId === 'f') {
-    console.log(currentFSelection);
-    console.log(initialValue);
-  }
 
-  const [value, setValue] = React.useState(initialValue);
-
-  if (sequenceId === 'f') {
-    console.log(sequences[value]);
-    console.log(sequences);
-  }
+  // const [value, setValue] = React.useState(initialValue);
 
   function handleSelectValue(selection) {
-    setValue(selection);
+    // setValue(selection);
     handleSelectSequence(sequenceId, selection);
   }
 
   return (
     <Select.Root
-      value={value}
+      value={currentSelection}
       onValueChange={(selection) => handleSelectValue(selection)}
     >
       <Select.Trigger className="SelectTrigger" aria-label="Sequences">
-        <Select.Value placeholder="Sequence…" aria-label={value}>
-          {sequences[value]}
+        <Select.Value placeholder="Sequence…" aria-label={currentSelection}>
+          {sequences[currentSelection]}
         </Select.Value>
         <Select.Icon className="SelectIcon">
           <ChevronDownIcon />

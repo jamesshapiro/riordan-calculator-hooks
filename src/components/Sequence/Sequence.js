@@ -23,6 +23,7 @@ function Sequence({ sequenceId }) {
         <NumberBox
           value={num}
           index={index + delta}
+          sequenceId={sequenceId}
           key={`${index + delta}-${num}`}
           onSubmit={handleNumberChange}
         />

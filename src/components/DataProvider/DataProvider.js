@@ -25,6 +25,7 @@ function DataProvider({ children }) {
   const [matrixWasFetched, setMatrixWasFetched] = React.useState(false);
   const [currentGSelection, setCurrentGSelection] = React.useState('catalan');
   const [currentFSelection, setCurrentFSelection] = React.useState('catalan');
+  const [tabWasPressed, setTabWasPressed] = React.useState('false');
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -113,7 +114,15 @@ function DataProvider({ children }) {
     }
   }
   function handleSelectSequence(targetSequence, selectedSequence) {
+    const setCurrentSelection =
+      targetSequence === 'g' ? setCurrentGSelection : setCurrentFSelection;
+    setCurrentSelection(selectedSequence);
+    console.log('selecting...');
     if (selectedSequence === 'custom') {
+      if (mode !== 'normal') {
+        setCurrentGSelection('custom');
+        setCurrentFSelection('custom');
+      }
       return;
     }
     // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
@@ -160,8 +169,9 @@ function DataProvider({ children }) {
     setSequenceLength((oldValue) => oldValue - 1);
   }
 
-  function tabFocus(event, shiftWasPressed) {
-    const increment = shiftWasPressed ? -1 : 1;
+  function tabFocus(event, bothShiftAndTabWerePressed) {
+    const increment = bothShiftAndTabWerePressed ? -1 : 1;
+    setTabWasPressed(true);
     setTargetBoxIndex((oldValue) => {
       let result = 0;
       let divisor = sequenceLength * 2;
@@ -181,8 +191,8 @@ function DataProvider({ children }) {
   }
 
   // const handleTab = React.useCallback(tabFocus, []);
-  useKeydown('Tab', (event, shiftWasPressed) =>
-    tabFocus(event, shiftWasPressed)
+  useKeydown('Tab', (event, bothShiftAndTabWerePressed) =>
+    tabFocus(event, bothShiftAndTabWerePressed)
   );
 
   return (
@@ -210,6 +220,8 @@ function DataProvider({ children }) {
         handleSequenceChange,
         currentGSelection,
         currentFSelection,
+        tabWasPressed,
+        setTabWasPressed,
       }}
     >
       {children}

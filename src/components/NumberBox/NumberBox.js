@@ -4,17 +4,47 @@ import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
 
-function NumberBox({ value, index, onSubmit, children }) {
+function NumberBox({ value, index, onSubmit, sequenceId, children }) {
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   const buttonRef = React.useRef(null);
-  const { targetBoxIndex, setTargetBoxIndex } = React.useContext(DataContext);
+  const {
+    targetBoxIndex,
+    setTargetBoxIndex,
+    handleSelectSequence,
+    setNumberBoxRefs,
+    tabWasPressed,
+    setTabWasPressed,
+  } = React.useContext(DataContext);
+
   const [notMounting, setNotMounting] = React.useState(false);
   React.useEffect(() => {
-    if (targetBoxIndex === index && buttonRef.current && notMounting) {
-      buttonRef.current.click();
+    console.log('mounting');
+    setNotMounting(true);
+  }, []);
+  React.useEffect(() => {
+    if (targetBoxIndex === index) {
+      console.log(`targetBoxIndex: ${targetBoxIndex}`);
+      console.log(`index: ${index}`);
+      console.log(`notMounting: ${notMounting}`);
     }
-  }, [targetBoxIndex, index, notMounting]);
+    if (
+      targetBoxIndex === index &&
+      buttonRef.current &&
+      notMounting &&
+      tabWasPressed
+    ) {
+      buttonRef.current.click();
+      setTabWasPressed(false);
+    }
+  }, [targetBoxIndex, index, notMounting, tabWasPressed]);
+
+  // setNumberBoxRefs((oldValue) => {
+  //   return {
+  //     index: buttonRef,
+  //     ...oldValue,
+  //   };
+  // });
 
   const bodyStyles = getComputedStyle(document.body);
   const boxLength = bodyStyles
@@ -38,6 +68,7 @@ function NumberBox({ value, index, onSubmit, children }) {
   function handleBlur() {
     setIsSelected(false);
     onSubmit(index, digits);
+    handleSelectSequence(sequenceId, 'custom');
   }
 
   function handleKeyPress(value) {
@@ -55,6 +86,7 @@ function NumberBox({ value, index, onSubmit, children }) {
         event.preventDefault();
         setIsSelected(false);
         onSubmit(index, digits);
+        handleSelectSequence(sequenceId, 'custom');
       }}
     >
       <StyledInput
