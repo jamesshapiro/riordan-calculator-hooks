@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
 import useSound from 'use-sound';
 import whooshSound from '../../sounds/whoosh.mp3';
+import clickSound from '../../sounds/click.wav';
 
 function NumberBox({
   value,
@@ -20,6 +21,7 @@ function NumberBox({
   const buttonRef = React.useRef(null);
   const divRef = React.useRef(null);
   const [playWhoosh] = useSound(whooshSound);
+  const [playClick] = useSound(clickSound);
   const {
     targetBoxIndex,
     setTargetBoxIndex,
@@ -33,10 +35,11 @@ function NumberBox({
   function handleCloseOption() {
     if (isFirst) {
       handleLeftShift(sequenceId);
+      playWhoosh();
     } else {
       handleTruncateSequence();
+      playClick();
     }
-    playWhoosh();
   }
 
   const [notMounting, setNotMounting] = React.useState(false);

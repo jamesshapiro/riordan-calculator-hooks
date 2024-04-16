@@ -5,6 +5,7 @@ import styled from 'styled-components';
 function NavBar() {
   return (
     <FlexWrapper>
+      <NavItem>Mute/Unmute</NavItem>
       <NavItem>Login</NavItem>
       <NavItem>About</NavItem>
     </FlexWrapper>

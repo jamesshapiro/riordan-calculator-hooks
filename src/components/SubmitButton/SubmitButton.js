@@ -2,10 +2,13 @@ import React from 'react';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
 import { SpinnerInfinity } from 'spinners-react';
+import useSound from 'use-sound';
+import submitSound from '../../sounds/compute.wav';
 
 function SubmitButton() {
   const { handleCompute, computeWasRequested, matrixWasFetched } =
     React.useContext(DataContext);
+  const [playSubmit] = useSound(submitSound);
 
   const buttonContents =
     computeWasRequested && !matrixWasFetched ? (
@@ -22,7 +25,12 @@ function SubmitButton() {
 
   return (
     // <StyledSubmitButton onClick={handleCompute}>Compute</StyledSubmitButton>
-    <StyledSubmitButton onClick={handleCompute}>
+    <StyledSubmitButton
+      onClick={() => {
+        handleCompute();
+        playSubmit();
+      }}
+    >
       {buttonContents}
     </StyledSubmitButton>
   );
@@ -35,7 +43,7 @@ const StyledSubmitButton = styled.button`
   margin-top: 10px;
   margin-left: 10px;
   width: 65px;
-  width: fit-content;
+  /* width: fit-content; */
   height: 19px;
   border: 1px solid var(--submit-button-border);
   padding: 10px;
