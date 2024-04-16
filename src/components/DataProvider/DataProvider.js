@@ -4,7 +4,6 @@ import React from 'react';
 // For usage, see the "DataContextUser" component.
 
 import useKeydown from '../../hooks/use-keydown.hook';
-import { INITIAL_SEQUENCE } from '../../constants';
 import { sequences } from '../../data';
 
 export const DataContext = React.createContext();
@@ -14,15 +13,18 @@ const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
 function DataProvider({ children }) {
   const [sequenceLength, setSequenceLength] = React.useState(11);
   const [targetBoxIndex, setTargetBoxIndex] = React.useState(-1);
-  const [gSequence, setGSequence] = React.useState(INITIAL_SEQUENCE.g);
-  const [fSequence, setFSequence] = React.useState(INITIAL_SEQUENCE.f);
+  const [gSequence, setGSequence] = React.useState(sequences[1].sequence);
+  const [fSequence, setFSequence] = React.useState([
+    0,
+    ...sequences[1].sequence.slice(0, -1),
+  ]);
   const [mode, setMode] = React.useState('normal');
   const [metaMode, setMetaMode] = React.useState('classic');
   const [matrix, setMatrix] = React.useState(null);
   const [computeWasRequested, setComputeWasRequested] = React.useState(false);
   const [matrixWasFetched, setMatrixWasFetched] = React.useState(false);
   const [currentGSelection, setCurrentGSelection] = React.useState('catalan');
-  const [currentFSelection, setCurrentFSelection] = React.useState('ones');
+  const [currentFSelection, setCurrentFSelection] = React.useState('catalan');
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -111,6 +113,9 @@ function DataProvider({ children }) {
     }
   }
   function handleSelectSequence(targetSequence, selectedSequence) {
+    if (selectedSequence === 'custom') {
+      return;
+    }
     // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
       .sequence;

@@ -59,6 +59,7 @@ const SequenceComboBox = ({ sequenceId }) => {
               {sequences.map((item) => {
                 return <SelectItem value={item.id}>{item.name}</SelectItem>;
               })}
+              <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>
             {/* <Select.Separator className="SelectSeparator" />
           <Select.Group></Select.Group> */}

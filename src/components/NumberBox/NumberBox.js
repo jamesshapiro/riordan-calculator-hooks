@@ -11,7 +11,6 @@ function NumberBox({ value, index, onSubmit, children }) {
   const { targetBoxIndex, setTargetBoxIndex } = React.useContext(DataContext);
   const [notMounting, setNotMounting] = React.useState(false);
   React.useEffect(() => {
-    console.log(`clicking: ${targetBoxIndex} ${index}`);
     if (targetBoxIndex === index && buttonRef.current && notMounting) {
       buttonRef.current.click();
     }
@@ -47,7 +46,6 @@ function NumberBox({ value, index, onSubmit, children }) {
   }
 
   const handleFocus = (event) => {
-    console.log(event);
     event.target.select();
   };
 
