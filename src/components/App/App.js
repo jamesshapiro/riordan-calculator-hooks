@@ -9,11 +9,13 @@ import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
+import DeepBackdrop from '../DeepBackdrop';
 
 function App() {
   return (
     <DataProvider>
-      <Backdrop></Backdrop>
+      <DeepBackdrop />
+      <Backdrop />
       <FlexColumnWrapper>
         <div>
           <Header />
@@ -58,7 +60,7 @@ const Backdrop = styled.div`
     var(--background-gradient-top),
     var(--background-gradient-bottom)
   );
-  z-index: -10000;
+  z-index: -1000;
 `;
 
 const FlexColumnWrapper = styled.div`

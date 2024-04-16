@@ -17,8 +17,6 @@ function Sequence({ sequenceId }) {
   }
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;
-  // console.log(`sequenceGString: ${sequenceGString}`);
-  console.log(sequence);
   const elements = sequence.slice(0, sequenceLength).map((num, index) => {
     return (
       <td>

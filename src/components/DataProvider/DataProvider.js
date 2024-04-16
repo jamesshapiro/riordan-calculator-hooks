@@ -119,24 +119,19 @@ function DataProvider({ children }) {
     // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
       .sequence;
-    console.log(targetSequence);
     const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
     // setSequence(finalSequence);
     handleSequenceChange(targetSequence, finalSequence, false);
   }
 
   function handleSequenceChange(sequenceId, newSequence, isCustom = true) {
-    // console.log(`sequenceId: ${sequenceId}`);
     const setSequence = sequenceId === 'g' ? setGSequence : setFSequence;
     // const setAlternate = sequenceId === 'g' ? setFSequence : setGSequence;
-    // console.log(mode);
     if (mode === 'normal') {
       setSequence(newSequence);
       return;
     }
     if (mode === 'bell') {
-      console.log(`setting to... ${JSON.stringify(newSequence)}`);
-      // console.log('hello bello');
       setGSequence(newSequence);
       setFSequence([0, ...newSequence]);
       return;
