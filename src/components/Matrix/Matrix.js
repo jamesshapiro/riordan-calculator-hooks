@@ -119,15 +119,15 @@ const MatrixCell = styled.td`
     p.col == 0 || p.row == 0
       ? 'var(--select-td-background)'
       : p.row > 0 && p.col > p.row
-        ? 'black'
-        : 'var(--matrix-cell-background-color)'};
+        ? 'var(--matrix-cell-background-color)'
+        : 'black'};
 
   background-image: ${(p) =>
     p.col == 0 || p.row == 0
       ? 'revert'
       : p.col > p.row
-        ? 'revert'
-        : 'var(--box-gradient)'};
+        ? 'var(--box-gradient)'
+        : 'revert'};
   color: ${(p) =>
-    p.row > 0 && p.col > p.row ? 'white' : 'var(--number-box-font-color)'};
+    p.row > 0 && p.col > p.row ? 'var(--number-box-font-color)' : 'white'};
 `;

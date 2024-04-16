@@ -10,7 +10,6 @@ function Sequence({ sequenceId }) {
     React.useContext(DataContext);
   const sequence = sequenceId === 'g' ? gSequence : fSequence;
   function handleNumberChange(index, newValue) {
-    // console.log(`newValue: ${newValue}`);
     const newSequence = [...sequence];
     const targetIndex = index % sequenceLength;
     newSequence[targetIndex] = newValue;
@@ -19,6 +18,7 @@ function Sequence({ sequenceId }) {
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;
   // console.log(`sequenceGString: ${sequenceGString}`);
+  console.log(sequence);
   const elements = sequence.slice(0, sequenceLength).map((num, index) => {
     return (
       <td>
@@ -26,7 +26,7 @@ function Sequence({ sequenceId }) {
           value={num}
           index={index + delta}
           key={`${index + delta}-${num}`}
-          onChange={handleNumberChange}
+          onSubmit={handleNumberChange}
         />
       </td>
     );

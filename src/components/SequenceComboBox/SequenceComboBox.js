@@ -14,8 +14,21 @@ import {
 import './styles.css';
 
 const SequenceComboBox = ({ sequenceId }) => {
-  const [value, setValue] = React.useState('catalan');
-  const { handleSelectSequence } = React.useContext(DataContext);
+  const { handleSelectSequence, currentGSelection, currentFSelection } =
+    React.useContext(DataContext);
+  const initialValue =
+    sequenceId === 'g' ? currentGSelection : currentFSelection;
+  if (sequenceId === 'f') {
+    console.log(currentFSelection);
+    console.log(initialValue);
+  }
+
+  const [value, setValue] = React.useState(initialValue);
+
+  if (sequenceId === 'f') {
+    console.log(sequences[value]);
+    console.log(sequences);
+  }
 
   function handleSelectValue(selection) {
     setValue(selection);
@@ -46,6 +59,7 @@ const SequenceComboBox = ({ sequenceId }) => {
               {sequences.map((item) => {
                 return <SelectItem value={item.id}>{item.name}</SelectItem>;
               })}
+              <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>
             {/* <Select.Separator className="SelectSeparator" />
           <Select.Group></Select.Group> */}
