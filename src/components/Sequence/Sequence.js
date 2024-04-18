@@ -37,6 +37,8 @@ function Sequence({ sequenceId }) {
     const distanceToSequenceEnd = sequence.length - 1 - index;
     const firstInitial = didJustIncrease && isFirst ? { scale: 0 } : null;
     const firstAnimate = didJustIncrease && isFirst ? { scale: 1 } : null;
+    // const lastExit =
+    //   didJustIncrease && isLast ? { opacity: 0, scale: 0.5 } : null;
     if (didJustIncrease && isFirst) {
       console.log(didJustIncrease);
     }
@@ -54,8 +56,9 @@ function Sequence({ sequenceId }) {
         <motion.div
           layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
           key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
-          initial={firstInitial} // Start from no size
+          initial={firstInitial}
           animate={firstAnimate}
+          exit={{ opacity: 0, x: '300%' }}
           transition={{
             type: 'spring',
             stiffness: 300,

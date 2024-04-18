@@ -9,6 +9,7 @@ import { sequences } from '../../data';
 export const DataContext = React.createContext();
 
 const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 function DataProvider({ children }) {
   const [sequenceLength, setSequenceLength] = React.useState(8);
@@ -82,6 +83,7 @@ function DataProvider({ children }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': API_KEY 
         },
         body: JSON.stringify(payload),
         timeout: 100000,
