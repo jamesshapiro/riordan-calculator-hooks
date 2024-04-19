@@ -83,7 +83,7 @@ function DataProvider({ children }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': API_KEY 
+          'x-api-key': API_KEY
         },
         body: JSON.stringify(payload),
         timeout: 100000,

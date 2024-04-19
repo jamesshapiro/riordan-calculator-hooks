@@ -3,7 +3,7 @@ import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
 import { SpinnerInfinity } from 'spinners-react';
 import useSound from 'use-sound';
-import submitSound from '../../sounds/compute.wav';
+import submitSound from '../../sounds/compute2.wav';
 
 function SubmitButton() {
   const { handleCompute, computeWasRequested, matrixWasFetched } =
