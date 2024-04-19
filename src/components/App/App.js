@@ -15,6 +15,7 @@ import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
 import DeepBackdrop from '../DeepBackdrop';
 import NavBar from '../NavBar';
+import WindowControls from '../WindowControls';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
@@ -38,6 +39,7 @@ function App() {
             <LayoutGroup>
               <TableWrapper>
                 <tbody>
+                  <WindowControls />
                   <Sequence sequenceId={'g'} />
                   <Sequence sequenceId={'f'} />
                 </tbody>

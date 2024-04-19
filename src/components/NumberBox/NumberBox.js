@@ -145,7 +145,7 @@ function NumberBox({
 
   const closeSymbol = isFirst ? 'X' : '<';
   const closeBubble =
-    isLast || isFirst ? (
+    false || isFirst ? (
       <CloseBubble onClick={handleCloseOption}>{closeSymbol}</CloseBubble>
     ) : null;
 

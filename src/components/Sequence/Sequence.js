@@ -104,79 +104,57 @@ function Sequence({ sequenceId }) {
     </td>
   );
 
-  const augmentElement =
-    sequenceLength < Math.min(fSequence.length, gSequence.length) ? (
-      <td key={`augment-${delta}`} style={{ zIndex: 1 }}>
+  const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
+  const numAugmentBoxes = shorterSequenceLength - sequenceLength;
+  const mysteryBoxes = range(numAugmentBoxes).map((index) => {
+    const distanceToSequenceEnd = sequence.length - sequenceLength - 1 - index;
+    // const opacity = Math.max(1 - index * 0.25, 0.05);
+    const opacity = Math.max(1.5 / (index + 1), 0.15);
+
+    // const initOpacity = { opacity: Math.max(1 - (index - 1) * 0.25, 0.05) };
+    // const endOpacity = { opacity: Math.max(1 - index * 0.25, 0.05) };
+    const initOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
+    const endOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
+
+    const opacityTiming = {
+      opacity: {
+        duration: 0.7,
+      },
+    };
+
+    return (
+      <td key={`augment-${index}`} style={{ zIndex: 0, opacity }}>
         <motion.div
-          layoutId={`${sequenceId}-augment-box`}
-          key={`${sequenceId}-augment-box`}
+          layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+          key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
           style={{ zIndex: 0 }}
+          initial={initOpacity}
+          animate={endOpacity}
           transition={{
             type: 'spring',
-            stiffness: 300,
-            damping: 30 + 3 * sequenceLength,
+            stiffness: 600,
+            // damping: 15 + 5 * (sequenceLength + index),
+            damping: 45,
+            opacityTiming,
           }}
         >
           <ActionBox
             actionType={'augment'}
             sequenceId={sequenceId}
             key={`augment-${delta}`}
+            enabled={false}
           />
         </motion.div>
       </td>
-    ) : null;
-
-  const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
-  const numAugmentBoxes = shorterSequenceLength - sequenceLength;
+    );
+  });
 
   return (
     <Wrapper>
       {prependZeroElement}
       <Spacer />
       {elements}
-      {range(numAugmentBoxes).map((index) => {
-        const distanceToSequenceEnd =
-          sequence.length - sequenceLength - 1 - index;
-        // const opacity = Math.max(1 - index * 0.25, 0.05);
-        const opacity = Math.max(1.5 / (index + 1), 0.15);
-
-        // const initOpacity = { opacity: Math.max(1 - (index - 1) * 0.25, 0.05) };
-        // const endOpacity = { opacity: Math.max(1 - index * 0.25, 0.05) };
-        const initOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
-        const endOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
-
-        const opacityTiming = {
-          opacity: {
-            duration: 0.7,
-          },
-        };
-
-        return (
-          <td key={`augment-${index}`} style={{ zIndex: 0, opacity }}>
-            <motion.div
-              layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
-              key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
-              style={{ zIndex: 0 }}
-              initial={initOpacity}
-              animate={endOpacity}
-              transition={{
-                type: 'spring',
-                stiffness: 800,
-                // damping: 15 + 5 * (sequenceLength + index),
-                damping: 45,
-                opacityTiming,
-              }}
-            >
-              <ActionBox
-                actionType={'augment'}
-                sequenceId={sequenceId}
-                key={`augment-${delta}`}
-                enabled={index === 0}
-              />
-            </motion.div>
-          </td>
-        );
-      })}
+      {mysteryBoxes}
     </Wrapper>
   );
 }
