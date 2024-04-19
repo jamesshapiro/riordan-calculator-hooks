@@ -5,7 +5,7 @@ import { DataContext } from '../DataProvider';
 import useSound from 'use-sound';
 import clickSound from '../../sounds/click.wav';
 
-function ActionBox({ actionType, sequenceId }) {
+function ActionBox({ actionType, sequenceId, enabled }) {
   const [playClick] = useSound(clickSound);
   // playWhoosh();
 
@@ -22,8 +22,10 @@ function ActionBox({ actionType, sequenceId }) {
     playClick();
   }
 
+  const onClickAction = enabled ? handleClick : null;
+
   return (
-    <Wrapper onClick={() => handleClick()}>
+    <Wrapper enabled={enabled} onClick={onClickAction}>
       <InnerContainer>
         <InnerContainer>
           <InnerElement>{symbol}</InnerElement>
@@ -38,7 +40,7 @@ export default ActionBox;
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: ${(p) => (p.enabled ? 'pointer' : 'default')};
   background-color: var(--action-box-background-color);
   &:hover {
     background-color: var(--action-box-hover-background-color);

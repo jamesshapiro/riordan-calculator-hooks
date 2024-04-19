@@ -29,22 +29,22 @@ const ModeComboBox = ({ sequenceId }) => {
         value={value}
         onValueChange={(selection) => handleSelectValue(selection)}
       >
-        <Select.Trigger className="SelectTrigger" aria-label="Modes">
+        <Select.Trigger className={style.SelectTrigger} aria-label="Modes">
           <Select.Value placeholder="Mode…" aria-label={value}>
             {MODES[value]}
           </Select.Value>
-          <Select.Icon className="SelectIcon">
+          <Select.Icon className={style.SelectIcon}>
             <ChevronDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content className="SelectContent">
-            <Select.ScrollUpButton className="SelectScrollButton">
+          <Select.Content className={style.SelectContent}>
+            <Select.ScrollUpButton className={style.SelectScrollButton}>
               <ChevronUpIcon />
             </Select.ScrollUpButton>
-            <Select.Viewport className="SelectViewport">
+            <Select.Viewport className={style.SelectViewport}>
               <Select.Group key="modes">
-                <Select.Label key="grouplabel" className="SelectLabel">
+                <Select.Label key="grouplabel" className={style.SelectLabel}>
                   Modes
                 </Select.Label>
                 {MODES.map((item) => {
@@ -55,10 +55,10 @@ const ModeComboBox = ({ sequenceId }) => {
                   );
                 })}
               </Select.Group>
-              {/* <Select.Separator className="SelectSeparator" />
+              {/* <Select.Separator className={style.SelectSeparator} />
           <Select.Group></Select.Group> */}
             </Select.Viewport>
-            <Select.ScrollDownButton className="SelectScrollButton">
+            <Select.ScrollDownButton className={style.SelectScrollButton}>
               <ChevronDownIcon />
             </Select.ScrollDownButton>
           </Select.Content>
@@ -73,7 +73,7 @@ const SelectItem = React.forwardRef(
     return (
       <Select.Item className={'SelectItem'} {...props} ref={forwardedRef}>
         <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="SelectItemIndicator">
+        <Select.ItemIndicator className={style.SelectItemIndicator}>
           <CheckIcon />
         </Select.ItemIndicator>
       </Select.Item>

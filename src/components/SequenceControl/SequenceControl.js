@@ -32,6 +32,6 @@ const SelectWrapper = styled.td`
   width: 210px;
   display: relative;
   flex-direction: column;
-  background-color: var(--select-td-background);
+  /* background-color: var(--select-td-background); */
   height: var(--number-box-height);
 `;

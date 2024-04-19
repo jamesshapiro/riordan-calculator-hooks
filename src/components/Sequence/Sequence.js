@@ -5,6 +5,7 @@ import NumberBox from '../NumberBox';
 import ActionBox from '../ActionBox';
 import Spacer from '../Spacer';
 import { motion } from 'framer-motion';
+import { range } from '../../utils';
 
 // import * as whooshSfx from '../../../public/sounds/delete-item.wav'; // 'sounds/delete-item.wav';
 
@@ -31,50 +32,52 @@ function Sequence({ sequenceId }) {
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;
-  const elements = sequence.slice(0, sequenceLength).map((num, index) => {
-    const isLast = index === sequenceLength - 1;
-    const isFirst = index === 0;
-    const distanceToSequenceEnd = sequence.length - 1 - index;
-    const firstInitial = didJustIncrease && isFirst ? { scale: 0 } : null;
-    const firstAnimate = didJustIncrease && isFirst ? { scale: 1 } : null;
+  const elements = sequence
+    .slice(0, Math.min(sequenceLength, fSequence.length, gSequence.length))
+    .map((num, index) => {
+      const isLast = index === sequenceLength - 1;
+      const isFirst = index === 0;
+      const distanceToSequenceEnd = sequence.length - 1 - index;
+      const firstInitial = didJustIncrease && isFirst ? { scale: 0 } : null;
+      const firstAnimate = didJustIncrease && isFirst ? { scale: 1 } : null;
 
-    const firstTiming =
-      didJustIncrease && isFirst
-        ? {
-            scale: {
-              delay: 0.5,
-              duration: 1,
-            },
-          }
-        : null;
-    return (
-      <td key={`${index + delta}-${num}`}>
-        <motion.div
-          layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
-          key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
-          initial={firstInitial}
-          animate={firstAnimate}
-          exit={{ opacity: 0, x: '300%' }}
-          transition={{
-            type: 'spring',
-            stiffness: 300,
-            damping: 30 + 5 * index,
-            firstTiming,
-          }}
-        >
-          <NumberBox
-            value={num}
-            index={index + delta}
-            sequenceId={sequenceId}
-            key={`${index + delta}-${num}`}
-            isFirst={isFirst}
-            isLast={isLast}
-            onSubmit={handleNumberChange}
-          />
-        </motion.div>
-      </td>
-    );
-  });
+      const firstTiming =
+        didJustIncrease && isFirst
+          ? {
+              scale: {
+                delay: 0.5,
+                duration: 1,
+              },
+            }
+          : null;
+      return (
+        <td key={`${index + delta}-${num}`}>
+          <motion.div
+            layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+            key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+            initial={firstInitial}
+            animate={firstAnimate}
+            exit={{ opacity: 0, x: '300%' }}
+            transition={{
+              type: 'spring',
+              stiffness: 300,
+              damping: 30 + 5 * index,
+              firstTiming,
+            }}
+          >
+            <NumberBox
+              value={num}
+              index={index + delta}
+              sequenceId={sequenceId}
+              key={`${index + delta}-${num}`}
+              isFirst={isFirst}
+              isLast={isLast}
+              onSubmit={handleNumberChange}
+            />
+          </motion.div>
+        </td>
+      );
+    });
   const prependZeroElement = (
     <td key={`prependzero-${delta}`} style={{ zIndex: 0 }}>
       <motion.div
@@ -92,6 +95,7 @@ function Sequence({ sequenceId }) {
           sequenceId={sequenceId}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
+          enabled={true}
         />
       </motion.div>
     </td>
@@ -99,7 +103,7 @@ function Sequence({ sequenceId }) {
 
   const augmentElement =
     sequenceLength < Math.min(fSequence.length, gSequence.length) ? (
-      <td key={`augment-${delta}`} style={{ zIndex: 0 }}>
+      <td key={`augment-${delta}`} style={{ zIndex: 1 }}>
         <motion.div
           layoutId={`${sequenceId}-augment-box`}
           key={`${sequenceId}-augment-box`}
@@ -119,12 +123,44 @@ function Sequence({ sequenceId }) {
       </td>
     ) : null;
 
+  const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
+  const numAugmentBoxes = shorterSequenceLength - sequenceLength;
+
   return (
     <Wrapper>
       {prependZeroElement}
       <Spacer />
       {elements}
-      {augmentElement}
+      {range(numAugmentBoxes).map((index) => {
+        const distanceToSequenceEnd =
+          sequence.length - sequenceLength - 1 - index;
+        const opacity = 1 - index * 0.25;
+        const displaySetting = opacity <= 0 ? 'none' : 'revert';
+        return (
+          <td
+            key={`augment-${index}`}
+            style={{ zIndex: 0, opacity, display: displaySetting }}
+          >
+            <motion.div
+              layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+              key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
+              style={{ zIndex: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 30 + 5 * (sequenceLength + index),
+              }}
+            >
+              <ActionBox
+                actionType={'augment'}
+                sequenceId={sequenceId}
+                key={`augment-${delta}`}
+                enabled={index === 0}
+              />
+            </motion.div>
+          </td>
+        );
+      })}
     </Wrapper>
   );
 }

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { sequences } from '../../data';
 import { DataContext } from '../DataProvider';
+import * as style from './SequenceComboBox.module.css';
+import './style.css';
 
 import * as Select from '@radix-ui/react-select';
 import {
@@ -9,7 +11,6 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from '@radix-ui/react-icons';
-import './styles.css';
 
 const SequenceComboBox = ({ sequenceId }) => {
   const { handleSelectSequence, currentGSelection, currentFSelection } =
@@ -29,22 +30,22 @@ const SequenceComboBox = ({ sequenceId }) => {
       value={currentSelection}
       onValueChange={(selection) => handleSelectValue(selection)}
     >
-      <Select.Trigger className="SelectTrigger" aria-label="Sequences">
+      <Select.Trigger className={style.SelectTrigger} aria-label="Sequences">
         <Select.Value placeholder="Sequence…" aria-label={currentSelection}>
           {sequences[currentSelection]}
         </Select.Value>
-        <Select.Icon className="SelectIcon">
+        <Select.Icon className={style.SelectIcon}>
           <ChevronDownIcon />
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className="SelectContent">
-          <Select.ScrollUpButton className="SelectScrollButton">
+        <Select.Content className={style.SelectContent}>
+          <Select.ScrollUpButton className={style.SelectScrollButton}>
             <ChevronUpIcon />
           </Select.ScrollUpButton>
-          <Select.Viewport className="SelectViewport">
+          <Select.Viewport className={style.SelectViewport}>
             <Select.Group>
-              <Select.Label key="grouplabel" className="SelectLabel">
+              <Select.Label key="grouplabel" className={style.SelectLabel}>
                 Sequences
               </Select.Label>
               {sequences.map((item) => {
@@ -56,10 +57,10 @@ const SequenceComboBox = ({ sequenceId }) => {
               })}
               <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>
-            {/* <Select.Separator className="SelectSeparator" />
+            {/* <Select.Separator className={style.SelectSeparator} />
           <Select.Group></Select.Group> */}
           </Select.Viewport>
-          <Select.ScrollDownButton className="SelectScrollButton">
+          <Select.ScrollDownButton className={style.SelectScrollButton}>
             <ChevronDownIcon />
           </Select.ScrollDownButton>
         </Select.Content>
@@ -73,7 +74,7 @@ const SelectItem = React.forwardRef(
     return (
       <Select.Item className={'SelectItem'} {...props} ref={forwardedRef}>
         <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="SelectItemIndicator">
+        <Select.ItemIndicator className={style.SelectItemIndicator}>
           <CheckIcon />
         </Select.ItemIndicator>
       </Select.Item>

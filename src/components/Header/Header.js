@@ -39,9 +39,11 @@ const HeaderWrapper = styled.header`
   border: 1px solid var(--number-box-border-color);
   /* border-radius: 4px; */
   padding: 20px;
+  padding-top: 25px;
+  border-radius: 3px;
   background-color: var(--number-box-background-color);
-  box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
-    hsl(0, 0%, 50%);
+  /* box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
+    hsl(0, 0%, 50%); */
 `;
 
 const StyledHeader = styled.h1`
