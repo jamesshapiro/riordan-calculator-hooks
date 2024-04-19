@@ -43,8 +43,14 @@ const Wrapper = styled.div`
   cursor: ${(p) => (p.enabled ? 'pointer' : 'default')};
   background-color: var(--action-box-background-color);
   &:hover {
-    background-color: var(--action-box-hover-background-color);
-    color: var(--action-box-hover-font-color);
+    background-color: ${(p) =>
+      p.enabled
+        ? 'var(--action-box-hover-background-color)'
+        : 'var(--action-box-background-color)'};
+    color: ${(p) =>
+      p.enabled
+        ? 'var(--action-box-hover-font-color)'
+        : 'var(--action-box-font-color)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;

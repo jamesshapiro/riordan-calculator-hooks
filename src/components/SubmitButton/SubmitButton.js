@@ -40,7 +40,7 @@ export default SubmitButton;
 
 const StyledSubmitButton = styled.button`
   z-index: 10000;
-  margin-top: 10px;
+  margin-top: 55px;
   margin-left: 10px;
   width: 65px;
   /* width: fit-content; */
