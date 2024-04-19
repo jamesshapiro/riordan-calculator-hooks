@@ -29,7 +29,7 @@ const Wrapper = styled.tr`
 `;
 
 const SelectWrapper = styled.td`
-  width: 210px;
+  min-width: 210px;
   display: relative;
   flex-direction: column;
   /* background-color: var(--select-td-background); */

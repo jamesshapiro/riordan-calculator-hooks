@@ -41,15 +41,17 @@ function Sequence({ sequenceId }) {
       const firstInitial = didJustIncrease && isFirst ? { scale: 0 } : null;
       const firstAnimate = didJustIncrease && isFirst ? { scale: 1 } : null;
 
-      const firstTiming =
-        didJustIncrease && isFirst
-          ? {
-              scale: {
-                delay: 0.5,
-                duration: 1,
-              },
-            }
-          : null;
+      // const firstTiming =
+      //   didJustIncrease && isFirst
+      //     ? {
+      //         scale: {
+      //           delay: 10,
+      //           duration: 0.1,
+      //         },
+      //       }
+      //     : null;
+      const damping = isFirst ? 50 : Math.max(100 - 10 * index, 30);
+
       return (
         <td key={`${index + delta}-${num}`}>
           <motion.div
@@ -57,12 +59,13 @@ function Sequence({ sequenceId }) {
             key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
             initial={firstInitial}
             animate={firstAnimate}
-            exit={{ opacity: 0, x: '300%' }}
+            // exit={{ opacity: 0, x: '300%' }}
             transition={{
               type: 'spring',
               stiffness: 300,
-              damping: 30 + 5 * index,
-              firstTiming,
+              // damping: 30 + 3 * index,
+              damping: damping,
+              // firstTiming,
             }}
           >
             <NumberBox
@@ -111,7 +114,7 @@ function Sequence({ sequenceId }) {
           transition={{
             type: 'spring',
             stiffness: 300,
-            damping: 30 + 5 * sequenceLength,
+            damping: 30 + 3 * sequenceLength,
           }}
         >
           <ActionBox
@@ -134,21 +137,34 @@ function Sequence({ sequenceId }) {
       {range(numAugmentBoxes).map((index) => {
         const distanceToSequenceEnd =
           sequence.length - sequenceLength - 1 - index;
-        const opacity = 1 - index * 0.25;
-        const displaySetting = opacity <= 0 ? 'none' : 'revert';
+        // const opacity = Math.max(1 - index * 0.25, 0.05);
+        const opacity = Math.max(1.5 / (index + 1), 0.15);
+
+        // const initOpacity = { opacity: Math.max(1 - (index - 1) * 0.25, 0.05) };
+        // const endOpacity = { opacity: Math.max(1 - index * 0.25, 0.05) };
+        const initOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
+        const endOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
+
+        const opacityTiming = {
+          opacity: {
+            duration: 0.7,
+          },
+        };
+
         return (
-          <td
-            key={`augment-${index}`}
-            style={{ zIndex: 0, opacity, display: displaySetting }}
-          >
+          <td key={`augment-${index}`} style={{ zIndex: 0, opacity }}>
             <motion.div
               layoutId={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
               key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
               style={{ zIndex: 0 }}
+              initial={initOpacity}
+              animate={endOpacity}
               transition={{
                 type: 'spring',
-                stiffness: 300,
-                damping: 30 + 5 * (sequenceLength + index),
+                stiffness: 800,
+                // damping: 15 + 5 * (sequenceLength + index),
+                damping: 45,
+                opacityTiming,
               }}
             >
               <ActionBox
