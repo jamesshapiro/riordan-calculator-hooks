@@ -236,4 +236,10 @@ const StyledInput = styled.input`
   width: max(var(--number-box-width), var(--number-box-width));
   margin-left: 2px;
   text-align: center;
+
+  /* display: inline-block; */
+  line-height: normal;
+  border: 1px solid var(--number-box-hover-font-color);
+  background-color: white;
+  box-sizing: border-box;
 `;

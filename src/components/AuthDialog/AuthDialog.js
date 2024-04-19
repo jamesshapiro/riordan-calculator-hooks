@@ -5,6 +5,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import './styles.css';
 import { UserContext } from '../UserProvider';
 import * as Tabs from '@radix-ui/react-tabs';
+import * as style from './AuthDialog.module.css';
 
 const AuthDialog = () => {
   const [email, setEmail] = React.useState('');
@@ -39,38 +40,38 @@ const AuthDialog = () => {
     <>
       <p className="Text">Create an account!</p>
       <Dialog.Description className="DialogDescription"></Dialog.Description>
-      <fieldset className="Fieldset">
+      <fieldset className={`${style.authDialog} Fieldset`}>
         <label className="Label" htmlFor="email">
           Email
         </label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="Input"
+          className={`${style.authDialog} Input`}
           id="email"
           type="email"
         />
       </fieldset>
-      <fieldset className="Fieldset">
+      <fieldset className={`${style.authDialog} Fieldset`}>
         <label className="Label" htmlFor="firstname">
           First Name
         </label>
         <input
           value={firstname}
           onChange={(e) => setFirstname(e.target.value)}
-          className="Input"
+          className={`${style.authDialog} Input`}
           id="firstname"
           type="text"
         />
       </fieldset>
-      <fieldset className="Fieldset">
+      <fieldset className={`${style.authDialog} Fieldset`}>
         <label className="Label" htmlFor="password">
           Password
         </label>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="Input"
+          className={`${style.authDialog} Input`}
           id="password"
           type="password"
         />
@@ -82,7 +83,10 @@ const AuthDialog = () => {
           justifyContent: 'flex-end',
         }}
       >
-        <button onClick={handleSignUpAttempt} className="Button green">
+        <button
+          onClick={handleSignUpAttempt}
+          className={`${style.authDialog} Button green`}
+        >
           Sign Up
         </button>
       </div>
@@ -93,14 +97,14 @@ const AuthDialog = () => {
     <>
       <p className="Text">{`Enter Confirmation Code Sent to ${email}`}</p>
       <Dialog.Description className="DialogDescription"></Dialog.Description>
-      <fieldset className="Fieldset">
+      <fieldset className={`${style.authDialog} Fieldset`}>
         <label className="Label" htmlFor="code">
           Confirmation Code
         </label>
         <input
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="Input"
+          className={`${style.authDialog} Input`}
           id="code"
           type="text"
         />
@@ -112,7 +116,10 @@ const AuthDialog = () => {
           justifyContent: 'flex-end',
         }}
       >
-        <button onClick={handleConfirmSignUpAttempt} className="Button green">
+        <button
+          onClick={handleConfirmSignUpAttempt}
+          className={`${style.authDialog} Button green`}
+        >
           Confirm
         </button>
       </div>
@@ -140,26 +147,26 @@ const AuthDialog = () => {
             </Tabs.List>
             <Tabs.Content className="TabsContent" value="tab1">
               <p className="Text">Your username is your email.</p>
-              <fieldset className="Fieldset">
+              <fieldset className={`${style.authDialog} Fieldset`}>
                 <label className="Label" htmlFor="email">
                   Email
                 </label>
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="Input"
+                  className={`${style.authDialog} Input`}
                   id="email"
                   type="email"
                 />
               </fieldset>
-              <fieldset className="Fieldset">
+              <fieldset className={`${style.authDialog} Fieldset`}>
                 <label className="Label" htmlFor="password">
                   Password
                 </label>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="Input"
+                  className={`${style.authDialog} Input`}
                   id="password"
                   type="password"
                 />
@@ -171,7 +178,10 @@ const AuthDialog = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <button onClick={handleLoginAttempt} className="Button green">
+                <button
+                  onClick={handleLoginAttempt}
+                  className={`${style.authDialog} Button green`}
+                >
                   Log In
                 </button>
               </div>
@@ -184,26 +194,26 @@ const AuthDialog = () => {
           <Dialog.Description className="DialogDescription">
             Log in or create an account if you don't already have one!
           </Dialog.Description>
-          <fieldset className="Fieldset">
+          <fieldset className={`${style.authDialog} Fieldset`}>
             <label className="Label" htmlFor="email">
               Email
             </label>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="Input"
+              className={`${style.authDialog} Input`}
               id="email"
               type="email"
             />
           </fieldset>
-          <fieldset className="Fieldset">
+          <fieldset className={`${style.authDialog} Fieldset`}>
             <label className="Label" htmlFor="password">
               Password
             </label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="Input"
+              className={`${style.authDialog} Input`}
               id="password"
               type="password"
             />

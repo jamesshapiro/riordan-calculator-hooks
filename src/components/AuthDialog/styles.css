@@ -3,11 +3,6 @@
 @import '/node_modules/@radix-ui/colors/black-alpha.css';
 @import '/node_modules/@radix-ui/colors/green.css';
 /* reset */
-button,
-fieldset,
-input {
-  all: unset;
-}
 
 .DialogOverlay {
   background-color: var(--black-a9);
@@ -71,11 +66,11 @@ input {
 } */
 
 /* reset */
-button,
+/* button,
 fieldset,
 input {
   all: unset;
-}
+} */
 
 .TabsRoot {
   display: flex;
