@@ -178,10 +178,7 @@ const AuthDialog = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <button
-                  onClick={handleLoginAttempt}
-                  className={`${style.authDialog} Button green`}
-                >
+                <button onClick={handleLoginAttempt} className="Button green">
                   Log In
                 </button>
               </div>
