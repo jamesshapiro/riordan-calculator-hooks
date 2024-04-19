@@ -6,9 +6,12 @@ import React from 'react';
 import useKeydown from '../../hooks/use-keydown.hook';
 import { sequences } from '../../data';
 
+import { UserContext } from '../UserProvider';
+
 export const DataContext = React.createContext();
 
 const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
+const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 function DataProvider({ children }) {
@@ -29,6 +32,8 @@ function DataProvider({ children }) {
   const [tabWasPressed, setTabWasPressed] = React.useState(false);
   const [fJustIncreased, setFJustIncreased] = React.useState(false);
   const [gJustIncreased, setGJustIncreased] = React.useState(false);
+
+  const { isAuthenticated, token } = React.useContext(UserContext);
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -79,12 +84,20 @@ function DataProvider({ children }) {
         f: fSequenceSubmit.slice(0, sequenceLength),
       };
 
-      const request = new Request(ENDPOINT, {
+      const URL = isAuthenticated ? AUTH_ENDPOINT : ENDPOINT;
+      const HEADERS = isAuthenticated
+        ? {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          }
+        : {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
+          };
+
+      const request = new Request(URL, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY
-        },
+        headers: HEADERS,
         body: JSON.stringify(payload),
         timeout: 100000,
       });

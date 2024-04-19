@@ -2,6 +2,8 @@ import Header from '../Header';
 import React from 'react';
 
 import DataProvider from '../DataProvider';
+import UserProvider from '../UserProvider';
+
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 
@@ -14,40 +16,45 @@ import Matrix from '../Matrix';
 import DeepBackdrop from '../DeepBackdrop';
 import NavBar from '../NavBar';
 
+// import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+// import '@aws-amplify/ui-react/styles.css';
+
 function App() {
   return (
-    <DataProvider>
-      <DeepBackdrop />
-      <Backdrop />
-      <FlexColumnWrapper>
-        <NavBar />
-        <HeaderDiv>
-          <Header />
-        </HeaderDiv>
-        <LeftDiv>
-          <ModeComboBox />
-        </LeftDiv>
-        <FlexRowWrapper>
-          <SequenceControlPanel />
-          <LayoutGroup>
-            <TableWrapper>
-              <tbody>
-                <Sequence sequenceId={'g'} />
-                <Sequence sequenceId={'f'} />
-              </tbody>
-            </TableWrapper>
-          </LayoutGroup>
-        </FlexRowWrapper>
-        <FlexRowWrapper>
+    <UserProvider>
+      <DataProvider>
+        <DeepBackdrop />
+        <Backdrop />
+        <FlexColumnWrapper>
+          <NavBar />
+          <HeaderDiv>
+            <Header />
+          </HeaderDiv>
           <LeftDiv>
-            <SubmitButton />
+            <ModeComboBox />
           </LeftDiv>
-          <CenterDiv>
-            <Matrix />
-          </CenterDiv>
-        </FlexRowWrapper>
-      </FlexColumnWrapper>
-    </DataProvider>
+          <FlexRowWrapper>
+            <SequenceControlPanel />
+            <LayoutGroup>
+              <TableWrapper>
+                <tbody>
+                  <Sequence sequenceId={'g'} />
+                  <Sequence sequenceId={'f'} />
+                </tbody>
+              </TableWrapper>
+            </LayoutGroup>
+          </FlexRowWrapper>
+          <FlexRowWrapper>
+            <LeftDiv>
+              <SubmitButton />
+            </LeftDiv>
+            <CenterDiv>
+              <Matrix />
+            </CenterDiv>
+          </FlexRowWrapper>
+        </FlexColumnWrapper>
+      </DataProvider>
+    </UserProvider>
   );
 }
 

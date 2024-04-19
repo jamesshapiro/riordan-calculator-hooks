@@ -1,13 +1,27 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import { UserContext } from '../UserProvider';
+
+import AuthDialog from '../AuthDialog';
 
 function NavBar() {
+  const { isAuthenticated, user, handleLogout } = React.useContext(UserContext);
+  const Hi = isAuthenticated ? `Hi ${user}` : '';
+  const LoginLogout = isAuthenticated ? (
+    <NavItem onClick={handleLogout}>Logout</NavItem>
+  ) : (
+    <NavItem>
+      <AuthDialog />
+    </NavItem>
+  );
+
   return (
     <FlexWrapper>
       <NavItem>Mute/Unmute</NavItem>
-      <NavItem>Login</NavItem>
+      {LoginLogout}
       <NavItem>About</NavItem>
+      {isAuthenticated && Hi}
     </FlexWrapper>
   );
 }

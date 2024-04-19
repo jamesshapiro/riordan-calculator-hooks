@@ -37,11 +37,7 @@ function Sequence({ sequenceId }) {
     const distanceToSequenceEnd = sequence.length - 1 - index;
     const firstInitial = didJustIncrease && isFirst ? { scale: 0 } : null;
     const firstAnimate = didJustIncrease && isFirst ? { scale: 1 } : null;
-    // const lastExit =
-    //   didJustIncrease && isLast ? { opacity: 0, scale: 0.5 } : null;
-    if (didJustIncrease && isFirst) {
-      console.log(didJustIncrease);
-    }
+
     const firstTiming =
       didJustIncrease && isFirst
         ? {

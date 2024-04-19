@@ -15,7 +15,6 @@ function ActionBox({ actionType, sequenceId }) {
 
   function handleClick() {
     if (actionType === 'prependZero') {
-      console.log('attempt whoosh');
       handleAddZero(sequenceId);
     } else {
       handleAugmentSequence();

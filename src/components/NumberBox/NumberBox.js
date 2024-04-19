@@ -86,7 +86,6 @@ function NumberBox({
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     if (x > width / 8 && y < height / 8) {
-      console.log('Click in upper right quadrant: ignored');
       return; // Ignore the click
     }
     setIsSelected(true);
