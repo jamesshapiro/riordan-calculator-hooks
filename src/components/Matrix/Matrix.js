@@ -1,8 +1,10 @@
-import React from 'react';
-import { DataContext } from '../DataProvider';
-import { range } from '../../utils';
+import React from "react";
+import { DataContext } from "../DataProvider";
+import { range } from "../../utils";
 
-import styled from 'styled-components';
+import styled from "styled-components";
+
+import TooltipWrapper from "../TooltipWrapper";
 
 const StyledSVG = styled.svg`
   &:visited {
@@ -34,7 +36,7 @@ function Matrix() {
     return <></>;
   }
   const parsedMatrix = JSON.parse(matrix);
-  const riordanGroupElem = parsedMatrix['riordan group elem'];
+  const riordanGroupElem = parsedMatrix["riordan group elem"];
 
   return (
     <>
@@ -45,20 +47,28 @@ function Matrix() {
               const searchEntries = riordanGroupElem
                 .map((row) => row[colIndex - 1])
                 .slice(colIndex - 1);
-              const searchQueryParam = searchEntries.join('%2C');
+              const searchQueryParam = searchEntries.join("%2C");
               return (
                 <MatrixCell
-                  style={{ paddingLeft: '15px' }}
+                  style={{ paddingLeft: "15px" }}
                   row={0}
                   col={colIndex}
                 >
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                  <TooltipWrapper
+                    message="OEIS Column Lookup"
+                    side="top"
+                    sideOffset={5}
+                    arrowshiftX="-10px"
+                    arrowshiftY="0"
                   >
-                    {colIndex > 0 ? SearchSVG : ''}
-                  </a>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                    >
+                      {colIndex > 0 ? SearchSVG : ""}
+                    </a>
+                  </TooltipWrapper>
                 </MatrixCell>
               );
             })}
@@ -68,21 +78,29 @@ function Matrix() {
               0,
               rowIndex + 1
             );
-            const searchQueryParam = searchEntries.join('%2C');
+            const searchQueryParam = searchEntries.join("%2C");
             return (
               <tr>
                 <MatrixCell
-                  style={{ paddingLeft: '15px' }}
+                  style={{ paddingLeft: "15px" }}
                   row={rowIndex}
                   col={0}
                 >
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                  <TooltipWrapper
+                    message="OEIS Row Lookup"
+                    side="left"
+                    sideOffset={5}
+                    arrowshiftX="0"
+                    arrowshiftY="0"
                   >
-                    {SearchSVG}
-                  </a>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
+                    >
+                      {SearchSVG}
+                    </a>
+                  </TooltipWrapper>
                 </MatrixCell>
                 {row.map((num, colIndex) => {
                   return (
@@ -118,17 +136,17 @@ const MatrixCell = styled.td`
   text-align: center;
   background-color: ${(p) =>
     p.col == 0 || p.row == 0
-      ? 'var(--select-td-background)'
+      ? "var(--select-td-background)"
       : p.row > 0 && p.col > p.row
-        ? 'var(--matrix-cell-background-color)'
-        : 'black'};
+        ? "var(--matrix-cell-background-color)"
+        : "black"};
 
   background-image: ${(p) =>
     p.col == 0 || p.row == 0
-      ? 'revert'
+      ? "revert"
       : p.col > p.row
-        ? 'var(--box-gradient)'
-        : 'revert'};
+        ? "var(--box-gradient)"
+        : "revert"};
   color: ${(p) =>
-    p.row > 0 && p.col > p.row ? 'var(--number-box-font-color)' : 'white'};
+    p.row > 0 && p.col > p.row ? "var(--number-box-font-color)" : "white"};
 `;

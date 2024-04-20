@@ -1,18 +1,20 @@
-import React from 'react';
+import React from "react";
 
-import { DataContext } from '../DataProvider';
-import NumberBox from '../NumberBox';
-import ActionBox from '../ActionBox';
-import Spacer from '../Spacer';
-import { motion } from 'framer-motion';
-import { range } from '../../utils';
+import { DataContext } from "../DataProvider";
+import NumberBox from "../NumberBox";
+import ActionBox from "../ActionBox";
+import Spacer from "../Spacer";
+import { motion } from "framer-motion";
+import { range } from "../../utils";
 
-import useSound from 'use-sound';
-import clickSound from '../../sounds/click.wav';
+import useSound from "use-sound";
+import clickSound from "../../sounds/click.wav";
+
+import TooltipWrapper from "../TooltipWrapper";
 
 // import * as whooshSfx from '../../../public/sounds/delete-item.wav'; // 'sounds/delete-item.wav';
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 function WindowControls({ sequenceId }) {
   const [playClick] = useSound(clickSound);
@@ -26,23 +28,12 @@ function WindowControls({ sequenceId }) {
     handleTruncateSequence,
     handleAugmentSequence,
   } = React.useContext(DataContext);
-  const sequence = sequenceId === 'g' ? gSequence : fSequence;
+  const sequence = sequenceId === "g" ? gSequence : fSequence;
 
   function handleClick(action) {
     action();
     playClick();
   }
-
-  function handleNumberChange(index, newValue) {
-    const newSequence = [...sequence];
-    const targetIndex = index % sequenceLength;
-    newSequence[targetIndex] = newValue;
-    handleSequenceChange(sequenceId, newSequence);
-  }
-
-  const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
-
-  const delta = sequenceId === 'window' ? sequenceLength : 0;
 
   const numElements = Math.min(
     sequenceLength,
@@ -52,19 +43,27 @@ function WindowControls({ sequenceId }) {
   const elements = sequence.slice(0, numElements).map((num, index) => {
     const leftArrow =
       index === numElements - 1 ? (
-        <Bubble
-          onClick={() => handleClick(handleTruncateSequence)}
-          isleft={true}
+        <TooltipWrapper
+          message="Hide Last Term"
+          side="top"
+          sideOffset={5}
+          arrowshiftX="0"
+          arrowshiftY="0"
         >
-          {'<'}
-        </Bubble>
+          <Bubble
+            onClick={() => handleClick(handleTruncateSequence)}
+            isleft={true}
+          >
+            {"<"}
+          </Bubble>
+        </TooltipWrapper>
       ) : (
-        ''
+        ""
       );
-    return <td key={`window-${index + delta}-${num}`}>{leftArrow}</td>;
+    return <td key={`window-${index}-${num}`}>{leftArrow}</td>;
   });
   const prependZeroElement = (
-    <td key={`prependzero-${delta}`} style={{ zIndex: 0 }}></td>
+    <td key={`window-first`} style={{ zIndex: 0 }}></td>
   );
 
   const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
@@ -72,11 +71,19 @@ function WindowControls({ sequenceId }) {
   const boxes = range(numAugmentBoxes).map((index) => {
     const rightArrow =
       index === 0 ? (
-        <Bubble onClick={() => handleClick(handleAugmentSequence)}>
-          {'>'}
-        </Bubble>
+        <TooltipWrapper
+          message="Reveal Next Term"
+          side="top"
+          sideOffset={5}
+          arrowshiftX="0"
+          arrowshiftY="0"
+        >
+          <Bubble onClick={() => handleClick(handleAugmentSequence)}>
+            {">"}
+          </Bubble>
+        </TooltipWrapper>
       ) : (
-        ''
+        ""
       );
     return <td key={`window-augment-${index}`}>{rightArrow}</td>;
   });
@@ -105,8 +112,8 @@ const Bubble = styled.div`
     color: white;
     border: 2px solid var(--bubble-hover-border-color);
   }
-  margin-left: ${(p) => (p.isleft ? 'auto' : '0')};
-  margin-right: ${(p) => (!p.isleft ? 'auto' : '0')};
+  margin-left: ${(p) => (p.isleft ? "auto" : "0")};
+  margin-right: ${(p) => (!p.isleft ? "auto" : "0")};
   border-radius: 15px;
   width: 30px;
   height: 30px;
