@@ -40,7 +40,7 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   if (actionType === "prependZero") {
     result = (
       <TooltipWrapper
-        message="Prepend a zero"
+        message="Prepend a Zero"
         side="top"
         sideOffset={5}
         arrowshiftX="0"
