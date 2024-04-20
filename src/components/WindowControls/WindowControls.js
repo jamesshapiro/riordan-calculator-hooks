@@ -62,9 +62,7 @@ function WindowControls({ sequenceId }) {
       );
     return <td key={`window-${index}-${num}`}>{leftArrow}</td>;
   });
-  const prependZeroElement = (
-    <td key={`window-first`} style={{ zIndex: 0 }}></td>
-  );
+  const prependZeroElement = <td key={`window-first`} style={{ zIndex: 0 }} />;
 
   const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
   const numAugmentBoxes = shorterSequenceLength - sequenceLength;
