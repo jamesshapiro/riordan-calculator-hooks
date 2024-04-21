@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
-import { UserContext } from '../UserProvider';
+import styled from "styled-components";
+import { UserContext } from "../UserProvider";
+import { SoundContext } from "../SoundProvider";
 
-import AuthDialog from '../AuthDialog';
+import AuthDialog from "../AuthDialog";
 
 function NavBar() {
   const { isAuthenticated, user, handleLogout } = React.useContext(UserContext);
-  const Hi = isAuthenticated ? `Hi ${user}` : '';
+  const { volume, toggleMute } = React.useContext(SoundContext);
+  const Hi = isAuthenticated ? `Hi ${user}` : "";
   const LoginLogout = isAuthenticated ? (
     <NavItem onClick={handleLogout}>Logout</NavItem>
   ) : (
@@ -15,10 +17,47 @@ function NavBar() {
       <AuthDialog />
     </NavItem>
   );
+  const volumeMutedSVG = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-volume"
+    >
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+    </svg>
+  );
+
+  const volumeOnSVG = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-volume-2"
+    >
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+    </svg>
+  );
 
   return (
     <FlexWrapper>
-      <NavItem>Mute/Unmute</NavItem>
+      <NavItem onClick={toggleMute}>
+        {volume === 1 ? volumeOnSVG : volumeMutedSVG}
+      </NavItem>
       {LoginLogout}
       <NavItem>About</NavItem>
       {isAuthenticated && Hi}

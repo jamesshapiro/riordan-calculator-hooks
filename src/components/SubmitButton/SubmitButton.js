@@ -1,14 +1,17 @@
-import React from 'react';
-import { DataContext } from '../DataProvider';
-import styled from 'styled-components';
-import { SpinnerInfinity } from 'spinners-react';
-import useSound from 'use-sound';
-import submitSound from '../../sounds/compute2.wav';
+import React from "react";
+import { DataContext } from "../DataProvider";
+import styled from "styled-components";
+import { SpinnerInfinity } from "spinners-react";
+import useSound from "use-sound";
+import submitSound from "../../sounds/compute2.wav";
+
+import { SoundContext } from "../SoundProvider";
 
 function SubmitButton() {
   const { handleCompute, computeWasRequested, matrixWasFetched } =
     React.useContext(DataContext);
-  const [playSubmit] = useSound(submitSound);
+  const { volume } = React.useContext(SoundContext);
+  const [playSubmit] = useSound(submitSound, { volume });
 
   const buttonContents =
     computeWasRequested && !matrixWasFetched ? (
@@ -20,7 +23,7 @@ function SubmitButton() {
         secondaryColor="white"
       />
     ) : (
-      'Compute'
+      "Compute"
     );
 
   return (

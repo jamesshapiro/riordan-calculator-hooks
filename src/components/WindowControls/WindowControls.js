@@ -1,10 +1,9 @@
 import React from "react";
 
 import { DataContext } from "../DataProvider";
-import NumberBox from "../NumberBox";
-import ActionBox from "../ActionBox";
+import { SoundContext } from "../SoundProvider";
+
 import Spacer from "../Spacer";
-import { motion } from "framer-motion";
 import { range } from "../../utils";
 
 import useSound from "use-sound";
@@ -17,17 +16,16 @@ import TooltipWrapper from "../TooltipWrapper";
 import styled from "styled-components";
 
 function WindowControls({ sequenceId }) {
-  const [playClick] = useSound(clickSound);
+  const { volume } = React.useContext(SoundContext);
+  const [playClick] = useSound(clickSound, { volume });
   const {
     sequenceLength,
     gSequence,
     fSequence,
-    handleSequenceChange,
-    fJustIncreased,
-    gJustIncreased,
     handleTruncateSequence,
     handleAugmentSequence,
   } = React.useContext(DataContext);
+
   const sequence = sequenceId === "g" ? gSequence : fSequence;
 
   function handleClick(action) {

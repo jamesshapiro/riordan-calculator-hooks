@@ -2,14 +2,16 @@ import React from "react";
 
 import styled from "styled-components";
 import { DataContext } from "../DataProvider";
+import { SoundContext } from "../SoundProvider";
+
 import useSound from "use-sound";
 import clickSound from "../../sounds/click.wav";
 
 import TooltipWrapper from "../TooltipWrapper";
 
 function ActionBox({ actionType, sequenceId, enabled }) {
-  const [playClick] = useSound(clickSound);
-  // playWhoosh();
+  const { volume } = React.useContext(SoundContext);
+  const [playClick] = useSound(clickSound, { volume });
 
   const { handleAddZero, handleAugmentSequence } =
     React.useContext(DataContext);

@@ -1,21 +1,22 @@
-import Header from '../Header';
-import React from 'react';
+import Header from "../Header";
+import React from "react";
 
-import DataProvider from '../DataProvider';
-import UserProvider from '../UserProvider';
+import DataProvider from "../DataProvider";
+import UserProvider from "../UserProvider";
 
-import Sequence from '../Sequence';
-import SequenceControlPanel from '../SequenceControlPanel';
+import Sequence from "../Sequence";
+import SequenceControlPanel from "../SequenceControlPanel";
 
-import { LayoutGroup, motion } from 'framer-motion';
+import { LayoutGroup, motion } from "framer-motion";
 
-import styled from 'styled-components';
-import ModeComboBox from '../ModeComboBox';
-import SubmitButton from '../SubmitButton';
-import Matrix from '../Matrix';
-import DeepBackdrop from '../DeepBackdrop';
-import NavBar from '../NavBar';
-import WindowControls from '../WindowControls';
+import styled from "styled-components";
+import ModeComboBox from "../ModeComboBox";
+import SubmitButton from "../SubmitButton";
+import Matrix from "../Matrix";
+import DeepBackdrop from "../DeepBackdrop";
+import NavBar from "../NavBar";
+import WindowControls from "../WindowControls";
+import SoundProvider from "../SoundProvider";
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
@@ -24,37 +25,39 @@ function App() {
   return (
     <UserProvider>
       <DataProvider>
-        <DeepBackdrop />
-        <Backdrop />
-        <FlexColumnWrapper>
-          <NavBar />
-          <HeaderDiv>
-            <Header />
-          </HeaderDiv>
-          <LeftDiv>
-            <ModeComboBox />
-          </LeftDiv>
-          <FlexRowWrapper>
-            <SequenceControlPanel />
-            <LayoutGroup>
-              <TableWrapper>
-                <tbody>
-                  <WindowControls />
-                  <Sequence sequenceId={'g'} />
-                  <Sequence sequenceId={'f'} />
-                </tbody>
-              </TableWrapper>
-            </LayoutGroup>
-          </FlexRowWrapper>
-          <FlexRowWrapper>
+        <SoundProvider>
+          <DeepBackdrop />
+          <Backdrop />
+          <FlexColumnWrapper>
+            <NavBar />
+            <HeaderDiv>
+              <Header />
+            </HeaderDiv>
             <LeftDiv>
-              <SubmitButton />
+              <ModeComboBox />
             </LeftDiv>
-            <CenterDiv>
-              <Matrix />
-            </CenterDiv>
-          </FlexRowWrapper>
-        </FlexColumnWrapper>
+            <FlexRowWrapper>
+              <SequenceControlPanel />
+              <LayoutGroup>
+                <TableWrapper>
+                  <tbody>
+                    <WindowControls />
+                    <Sequence sequenceId={"g"} />
+                    <Sequence sequenceId={"f"} />
+                  </tbody>
+                </TableWrapper>
+              </LayoutGroup>
+            </FlexRowWrapper>
+            <FlexRowWrapper>
+              <LeftDiv>
+                <SubmitButton />
+              </LeftDiv>
+              <CenterDiv>
+                <Matrix />
+              </CenterDiv>
+            </FlexRowWrapper>
+          </FlexColumnWrapper>
+        </SoundProvider>
       </DataProvider>
     </UserProvider>
   );

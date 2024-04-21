@@ -3,27 +3,22 @@ import React from "react";
 import styled from "styled-components";
 
 import { DataContext } from "../DataProvider";
+import { SoundContext } from "../SoundProvider";
+
 import useSound from "use-sound";
 import whooshSound from "../../sounds/whoosh.mp3";
 import clickSound from "../../sounds/click.wav";
 
 import TooltipWrapper from "../TooltipWrapper";
 
-function NumberBox({
-  value,
-  index,
-  onSubmit,
-  sequenceId,
-  isFirst,
-  isLast,
-  children,
-}) {
+function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
+  const { volume } = React.useContext(SoundContext);
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   const buttonRef = React.useRef(null);
   const divRef = React.useRef(null);
-  const [playWhoosh] = useSound(whooshSound);
-  const [playClick] = useSound(clickSound);
+  const [playWhoosh] = useSound(whooshSound, { volume });
+  // const [playClick] = useSound(clickSound, { volume });
   const {
     targetBoxIndex,
     setTargetBoxIndex,
@@ -40,7 +35,6 @@ function NumberBox({
       playWhoosh();
     } else {
       handleTruncateSequence();
-      playClick();
     }
   }
 
