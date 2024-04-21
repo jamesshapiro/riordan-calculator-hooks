@@ -7,7 +7,6 @@ import { SoundContext } from "../SoundProvider";
 
 import useSound from "use-sound";
 import whooshSound from "../../sounds/whoosh.mp3";
-import clickSound from "../../sounds/click.wav";
 
 import TooltipWrapper from "../TooltipWrapper";
 
