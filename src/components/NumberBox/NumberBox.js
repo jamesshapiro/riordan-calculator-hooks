@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
 import { SoundContext } from '../SoundProvider';
 
-import { Cross1Icon } from '@radix-ui/react-icons';
-
 import useSound from 'use-sound';
 import whooshSound from '../../sounds/whoosh.mp3';
 
@@ -150,7 +148,21 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
         arrowshiftY='0'
       >
         <CloseBubble onClick={handleCloseOption}>
-          <Cross1Icon width={15} height={15} />
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='15'
+            height='15'
+            viewBox='0 0 15 15'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1.5'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            className='lucide lucide-x'
+          >
+            <path d='M11.25 3.75 L3.75 11.25' />
+            <path d='m3.75 3.75 7.5 7.5' />
+          </svg>
         </CloseBubble>
       </TooltipWrapper>
     ) : null;
