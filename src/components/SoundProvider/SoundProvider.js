@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
 export const SoundContext = React.createContext();
 
 function SoundProvider({ children }) {
   const [volume, setVolume] = React.useState(() => {
-    const savedVolume = localStorage.getItem("volume");
+    const savedVolume = localStorage.getItem('volume');
     return savedVolume !== null ? Number(savedVolume) : 1;
   });
 
   React.useEffect(() => {
-    localStorage.setItem("volume", volume);
+    localStorage.setItem('volume', volume);
   }, [volume]);
 
   function toggleMute() {

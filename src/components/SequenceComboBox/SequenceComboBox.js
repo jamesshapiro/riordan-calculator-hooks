@@ -30,8 +30,8 @@ const SequenceComboBox = ({ sequenceId }) => {
       value={currentSelection}
       onValueChange={(selection) => handleSelectValue(selection)}
     >
-      <Select.Trigger className={style.SelectTrigger} aria-label="Sequences">
-        <Select.Value placeholder="Sequence…" aria-label={currentSelection}>
+      <Select.Trigger className={style.SelectTrigger} aria-label='Sequences'>
+        <Select.Value placeholder='Sequence…' aria-label={currentSelection}>
           {sequences[currentSelection]}
         </Select.Value>
         <Select.Icon className={style.SelectIcon}>
@@ -45,7 +45,7 @@ const SequenceComboBox = ({ sequenceId }) => {
           </Select.ScrollUpButton>
           <Select.Viewport className={style.SelectViewport}>
             <Select.Group>
-              <Select.Label key="grouplabel" className={style.SelectLabel}>
+              <Select.Label key='grouplabel' className={style.SelectLabel}>
                 Sequences
               </Select.Label>
               {sequences.map((item) => {

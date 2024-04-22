@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
 // Note: replace "Data" with the name of the thing being provided.
 // For usage, see the "DataContextUser" component.
 
-import useKeydown from "../../hooks/use-keydown.hook";
-import { sequences } from "../../data";
+import useKeydown from '../../hooks/use-keydown.hook';
+import { sequences } from '../../data';
 
-import { UserContext } from "../UserProvider";
+import { UserContext } from '../UserProvider';
 
 export const DataContext = React.createContext();
 
@@ -22,13 +22,13 @@ function DataProvider({ children }) {
     0,
     ...sequences[1].sequence.slice(0, -1),
   ]);
-  const [mode, setMode] = React.useState("normal");
-  const [metaMode, setMetaMode] = React.useState("classic");
+  const [mode, setMode] = React.useState('normal');
+  const [metaMode, setMetaMode] = React.useState('classic');
   const [matrix, setMatrix] = React.useState(null);
   const [computeWasRequested, setComputeWasRequested] = React.useState(false);
   const [matrixWasFetched, setMatrixWasFetched] = React.useState(false);
-  const [currentGSelection, setCurrentGSelection] = React.useState("catalan");
-  const [currentFSelection, setCurrentFSelection] = React.useState("catalan");
+  const [currentGSelection, setCurrentGSelection] = React.useState('catalan');
+  const [currentFSelection, setCurrentFSelection] = React.useState('catalan');
   const [tabWasPressed, setTabWasPressed] = React.useState(false);
   const [fJustIncreased, setFJustIncreased] = React.useState(false);
   const [gJustIncreased, setGJustIncreased] = React.useState(false);
@@ -45,25 +45,25 @@ function DataProvider({ children }) {
     ) {
       let fSequenceSubmit = fSequence;
       let gSequenceSubmit = gSequence;
-      if (mode === "bell") {
+      if (mode === 'bell') {
         fSequenceSubmit = [0].concat(gSequence.slice(0, sequenceLength)).join();
-      } else if (mode === "derivative" && metaMode === "exponential") {
+      } else if (mode === 'derivative' && metaMode === 'exponential') {
         const derivative = fSequence.slice(1);
         gSequenceSubmit = derivative.join();
-      } else if (mode === "derivative") {
+      } else if (mode === 'derivative') {
         const derivative = fSequence.slice(1).map((element, index) => {
           return element * (index + 1);
         });
         gSequenceSubmit = derivative.join();
-      } else if (mode === "appell") {
+      } else if (mode === 'appell') {
         const newFSequence = Array(gSequence.length).fill(0);
         newFSequence[1] = 1;
         fSequenceSubmit = newFSequence.join();
-      } else if (mode === "associated") {
+      } else if (mode === 'associated') {
         const newGSequence = Array(fSequence.length).fill(0);
         newGSequence[0] = 1;
         gSequenceSubmit = newGSequence.join();
-      } else if (mode === "twobell") {
+      } else if (mode === 'twobell') {
         let gSquared = Array(gSequence.length).fill(0);
         let i = 0;
         for (i = 0; i < gSquared.length; i++) {
@@ -87,16 +87,16 @@ function DataProvider({ children }) {
       const URL = isAuthenticated ? AUTH_ENDPOINT : ENDPOINT;
       const HEADERS = isAuthenticated
         ? {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: token,
           }
         : {
-            "Content-Type": "application/json",
-            "x-api-key": API_KEY,
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           };
 
       const request = new Request(URL, {
-        method: "PUT",
+        method: 'PUT',
         headers: HEADERS,
         body: JSON.stringify(payload),
         timeout: 100000,
@@ -120,15 +120,15 @@ function DataProvider({ children }) {
   }
 
   function handleAddZero(targetSequence) {
-    const setSequence = targetSequence === "g" ? setGSequence : setFSequence;
+    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const increasedSetter =
-      targetSequence === "g" ? setGJustIncreased : setFJustIncreased;
+      targetSequence === 'g' ? setGJustIncreased : setFJustIncreased;
     setSequence((oldSequence) => [0, ...oldSequence]);
     increasedSetter(true);
   }
 
   function handleLeftShift(targetSequence) {
-    const setSequence = targetSequence === "g" ? setGSequence : setFSequence;
+    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     setSequence((oldSequence) => [...oldSequence.slice(1)]);
     if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
       setSequenceLength(Math.min(gSequence.length, fSequence.length));
@@ -138,46 +138,46 @@ function DataProvider({ children }) {
   }
   function handleSelectSequence(targetSequence, selectedSequence) {
     const setCurrentSelection =
-      targetSequence === "g" ? setCurrentGSelection : setCurrentFSelection;
+      targetSequence === 'g' ? setCurrentGSelection : setCurrentFSelection;
     setCurrentSelection(selectedSequence);
-    if (selectedSequence === "custom") {
-      if (mode !== "normal") {
-        setCurrentGSelection("custom");
-        setCurrentFSelection("custom");
+    if (selectedSequence === 'custom') {
+      if (mode !== 'normal') {
+        setCurrentGSelection('custom');
+        setCurrentFSelection('custom');
       }
       return;
     }
     // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
       .sequence;
-    const finalSequence = targetSequence === "g" ? sequence : [0, ...sequence];
+    const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
     // setSequence(finalSequence);
     handleSequenceChange(targetSequence, finalSequence, false);
   }
 
   function handleSequenceChange(sequenceId, newSequence, isCustom = true) {
-    const setSequence = sequenceId === "g" ? setGSequence : setFSequence;
+    const setSequence = sequenceId === 'g' ? setGSequence : setFSequence;
     // const setAlternate = sequenceId === 'g' ? setFSequence : setGSequence;
-    if (mode === "normal") {
+    if (mode === 'normal') {
       setSequence(newSequence);
       return;
     }
-    if (mode === "bell") {
+    if (mode === 'bell') {
       setGSequence(newSequence);
       setFSequence([0, ...newSequence]);
       return;
     }
-    if (mode === "appell") {
+    if (mode === 'appell') {
       setGSequence(newSequence);
     }
   }
 
   function handleSelectMode(selectedMode) {
     setMode(selectedMode);
-    if (selectedMode === "bell") {
+    if (selectedMode === 'bell') {
       setFSequence([0, ...gSequence]);
     }
-    if (selectedMode === "appell") {
+    if (selectedMode === 'appell') {
       const appellArray = new Array(gSequence.length).fill(0);
       appellArray[1] = 1;
       setFSequence(appellArray);
@@ -198,9 +198,9 @@ function DataProvider({ children }) {
       let result = 0;
       let divisor = sequenceLength * 2;
       let delta = 0;
-      if (["bell", "appell", "twobell"].includes(mode)) {
+      if (['bell', 'appell', 'twobell'].includes(mode)) {
         divisor = sequenceLength;
-      } else if (["derivative", "associated"].includes(mode)) {
+      } else if (['derivative', 'associated'].includes(mode)) {
         divisor = sequenceLength;
         delta = sequenceLength;
       }
@@ -213,7 +213,7 @@ function DataProvider({ children }) {
   }
 
   // const handleTab = React.useCallback(tabFocus, []);
-  useKeydown("Tab", (event, bothShiftAndTabWerePressed) =>
+  useKeydown('Tab', (event, bothShiftAndTabWerePressed) =>
     tabFocus(event, bothShiftAndTabWerePressed)
   );
 

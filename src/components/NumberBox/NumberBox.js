@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { DataContext } from "../DataProvider";
-import { SoundContext } from "../SoundProvider";
+import { DataContext } from '../DataProvider';
+import { SoundContext } from '../SoundProvider';
 
-import { Cross1Icon } from "@radix-ui/react-icons";
+import { Cross1Icon } from '@radix-ui/react-icons';
 
-import useSound from "use-sound";
-import whooshSound from "../../sounds/whoosh.mp3";
+import useSound from 'use-sound';
+import whooshSound from '../../sounds/whoosh.mp3';
 
-import TooltipWrapper from "../TooltipWrapper";
+import TooltipWrapper from '../TooltipWrapper';
 
 function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
   const { volume } = React.useContext(SoundContext);
@@ -64,10 +64,10 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
 
   const bodyStyles = getComputedStyle(document.body);
   const boxLength = bodyStyles
-    .getPropertyValue("--number-box-width")
-    .replace("px", "");
-  const minfontsize = "0.8rem";
-  const maxfontsize = "1.1rem";
+    .getPropertyValue('--number-box-width')
+    .replace('px', '');
+  const minfontsize = '0.8rem';
+  const maxfontsize = '1.1rem';
 
   const containerWidthPx = parseInt(boxLength);
   const maxWidthPerCharacter =
@@ -93,11 +93,11 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
   function handleBlur() {
     setIsSelected(false);
     onSubmit(index, digits);
-    handleSelectSequence(sequenceId, "custom");
+    handleSelectSequence(sequenceId, 'custom');
   }
 
   function handleKeyPress(value) {
-    const cleaned = value.replace(/[^0-9]/g, "");
+    const cleaned = value.replace(/[^0-9]/g, '');
     setDigits(cleaned);
   }
 
@@ -111,7 +111,7 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
         event.preventDefault();
         setIsSelected(false);
         onSubmit(index, digits);
-        handleSelectSequence(sequenceId, "custom");
+        handleSelectSequence(sequenceId, 'custom');
       }}
     >
       <StyledInput
@@ -143,11 +143,11 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
   const closeBubble =
     false || isFirst ? (
       <TooltipWrapper
-        message="Delete First Term"
-        side="top"
+        message='Delete First Term'
+        side='top'
         sideOffset={5}
-        arrowshiftX="0"
-        arrowshiftY="0"
+        arrowshiftX='0'
+        arrowshiftY='0'
       >
         <CloseBubble onClick={handleCloseOption}>
           <Cross1Icon width={15} height={15} />
@@ -213,7 +213,7 @@ const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: var(--number-box-font-color);
   &:hover {
     color: var(--number-box-hover-font-color);
@@ -233,7 +233,7 @@ const InnerElement = styled.p`
 `;
 
 const StyledInput = styled.input`
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: hsl(243, 85%, 40%);
   font-size: clamp(
     ${(p) => p.minfontsize},

@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
-import { DataContext } from "../DataProvider";
-import { SoundContext } from "../SoundProvider";
+import styled from 'styled-components';
+import { DataContext } from '../DataProvider';
+import { SoundContext } from '../SoundProvider';
 
-import useSound from "use-sound";
-import clickSound from "../../sounds/click.wav";
+import useSound from 'use-sound';
+import clickSound from '../../sounds/click.wav';
 
-import TooltipWrapper from "../TooltipWrapper";
+import TooltipWrapper from '../TooltipWrapper';
 
 function ActionBox({ actionType, sequenceId, enabled }) {
   const { volume } = React.useContext(SoundContext);
@@ -15,10 +15,10 @@ function ActionBox({ actionType, sequenceId, enabled }) {
 
   const { handleAddZero, handleAugmentSequence } =
     React.useContext(DataContext);
-  const symbol = actionType === "prependZero" ? ">>" : "?";
+  const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
-    if (actionType === "prependZero") {
+    if (actionType === 'prependZero') {
       handleAddZero(sequenceId);
     } else {
       handleAugmentSequence();
@@ -27,7 +27,7 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   }
 
   const onClickAction = enabled ? handleClick : null;
-  const tooltipText = actionType === "prependZero" ? "Prepend a Zero" : "";
+  const tooltipText = actionType === 'prependZero' ? 'Prepend a Zero' : '';
 
   let result = (
     <Wrapper enabled={enabled} onClick={onClickAction}>
@@ -39,14 +39,14 @@ function ActionBox({ actionType, sequenceId, enabled }) {
     </Wrapper>
   );
 
-  if (actionType === "prependZero") {
+  if (actionType === 'prependZero') {
     result = (
       <TooltipWrapper
-        message="Prepend a Zero"
-        side="top"
+        message='Prepend a Zero'
+        side='top'
         sideOffset={5}
-        arrowshiftX="0"
-        arrowshiftY="0"
+        arrowshiftX='0'
+        arrowshiftY='0'
       >
         {result}
       </TooltipWrapper>
@@ -60,17 +60,17 @@ export default ActionBox;
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
-  cursor: ${(p) => (p.enabled ? "pointer" : "default")};
+  cursor: ${(p) => (p.enabled ? 'pointer' : 'default')};
   background-color: var(--action-box-background-color);
   &:hover {
     background-color: ${(p) =>
       p.enabled
-        ? "var(--action-box-hover-background-color)"
-        : "var(--action-box-background-color)"};
+        ? 'var(--action-box-hover-background-color)'
+        : 'var(--action-box-background-color)'};
     color: ${(p) =>
       p.enabled
-        ? "var(--action-box-hover-font-color)"
-        : "var(--action-box-font-color)"};
+        ? 'var(--action-box-hover-font-color)'
+        : 'var(--action-box-font-color)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;
@@ -87,7 +87,7 @@ const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: var(--action-box-font-color);
   &:hover {
     color: var(--action-box-hover-font-color);

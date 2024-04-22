@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
-import "./styles.css";
-import { UserContext } from "../UserProvider";
-import * as Tabs from "@radix-ui/react-tabs";
+import * as Dialog from '@radix-ui/react-dialog';
+import { Cross2Icon } from '@radix-ui/react-icons';
+import './styles.css';
+import { UserContext } from '../UserProvider';
+import * as Tabs from '@radix-ui/react-tabs';
 
 const AuthDialog = () => {
-  const [email, setEmail] = React.useState("");
-  const [firstname, setFirstname] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState('');
+  const [firstname, setFirstname] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const { handleLogin, handleSignUp, handleConfirmSignUp } =
     React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = React.useState('');
   const [awaitingConfirmation, setAwaitingConfirmation] = React.useState(false);
 
   function handleLoginAttempt() {
@@ -37,52 +37,52 @@ const AuthDialog = () => {
 
   const signUpForm = (
     <>
-      <p className="Text">Create an account!</p>
-      <Dialog.Description className="DialogDescription"></Dialog.Description>
-      <fieldset className="Fieldset">
-        <label className="Label" htmlFor="email">
+      <p className='Text'>Create an account!</p>
+      <Dialog.Description className='DialogDescription'></Dialog.Description>
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='email'>
           Email
         </label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="Input"
-          id="email"
-          type="email"
+          className='Input'
+          id='email'
+          type='email'
         />
       </fieldset>
-      <fieldset className="Fieldset">
-        <label className="Label" htmlFor="firstname">
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='firstname'>
           First Name
         </label>
         <input
           value={firstname}
           onChange={(e) => setFirstname(e.target.value)}
-          className="Input"
-          id="firstname"
-          type="text"
+          className='Input'
+          id='firstname'
+          type='text'
         />
       </fieldset>
-      <fieldset className="Fieldset">
-        <label className="Label" htmlFor="password">
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='password'>
           Password
         </label>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="Input"
-          id="password"
-          type="password"
+          className='Input'
+          id='password'
+          type='password'
         />
       </fieldset>
       <div
         style={{
-          display: "flex",
+          display: 'flex',
           marginTop: 20,
-          justifyContent: "flex-end",
+          justifyContent: 'flex-end',
         }}
       >
-        <button onClick={handleSignUpAttempt} className="Button green">
+        <button onClick={handleSignUpAttempt} className='Button green'>
           Sign Up
         </button>
       </div>
@@ -91,28 +91,28 @@ const AuthDialog = () => {
 
   const confirmForm = (
     <>
-      <p className="Text">{`Enter Confirmation Code Sent to ${email}`}</p>
-      <Dialog.Description className="DialogDescription"></Dialog.Description>
-      <fieldset className="Fieldset">
-        <label className="Label" htmlFor="code">
+      <p className='Text'>{`Enter Confirmation Code Sent to ${email}`}</p>
+      <Dialog.Description className='DialogDescription'></Dialog.Description>
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='code'>
           Confirmation Code
         </label>
         <input
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="Input"
-          id="code"
-          type="text"
+          className='Input'
+          id='code'
+          type='text'
         />
       </fieldset>
       <div
         style={{
-          display: "flex",
+          display: 'flex',
           marginTop: 20,
-          justifyContent: "flex-end",
+          justifyContent: 'flex-end',
         }}
       >
-        <button onClick={handleConfirmSignUpAttempt} className="Button green">
+        <button onClick={handleConfirmSignUpAttempt} className='Button green'>
           Confirm
         </button>
       </div>
@@ -124,59 +124,59 @@ const AuthDialog = () => {
   return (
     <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
       <Dialog.Trigger asChild>
-        <button className="Button violet">Login</button>
+        <button className='Button violet'>Login</button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="DialogOverlay" />
-        <Dialog.Content className="DialogContent" asChild>
-          <Tabs.Root className="TabsRoot" defaultValue="tab1">
-            <Tabs.List className="TabsList" aria-label="Manage your account">
-              <Tabs.Trigger className="TabsTrigger" value="tab1">
+        <Dialog.Overlay className='DialogOverlay' />
+        <Dialog.Content className='DialogContent' asChild>
+          <Tabs.Root className='TabsRoot' defaultValue='tab1'>
+            <Tabs.List className='TabsList' aria-label='Manage your account'>
+              <Tabs.Trigger className='TabsTrigger' value='tab1'>
                 Log In
               </Tabs.Trigger>
-              <Tabs.Trigger className="TabsTrigger" value="tab2">
+              <Tabs.Trigger className='TabsTrigger' value='tab2'>
                 Sign Up
               </Tabs.Trigger>
             </Tabs.List>
-            <Tabs.Content className="TabsContent" value="tab1">
-              <p className="Text">Your username is your email.</p>
-              <fieldset className="Fieldset">
-                <label className="Label" htmlFor="email">
+            <Tabs.Content className='TabsContent' value='tab1'>
+              <p className='Text'>Your username is your email.</p>
+              <fieldset className='Fieldset'>
+                <label className='Label' htmlFor='email'>
                   Email
                 </label>
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="Input"
-                  id="email"
-                  type="email"
+                  className='Input'
+                  id='email'
+                  type='email'
                 />
               </fieldset>
-              <fieldset className="Fieldset">
-                <label className="Label" htmlFor="password">
+              <fieldset className='Fieldset'>
+                <label className='Label' htmlFor='password'>
                   Password
                 </label>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="Input"
-                  id="password"
-                  type="password"
+                  className='Input'
+                  id='password'
+                  type='password'
                 />
               </fieldset>
               <div
                 style={{
-                  display: "flex",
+                  display: 'flex',
                   marginTop: 20,
-                  justifyContent: "flex-end",
+                  justifyContent: 'flex-end',
                 }}
               >
-                <button onClick={handleLoginAttempt} className="Button green">
+                <button onClick={handleLoginAttempt} className='Button green'>
                   Log In
                 </button>
               </div>
             </Tabs.Content>
-            <Tabs.Content className="TabsContent" value="tab2">
+            <Tabs.Content className='TabsContent' value='tab2'>
               {signUpTabContent}
             </Tabs.Content>
           </Tabs.Root>

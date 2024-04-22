@@ -29,8 +29,8 @@ const ModeComboBox = ({ sequenceId }) => {
         value={value}
         onValueChange={(selection) => handleSelectValue(selection)}
       >
-        <Select.Trigger className={style.SelectTrigger} aria-label="Modes">
-          <Select.Value placeholder="Mode…" aria-label={value}>
+        <Select.Trigger className={style.SelectTrigger} aria-label='Modes'>
+          <Select.Value placeholder='Mode…' aria-label={value}>
             {MODES[value]}
           </Select.Value>
           <Select.Icon className={style.SelectIcon}>
@@ -43,8 +43,8 @@ const ModeComboBox = ({ sequenceId }) => {
               <ChevronUpIcon />
             </Select.ScrollUpButton>
             <Select.Viewport className={style.SelectViewport}>
-              <Select.Group key="modes">
-                <Select.Label key="grouplabel" className={style.SelectLabel}>
+              <Select.Group key='modes'>
+                <Select.Label key='grouplabel' className={style.SelectLabel}>
                   Modes
                 </Select.Label>
                 {MODES.map((item) => {
