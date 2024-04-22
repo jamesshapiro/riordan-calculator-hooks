@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import * as Dialog from '@radix-ui/react-dialog';
-import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';
-import { UserContext } from '../UserProvider';
-import * as Tabs from '@radix-ui/react-tabs';
+import * as Dialog from "@radix-ui/react-dialog";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import "./styles.css";
+import { UserContext } from "../UserProvider";
+import * as Tabs from "@radix-ui/react-tabs";
 
 const AuthDialog = () => {
-  const [email, setEmail] = React.useState('');
-  const [firstname, setFirstname] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [firstname, setFirstname] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const { handleLogin, handleSignUp, handleConfirmSignUp } =
     React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [code, setCode] = React.useState('');
+  const [code, setCode] = React.useState("");
   const [awaitingConfirmation, setAwaitingConfirmation] = React.useState(false);
 
   function handleLoginAttempt() {
@@ -77,9 +77,9 @@ const AuthDialog = () => {
       </fieldset>
       <div
         style={{
-          display: 'flex',
+          display: "flex",
           marginTop: 20,
-          justifyContent: 'flex-end',
+          justifyContent: "flex-end",
         }}
       >
         <button onClick={handleSignUpAttempt} className="Button green">
@@ -107,9 +107,9 @@ const AuthDialog = () => {
       </fieldset>
       <div
         style={{
-          display: 'flex',
+          display: "flex",
           marginTop: 20,
-          justifyContent: 'flex-end',
+          justifyContent: "flex-end",
         }}
       >
         <button onClick={handleConfirmSignUpAttempt} className="Button green">
@@ -166,9 +166,9 @@ const AuthDialog = () => {
               </fieldset>
               <div
                 style={{
-                  display: 'flex',
+                  display: "flex",
                   marginTop: 20,
-                  justifyContent: 'flex-end',
+                  justifyContent: "flex-end",
                 }}
               >
                 <button onClick={handleLoginAttempt} className="Button green">

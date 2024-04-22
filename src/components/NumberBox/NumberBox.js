@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { DataContext } from "../DataProvider";
 import { SoundContext } from "../SoundProvider";
 
+import { Cross1Icon } from "@radix-ui/react-icons";
+
 import useSound from "use-sound";
 import whooshSound from "../../sounds/whoosh.mp3";
 
@@ -138,7 +140,6 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
     </InnerElement>
   );
 
-  const closeSymbol = isFirst ? "X" : "<";
   const closeBubble =
     false || isFirst ? (
       <TooltipWrapper
@@ -148,7 +149,9 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
         arrowshiftX="0"
         arrowshiftY="0"
       >
-        <CloseBubble onClick={handleCloseOption}>{closeSymbol}</CloseBubble>
+        <CloseBubble onClick={handleCloseOption}>
+          <Cross1Icon width={15} height={15} />
+        </CloseBubble>
       </TooltipWrapper>
     ) : null;
 
@@ -180,8 +183,10 @@ const CloseBubble = styled.div`
   top: -20px;
   left: 37px;
   z-index: 10;
-  text-align: center;
-  padding-top: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Wrapper = styled.div`

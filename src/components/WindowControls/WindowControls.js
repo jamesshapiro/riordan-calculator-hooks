@@ -2,6 +2,7 @@ import React from "react";
 
 import { DataContext } from "../DataProvider";
 import { SoundContext } from "../SoundProvider";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 import Spacer from "../Spacer";
 import { range } from "../../utils";
@@ -52,7 +53,7 @@ function WindowControls({ sequenceId }) {
             onClick={() => handleClick(handleTruncateSequence)}
             isleft={true}
           >
-            {"<"}
+            <ChevronLeftIcon width="18" height="18" />
           </Bubble>
         </TooltipWrapper>
       ) : (
@@ -75,7 +76,7 @@ function WindowControls({ sequenceId }) {
           arrowshiftY="0"
         >
           <Bubble onClick={() => handleClick(handleAugmentSequence)}>
-            {">"}
+            <ChevronRightIcon width="18" height="18" />
           </Bubble>
         </TooltipWrapper>
       ) : (
@@ -115,6 +116,8 @@ const Bubble = styled.div`
   height: 30px;
   cursor: pointer;
   z-index: 10;
-  text-align: center;
-  padding-top: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

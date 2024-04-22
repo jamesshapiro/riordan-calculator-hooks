@@ -1,10 +1,22 @@
-import React from 'react';
-import { DataContext } from '../DataProvider';
-import styled from 'styled-components';
+import React from "react";
+import { DataContext } from "../DataProvider";
+import styled from "styled-components";
+import { SoundContext } from "../SoundProvider";
+
+import useSound from "use-sound";
+import clickSound from "../../sounds/click.wav";
 
 function Header() {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
-  const isClassicSelected = metaMode === 'classic';
+  const isClassicSelected = metaMode === "classic";
+  const { volume } = React.useContext(SoundContext);
+
+  const [playClick] = useSound(clickSound, { volume });
+
+  function handleMetaModeClick(metaMode) {
+    playClick();
+    setMetaMode(metaMode);
+  }
 
   return (
     <Wrapper>
@@ -13,13 +25,13 @@ function Header() {
       </HeaderWrapper>
       <StyledButton
         isSelected={isClassicSelected}
-        onClick={() => setMetaMode('classic')}
+        onClick={() => handleMetaModeClick("classic")}
       >
         Classic
       </StyledButton>
       <StyledButton
         isSelected={!isClassicSelected}
-        onClick={() => setMetaMode('exponential')}
+        onClick={() => handleMetaModeClick("exponential")}
       >
         Exponential
       </StyledButton>
@@ -58,12 +70,12 @@ const StyledButton = styled(({ isSelected, ...props }) => (
 ))`
   font-size: 16px;
   background-color: ${(p) =>
-    p.isSelected ? 'var(--mode-button-selected)' : 'white'};
+    p.isSelected ? "var(--mode-button-selected)" : "white"};
   border: 1px solid var(--mode-button-selected);
-  color: ${(p) => (p.isSelected ? 'white' : 'var(--mode-button-selected)')};
+  color: ${(p) => (p.isSelected ? "white" : "var(--mode-button-selected)")};
   padding: 10px;
   border-radius: 12px;
-  cursor: ${(p) => (!p.isSelected ? 'pointer' : 'default')};
+  cursor: ${(p) => (!p.isSelected ? "pointer" : "default")};
   margin: 3px;
   &:first-of-type {
     margin-left: 30px;
@@ -71,8 +83,8 @@ const StyledButton = styled(({ isSelected, ...props }) => (
   &:hover {
     background-color: ${(p) =>
       !p.isSelected
-        ? 'var(--hover-button-color)'
-        : 'var(--active-button-color)'};
+        ? "var(--hover-button-color)"
+        : "var(--active-button-color)"};
     color: white;
   }
 `;
