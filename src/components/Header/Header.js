@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SoundContext } from '../SoundProvider';
 
 import useSound from 'use-sound';
-import clickSound from '../../sounds/click.wav';
+import clickSound from '../../sounds/click2.wav';
 
 function Header() {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
