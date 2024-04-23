@@ -14,8 +14,12 @@ function Header() {
   const [playClick] = useSound(clickSound, { volume });
 
   function handleMetaModeClick(metaMode) {
-    playClick();
-    setMetaMode(metaMode);
+    setMetaMode((oldValue) => {
+      if (oldValue !== metaMode) {
+        playClick();
+      }
+      return metaMode;
+    });
   }
 
   return (

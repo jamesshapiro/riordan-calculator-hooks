@@ -33,7 +33,8 @@ function DataProvider({ children }) {
   const [fJustIncreased, setFJustIncreased] = React.useState(false);
   const [gJustIncreased, setGJustIncreased] = React.useState(false);
 
-  const { isAuthenticated, token } = React.useContext(UserContext);
+  const { isAuthenticated, isAuthModalOpen, token } =
+    React.useContext(UserContext);
 
   React.useEffect(() => {
     async function fetchMatrix(
@@ -192,6 +193,9 @@ function DataProvider({ children }) {
   }
 
   function tabFocus(event, bothShiftAndTabWerePressed) {
+    if (isAuthModalOpen) {
+      return;
+    }
     const increment = bothShiftAndTabWerePressed ? -1 : 1;
     setTabWasPressed(true);
     setTargetBoxIndex((oldValue) => {
@@ -213,9 +217,12 @@ function DataProvider({ children }) {
   }
 
   // const handleTab = React.useCallback(tabFocus, []);
-  useKeydown('Tab', (event, bothShiftAndTabWerePressed) =>
-    tabFocus(event, bothShiftAndTabWerePressed)
-  );
+  useKeydown('Tab', !isAuthModalOpen, (event, bothShiftAndTabWerePressed) => {
+    console.log(isAuthModalOpen);
+    if (!isAuthModalOpen) {
+      tabFocus(event, bothShiftAndTabWerePressed);
+    }
+  });
 
   return (
     <DataContext.Provider

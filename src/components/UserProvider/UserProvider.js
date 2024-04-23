@@ -20,6 +20,7 @@ function UserProvider({ children }) {
   const [authUpdated, setAuthUpdated] = React.useState(0);
   const [user, setUser] = React.useState('');
   const [token, setToken] = React.useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   React.useEffect(() => {
     const getUserData = async () => {
       try {
@@ -103,6 +104,8 @@ function UserProvider({ children }) {
         handleLogin,
         handleSignUp,
         handleConfirmSignUp,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
         token,
       }}
     >

@@ -6,11 +6,13 @@
 
 import React from 'react';
 
-function useKeydown(key, callback) {
+function useKeydown(key, preventCondition, callback) {
   React.useEffect(() => {
     function handleKeyDown(event) {
       if (event.code === key) {
-        event.preventDefault();
+        if (preventCondition) {
+          event.preventDefault();
+        }
         if (event.shiftKey) {
           callback(event, true);
         } else {

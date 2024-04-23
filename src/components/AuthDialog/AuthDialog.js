@@ -10,7 +10,7 @@ const AuthDialog = () => {
   const [email, setEmail] = React.useState('');
   const [firstname, setFirstname] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const { handleLogin, handleSignUp, handleConfirmSignUp } =
+  const { handleLogin, handleSignUp, handleConfirmSignUp, setIsAuthModalOpen } =
     React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [code, setCode] = React.useState('');
@@ -19,6 +19,7 @@ const AuthDialog = () => {
   function handleLoginAttempt() {
     handleLogin(email, password);
     setDialogOpen(false);
+    setIsAuthModalOpen(false);
   }
 
   function handleSignUpAttempt() {
@@ -33,6 +34,7 @@ const AuthDialog = () => {
       handleLogin(email, password);
     }, 1000);
     setDialogOpen(false);
+    setIsAuthModalOpen(false);
   }
 
   const signUpForm = (
@@ -122,7 +124,15 @@ const AuthDialog = () => {
   const signUpTabContent = awaitingConfirmation ? confirmForm : signUpForm;
 
   return (
-    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+    <Dialog.Root
+      open={dialogOpen}
+      onOpenChange={() => {
+        setDialogOpen((oldValue) => {
+          setIsAuthModalOpen(!oldValue);
+          return !oldValue;
+        });
+      }}
+    >
       <Dialog.Trigger asChild>
         <button className='Button violet'>Login</button>
       </Dialog.Trigger>
