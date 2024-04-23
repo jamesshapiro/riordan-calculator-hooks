@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
+import Backdrop from '../Backdrop';
 import DeepBackdrop from '../DeepBackdrop';
 import NavBar from '../NavBar';
 import WindowControls from '../WindowControls';
@@ -76,20 +77,6 @@ const LeftDiv = styled.div`
 
 const CenterDiv = styled.div`
   align-self: flex-start;
-`;
-
-const Backdrop = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  background-image: linear-gradient(
-    var(--background-gradient-top),
-    var(--background-gradient-bottom)
-  );
-  z-index: -1000;
 `;
 
 const FlexColumnWrapper = styled.div`

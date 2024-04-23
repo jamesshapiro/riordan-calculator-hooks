@@ -61,16 +61,16 @@ const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: ${(p) => (p.enabled ? 'pointer' : 'default')};
-  background-color: var(--action-box-background-color);
+  background-color: var(--number-box-background-color);
   &:hover {
     background-color: ${(p) =>
       p.enabled
-        ? 'var(--action-box-hover-background-color)'
-        : 'var(--action-box-background-color)'};
+        ? 'var(--number-box-hover-background-color)'
+        : 'var(--number-box-background-color)'};
     color: ${(p) =>
       p.enabled
-        ? 'var(--action-box-hover-font-color)'
-        : 'var(--action-box-font-color)'};
+        ? 'var(--number-box-hover-font-color)'
+        : 'var(--number-box-font-color)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;
@@ -78,7 +78,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 2px dashed var(--action-box-border-color);
+  border: 2px dashed var(--number-box-border-color);
   z-index: 0;
   /* padding: 10%; */
 `;
@@ -88,9 +88,9 @@ const InnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-family: 'Lato', sans-serif;
-  color: var(--action-box-font-color);
+  color: var(--number-box-font-color);
   &:hover {
-    color: var(--action-box-hover-font-color);
+    color: var(--number-box-hover-font-color);
   }
   width: fit-content;
   height: 100%;

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
 
-function DeepBackdrop() {
+function Backdrop() {
   const { matrix } = React.useContext(DataContext);
   const [height, setHeight] = React.useState('100vh');
   const [width, setWidth] = React.useState('100%');
@@ -27,7 +27,7 @@ function DeepBackdrop() {
   return <StyledBackdrop height={height} width={width} />;
 }
 
-export default DeepBackdrop;
+export default Backdrop;
 
 const StyledBackdrop = styled.div`
   position: absolute;
@@ -35,6 +35,9 @@ const StyledBackdrop = styled.div`
   left: 0;
   min-height: ${(p) => p.height};
   width: ${(p) => p.width};
-  background-color: var(--background-gradient-bottom);
-  z-index: -2000;
+  background-image: linear-gradient(
+    var(--background-gradient-top),
+    var(--background-gradient-bottom)
+  );
+  z-index: -1000;
 `;
