@@ -59,6 +59,10 @@ function Sequence({ sequenceId }) {
             key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
             initial={firstInitial}
             animate={firstAnimate}
+            style={{
+              zIndex: 10 + distanceToSequenceEnd - index,
+              position: 'relative',
+            }}
             // exit={{ opacity: 0, x: '300%' }}
             transition={{
               type: 'spring',
@@ -113,8 +117,12 @@ function Sequence({ sequenceId }) {
 
     // const initOpacity = { opacity: Math.max(1 - (index - 1) * 0.25, 0.05) };
     // const endOpacity = { opacity: Math.max(1 - index * 0.25, 0.05) };
-    const initOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
-    const endOpacity = { opacity: Math.max(1.5 / (index + 1), 0.15) };
+    const initOpacity = {
+      opacity: Math.max(1.5 / (index + 1), 0.15),
+    };
+    const endOpacity = {
+      opacity: Math.max(1.5 / (index + 1), 0.15),
+    };
 
     const opacityTiming = {
       opacity: {

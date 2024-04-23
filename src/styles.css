@@ -30,12 +30,15 @@ body {
   --mode-button-selected: hsl(240, 85%, 35%);
   --min-cell-width: 20px;
   --min-button-width: 20px;
-  --background-gradient-top: hsl(0, 88%, 91%);
-  --background-gradient-bottom: hsl(2402, 83%, 91%);
+
+  --background-gradient-top: hsl(286, 87%, 91%);
+  --background-gradient-bottom: hsl(240, 83%, 91%);
+
   --select-td-background: hsl(240, 75%, 89%);
   --submit-button-background: hsl(240, 100%, 71%);
   --submit-button-border: hsl(240, 42%, 40%);
   --box-shadow-distance: 2px;
+
   --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
   --box-gradient-reverse: linear-gradient(
     hsl(240, 75%, 89%),
