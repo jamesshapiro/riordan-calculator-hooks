@@ -44,6 +44,14 @@ body {
     hsl(240, 75%, 89%),
     hsl(240, 50%, 93%)
   );
+
+  --matrix-cell-row-sums-background-color: hsl(122, 69%, 82%);
+  --row-sums-box-gradient: #f00;
+  --rows-sums-font-color: #000;
+
+  --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
+  --alternating-row-sums-box-gradient: #f00;
+  --alternating-rows-sums-font-color: #000;
   /* --background-gradient-bottom: #f00; */
 }
 

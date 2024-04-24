@@ -37,7 +37,30 @@ function Matrix() {
   }
   const parsedMatrix = JSON.parse(matrix);
   const riordanGroupElem = parsedMatrix['riordan group elem'];
+  console.log(parsedMatrix);
 
+  const rowSums = riordanGroupElem.map((row) => {
+    return row.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  });
+
+  const alternatingRowSums = riordanGroupElem.map((row) => {
+    const newVector = new Array(row.length).fill(1);
+    for (let idx in newVector) {
+      if (idx % 2 === 1) {
+        newVector[idx] = -1;
+      }
+    }
+    const unreducedProduct = row.map((elem, idx) => {
+      return elem * newVector[idx];
+    });
+    return unreducedProduct.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  });
+  const rowSumsOEISQuery = rowSums.join('%2C');
+  const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
   return (
     <>
       <MatrixTable>
@@ -72,6 +95,48 @@ function Matrix() {
                 </MatrixCell>
               );
             })}
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              row={0}
+              col={riordanGroupElem[0].length}
+            >
+              <TooltipWrapper
+                message='OEIS Row Sums Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${rowSumsOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              row={0}
+              col={riordanGroupElem[0].length + 1}
+            >
+              <TooltipWrapper
+                message='OEIS Alternating Row Sums Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${alternatingRowSumsOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
           </tr>
           {riordanGroupElem.map((row, rowIndex) => {
             const searchEntries = riordanGroupElem[rowIndex].slice(
@@ -109,6 +174,10 @@ function Matrix() {
                     </MatrixCell>
                   );
                 })}
+                <RowSumsMatrixCell>{rowSums[rowIndex]}</RowSumsMatrixCell>
+                <AlternatingRowSumsMatrixCell>
+                  {alternatingRowSums[rowIndex]}
+                </AlternatingRowSumsMatrixCell>
               </tr>
             );
           })}
@@ -149,4 +218,16 @@ const MatrixCell = styled.td`
         : 'revert'};
   color: ${(p) =>
     p.row > 0 && p.col > p.row ? 'var(--number-box-font-color)' : 'white'};
+`;
+
+const RowSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-row-sums-background-color);
+  background-image: var(--row-sums-box-gradient);
+  color: var(--rows-sums-font-color);
+`;
+
+const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-alternating-row-sums-background-color);
+  background-image: var(--alternating-row-sums-box-gradient);
+  color: var(--alternating-rows-sums-font-color);
 `;
