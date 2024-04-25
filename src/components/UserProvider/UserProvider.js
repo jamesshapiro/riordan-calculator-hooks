@@ -63,7 +63,7 @@ function UserProvider({ children }) {
     }
   };
 
-  const handleSignUp = async (email, password, firstname) => {
+  const handleSignUp = async (email, password, firstname, lastname) => {
     try {
       const input = {
         username: email,
@@ -72,6 +72,7 @@ function UserProvider({ children }) {
           userAttributes: {
             email,
             given_name: firstname,
+            family_name: lastname,
           },
         },
       };

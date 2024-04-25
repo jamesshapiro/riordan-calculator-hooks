@@ -9,6 +9,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 const AuthDialog = () => {
   const [email, setEmail] = React.useState('');
   const [firstname, setFirstname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
   const [password, setPassword] = React.useState('');
   const { handleLogin, handleSignUp, handleConfirmSignUp, setIsAuthModalOpen } =
     React.useContext(UserContext);
@@ -23,7 +24,7 @@ const AuthDialog = () => {
   }
 
   function handleSignUpAttempt() {
-    handleSignUp(email, password, firstname);
+    handleSignUp(email, password, firstname, lastname);
     setAwaitingConfirmation(true);
   }
 
@@ -62,6 +63,18 @@ const AuthDialog = () => {
           onChange={(e) => setFirstname(e.target.value)}
           className='Input'
           id='firstname'
+          type='text'
+        />
+      </fieldset>
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='lastname'>
+          Last Name
+        </label>
+        <input
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+          className='Input'
+          id='lastname'
           type='text'
         />
       </fieldset>
