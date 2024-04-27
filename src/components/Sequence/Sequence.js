@@ -25,7 +25,7 @@ function Sequence({ sequenceId }) {
   function handleNumberChange(index, newValue) {
     const newSequence = [...sequence];
     const targetIndex = index % sequenceLength;
-    newSequence[targetIndex] = newValue;
+    newSequence[targetIndex] = parseInt(newValue);
     handleSequenceChange(sequenceId, newSequence);
   }
 
