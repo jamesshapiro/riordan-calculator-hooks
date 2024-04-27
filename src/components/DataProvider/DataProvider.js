@@ -187,9 +187,13 @@ function DataProvider({ children }) {
 
   function handleAugmentSequence() {
     setSequenceLength((oldValue) => oldValue + 1);
+    setGJustIncreased(false);
+    setFJustIncreased(false);
   }
   function handleTruncateSequence() {
     setSequenceLength((oldValue) => oldValue - 1);
+    setGJustIncreased(false);
+    setFJustIncreased(false);
   }
 
   function tabFocus(event, bothShiftAndTabWerePressed) {

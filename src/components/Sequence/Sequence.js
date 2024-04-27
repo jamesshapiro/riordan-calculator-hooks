@@ -32,6 +32,7 @@ function Sequence({ sequenceId }) {
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;
+  console.log(`didJustIncrease: ${didJustIncrease}`)
   const elements = sequence
     .slice(0, Math.min(sequenceLength, fSequence.length, gSequence.length))
     .map((num, index) => {
@@ -51,6 +52,10 @@ function Sequence({ sequenceId }) {
       //       }
       //     : null;
       const damping = isFirst ? 50 : Math.max(100 - 10 * index, 30);
+      const seqZIndex = sequenceId === 'f' ? {
+        zIndex: 10 + distanceToSequenceEnd - index,
+        position: 'relative',
+      } : {};
 
       return (
         <td key={`${index + delta}-${num}`}>
@@ -59,10 +64,7 @@ function Sequence({ sequenceId }) {
             key={`${sequenceId}-${distanceToSequenceEnd}-to-last`}
             initial={firstInitial}
             animate={firstAnimate}
-            style={{
-              zIndex: 10 + distanceToSequenceEnd - index,
-              position: 'relative',
-            }}
+            style={seqZIndex}
             // exit={{ opacity: 0, x: '300%' }}
             transition={{
               type: 'spring',

@@ -10,7 +10,7 @@ import whooshSound from '../../sounds/whoosh.mp3';
 
 import TooltipWrapper from '../TooltipWrapper';
 
-function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
+function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
   const { volume } = React.useContext(SoundContext);
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
@@ -146,6 +146,7 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst }) {
         sideOffset={5}
         arrowshiftX='0'
         arrowshiftY='0'
+        zidx={zIndex}
       >
         <CloseBubble onClick={handleCloseOption}>
           <svg
@@ -194,7 +195,7 @@ const CloseBubble = styled.div`
   cursor: pointer;
   top: -20px;
   left: 37px;
-  z-index: 10;
+  z-index: ${(p) => p.zidx};
 
   display: flex;
   justify-content: center;
