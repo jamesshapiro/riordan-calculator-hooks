@@ -102,7 +102,6 @@ function DataProvider({ children }) {
         body: JSON.stringify(payload),
         timeout: 100000,
       });
-      console.log(`URL=${URL}`);
       const response = await fetch(request);
       const json = await response.json();
       setMatrix((oldData) => json);
@@ -222,7 +221,6 @@ function DataProvider({ children }) {
 
   // const handleTab = React.useCallback(tabFocus, []);
   useKeydown('Tab', !isAuthModalOpen, (event, bothShiftAndTabWerePressed) => {
-    console.log(isAuthModalOpen);
     if (!isAuthModalOpen) {
       tabFocus(event, bothShiftAndTabWerePressed);
     }

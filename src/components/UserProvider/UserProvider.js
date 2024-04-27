@@ -32,7 +32,7 @@ function UserProvider({ children }) {
         const idToken = tokens.idToken.toString();
         setToken(idToken);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setIsAuthenticated(false);
       }
     };
@@ -46,7 +46,7 @@ function UserProvider({ children }) {
       setUser('');
       setAuthUpdated((oldValue) => oldValue + 1);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -59,7 +59,7 @@ function UserProvider({ children }) {
       const response = await signIn(input);
       setAuthUpdated((oldValue) => oldValue + 1);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -78,7 +78,7 @@ function UserProvider({ children }) {
       };
       const signUpResponse = await signUp(input);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -88,10 +88,9 @@ function UserProvider({ children }) {
         username: email,
         confirmationCode: code,
       });
-      console.log(`${isSignUpComplete} ${nextStep}`);
       setAuthUpdated((oldValue) => oldValue + 1);
     } catch (error) {
-      console.log('error confirming sign up', error);
+      // console.log('error confirming sign up', error);
     }
   };
 

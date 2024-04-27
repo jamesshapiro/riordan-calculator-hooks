@@ -32,7 +32,6 @@ function Sequence({ sequenceId }) {
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;
-  console.log(`didJustIncrease: ${didJustIncrease}`)
   const elements = sequence
     .slice(0, Math.min(sequenceLength, fSequence.length, gSequence.length))
     .map((num, index) => {

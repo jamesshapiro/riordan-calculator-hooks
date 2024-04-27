@@ -37,7 +37,6 @@ function Matrix() {
   }
   const parsedMatrix = JSON.parse(matrix);
   const riordanGroupElem = parsedMatrix['riordan group elem'];
-  console.log(parsedMatrix);
 
   const rowSums = riordanGroupElem.map((row) => {
     return row.reduce(function (a, b) {
