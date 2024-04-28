@@ -15,19 +15,24 @@ Amplify.configure(awsExports);
 
 export const UserContext = React.createContext();
 
+const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+
 function UserProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [authUpdated, setAuthUpdated] = React.useState(0);
   const [user, setUser] = React.useState('');
   const [token, setToken] = React.useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
+  const [userQueries, setUserQueries] = React.useState([]);
+  const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
+
   React.useEffect(() => {
     const getUserData = async () => {
       try {
         const { username, userId, signInDetails } = await getCurrentUser();
         const userAttributes = await fetchUserAttributes();
         setIsAuthenticated(true);
-        setUser(userAttributes.given_name);
+        setUser(username);
         const { tokens } = await fetchAuthSession({ forceRefresh: true });
         const idToken = tokens.idToken.toString();
         setToken(idToken);
@@ -38,6 +43,28 @@ function UserProvider({ children }) {
     };
     getUserData();
   }, [authUpdated]);
+
+  React.useEffect(() => {
+    const getUserHistory = async () => {
+      if (!isAuthenticated) return;
+      if (!token) return;
+      const URL = AUTH_ENDPOINT + 'queries';
+      const HEADERS = {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      };
+      const request = new Request(URL, {
+        method: 'GET',
+        headers: HEADERS,
+        timeout: 100000,
+      });
+      const response = await fetch(request);
+      const json = await response.json();
+      const items = json.Items;
+      setUserQueries(items);
+    };
+    getUserHistory();
+  }, [isAuthenticated, user, token]);
 
   const handleLogout = async () => {
     try {
@@ -107,6 +134,7 @@ function UserProvider({ children }) {
         isAuthModalOpen,
         setIsAuthModalOpen,
         token,
+        userQueries,
       }}
     >
       {children}

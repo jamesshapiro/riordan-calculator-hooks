@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Note: replace "Data" with the name of the thing being provided.
-// For usage, see the "DataContextUser" component.
-
 import useKeydown from '../../hooks/use-keydown.hook';
 import { sequences } from '../../data';
 
@@ -32,6 +29,7 @@ function DataProvider({ children }) {
   const [tabWasPressed, setTabWasPressed] = React.useState(false);
   const [fJustIncreased, setFJustIncreased] = React.useState(false);
   const [gJustIncreased, setGJustIncreased] = React.useState(false);
+  const [matrixId, setMatrixId] = React.useState('');
 
   const { isAuthenticated, isAuthModalOpen, token } =
     React.useContext(UserContext);
@@ -85,7 +83,9 @@ function DataProvider({ children }) {
         f: fSequenceSubmit.slice(0, sequenceLength),
       };
 
-      const URL = isAuthenticated ? AUTH_ENDPOINT : ENDPOINT;
+      const URL = isAuthenticated
+        ? AUTH_ENDPOINT + 'queries'
+        : ENDPOINT + 'queries';
       const HEADERS = isAuthenticated
         ? {
             'Content-Type': 'application/json',
@@ -113,6 +113,46 @@ function DataProvider({ children }) {
       setMatrixWasFetched(true);
     }
   }, [computeWasRequested, matrixWasFetched]);
+
+  React.useEffect(() => {
+    async function fetchPrecomputedMatrix(matrixIdentifier) {
+      console.log(`isAuthenticated: ${isAuthenticated}`);
+
+      const URL = isAuthenticated
+        ? AUTH_ENDPOINT + `query?id=${matrixIdentifier}`
+        : ENDPOINT + 'query';
+      const HEADERS = isAuthenticated
+        ? {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          }
+        : {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
+          };
+      console.log(URL);
+      const request = new Request(URL, {
+        method: 'GET',
+        headers: HEADERS,
+        timeout: 100000,
+      });
+      const response = await fetch(request);
+      const json = await response.json();
+      // setMatrix((oldData) => json);
+      console.log(json);
+      return json;
+    }
+    console.log(`matrixId: ${matrixId}, token: ${token}`);
+    if (matrixId && token) {
+      fetchPrecomputedMatrix(matrixId);
+    }
+  }, [matrixId, token]);
+
+  // get ? search params from the URL and print them
+  const searchParam = window.location.search;
+  if (matrixId === '' && searchParam.length > 1) {
+    setMatrixId(searchParam.slice(1));
+  }
 
   function handleCompute() {
     setComputeWasRequested(true);

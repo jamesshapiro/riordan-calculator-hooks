@@ -6,6 +6,7 @@ import UserProvider from '../UserProvider';
 
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
+import UserHistory from '../UserHistory/UserHistory';
 
 import { LayoutGroup, motion } from 'framer-motion';
 
@@ -56,8 +57,11 @@ function App() {
               <CenterDiv>
                 <Matrix />
               </CenterDiv>
+              
             </FlexRowWrapper>
+            <UserHistory />
           </FlexColumnWrapper>
+          
         </SoundProvider>
       </DataProvider>
     </UserProvider>
