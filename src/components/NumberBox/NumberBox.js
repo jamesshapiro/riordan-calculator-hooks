@@ -95,7 +95,10 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
   }
 
   function handleKeyPress(value) {
-    const cleaned = value.replace(/[^0-9]/g, '');
+    let cleaned = value.replace(/[^0-9]/g, '');
+    if (value.startsWith('0') && value.length > 1) {
+      cleaned = value.slice(1);
+    }
     setDigits(cleaned);
   }
 
