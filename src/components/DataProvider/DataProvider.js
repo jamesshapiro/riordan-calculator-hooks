@@ -125,7 +125,7 @@ function DataProvider({ children }) {
 
       const URL = isAuthenticated
         ? AUTH_ENDPOINT + `query?id=${matrixIdentifier}`
-        : ENDPOINT + 'query';
+        : ENDPOINT + `query?id=${matrixIdentifier}`;
       const HEADERS = isAuthenticated
         ? {
             'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ function DataProvider({ children }) {
       return json;
     }
     console.log(`matrixId: ${matrixId}, token: ${token}`);
-    if (matrixId && token) {
+    if (matrixId) {
       fetchPrecomputedMatrix(matrixId);
     }
   }, [matrixId, token]);
