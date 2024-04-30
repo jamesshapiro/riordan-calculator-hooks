@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
 
 function UserHistory() {
-  const { userQueries } =
+  const { userQueries, isAuthorized } =
     React.useContext(UserContext);
-  if (!userQueries) {
+  if (!userQueries || !isAuthorized) {
     return <></>
   }
   return (
