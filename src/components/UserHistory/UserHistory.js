@@ -6,7 +6,7 @@ import { UserContext } from '../UserProvider';
 function UserHistory() {
   const { userQueries, isAuthorized } =
     React.useContext(UserContext);
-  if (!userQueries || !isAuthorized) {
+  if (userQueries.length < 1) {
     return <></>
   }
   return (
