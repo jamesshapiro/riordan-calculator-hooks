@@ -121,8 +121,6 @@ function DataProvider({ children }) {
 
   React.useEffect(() => {
     async function fetchPrecomputedMatrix(matrixIdentifier) {
-      console.log(`isAuthenticated: ${isAuthenticated}`);
-
       const URL = isAuthenticated
         ? AUTH_ENDPOINT + `query?id=${matrixIdentifier}`
         : ENDPOINT + `query?id=${matrixIdentifier}`;
@@ -135,7 +133,6 @@ function DataProvider({ children }) {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,
           };
-      console.log(URL);
       const request = new Request(URL, {
         method: 'GET',
         headers: HEADERS,
@@ -144,18 +141,59 @@ function DataProvider({ children }) {
       const response = await fetch(request);
       const json = await response.json();
       // setMatrix((oldData) => json);
-      console.log(json);
-      setSequenceLength(parseInt(json['SEQUENCE_LENGTH']['S']));
-      setGSequence(JSON.parse(json['G_SEQUENCE']['S']));
-      setFSequence(JSON.parse(json['F_SEQUENCE']['S']));
+      const retrievedGSequenceId = json['G_SEQUENCE_ID']['S'];
+      const retrievedFSequenceId = json['F_SEQUENCE_ID']['S'];
+      const retrievedSequenceLength = parseInt(json['SEQUENCE_LENGTH']['S']);
+      let retrievedGSequence = JSON.parse(json['G_SEQUENCE']['S']);
+      let retrievedFSequence = JSON.parse(json['F_SEQUENCE']['S']);
+
+      setSequenceLength(retrievedSequenceLength);
+      setCurrentGSelection(retrievedGSequenceId);
+      setCurrentFSelection(retrievedFSequenceId);
+
+      if (retrievedGSequenceId !== 'custom') {
+        const result = sequences.filter(
+          (item) => item.id === retrievedGSequenceId
+        )[0].sequence;
+        console.log(result);
+        retrievedGSequence = result;
+      }
+      if (retrievedFSequenceId !== 'custom') {
+        retrievedFSequence = [
+          0,
+          ...sequences.filter((item) => item.id === retrievedFSequenceId)[0]
+            .sequence,
+        ];
+      }
+
+      let maxSequenceLength = Math.max(
+        retrievedGSequence.length,
+        retrievedFSequence.length
+      );
+      if (maxSequenceLength === retrievedSequenceLength) {
+        maxSequenceLength += 7;
+      }
+      if (retrievedGSequence.length < maxSequenceLength) {
+        const zeroesToAdd = Array(
+          maxSequenceLength - retrievedGSequence.length
+        ).fill(0);
+        retrievedGSequence = [...retrievedGSequence, ...zeroesToAdd];
+      }
+      if (retrievedFSequence.length < maxSequenceLength) {
+        const zeroesToAdd = Array(
+          maxSequenceLength - retrievedFSequence.length
+        ).fill(0);
+        retrievedFSequence = [...retrievedFSequence, ...zeroesToAdd];
+      }
+
+      setGSequence(retrievedGSequence);
+      setFSequence(retrievedFSequence);
       setMode(json['MODE']['S']);
       setMetaMode(json['METAMODE']['S']);
       setMatrix(json['MATRIX_DATA']['S']);
-      setCurrentGSelection(json['G_SEQUENCE_ID']['S']);
-      setCurrentFSelection(json['F_SEQUENCE_ID']['S']);
+
       return json;
     }
-    console.log(`matrixId: ${matrixId}, token: ${token}`);
     if (matrixId) {
       fetchPrecomputedMatrix(matrixId);
     }
