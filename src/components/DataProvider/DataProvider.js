@@ -81,6 +81,10 @@ function DataProvider({ children }) {
       const payload = {
         g: gSequenceSubmit.slice(0, sequenceLength),
         f: fSequenceSubmit.slice(0, sequenceLength),
+        gSequenceId: currentGSelection,
+        fSequenceId: currentFSelection,
+        mode,
+        metaMode,
       };
 
       const URL = isAuthenticated
