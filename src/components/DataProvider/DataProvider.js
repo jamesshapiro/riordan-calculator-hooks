@@ -83,6 +83,7 @@ function DataProvider({ children }) {
         f: fSequenceSubmit.slice(0, sequenceLength),
         gSequenceId: currentGSelection,
         fSequenceId: currentFSelection,
+        sequenceLength: sequenceLength,
         mode,
         metaMode,
       };
@@ -144,6 +145,14 @@ function DataProvider({ children }) {
       const json = await response.json();
       // setMatrix((oldData) => json);
       console.log(json);
+      setSequenceLength(parseInt(json['SEQUENCE_LENGTH']['S']));
+      setGSequence(JSON.parse(json['G_SEQUENCE']['S']));
+      setFSequence(JSON.parse(json['F_SEQUENCE']['S']));
+      setMode(json['MODE']['S']);
+      setMetaMode(json['METAMODE']['S']);
+      setMatrix(json['MATRIX_DATA']['S']);
+      setCurrentGSelection(json['G_SEQUENCE_ID']['S']);
+      setCurrentFSelection(json['F_SEQUENCE_ID']['S']);
       return json;
     }
     console.log(`matrixId: ${matrixId}, token: ${token}`);
