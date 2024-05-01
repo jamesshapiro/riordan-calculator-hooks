@@ -1,5 +1,6 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
+import { UserContext } from '../UserProvider';
 import { range } from '../../utils';
 
 import styled from 'styled-components';
@@ -31,7 +32,9 @@ const SearchSVG = (
 );
 
 function Matrix() {
-  const { matrix } = React.useContext(DataContext);
+  const { matrix, matrixCreator } = React.useContext(DataContext);
+  console.log(matrix);
+  const { isAuthenticated, user, token } = React.useContext(UserContext);
   if (!matrix) {
     return <></>;
   }
@@ -60,6 +63,15 @@ function Matrix() {
   });
   const rowSumsOEISQuery = rowSums.join('%2C');
   const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
+  const shareButton =
+    user === matrixCreator ? (
+      <StyledShareButton>Share</StyledShareButton>
+    ) : (
+      <></>
+    );
+  console.log(`user: ${user}`);
+  console.log(`matrixCreator: ${matrixCreator}`);
+
   return (
     <>
       <MatrixTable>
@@ -182,6 +194,7 @@ function Matrix() {
           })}
         </tbody>
       </MatrixTable>
+      {shareButton}
     </>
   );
 }
@@ -229,4 +242,28 @@ const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-alternating-row-sums-background-color);
   background-image: var(--alternating-row-sums-box-gradient);
   color: var(--alternating-rows-sums-font-color);
+`;
+
+const StyledShareButton = styled.button`
+  z-index: 10000;
+  margin-top: 55px;
+  margin-left: 10px;
+  width: 65px;
+  text-align: center;
+  /* width: fit-content; */
+  height: 19px;
+  border: 1px solid var(--submit-button-border);
+  padding: 10px;
+  border-radius: var(--number-box-border-radius);
+  color: white;
+  background-color: var(--submit-button-background);
+  &:hover {
+    background-image: revert;
+    background-color: var(--hover-button-color);
+    color: white;
+  }
+  &:active {
+    background-color: var(--active-button-color);
+    color: white;
+  }
 `;

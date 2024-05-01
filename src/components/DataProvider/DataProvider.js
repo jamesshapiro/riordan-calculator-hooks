@@ -29,6 +29,9 @@ function DataProvider({ children }) {
   const [tabWasPressed, setTabWasPressed] = React.useState(false);
   const [fJustIncreased, setFJustIncreased] = React.useState(false);
   const [gJustIncreased, setGJustIncreased] = React.useState(false);
+  const [matrixCreator, setMatrixCreator] = React.useState('');
+  const [title, setTitle] = React.useState('');
+  const [comment, setComment] = React.useState('');
   const [matrixId, setMatrixId] = React.useState('');
 
   const { isAuthenticated, isAuthModalOpen, token } =
@@ -150,12 +153,18 @@ function DataProvider({ children }) {
       setSequenceLength(retrievedSequenceLength);
       setCurrentGSelection(retrievedGSequenceId);
       setCurrentFSelection(retrievedFSequenceId);
+      setMatrixCreator(json['CREATED_BY']['S']);
+      if (json['TITLE']) {
+        setTitle(json['TITLE']['S']);
+      }
+      if (json['COMMENT']) {
+        setComment(json['COMMENT']['S']);
+      }
 
       if (retrievedGSequenceId !== 'custom') {
         const result = sequences.filter(
           (item) => item.id === retrievedGSequenceId
         )[0].sequence;
-        console.log(result);
         retrievedGSequence = result;
       }
       if (retrievedFSequenceId !== 'custom') {
@@ -348,6 +357,9 @@ function DataProvider({ children }) {
         setFJustIncreased,
         gJustIncreased,
         setGJustIncreased,
+        matrixCreator,
+        title,
+        comment,
       }}
     >
       {children}

@@ -4,18 +4,35 @@ import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
 
 function formatDate(dateString) {
-  const date = new Date(dateString);
+  if (!dateString.endsWith('Z')) {
+    dateString += 'Z';
+  }
+  const date = new Date(Date.parse(dateString));
+  console.log(dateString);
+  let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  console.log(userTimeZone);
 
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+  if (isNaN(date)) {
+    // Handle invalid date string
+    return 'Invalid date string';
+  }
 
-  const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(
-    date
-  );
-  const formattedTime = new Intl.DateTimeFormat('en-US', timeOptions).format(
-    date
-  );
-  return dateString;
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: userTimeZone,
+  };
+  const timeOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+    timeZone: userTimeZone,
+  };
+
+  const formattedDate = date.toLocaleString('en-US', dateOptions);
+  const formattedTime = date.toLocaleString('en-US', timeOptions);
+
   return `${formattedDate}, ${formattedTime}`;
 }
 
@@ -36,7 +53,6 @@ function UserHistory() {
       </thead>
       <tbody>
         {userQueries.map((query, index) => {
-          console.log(query);
           return (
             <tr key={index}>
               <TDWrapper>
