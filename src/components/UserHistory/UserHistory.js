@@ -10,6 +10,7 @@ function formatDate(dateString) {
   const date = new Date(Date.parse(dateString));
   console.log(dateString);
   let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let userLocale = navigator.language || navigator.languages[0];
   console.log(userTimeZone);
 
   if (isNaN(date)) {
@@ -30,8 +31,8 @@ function formatDate(dateString) {
     timeZone: userTimeZone,
   };
 
-  const formattedDate = date.toLocaleString('en-US', dateOptions);
-  const formattedTime = date.toLocaleString('en-US', timeOptions);
+  const formattedDate = date.toLocaleString(userLocale, dateOptions);
+  const formattedTime = date.toLocaleString(userLocale, timeOptions);
 
   return `${formattedDate}, ${formattedTime}`;
 }
