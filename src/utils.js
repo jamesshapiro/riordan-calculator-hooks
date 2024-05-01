@@ -3,13 +3,10 @@ export const formatDate = (dateString) => {
     dateString += 'Z';
   }
   const date = new Date(Date.parse(dateString));
-  console.log(dateString);
   let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let userLocale = navigator.language || navigator.languages[0];
-  console.log(userTimeZone);
 
   if (isNaN(date)) {
-    // Handle invalid date string
     return 'Invalid date string';
   }
 

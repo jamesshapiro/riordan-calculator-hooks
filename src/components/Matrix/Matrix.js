@@ -11,6 +11,8 @@ const StyledSVG = styled.svg`
   &:visited {
     --link-color: : var(--number-box-font-color);
   }
+  display: block;
+  max-width: 100%;
 `;
 
 const SearchSVG = (
@@ -68,8 +70,6 @@ function Matrix() {
   const shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
   ) : null;
-  console.log(`user: ${user}`);
-  console.log(`matrixCreator: ${matrixCreator}`);
 
   return (
     <>

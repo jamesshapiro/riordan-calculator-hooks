@@ -18,6 +18,8 @@ body {
   --action-box-border-color: hsl(240 65% 65% / 50%);
   --bubble-hover-background-color: hsl(240, 100%, 50%);
 
+  --matrix-header-field: hsl(240, 60%, 95%);
+
   --number-box-hover-font-color: hsl(240, 100%, 50%);
   --number-box-font-color: hsl(240, 85%, 40%);
   --number-box-border-color: hsl(240, 85%, 65%);

@@ -361,6 +361,7 @@ function DataProvider({ children }) {
         setFJustIncreased,
         gJustIncreased,
         setGJustIncreased,
+        matrixId,
         matrixCreator,
         title,
         comment,
