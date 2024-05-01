@@ -33,6 +33,8 @@ function DataProvider({ children }) {
   const [title, setTitle] = React.useState('');
   const [comment, setComment] = React.useState('');
   const [matrixId, setMatrixId] = React.useState('');
+  const [createdAt, setCreatedAt] = React.useState('');
+  const [creatorName, setCreatorName] = React.useState('');
 
   const { isAuthenticated, isAuthModalOpen, token } =
     React.useContext(UserContext);
@@ -150,6 +152,8 @@ function DataProvider({ children }) {
       let retrievedGSequence = JSON.parse(json['G_SEQUENCE']['S']);
       let retrievedFSequence = JSON.parse(json['F_SEQUENCE']['S']);
 
+      setCreatedAt(json['CREATED_AT']['S']);
+      setCreatorName(json['CREATOR_NAME']['S']);
       setSequenceLength(retrievedSequenceLength);
       setCurrentGSelection(retrievedGSequenceId);
       setCurrentFSelection(retrievedFSequenceId);
@@ -360,6 +364,8 @@ function DataProvider({ children }) {
         matrixCreator,
         title,
         comment,
+        createdAt,
+        creatorName,
       }}
     >
       {children}

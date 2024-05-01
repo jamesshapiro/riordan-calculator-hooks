@@ -18,6 +18,7 @@ import Backdrop from '../Backdrop';
 import DeepBackdrop from '../DeepBackdrop';
 import NavBar from '../NavBar';
 import WindowControls from '../WindowControls';
+import MatrixHeader from '../MatrixHeader';
 import SoundProvider from '../SoundProvider';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
@@ -38,6 +39,7 @@ function App() {
             <LeftDiv>
               <ModeComboBox />
             </LeftDiv>
+            <MatrixHeader />
             <FlexRowWrapper>
               <SequenceControlPanel />
               <LayoutGroup>
@@ -57,11 +59,9 @@ function App() {
               <CenterDiv>
                 <Matrix />
               </CenterDiv>
-              
             </FlexRowWrapper>
             <UserHistory />
           </FlexColumnWrapper>
-          
         </SoundProvider>
       </DataProvider>
     </UserProvider>

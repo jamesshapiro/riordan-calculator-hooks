@@ -33,7 +33,6 @@ const SearchSVG = (
 
 function Matrix() {
   const { matrix, matrixCreator } = React.useContext(DataContext);
-  console.log(matrix);
   const { isAuthenticated, user, token } = React.useContext(UserContext);
   if (!matrix) {
     return <></>;
@@ -63,12 +62,12 @@ function Matrix() {
   });
   const rowSumsOEISQuery = rowSums.join('%2C');
   const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
-  const shareButton =
-    user === matrixCreator ? (
-      <StyledShareButton>Share</StyledShareButton>
-    ) : (
-      <></>
-    );
+  const userIsMatrixCreator = user === matrixCreator;
+  const titleEditor = userIsMatrixCreator ? <h1>'TITLE'</h1> : null;
+  const commentEditor = userIsMatrixCreator ? <p>'COMMENT'</p> : null;
+  const shareButton = userIsMatrixCreator ? (
+    <StyledShareButton>Share</StyledShareButton>
+  ) : null;
   console.log(`user: ${user}`);
   console.log(`matrixCreator: ${matrixCreator}`);
 
@@ -216,14 +215,14 @@ const MatrixCell = styled.td`
   height: 50px;
   text-align: center;
   background-color: ${(p) =>
-    p.col == 0 || p.row == 0
+    p.col === 0 || p.row === 0
       ? 'var(--select-td-background)'
       : p.row > 0 && p.col > p.row
         ? 'var(--matrix-cell-background-color)'
         : 'black'};
 
   background-image: ${(p) =>
-    p.col == 0 || p.row == 0
+    p.col === 0 || p.row === 0
       ? 'revert'
       : p.col > p.row
         ? 'var(--box-gradient)'
