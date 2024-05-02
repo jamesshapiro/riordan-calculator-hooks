@@ -18,6 +18,7 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
+    console.log(`1 enabled: ${enabled}`);
     if (actionType === 'prependZero') {
       handleAddZero(sequenceId);
     } else {
@@ -27,10 +28,12 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   }
 
   const onClickAction = enabled ? handleClick : null;
-  const tooltipText = actionType === 'prependZero' ? 'Prepend a Zero' : '';
+  if (actionType === 'prependZero') {
+    console.log(`enabled: ${enabled.toString()}`);
+  }
 
   let result = (
-    <Wrapper enabled={enabled} onClick={onClickAction}>
+    <Wrapper $enabled={enabled} onClick={onClickAction}>
       <InnerContainer>
         <InnerContainer>
           <InnerElement>{symbol}</InnerElement>
@@ -60,15 +63,15 @@ export default ActionBox;
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
-  cursor: ${(p) => (p.enabled ? 'pointer' : 'default')};
+  cursor: ${(p) => (p.$enabled ? 'pointer' : 'default')};
   background-color: var(--number-box-background-color);
   &:hover {
     background-color: ${(p) =>
-      p.enabled
+      p.$enabled
         ? 'var(--number-box-hover-background-color)'
         : 'var(--number-box-background-color)'};
     color: ${(p) =>
-      p.enabled
+      p.$enabled
         ? 'var(--number-box-hover-font-color)'
         : 'var(--number-box-font-color)'};
   }

@@ -9,7 +9,7 @@ function SequenceControl({ sequenceId }) {
   const { mode } = React.useContext(DataContext);
 
   return (
-    <Wrapper sequenceid={sequenceId} mode={mode}>
+    <Wrapper $sequenceid={sequenceId} mode={mode}>
       <td>{sequenceId}:</td>
       <SelectWrapper>
         <SequenceComboBox sequenceId={sequenceId} />
@@ -22,8 +22,8 @@ export default SequenceControl;
 
 const Wrapper = styled.tr`
   visibility: ${(p) =>
-    (p.sequenceid === 'f' && ['bell', 'appell', 'twobell'].includes(p.mode)) ||
-    (p.sequenceid === 'g' && ['derivative', 'associated'].includes(p.mode))
+    (p.$sequenceid === 'f' && ['bell', 'appell', 'twobell'].includes(p.mode)) ||
+    (p.$sequenceid === 'g' && ['derivative', 'associated'].includes(p.mode))
       ? 'hidden'
       : 'revert'};
 `;

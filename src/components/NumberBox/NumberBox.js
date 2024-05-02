@@ -117,9 +117,9 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
     >
       <StyledInput
         value={digits}
-        minfontsize={minfontsize}
+        $minfontsize={minfontsize}
         fontSize={maxfontsizeRem}
-        maxfontsize={maxfontsize}
+        $maxfontsize={maxfontsize}
         onChange={(event) => handleKeyPress(event.target.value)}
         onBlur={handleBlur}
         onFocus={handleFocus}
@@ -132,9 +132,9 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
     inputNumberBox
   ) : (
     <InnerElement
-      minfontsize={minfontsize}
+      $minfontsize={minfontsize}
       fontSize={maxfontsizeRem}
-      maxfontsize={maxfontsize}
+      $maxfontsize={maxfontsize}
       ref={buttonRef}
     >
       {digits}
@@ -242,9 +242,9 @@ const InnerContainer = styled.div`
 const InnerElement = styled.p`
   width: fit-content;
   font-size: clamp(
-    ${(p) => p.minfontsize},
+    ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
-    ${(p) => p.maxfontsize}
+    ${(p) => p.$maxfontsize}
   );
 `;
 
@@ -252,9 +252,9 @@ const StyledInput = styled.input`
   font-family: 'Lato', sans-serif;
   color: hsl(243, 85%, 40%);
   font-size: clamp(
-    ${(p) => p.minfontsize},
+    ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
-    ${(p) => p.maxfontsize}
+    ${(p) => p.$maxfontsize}
   );
   height: 100%;
   width: max(var(--number-box-width), var(--number-box-width));

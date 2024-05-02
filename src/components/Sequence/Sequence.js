@@ -19,6 +19,7 @@ function Sequence({ sequenceId }) {
     handleSequenceChange,
     fJustIncreased,
     gJustIncreased,
+    mode,
   } = React.useContext(DataContext);
   const sequence = sequenceId === 'g' ? gSequence : fSequence;
 
@@ -51,10 +52,13 @@ function Sequence({ sequenceId }) {
       //       }
       //     : null;
       const damping = isFirst ? 50 : Math.max(100 - 10 * index, 30);
-      const seqZIndex = sequenceId === 'f' ? {
-        zIndex: 10 + distanceToSequenceEnd - index,
-        position: 'relative',
-      } : {};
+      const seqZIndex =
+        sequenceId === 'f'
+          ? {
+              zIndex: 10 + distanceToSequenceEnd - index,
+              position: 'relative',
+            }
+          : {};
 
       return (
         <td key={`${index + delta}-${num}`}>
@@ -86,6 +90,9 @@ function Sequence({ sequenceId }) {
         </td>
       );
     });
+  const disablePrepend =
+    (['bell', 'appell', 'twobell'].includes(mode) && sequenceId === 'f') ||
+    (['derivative', 'associated'].includes(mode) && sequenceId === 'g');
   const prependZeroElement = (
     <td key={`prependzero-${delta}`} style={{ zIndex: 0 }}>
       <motion.div
@@ -103,7 +110,7 @@ function Sequence({ sequenceId }) {
           sequenceId={sequenceId}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
-          enabled={true}
+          enabled={!disablePrepend}
         />
       </motion.div>
     </td>

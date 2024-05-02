@@ -21,18 +21,17 @@ function MatrixHeader() {
   const [editWasCompleted, setEditWasCompleted] = React.useState(false);
 
   function handleRequest() {
-    console.log('handling');
     setEditWasRequested(true);
     setEditWasCompleted(false);
-    setTitleIsEditable(false)
-    setCommentIsEditable(false)
+    setTitleIsEditable(false);
+    setCommentIsEditable(false);
   }
 
   React.useEffect(() => {
-    setLocalTitle(title)
+    setLocalTitle(title);
   }, [title]);
   React.useEffect(() => {
-    setLocalComment(comment)
+    setLocalComment(comment);
   }, [comment]);
 
   React.useEffect(() => {
@@ -62,6 +61,10 @@ function MatrixHeader() {
       setEditWasCompleted(true);
     }
   }, [editWasRequested, editWasCompleted]);
+
+  if (!matrixId) {
+    return <></>;
+  }
 
   const userIsMatrixCreator = user === matrixCreator;
   let titleHeader = <></>;
@@ -101,7 +104,6 @@ function MatrixHeader() {
       <path d='M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z' />
     </StyledSVG>
   );
-  console.log(`localTitle: ${localTitle}`)
   if (userIsMatrixCreator) {
     titleHeader = (
       <form
@@ -242,6 +244,7 @@ const CommentBox = styled.div`
   border: solid 1px var(--number-box-border-color);
   border-radius: 2px;
   min-width: 500px;
+  max-width: 500px;
   margin-bottom: 10px;
 `;
 

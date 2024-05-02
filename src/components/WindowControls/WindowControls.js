@@ -51,7 +51,7 @@ function WindowControls({ sequenceId }) {
         >
           <Bubble
             onClick={() => handleClick(handleTruncateSequence)}
-            isleft={true}
+            $isleft='true'
           >
             <ChevronLeftIcon width='18' height='18' />
           </Bubble>
@@ -109,8 +109,8 @@ const Bubble = styled.div`
     color: white;
     border: 2px solid var(--bubble-hover-border-color);
   }
-  margin-left: ${(p) => (p.isleft ? 'auto' : '0')};
-  margin-right: ${(p) => (!p.isleft ? 'auto' : '0')};
+  margin-left: ${(p) => (p.$isleft ? 'auto' : '0')};
+  margin-right: ${(p) => (!p.$isleft ? 'auto' : '0')};
   border-radius: 15px;
   width: 30px;
   height: 30px;
