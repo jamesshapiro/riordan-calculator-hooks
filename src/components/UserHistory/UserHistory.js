@@ -15,6 +15,7 @@ function UserHistory() {
       <thead>
         <tr>
           <TDWrapper>Permalink</TDWrapper>
+          <TDWrapper>Title</TDWrapper>
           <TDWrapper>Date</TDWrapper>
           <TDWrapper>G</TDWrapper>
           <TDWrapper>F</TDWrapper>
@@ -22,11 +23,14 @@ function UserHistory() {
       </thead>
       <tbody>
         {userQueries.map((query, index) => {
+          console.log(query);
+          const matrixTitle = query.TITLE ? query.TITLE.S : '(none)';
           return (
             <tr key={index}>
               <TDWrapper>
                 <Permalink href={`/?${query.MATRIX_SHAREID.S}`}>Link</Permalink>
               </TDWrapper>
+              <TDWrapper>{matrixTitle}</TDWrapper>
               <TDWrapper>{formatDate(query.CREATED_AT.S)}</TDWrapper>
               <TDWrapper>{query.G_SEQUENCE.S}</TDWrapper>
               <TDWrapper>{query.F_SEQUENCE.S}</TDWrapper>

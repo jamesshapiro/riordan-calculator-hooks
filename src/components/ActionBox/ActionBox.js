@@ -18,7 +18,6 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
-    console.log(`1 enabled: ${enabled}`);
     if (actionType === 'prependZero') {
       handleAddZero(sequenceId);
     } else {
@@ -28,9 +27,6 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   }
 
   const onClickAction = enabled ? handleClick : null;
-  if (actionType === 'prependZero') {
-    console.log(`enabled: ${enabled.toString()}`);
-  }
 
   let result = (
     <Wrapper $enabled={enabled} onClick={onClickAction}>
