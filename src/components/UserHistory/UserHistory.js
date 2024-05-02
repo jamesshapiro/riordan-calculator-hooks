@@ -25,6 +25,12 @@ function UserHistory() {
         {userQueries.map((query, index) => {
           console.log(query);
           const matrixTitle = query.TITLE ? query.TITLE.S : '(none)';
+          const displayGTerms = JSON.stringify(
+            JSON.parse(query.G_SEQUENCE.S).slice(0, 7)
+          );
+          const displayFTerms = JSON.stringify(
+            JSON.parse(query.G_SEQUENCE.S).slice(0, 7)
+          );
           return (
             <tr key={index}>
               <TDWrapper>
@@ -32,8 +38,8 @@ function UserHistory() {
               </TDWrapper>
               <TDWrapper>{matrixTitle}</TDWrapper>
               <TDWrapper>{formatDate(query.CREATED_AT.S)}</TDWrapper>
-              <TDWrapper>{query.G_SEQUENCE.S}</TDWrapper>
-              <TDWrapper>{query.F_SEQUENCE.S}</TDWrapper>
+              <TDWrapper>{displayGTerms}</TDWrapper>
+              <TDWrapper>{displayFTerms}</TDWrapper>
             </tr>
           );
         })}
