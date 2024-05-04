@@ -5,7 +5,6 @@ import { UserContext } from '../UserProvider';
 
 function StatsDisplay() {
   const { stats } = React.useContext(UserContext);
-  console.log(stats);
   if (!stats) {
     return <Wrapper>Loading stats...</Wrapper>;
   }
@@ -23,7 +22,7 @@ export default StatsDisplay;
 
 const Wrapper = styled.div`
   z-index: 1000;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   background-image: linear-gradient(

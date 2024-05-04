@@ -23,7 +23,6 @@ function UserHistory() {
       </thead>
       <tbody>
         {userQueries.map((query, index) => {
-          console.log(query);
           const matrixTitle = query.TITLE ? query.TITLE.S : '(none)';
           const displayGTerms = JSON.stringify(
             JSON.parse(query.G_SEQUENCE.S).slice(0, 7)

@@ -39,6 +39,12 @@ function DataProvider({ children }) {
   const { isAuthenticated, isAuthModalOpen, token } =
     React.useContext(UserContext);
 
+  function getDerivativeSequence(fSequence) {
+    return fSequence.slice(1).map((elem, idx) => {
+      return elem * (idx + 1);
+    });
+  }
+
   React.useEffect(() => {
     async function fetchMatrix(
       sequenceLength,
@@ -53,11 +59,6 @@ function DataProvider({ children }) {
         fSequenceSubmit = [0].concat(gSequence.slice(0, sequenceLength)).join();
       } else if (mode === 'derivative' && metaMode === 'exponential') {
         const derivative = fSequence.slice(1);
-        gSequenceSubmit = derivative.join();
-      } else if (mode === 'derivative') {
-        const derivative = fSequence.slice(1).map((element, index) => {
-          return element * (index + 1);
-        });
         gSequenceSubmit = derivative.join();
       } else if (mode === 'appell') {
         const newFSequence = Array(gSequence.length).fill(0);
@@ -274,17 +275,23 @@ function DataProvider({ children }) {
     if (mode === 'appell') {
       setGSequence(newSequence);
     }
+    if (mode === 'derivative') {
+      setFSequence([...newSequence]);
+      setGSequence(getDerivativeSequence(newSequence));
+    }
   }
 
   function handleSelectMode(selectedMode) {
     setMode(selectedMode);
     if (selectedMode === 'bell') {
       setFSequence([0, ...gSequence]);
-    }
-    if (selectedMode === 'appell') {
+    } else if (selectedMode === 'appell') {
       const appellArray = new Array(gSequence.length).fill(0);
       appellArray[1] = 1;
       setFSequence(appellArray);
+    } else if (selectedMode === 'derivative') {
+      const derivativeSequence = getDerivativeSequence(fSequence);
+      setGSequence(derivativeSequence);
     }
   }
 
@@ -315,10 +322,19 @@ function DataProvider({ children }) {
         divisor = sequenceLength;
         delta = sequenceLength;
       }
+      console.log(`divisor=${divisor}`);
+      console.log(`delta=${delta}`);
       result = (oldValue + increment) % divisor;
+      console.log(`result=${result}`);
       if (result < 0) {
         result += divisor + delta;
+      } else if (result < divisor) {
+        result += delta;
       }
+      if (result === sequenceLength && result > 0) {
+        result += 1;
+      }
+      console.log(`result=${result}`);
       return result;
     });
   }
