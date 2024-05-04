@@ -4,8 +4,19 @@ import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
 
 function StatsDisplay() {
-  const { userQueries, isAuthorized } = React.useContext(UserContext);
-  return <Wrapper>Parappa</Wrapper>;
+  const { stats } = React.useContext(UserContext);
+  console.log(stats);
+  if (!stats) {
+    return <Wrapper>Loading stats...</Wrapper>;
+  }
+
+  const overallTotal = stats.overall;
+  let statsString = `${overallTotal} matrices computed!`;
+  if (stats.individual) {
+    statsString = `${overallTotal} matrices computed, ${stats.individual} by you!`;
+  }
+
+  return <Wrapper>{statsString}</Wrapper>;
 }
 
 export default StatsDisplay;
