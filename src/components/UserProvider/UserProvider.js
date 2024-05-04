@@ -15,7 +15,9 @@ Amplify.configure(awsExports);
 
 export const UserContext = React.createContext();
 
+const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 function UserProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
@@ -25,6 +27,7 @@ function UserProvider({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const [userQueries, setUserQueries] = React.useState([]);
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
+  const [stats, setStats] = React.useState(null);
 
   React.useEffect(() => {
     const getUserData = async () => {
@@ -64,6 +67,34 @@ function UserProvider({ children }) {
       setUserQueries(items);
     };
     getUserHistory();
+  }, [isAuthenticated, user, token]);
+
+  React.useEffect(() => {
+    const getStats = async () => {
+      if (isAuthenticated && !token) return;
+      const URL = isAuthenticated
+        ? AUTH_ENDPOINT + `stats`
+        : ENDPOINT + `stats`;
+      const HEADERS = isAuthenticated
+        ? {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          }
+        : {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
+          };
+
+      const request = new Request(URL, {
+        method: 'GET',
+        headers: HEADERS,
+        timeout: 100000,
+      });
+      const response = await fetch(request);
+      const json = await response.json();
+      setStats(json);
+    };
+    getStats();
   }, [isAuthenticated, user, token]);
 
   const handleLogout = async () => {
@@ -135,6 +166,7 @@ function UserProvider({ children }) {
         setIsAuthModalOpen,
         token,
         userQueries,
+        stats,
       }}
     >
       {children}

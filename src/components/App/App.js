@@ -20,6 +20,7 @@ import NavBar from '../NavBar';
 import WindowControls from '../WindowControls';
 import MatrixHeader from '../MatrixHeader';
 import SoundProvider from '../SoundProvider';
+import StatsDisplay from '../StatsDisplay';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
@@ -62,6 +63,7 @@ function App() {
             </FlexRowWrapper>
             <UserHistory />
           </FlexColumnWrapper>
+          <StatsDisplay />
         </SoundProvider>
       </DataProvider>
     </UserProvider>

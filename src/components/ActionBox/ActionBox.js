@@ -13,7 +13,7 @@ function ActionBox({ actionType, sequenceId, enabled }) {
   const { volume } = React.useContext(SoundContext);
   const [playClick] = useSound(clickSound, { volume });
 
-  const { handleAddZero, handleAugmentSequence } =
+  const { handleAddZero, handleAugmentSequence, handleSelectSequence } =
     React.useContext(DataContext);
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
@@ -23,6 +23,7 @@ function ActionBox({ actionType, sequenceId, enabled }) {
     } else {
       handleAugmentSequence();
     }
+    handleSelectSequence(sequenceId, 'custom');
     playClick();
   }
 

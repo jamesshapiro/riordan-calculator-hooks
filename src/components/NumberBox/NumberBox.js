@@ -35,6 +35,7 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
     } else {
       handleTruncateSequence();
     }
+    handleSelectSequence(sequenceId, 'custom');
   }
 
   const [notMounting, setNotMounting] = React.useState(false);
