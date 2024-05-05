@@ -26,6 +26,10 @@ body {
   --bubble-hover-border-color: hsl(240, 100%, 90%);
   --number-box-border-radius: 8px;
 
+  --number-box-disabled-background-color: hsl(240, 5%, 90%);
+  --number-box-disabled-font-color: hsl(240, 25%, 40%);
+  --number-box-disabled-border-color: hsl(240, 65%, 65%);
+
   --header-color: hsl(240, 85%, 35%);
   --active-button-color: hsl(240, 85%, 35%);
   --hover-button-color: hsl(240, 60%, 55%);

@@ -224,11 +224,14 @@ const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: ${(p) => (p.disabled ? 'default' : 'text')};
-  background-color: var(--number-box-background-color);
+  background-color: ${(p) =>
+    p.disabled
+      ? 'var(--number-box-disabled-background-color)'
+      : 'var(--number-box-background-color)'};
   &:hover {
     background-color: ${(p) =>
       p.disabled
-        ? 'var(--number-box-background-color)'
+        ? 'var(--number-box-disabled-background-color)'
         : 'var(--number-box-hover-background-color)'};
   }
   border-radius: var(--number-box-border-radius);
@@ -248,10 +251,14 @@ const InnerContainer = styled.div`
   align-items: center;
   font-family: 'Lato', sans-serif;
   color: var(--number-box-font-color);
+  color: ${(p) =>
+    p.disabled
+      ? 'var(--number-box-disabled-font-color)'
+      : 'var(--number-box-font-color)'};
   &:hover {
     color: ${(p) =>
       p.disabled
-        ? 'var(--number-box-font-color)'
+        ? 'var(--number-box-disabled-font-color)'
         : 'var(--number-box-hover-font-color)'};
   }
   width: fit-content;

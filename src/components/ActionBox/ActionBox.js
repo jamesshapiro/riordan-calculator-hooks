@@ -52,6 +52,9 @@ function ActionBox({ actionType, sequenceId, enabled }) {
       </TooltipWrapper>
     );
   }
+  if (!enabled && actionType === 'prependZero') {
+    result = <></>;
+  }
   return result;
 }
 
