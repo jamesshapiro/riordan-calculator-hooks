@@ -31,8 +31,6 @@ function Sequence({ sequenceId }) {
   }
 
   const sequenceValue = sequenceId === 'g' ? gSequence : fSequence;
-  console.log(`Sequence #${sequenceId} gSequence=${gSequence}`);
-
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
 
   const delta = sequenceId === 'f' ? sequenceLength : 0;

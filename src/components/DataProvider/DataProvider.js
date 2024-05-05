@@ -40,6 +40,9 @@ function DataProvider({ children }) {
     React.useContext(UserContext);
 
   function getDerivativeSequence(fSequence) {
+    if (metaMode === 'exponential') {
+      return fSequence.slice(1);
+    }
     return fSequence.slice(1).map((elem, idx) => {
       return elem * (idx + 1);
     });
@@ -224,25 +227,28 @@ function DataProvider({ children }) {
     setMatrixWasFetched(false);
   }
 
-  function handleAddZero(targetSequence) {
-    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
-    const increasedSetter =
-      targetSequence === 'g' ? setGJustIncreased : setFJustIncreased;
-    setSequence((oldSequence) => {
-      handleSequenceChange(targetSequence, [0, ...oldSequence]);
-    });
-    increasedSetter(true);
-  }
+  // Note incorporate functionality back into handleSequenceChange
+  // function handleAddZero(targetSequence) {
+  //   const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+  //   const increasedSetter =
+  //     targetSequence === 'g' ? setGJustIncreased : setFJustIncreased;
+  //   setSequence((oldSequence) => {
+  //     handleSequenceChange(targetSequence, [0, ...oldSequence]);
+  //   });
+  //   increasedSetter(true);
+  // }
 
-  function handleLeftShift(targetSequence) {
-    const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
-    setSequence((oldSequence) => [...oldSequence.slice(1)]);
-    if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
-      setSequenceLength(Math.min(gSequence.length, fSequence.length));
-    }
-    setGJustIncreased(false);
-    setFJustIncreased(false);
-  }
+  // Note incorporate functionality back into handleSequenceChange
+  // function handleLeftShift(targetSequence) {
+  //   const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
+  //   setSequence((oldSequence) => [...oldSequence.slice(1)]);
+  //   if (Math.min(gSequence.length, fSequence.length) < sequenceLength) {
+  //     setSequenceLength(Math.min(gSequence.length, fSequence.length));
+  //   }
+  //   setGJustIncreased(false);
+  //   setFJustIncreased(false);
+  // }
+
   function handleSelectSequence(targetSequence, selectedSequence) {
     const setCurrentSelection =
       targetSequence === 'g' ? setCurrentGSelection : setCurrentFSelection;
@@ -264,6 +270,15 @@ function DataProvider({ children }) {
 
   function handleSequenceChange(sequenceId, newSequence, isCustom = true) {
     const setSequence = sequenceId === 'g' ? setGSequence : setFSequence;
+    const oldSequence = sequenceId === 'g' ? gSequence : fSequence;
+    const increasedSetter =
+      sequenceId === 'g' ? setGJustIncreased : setFJustIncreased;
+    if (newSequence.length > oldSequence.length) {
+      increasedSetter(true);
+    } else {
+      setGJustIncreased(false);
+      setFJustIncreased(false);
+    }
     // const setAlternate = sequenceId === 'g' ? setFSequence : setGSequence;
     if (mode === 'normal') {
       setSequence(newSequence);
@@ -278,15 +293,8 @@ function DataProvider({ children }) {
       setGSequence(newSequence);
     }
     if (mode === 'derivative') {
-      console.log('handling derivative sequence change');
-      console.log(`newSequence=${newSequence}`);
-      console.log(`sequenceId=${sequenceId}`);
-      if (sequenceId === 'g') {
-        return;
-      }
       setFSequence([...newSequence]);
       const derivativeSequence = getDerivativeSequence(newSequence);
-      console.log(`derivativeSequence=${derivativeSequence}`);
       setGSequence(derivativeSequence);
     }
   }
@@ -362,10 +370,10 @@ function DataProvider({ children }) {
         gSequence,
         fSequence,
         mode,
-        handleAddZero,
+        // handleAddZero,
         handleAugmentSequence,
         handleTruncateSequence,
-        handleLeftShift,
+        // handleLeftShift,
         handleSelectSequence,
         handleSelectMode,
         metaMode,

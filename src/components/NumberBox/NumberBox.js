@@ -34,7 +34,6 @@ function NumberBox({
     tabWasPressed,
     setTabWasPressed,
     handleTruncateSequence,
-    handleLeftShift,
     handleSequenceChange,
   } = React.useContext(DataContext);
 
