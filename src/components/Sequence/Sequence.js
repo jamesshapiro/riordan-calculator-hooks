@@ -29,6 +29,7 @@ function Sequence({ sequenceId }) {
     newSequence[targetIndex] = parseInt(newValue);
     handleSequenceChange(sequenceId, newSequence);
   }
+  console.log(`Sequence #${sequenceId} gSequence=${gSequence}`);
 
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
 
@@ -59,6 +60,9 @@ function Sequence({ sequenceId }) {
               position: 'relative',
             }
           : {};
+      const disableNumberBox =
+        (['bell', 'appell', 'twobell'].includes(mode) && sequenceId === 'f') ||
+        (['derivative', 'associated'].includes(mode) && sequenceId === 'g');
 
       return (
         <td key={`${index + delta}-${num}`}>
@@ -85,6 +89,7 @@ function Sequence({ sequenceId }) {
               isFirst={isFirst}
               isLast={isLast}
               onSubmit={handleNumberChange}
+              disabled={disableNumberBox}
             />
           </motion.div>
         </td>
@@ -154,6 +159,7 @@ function Sequence({ sequenceId }) {
             opacityTiming,
           }}
         >
+          {/* Investigate if this is really necessary anymore */}
           <ActionBox
             actionType={'augment'}
             sequenceId={sequenceId}

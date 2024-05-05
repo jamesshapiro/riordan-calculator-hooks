@@ -10,7 +10,15 @@ import whooshSound from '../../sounds/whoosh.mp3';
 
 import TooltipWrapper from '../TooltipWrapper';
 
-function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
+function NumberBox({
+  value,
+  index,
+  onSubmit,
+  sequenceId,
+  isFirst,
+  zIndex,
+  disabled = false,
+}) {
   const { volume } = React.useContext(SoundContext);
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
@@ -76,7 +84,9 @@ function NumberBox({ value, index, onSubmit, sequenceId, isFirst, zIndex }) {
 
   function handleClick(event) {
     if (!divRef.current) return;
+    if (disabled) return;
 
+    // Set some of the click area off-limits for the close bubble
     const { offsetWidth: width, offsetHeight: height } = divRef.current;
     const rect = divRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;

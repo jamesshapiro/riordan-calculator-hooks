@@ -276,8 +276,16 @@ function DataProvider({ children }) {
       setGSequence(newSequence);
     }
     if (mode === 'derivative') {
+      console.log('handling derivative sequence change');
+      console.log(`newSequence=${newSequence}`);
+      console.log(`sequenceId=${sequenceId}`);
+      if (sequenceId === 'g') {
+        return;
+      }
       setFSequence([...newSequence]);
-      setGSequence(getDerivativeSequence(newSequence));
+      const derivativeSequence = getDerivativeSequence(newSequence);
+      console.log(`derivativeSequence=${derivativeSequence}`);
+      setGSequence(derivativeSequence);
     }
   }
 
@@ -322,8 +330,6 @@ function DataProvider({ children }) {
         divisor = sequenceLength;
         delta = sequenceLength;
       }
-      console.log(`divisor=${divisor}`);
-      console.log(`delta=${delta}`);
       result = (oldValue + increment) % divisor;
       console.log(`result=${result}`);
       if (result < 0) {
