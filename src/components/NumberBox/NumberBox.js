@@ -153,7 +153,7 @@ function NumberBox({
   );
 
   const closeBubble =
-    false || isFirst ? (
+    false || (isFirst && !disabled) ? (
       <TooltipWrapper
         message='Delete First Term'
         side='top'
@@ -183,8 +183,12 @@ function NumberBox({
     ) : null;
 
   return (
-    <Wrapper ref={divRef} onClick={(event) => handleClick(event)}>
-      <InnerContainer>
+    <Wrapper
+      ref={divRef}
+      onClick={(event) => handleClick(event)}
+      disabled={disabled}
+    >
+      <InnerContainer disabled={disabled}>
         {closeBubble}
         {boxContents}
       </InnerContainer>
@@ -219,11 +223,13 @@ const CloseBubble = styled.div`
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
-  cursor: text;
+  cursor: ${(p) => (p.disabled ? 'default' : 'text')};
   background-color: var(--number-box-background-color);
   &:hover {
-    background-color: var(--number-box-hover-background-color);
-    color: var(--number-box-hover-font-color);
+    background-color: ${(p) =>
+      p.disabled
+        ? 'var(--number-box-background-color)'
+        : 'var(--number-box-hover-background-color)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;
@@ -243,7 +249,10 @@ const InnerContainer = styled.div`
   font-family: 'Lato', sans-serif;
   color: var(--number-box-font-color);
   &:hover {
-    color: var(--number-box-hover-font-color);
+    color: ${(p) =>
+      p.disabled
+        ? 'var(--number-box-font-color)'
+        : 'var(--number-box-hover-font-color)'};
   }
   width: fit-content;
   height: 100%;
