@@ -48,6 +48,32 @@ function DataProvider({ children }) {
     });
   }
 
+  function getAssociatedSequence(fSequence) {
+    const newGSequence = Array(fSequence.length).fill(0);
+    newGSequence[0] = 1;
+    return newGSequence;
+  }
+
+  function getBellSequence(gSequence) {
+    return [0, ...gSequence];
+  }
+
+  function getTwoBellSequence(gSequence) {
+    const gSquared = Array(gSequence.length).fill(0);
+    let i = 0;
+    for (i = 0; i < gSquared.length; i++) {
+      const array_1 = gSequence.slice(0, i + 1);
+      const array_2 = gSequence.slice(0, i + 1).reverse();
+      const unreducedProduct = array_1.map((elem, idx) => {
+        return elem * array_2[idx];
+      });
+      gSquared[i] = unreducedProduct.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+    }
+    return [0, ...gSquared];
+  }
+
   React.useEffect(() => {
     async function fetchMatrix(
       sequenceLength,
@@ -58,35 +84,35 @@ function DataProvider({ children }) {
     ) {
       let fSequenceSubmit = fSequence;
       let gSequenceSubmit = gSequence;
-      if (mode === 'bell') {
-        fSequenceSubmit = [0].concat(gSequence.slice(0, sequenceLength)).join();
-      } else if (mode === 'derivative' && metaMode === 'exponential') {
-        const derivative = fSequence.slice(1);
-        gSequenceSubmit = derivative.join();
-      } else if (mode === 'appell') {
-        const newFSequence = Array(gSequence.length).fill(0);
-        newFSequence[1] = 1;
-        fSequenceSubmit = newFSequence.join();
-      } else if (mode === 'associated') {
-        const newGSequence = Array(fSequence.length).fill(0);
-        newGSequence[0] = 1;
-        gSequenceSubmit = newGSequence.join();
-      } else if (mode === 'twobell') {
-        let gSquared = Array(gSequence.length).fill(0);
-        let i = 0;
-        for (i = 0; i < gSquared.length; i++) {
-          const array_1 = gSequence.slice(0, i + 1);
-          const array_2 = gSequence.slice(0, i + 1).reverse();
-          const unreducedProduct = array_1.map((elem, idx) => {
-            return elem * array_2[idx];
-          });
-          gSquared[i] = unreducedProduct.reduce(function (a, b) {
-            return a + b;
-          }, 0);
-          const newFSequence = [0].concat(gSquared);
-          fSequenceSubmit = newFSequence.join();
-        }
-      }
+      // if (mode === 'bell') {
+      //   fSequenceSubmit = [0].concat(gSequence.slice(0, sequenceLength)).join();
+      // } else if (mode === 'derivative' && metaMode === 'exponential') {
+      //   const derivative = fSequence.slice(1);
+      //   gSequenceSubmit = derivative.join();
+      // } else if (mode === 'appell') {
+      //   const newFSequence = Array(gSequence.length).fill(0);
+      //   newFSequence[1] = 1;
+      //   fSequenceSubmit = newFSequence.join();
+      // } else if (mode === 'associated') {
+      //   const newGSequence = Array(fSequence.length).fill(0);
+      //   newGSequence[0] = 1;
+      //   gSequenceSubmit = newGSequence.join();
+      // } else if (mode === 'twobell') {
+      //   let gSquared = Array(gSequence.length).fill(0);
+      //   let i = 0;
+      //   for (i = 0; i < gSquared.length; i++) {
+      //     const array_1 = gSequence.slice(0, i + 1);
+      //     const array_2 = gSequence.slice(0, i + 1).reverse();
+      //     const unreducedProduct = array_1.map((elem, idx) => {
+      //       return elem * array_2[idx];
+      //     });
+      //     gSquared[i] = unreducedProduct.reduce(function (a, b) {
+      //       return a + b;
+      //     }, 0);
+      //     const newFSequence = [0].concat(gSquared);
+      //     fSequenceSubmit = newFSequence.join();
+      //   }
+      // }
       const payload = {
         g: gSequenceSubmit.slice(0, sequenceLength),
         f: fSequenceSubmit.slice(0, sequenceLength),
@@ -282,27 +308,32 @@ function DataProvider({ children }) {
     // const setAlternate = sequenceId === 'g' ? setFSequence : setGSequence;
     if (mode === 'normal') {
       setSequence(newSequence);
-      return;
-    }
-    if (mode === 'bell') {
+    } else if (mode === 'bell') {
       setGSequence(newSequence);
-      setFSequence([0, ...newSequence]);
-      return;
-    }
-    if (mode === 'appell') {
+      const bellSequence = getBellSequence(newSequence);
+      setFSequence(bellSequence);
+    } else if (mode === 'appell') {
       setGSequence(newSequence);
-    }
-    if (mode === 'derivative') {
-      setFSequence([...newSequence]);
+    } else if (mode === 'derivative') {
+      setFSequence(newSequence);
       const derivativeSequence = getDerivativeSequence(newSequence);
       setGSequence(derivativeSequence);
+    } else if (mode === 'associated') {
+      setFSequence(newSequence);
+      const associatedSequence = getAssociatedSequence(newSequence);
+      setGSequence(associatedSequence);
+    }
+    if (mode === 'twobell') {
+      setGSequence(newSequence);
+      const twoBellSequence = getTwoBellSequence(newSequence);
+      setFSequence(twoBellSequence);
     }
   }
 
   function handleSelectMode(selectedMode) {
     setMode(selectedMode);
     if (selectedMode === 'bell') {
-      setFSequence([0, ...gSequence]);
+      setFSequence(getBellSequence(gSequence));
     } else if (selectedMode === 'appell') {
       const appellArray = new Array(gSequence.length).fill(0);
       appellArray[1] = 1;
@@ -310,6 +341,12 @@ function DataProvider({ children }) {
     } else if (selectedMode === 'derivative') {
       const derivativeSequence = getDerivativeSequence(fSequence);
       setGSequence(derivativeSequence);
+    } else if (selectedMode === 'associated') {
+      const associatedSequence = getAssociatedSequence(fSequence);
+      setGSequence(associatedSequence);
+    } else if (selectedMode === 'twobell') {
+      const twoBellSequence = getTwoBellSequence(gSequence);
+      setFSequence(twoBellSequence);
     }
   }
 
