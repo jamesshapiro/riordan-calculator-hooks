@@ -228,7 +228,9 @@ function DataProvider({ children }) {
     const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
     const increasedSetter =
       targetSequence === 'g' ? setGJustIncreased : setFJustIncreased;
-    setSequence((oldSequence) => [0, ...oldSequence]);
+    setSequence((oldSequence) => {
+      handleSequenceChange(targetSequence, [0, ...oldSequence]);
+    });
     increasedSetter(true);
   }
 
@@ -331,7 +333,6 @@ function DataProvider({ children }) {
         delta = sequenceLength;
       }
       result = (oldValue + increment) % divisor;
-      console.log(`result=${result}`);
       if (result < 0) {
         result += divisor + delta;
       } else if (result < divisor) {
@@ -340,7 +341,6 @@ function DataProvider({ children }) {
       if (result === sequenceLength && result > 0) {
         result += 1;
       }
-      console.log(`result=${result}`);
       return result;
     });
   }

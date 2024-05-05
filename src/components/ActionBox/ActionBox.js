@@ -9,19 +9,18 @@ import clickSound from '../../sounds/click.wav';
 
 import TooltipWrapper from '../TooltipWrapper';
 
-function ActionBox({ actionType, sequenceId, enabled }) {
+function ActionBox({ actionType, sequenceId, sequenceValue, enabled }) {
   const { volume } = React.useContext(SoundContext);
   const [playClick] = useSound(clickSound, { volume });
 
-  const { handleAddZero, handleAugmentSequence, handleSelectSequence } =
+  const { handleAddZero, handleSelectSequence, handleSequenceChange } =
     React.useContext(DataContext);
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
     if (actionType === 'prependZero') {
-      handleAddZero(sequenceId);
-    } else {
-      handleAugmentSequence();
+      // handleAddZero(sequenceId);
+      handleSequenceChange(sequenceId, [0, ...sequenceValue]);
     }
     handleSelectSequence(sequenceId, 'custom');
     playClick();

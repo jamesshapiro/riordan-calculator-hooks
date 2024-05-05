@@ -29,6 +29,8 @@ function Sequence({ sequenceId }) {
     newSequence[targetIndex] = parseInt(newValue);
     handleSequenceChange(sequenceId, newSequence);
   }
+
+  const sequenceValue = sequenceId === 'g' ? gSequence : fSequence;
   console.log(`Sequence #${sequenceId} gSequence=${gSequence}`);
 
   const didJustIncrease = sequenceId === 'g' ? gJustIncreased : fJustIncreased;
@@ -85,6 +87,7 @@ function Sequence({ sequenceId }) {
               value={num}
               index={index + delta}
               sequenceId={sequenceId}
+              sequenceValue={sequenceValue}
               key={`${index + delta}-${num}`}
               isFirst={isFirst}
               isLast={isLast}
@@ -113,6 +116,7 @@ function Sequence({ sequenceId }) {
         <ActionBox
           actionType={'prependZero'}
           sequenceId={sequenceId}
+          sequenceValue={sequenceValue}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
           enabled={!disablePrepend}
@@ -163,6 +167,7 @@ function Sequence({ sequenceId }) {
           <ActionBox
             actionType={'augment'}
             sequenceId={sequenceId}
+            sequenceValue={sequenceValue}
             key={`augment-${delta}`}
             enabled={false}
           />

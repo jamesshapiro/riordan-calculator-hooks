@@ -15,6 +15,7 @@ function NumberBox({
   index,
   onSubmit,
   sequenceId,
+  sequenceValue,
   isFirst,
   zIndex,
   disabled = false,
@@ -34,11 +35,13 @@ function NumberBox({
     setTabWasPressed,
     handleTruncateSequence,
     handleLeftShift,
+    handleSequenceChange,
   } = React.useContext(DataContext);
 
   function handleCloseOption() {
     if (isFirst) {
-      handleLeftShift(sequenceId);
+      handleSequenceChange(sequenceId, sequenceValue.slice(1));
+      // handleLeftShift(sequenceId);
       playWhoosh();
     } else {
       handleTruncateSequence();
