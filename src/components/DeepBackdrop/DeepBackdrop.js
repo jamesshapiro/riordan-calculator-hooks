@@ -20,8 +20,10 @@ function DeepBackdrop() {
     }
     handleResize();
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
     };
   }, [matrix]);
   return <StyledBackdrop height={height} width={width} />;
