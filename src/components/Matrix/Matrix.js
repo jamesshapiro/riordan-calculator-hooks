@@ -42,22 +42,33 @@ function Matrix({ variant }) {
   const parsedMatrix = JSON.parse(matrix);
   const matrices = {
     classic: {
-      default: { id: 'riordan group elem', title: 'Riordan Group Element' },
-      stieltjes: { id: 'stieltjes', title: 'Stieltjes/Projection Matrix' },
+      default: {
+        id: 'riordan group elem',
+        title: 'Riordan Group Element',
+        leftMargin: '0',
+      },
+      stieltjes: {
+        id: 'stieltjes',
+        title: 'Stieltjes/Projection Matrix',
+        leftMargin: '96px',
+      },
     },
     exponential: {
       default: {
         id: 'exponential',
         title: 'Exponential Riordan Group Element',
+        leftMargin: '0',
       },
       stieltjes: {
         id: 'exponentialstieltjes',
         title: 'Stieltjes/Projection Matrix',
+        leftMargin: '96px',
       },
     },
   };
   let displayMatrix = parsedMatrix[matrices[metaMode][variant]['id']];
   let matrixTitle = matrices[metaMode][variant]['title'];
+  const leftMargin = matrices[metaMode][variant]['leftMargin'];
 
   const rowSums = displayMatrix.map((row) => {
     return row.reduce(function (a, b) {
@@ -88,7 +99,7 @@ function Matrix({ variant }) {
   shareButton = null;
 
   return (
-    <Wrapper>
+    <Wrapper $leftmargin={leftMargin}>
       <h1>{matrixTitle}</h1>
       <MatrixTable>
         <tbody key='matrixbody'>
@@ -233,6 +244,7 @@ export default Matrix;
 
 const Wrapper = styled.div`
   margin-top: 40px;
+  margin-left: ${(p) => p.$leftmargin};
 `;
 
 const MatrixTable = styled.table`

@@ -9,8 +9,10 @@ const TooltipWrapper = ({
   message,
   side,
   sideOffset,
+  alignOffset,
   arrowshiftY,
   arrowshiftX,
+  omitInfo = false,
 }) => {
   const infoSVG = (
     <svg
@@ -53,6 +55,7 @@ const TooltipWrapper = ({
           <Tooltip.Content
             className='TooltipContent'
             sideOffset={sideOffset}
+            alignOffset={alignOffset}
             side={side}
             style={{
               display: 'flex',
@@ -61,8 +64,8 @@ const TooltipWrapper = ({
               border: 'none !important',
             }}
           >
-            {infoSVG2}
-            <SpacerDiv />
+            {!omitInfo && infoSVG2}
+            {!omitInfo && <SpacerDiv />}
             {message}
 
             <Tooltip.Arrow

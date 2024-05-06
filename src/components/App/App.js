@@ -8,7 +8,7 @@ import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 import UserHistory from '../UserHistory/UserHistory';
 
-import { LayoutGroup, motion } from 'framer-motion';
+import { LayoutGroup } from 'framer-motion';
 
 import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
@@ -21,6 +21,7 @@ import WindowControls from '../WindowControls';
 import MatrixHeader from '../MatrixHeader';
 import SoundProvider from '../SoundProvider';
 import StatsDisplay from '../StatsDisplay';
+import StarSequence from '../StarSequence';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
@@ -62,11 +63,27 @@ function App() {
               </CenterDiv>
             </FlexRowWrapper>
             <FlexRowWrapper>
-              <LeftDiv>
-                <SubmitButton />
-              </LeftDiv>
+              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
               <CenterDiv>
                 <Matrix variant='stieltjes' />
+              </CenterDiv>
+            </FlexRowWrapper>
+            <FlexRowWrapper>
+              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+              <CenterDiv>
+                <StarSequence variant='a' />
+              </CenterDiv>
+            </FlexRowWrapper>
+            <FlexRowWrapper>
+              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+              <CenterDiv>
+                <StarSequence variant='b' />
+              </CenterDiv>
+            </FlexRowWrapper>
+            <FlexRowWrapper>
+              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+              <CenterDiv>
+                <StarSequence variant='z' />
               </CenterDiv>
             </FlexRowWrapper>
             <UserHistory />

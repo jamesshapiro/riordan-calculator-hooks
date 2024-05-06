@@ -67,6 +67,8 @@ body {
   --mini-number-box-border-color: hsl(240, 85%, 65%);
   --mini-number-box-border-radius: 4px;
   --user-history-cell-background: hsl(240, 75%, 94%);
+
+  --star-sequence-font-color: hsl(240, 90%, 25%);
 }
 
 body,

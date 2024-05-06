@@ -104,7 +104,6 @@ function UserProvider({ children }) {
     const oldQuery = userQueries.filter((query) => {
       return query.MATRIX_SHAREID.S === queryId;
     })[0];
-    console.log(oldQuery);
     const oldUlid = oldQuery.MATRIX_ULID.S;
     setUserQueries((oldValue) => {
       return oldValue.filter((query) => {
