@@ -40,7 +40,6 @@ function Matrix({ variant }) {
     return <></>;
   }
   const parsedMatrix = JSON.parse(matrix);
-  console.log(parsedMatrix);
   const matrices = {
     classic: {
       default: { id: 'riordan group elem', title: 'Riordan Group Element' },
@@ -89,11 +88,11 @@ function Matrix({ variant }) {
   shareButton = null;
 
   return (
-    <>
+    <Wrapper>
       <h1>{matrixTitle}</h1>
       <MatrixTable>
-        <tbody>
-          <tr>
+        <tbody key='matrixbody'>
+          <tr key='oeisrow'>
             {range(0, displayMatrix[0].length + 1).map((item, colIndex) => {
               const searchEntries = displayMatrix
                 .map((row) => row[colIndex - 1])
@@ -102,8 +101,9 @@ function Matrix({ variant }) {
               return (
                 <MatrixCell
                   style={{ paddingLeft: '15px' }}
-                  row={0}
-                  col={colIndex}
+                  $row={0}
+                  $col={colIndex}
+                  key={`0,${colIndex}`}
                 >
                   <TooltipWrapper
                     message='OEIS Column Lookup'
@@ -125,8 +125,9 @@ function Matrix({ variant }) {
             })}
             <MatrixCell
               style={{ paddingLeft: '15px' }}
-              row={0}
-              col={displayMatrix[0].length}
+              $row={0}
+              $col={displayMatrix[0].length}
+              key={`0,${displayMatrix[0].length}`}
             >
               <TooltipWrapper
                 message='OEIS Row Sums Lookup'
@@ -146,8 +147,9 @@ function Matrix({ variant }) {
             </MatrixCell>
             <MatrixCell
               style={{ paddingLeft: '15px' }}
-              row={0}
-              col={displayMatrix[0].length + 1}
+              $row={0}
+              $col={displayMatrix[0].length + 1}
+              key={`0,${displayMatrix[0].length + 1}`}
             >
               <TooltipWrapper
                 message='OEIS Alternating Row Sums Lookup'
@@ -173,11 +175,12 @@ function Matrix({ variant }) {
             );
             const searchQueryParam = searchEntries.join('%2C');
             return (
-              <tr>
+              <tr key={`row${rowIndex}`}>
                 <MatrixCell
                   style={{ paddingLeft: '15px' }}
-                  row={rowIndex}
-                  col={0}
+                  $row={rowIndex}
+                  $col={0}
+                  key={`${rowIndex},0`}
                 >
                   <TooltipWrapper
                     message='OEIS Row Lookup'
@@ -197,13 +200,23 @@ function Matrix({ variant }) {
                 </MatrixCell>
                 {row.map((num, colIndex) => {
                   return (
-                    <MatrixCell row={rowIndex + 1} col={colIndex + 1}>
+                    <MatrixCell
+                      $row={rowIndex + 1}
+                      $col={colIndex + 1}
+                      key={`${rowIndex},${colIndex + 1}`}
+                    >
                       {num}
                     </MatrixCell>
                   );
                 })}
-                <RowSumsMatrixCell>{rowSums[rowIndex]}</RowSumsMatrixCell>
-                <AlternatingRowSumsMatrixCell>
+                <RowSumsMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 1}`}
+                >
+                  {rowSums[rowIndex]}
+                </RowSumsMatrixCell>
+                <AlternatingRowSumsMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 2}`}
+                >
                   {alternatingRowSums[rowIndex]}
                 </AlternatingRowSumsMatrixCell>
               </tr>
@@ -212,11 +225,15 @@ function Matrix({ variant }) {
         </tbody>
       </MatrixTable>
       {shareButton}
-    </>
+    </Wrapper>
   );
 }
 
 export default Matrix;
+
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;
 
 const MatrixTable = styled.table`
   margin-left: 100px;
@@ -233,20 +250,20 @@ const MatrixCell = styled.td`
   height: 50px;
   text-align: center;
   background-color: ${(p) =>
-    p.col === 0 || p.row === 0
+    p.$col === 0 || p.$row === 0
       ? 'var(--select-td-background)'
-      : p.row > 0 && p.col > p.row
+      : p.$row > 0 && p.$col > p.$row
         ? 'var(--matrix-cell-background-color)'
         : 'black'};
 
   background-image: ${(p) =>
-    p.col === 0 || p.row === 0
+    p.$col === 0 || p.$row === 0
       ? 'revert'
-      : p.col > p.row
+      : p.$col > p.$row
         ? 'var(--box-gradient)'
         : 'revert'};
   color: ${(p) =>
-    p.row > 0 && p.col > p.row ? 'var(--number-box-font-color)' : 'white'};
+    p.$row > 0 && p.$col > p.$row ? 'var(--number-box-font-color)' : 'white'};
 `;
 
 const RowSumsMatrixCell = styled(MatrixCell)`
