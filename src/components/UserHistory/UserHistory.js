@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
+import ConfirmDeleteQueryDialog from '../ConfirmDeleteQueryDialog';
 
 import { formatDate } from '../../utils';
 
@@ -84,8 +85,11 @@ function UserHistory() {
               <TDWrapper>{formatDate(query.CREATED_AT.S)}</TDWrapper>
               <TDWrapper>{displayGTerms}</TDWrapper>
               <TDWrapper>{displayFTerms}</TDWrapper>
-              <TDWrapper onClick={() => deleteQuery(matrixId)}>
-                {garbageSVG24}
+              <TDWrapper>
+                <ConfirmDeleteQueryDialog
+                  matrixId={matrixId}
+                  deleteQuery={deleteQuery}
+                />
               </TDWrapper>
             </tr>
           );
