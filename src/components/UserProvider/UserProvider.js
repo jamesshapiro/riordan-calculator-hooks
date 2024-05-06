@@ -35,7 +35,6 @@ function UserProvider({ children }) {
       try {
         const { username, userId, signInDetails } = await getCurrentUser();
         const userAttributes = await fetchUserAttributes();
-        console.log(userAttributes);
         setIsAuthenticated(true);
         setUser(username);
         setName(userAttributes['given_name']);
@@ -122,7 +121,6 @@ function UserProvider({ children }) {
     });
     const response = await fetch(request);
     const json = await response.json();
-    console.log(json);
   };
 
   const handleLogout = async () => {

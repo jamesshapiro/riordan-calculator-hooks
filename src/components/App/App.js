@@ -21,6 +21,7 @@ import WindowControls from '../WindowControls';
 import MatrixHeader from '../MatrixHeader';
 import SoundProvider from '../SoundProvider';
 import StatsDisplay from '../StatsDisplay';
+import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
@@ -42,6 +43,7 @@ function App() {
               <ModeComboBox />
             </LeftDiv>
             <MatrixHeader />
+            <ShareDialog />
             <FlexRowWrapper>
               <SequenceControlPanel />
               <LayoutGroup>
@@ -87,7 +89,7 @@ function App() {
               </CenterDiv>
             </FlexRowWrapper>
             <UserHistory />
-            <BottomSpace>{2024}</BottomSpace>
+            <StatsDisplay />
           </FlexColumnWrapper>
         </SoundProvider>
       </DataProvider>

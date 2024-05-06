@@ -3,6 +3,7 @@
 @import '/node_modules/@radix-ui/colors/black-alpha.css';
 @import '/node_modules/@radix-ui/colors/green.css';
 @import '/node_modules/@radix-ui/colors/red.css';
+@import '/node_modules/@radix-ui/colors/blue.css';
 /* reset */
 
 button,
@@ -11,14 +12,14 @@ input {
   all: unset;
 }
 
-.DialogOverlay {
+.AuthDialogOverlay {
   background-color: var(--black-a9);
   position: fixed;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.DialogContent {
+.AuthDialogContent {
   background-color: white;
   border-radius: 6px;
   box-shadow:
@@ -38,7 +39,7 @@ input {
   outline: none;
 } */
 
-.DialogTitle {
+.AuthDialogTitle {
   margin: 0;
   font-weight: 500;
   color: var(--mauve-12);

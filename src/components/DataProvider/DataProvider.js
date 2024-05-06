@@ -33,6 +33,7 @@ function DataProvider({ children }) {
   const [title, setTitle] = React.useState('');
   const [comment, setComment] = React.useState('');
   const [matrixId, setMatrixId] = React.useState('');
+  const [shareMatrixId, setShareMatrixId] = React.useState('');
   const [createdAt, setCreatedAt] = React.useState('');
   const [creatorName, setCreatorName] = React.useState('');
 
@@ -145,6 +146,10 @@ function DataProvider({ children }) {
       const response = await fetch(request);
       const json = await response.json();
       setMatrix((oldData) => json);
+      console.log(json);
+      const parsedJson = JSON.parse(json);
+      const shareId = parsedJson['shareid'];
+      setShareMatrixId(shareId);
       return json;
     }
     if (computeWasRequested && !matrixWasFetched) {
@@ -246,6 +251,9 @@ function DataProvider({ children }) {
   const searchParam = window.location.search;
   if (matrixId === '' && searchParam.length > 1) {
     setMatrixId(searchParam.slice(1));
+    if (!matrix) {
+      setShareMatrixId(searchParam.slice(1));
+    }
   }
 
   function handleCompute() {
@@ -434,6 +442,7 @@ function DataProvider({ children }) {
         comment,
         createdAt,
         creatorName,
+        shareMatrixId,
       }}
     >
       {children}

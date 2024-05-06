@@ -25,7 +25,9 @@ function Header() {
   return (
     <Wrapper>
       <HeaderWrapper>
-        <StyledHeader>Riordan Calculator</StyledHeader>
+        <StyledHeader>
+          <StyledLink href='/'>Riordan Calculator</StyledLink>
+        </StyledHeader>
       </HeaderWrapper>
       <StyledButton
         isSelected={isClassicSelected}
@@ -67,6 +69,17 @@ const StyledHeader = styled.h1`
   font-size: 24px;
   font-weight: 500;
   color: var(--header-color);
+`;
+
+const StyledLink = styled.a`
+  display: inline;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--header-color);
+  text-decoration: none;
+  &:visited {
+    color: var(--header-color);
+  }
 `;
 
 const StyledButton = styled(({ isSelected, ...props }) => (

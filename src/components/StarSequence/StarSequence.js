@@ -43,10 +43,6 @@ function StarSequence({ variant }) {
     },
   };
 
-  console.log(
-    `displayOptions[metaMode][variant]=${displayOptions[metaMode][variant]['display']}`
-  );
-
   if (!displayOptions[metaMode][variant]['display']) {
     return;
   }

@@ -119,10 +119,6 @@ function UserHistory() {
       </thead>
       <tbody>
         {userQueries.map((query, index) => {
-          console.log(`query['MATRIX_DATA']=${query['MATRIX_DATA']['S']}`);
-          console.log(
-            `query['MATRIX_DATA']=${JSON.parse(query['MATRIX_DATA']['S'])['riordan group elem']}`
-          );
           const displayMatrix = JSON.parse(query['MATRIX_DATA']['S'])[
             'riordan group elem'
           ];

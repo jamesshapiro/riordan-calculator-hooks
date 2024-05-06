@@ -41,7 +41,7 @@ const AuthDialog = () => {
   const signUpForm = (
     <>
       <p className='Text'>Create an account!</p>
-      <Dialog.Description className='DialogDescription'></Dialog.Description>
+      <Dialog.Description className='AuthDialogDescription'></Dialog.Description>
       <fieldset className='Fieldset'>
         <label className='Label' htmlFor='email'>
           Email
@@ -107,7 +107,7 @@ const AuthDialog = () => {
   const confirmForm = (
     <>
       <p className='Text'>{`Enter Confirmation Code Sent to ${email}`}</p>
-      <Dialog.Description className='DialogDescription'></Dialog.Description>
+      <Dialog.Description className='AuthDialogDescription'></Dialog.Description>
       <fieldset className='Fieldset'>
         <label className='Label' htmlFor='code'>
           Confirmation Code
@@ -150,8 +150,8 @@ const AuthDialog = () => {
         <div className='Button violet'>Login</div>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className='DialogOverlay' />
-        <Dialog.Content className='DialogContent' asChild>
+        <Dialog.Overlay className='AuthDialogOverlay' />
+        <Dialog.Content className='AuthDialogContent' asChild>
           <Tabs.Root className='TabsRoot' defaultValue='tab1'>
             <Tabs.List className='TabsList' aria-label='Manage your account'>
               <Tabs.Trigger className='TabsTrigger' value='tab1'>

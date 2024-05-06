@@ -22,8 +22,6 @@ export default StatsDisplay;
 
 const Wrapper = styled.div`
   z-index: 1000;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   background-image: linear-gradient(
     var(--background-gradient-top),
