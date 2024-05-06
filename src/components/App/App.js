@@ -58,12 +58,20 @@ function App() {
                 <SubmitButton />
               </LeftDiv>
               <CenterDiv>
-                <Matrix />
+                <Matrix variant='default' />
+              </CenterDiv>
+            </FlexRowWrapper>
+            <FlexRowWrapper>
+              <LeftDiv>
+                <SubmitButton />
+              </LeftDiv>
+              <CenterDiv>
+                <Matrix variant='stieltjes' />
               </CenterDiv>
             </FlexRowWrapper>
             <UserHistory />
           </FlexColumnWrapper>
-          <StatsDisplay />
+          {/* <StatsDisplay /> */}
         </SoundProvider>
       </DataProvider>
     </UserProvider>

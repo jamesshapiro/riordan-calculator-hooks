@@ -33,22 +33,40 @@ const SearchSVG = (
   </StyledSVG>
 );
 
-function Matrix() {
-  const { matrix, matrixCreator } = React.useContext(DataContext);
+function Matrix({ variant }) {
+  const { matrix, matrixCreator, metaMode } = React.useContext(DataContext);
   const { isAuthenticated, user, token } = React.useContext(UserContext);
   if (!matrix) {
     return <></>;
   }
   const parsedMatrix = JSON.parse(matrix);
-  const riordanGroupElem = parsedMatrix['riordan group elem'];
+  console.log(parsedMatrix);
+  const matrices = {
+    classic: {
+      default: { id: 'riordan group elem', title: 'Riordan Group Element' },
+      stieltjes: { id: 'stieltjes', title: 'Stieltjes/Projection Matrix' },
+    },
+    exponential: {
+      default: {
+        id: 'exponential',
+        title: 'Exponential Riordan Group Element',
+      },
+      stieltjes: {
+        id: 'exponentialstieltjes',
+        title: 'Stieltjes/Projection Matrix',
+      },
+    },
+  };
+  let displayMatrix = parsedMatrix[matrices[metaMode][variant]['id']];
+  let matrixTitle = matrices[metaMode][variant]['title'];
 
-  const rowSums = riordanGroupElem.map((row) => {
+  const rowSums = displayMatrix.map((row) => {
     return row.reduce(function (a, b) {
       return a + b;
     }, 0);
   });
 
-  const alternatingRowSums = riordanGroupElem.map((row) => {
+  const alternatingRowSums = displayMatrix.map((row) => {
     const newVector = new Array(row.length).fill(1);
     for (let idx in newVector) {
       if (idx % 2 === 1) {
@@ -65,19 +83,19 @@ function Matrix() {
   const rowSumsOEISQuery = rowSums.join('%2C');
   const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
   const userIsMatrixCreator = user === matrixCreator;
-  const titleEditor = userIsMatrixCreator ? <h1>'TITLE'</h1> : null;
-  const commentEditor = userIsMatrixCreator ? <p>'COMMENT'</p> : null;
-  const shareButton = userIsMatrixCreator ? (
+  let shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
   ) : null;
+  shareButton = null;
 
   return (
     <>
+      <h1>{matrixTitle}</h1>
       <MatrixTable>
         <tbody>
           <tr>
-            {range(0, riordanGroupElem[0].length + 1).map((item, colIndex) => {
-              const searchEntries = riordanGroupElem
+            {range(0, displayMatrix[0].length + 1).map((item, colIndex) => {
+              const searchEntries = displayMatrix
                 .map((row) => row[colIndex - 1])
                 .slice(colIndex - 1);
               const searchQueryParam = searchEntries.join('%2C');
@@ -108,7 +126,7 @@ function Matrix() {
             <MatrixCell
               style={{ paddingLeft: '15px' }}
               row={0}
-              col={riordanGroupElem[0].length}
+              col={displayMatrix[0].length}
             >
               <TooltipWrapper
                 message='OEIS Row Sums Lookup'
@@ -129,7 +147,7 @@ function Matrix() {
             <MatrixCell
               style={{ paddingLeft: '15px' }}
               row={0}
-              col={riordanGroupElem[0].length + 1}
+              col={displayMatrix[0].length + 1}
             >
               <TooltipWrapper
                 message='OEIS Alternating Row Sums Lookup'
@@ -148,8 +166,8 @@ function Matrix() {
               </TooltipWrapper>
             </MatrixCell>
           </tr>
-          {riordanGroupElem.map((row, rowIndex) => {
-            const searchEntries = riordanGroupElem[rowIndex].slice(
+          {displayMatrix.map((row, rowIndex) => {
+            const searchEntries = displayMatrix[rowIndex].slice(
               0,
               rowIndex + 1
             );

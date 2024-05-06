@@ -15,12 +15,16 @@ import {
 } from '@radix-ui/react-icons';
 
 const ModeComboBox = ({ sequenceId }) => {
-  const [value, setValue] = React.useState('normal');
-  const { handleSelectMode } = React.useContext(DataContext);
+  const { mode, handleSelectMode, matrixId } = React.useContext(DataContext);
+  const [value, setValue] = React.useState(mode);
 
   function handleSelectValue(selection) {
     setValue(selection);
     handleSelectMode(selection);
+  }
+
+  if (matrixId && value !== mode) {
+    setValue(mode);
   }
 
   return (
