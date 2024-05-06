@@ -2,10 +2,20 @@ import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import './styles.css';
+import { UserContext } from '../UserProvider';
 
 import styled from 'styled-components';
 
 const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
+  const { setIsAuthModalOpen } = React.useContext(UserContext);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  function handleDelete(matrixId) {
+    deleteQuery(matrixId);
+    setDialogOpen(false);
+    setIsAuthModalOpen(false);
+  }
+
   const garbageSVG24 = (
     <StyledSVG
       xmlns='http://www.w3.org/2000/svg'
@@ -28,7 +38,14 @@ const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
   );
 
   return (
-    <Dialog.Root>
+    <Dialog.Root
+      onOpenChange={() => {
+        setDialogOpen((oldValue) => {
+          setIsAuthModalOpen(!oldValue);
+          return !oldValue;
+        });
+      }}
+    >
       <Dialog.Trigger asChild>
         <button className='Button violet'>{garbageSVG24}</button>
       </Dialog.Trigger>
@@ -48,7 +65,7 @@ const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
             <Dialog.Close asChild>
               <button
                 className='Button red'
-                onClick={() => deleteQuery(matrixId)}
+                onClick={() => handleDelete(matrixId)}
               >
                 Delete
               </button>
