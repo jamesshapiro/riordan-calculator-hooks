@@ -59,6 +59,14 @@ body {
   --alternating-row-sums-box-gradient: #f00;
   --alternating-rows-sums-font-color: #000;
   /* --background-gradient-bottom: #f00; */
+
+  --mini-number-box-height: 33px;
+  --mini-number-box-width: 33px;
+  --mini-number-box-background-color: hsl(240, 10%, 95%);
+  --mini-number-box-font-color: hsl(240, 85%, 40%);
+  --mini-number-box-border-color: hsl(240, 85%, 65%);
+  --mini-number-box-border-radius: 4px;
+  --user-history-cell-background: hsl(240, 75%, 94%);
 }
 
 body,

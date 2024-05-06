@@ -70,8 +70,8 @@ function App() {
               </CenterDiv>
             </FlexRowWrapper>
             <UserHistory />
+            <BottomSpace>{2024}</BottomSpace>
           </FlexColumnWrapper>
-          {/* <StatsDisplay /> */}
         </SoundProvider>
       </DataProvider>
     </UserProvider>
@@ -79,6 +79,10 @@ function App() {
 }
 
 export default App;
+
+const BottomSpace = styled.div`
+  height: 100px;
+`;
 
 const HeaderDiv = styled.div`
   align-self: flex-start;

@@ -28,14 +28,17 @@ function UserProvider({ children }) {
   const [userQueries, setUserQueries] = React.useState([]);
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
   const [stats, setStats] = React.useState(null);
+  const [name, setName] = React.useState('');
 
   React.useEffect(() => {
     const getUserData = async () => {
       try {
         const { username, userId, signInDetails } = await getCurrentUser();
         const userAttributes = await fetchUserAttributes();
+        console.log(userAttributes);
         setIsAuthenticated(true);
         setUser(username);
+        setName(userAttributes['given_name']);
         const { tokens } = await fetchAuthSession({ forceRefresh: true });
         const idToken = tokens.idToken.toString();
         setToken(idToken);
@@ -128,6 +131,7 @@ function UserProvider({ children }) {
       await signOut();
       setIsAuthenticated(false);
       setUser('');
+      setName('');
       setAuthUpdated((oldValue) => oldValue + 1);
     } catch (err) {
       // console.log(err);
@@ -194,6 +198,7 @@ function UserProvider({ children }) {
         userQueries,
         stats,
         deleteQuery,
+        name,
       }}
     >
       {children}
