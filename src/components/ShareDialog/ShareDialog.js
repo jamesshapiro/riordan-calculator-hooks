@@ -9,17 +9,38 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import './styles.css';
 
 const DEFAULT_URL = 'riordancalculator.com';
+const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
 function ShareDialog() {
-  const { isAuthenticated } = React.useContext(UserContext);
+  const { isAuthenticated, token } = React.useContext(UserContext);
   const { matrix, shareMatrixId } = React.useContext(DataContext);
   const [linkIsCopied, setLinkIsCopied] = React.useState(false);
+  const [recipientEmail, setRecipientEmail] = React.useState('');
   const dialogTitle = isAuthenticated
     ? 'Copy Link or Send Email:'
     : 'Copy Link';
   if (!matrix) {
     return;
   }
+
+  const sendEmail = async (shareMatrixId) => {
+    const URL = AUTH_ENDPOINT + `email?id=${shareMatrixId}&recipient=${recipientEmail}`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    setRecipientEmail('');
+    console.log(`${recipientEmail}, ${shareMatrixId}`)
+    const request = new Request(URL, {
+      method: 'GET',
+      headers: HEADERS,
+      timeout: 100000,
+    });
+    
+    const response = await fetch(request);
+    const json = await response.json();
+    console.log(json)
+  };
 
   console.log(`shareMatrixId=${shareMatrixId}`);
 
@@ -108,6 +129,8 @@ function ShareDialog() {
         className='DialogInput'
         id='email'
         placeholder='recipient@university.edu'
+        value={recipientEmail}
+        onChange={(event) => setRecipientEmail(event.target.value)}
       />
     </fieldset>
   ) : (
@@ -132,7 +155,7 @@ function ShareDialog() {
             }}
           >
             <Dialog.Close asChild>
-              <button className='DialogButton blue'>{sendMailSVG}</button>
+              <button className='DialogButton blue' onClick={() => sendEmail(shareMatrixId)}>{sendMailSVG}</button>
             </Dialog.Close>
           </div>
           <Dialog.Close asChild>

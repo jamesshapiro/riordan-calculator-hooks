@@ -89,7 +89,7 @@ function App() {
               </CenterDiv>
             </FlexRowWrapper>
             <UserHistory />
-            <StatsDisplay />
+            {/* <StatsDisplay /> */}
           </FlexColumnWrapper>
         </SoundProvider>
       </DataProvider>
