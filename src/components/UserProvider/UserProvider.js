@@ -97,6 +97,32 @@ function UserProvider({ children }) {
     getStats();
   }, [isAuthenticated, user, token]);
 
+  const deleteQuery = async (queryId) => {
+    const oldQuery = userQueries.filter((query) => {
+      return query.MATRIX_SHAREID.S === queryId;
+    })[0];
+    console.log(oldQuery);
+    const oldUlid = oldQuery.MATRIX_ULID.S;
+    setUserQueries((oldValue) => {
+      return oldValue.filter((query) => {
+        return query.MATRIX_SHAREID.S !== queryId;
+      });
+    });
+    const URL = AUTH_ENDPOINT + `query?id=${queryId}&ulid=${oldUlid}`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const request = new Request(URL, {
+      method: 'DELETE',
+      headers: HEADERS,
+      timeout: 100000,
+    });
+    const response = await fetch(request);
+    const json = await response.json();
+    console.log(json);
+  };
+
   const handleLogout = async () => {
     try {
       await signOut();
@@ -167,6 +193,7 @@ function UserProvider({ children }) {
         token,
         userQueries,
         stats,
+        deleteQuery,
       }}
     >
       {children}
