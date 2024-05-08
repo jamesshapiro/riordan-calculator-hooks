@@ -165,7 +165,7 @@ function UserHistory() {
             JSON.parse(query.G_SEQUENCE.S).slice(0, 10)
           );
           const displayFTerms = getSequenceDisplay(
-            JSON.parse(query.G_SEQUENCE.S).slice(0, 10)
+            JSON.parse(query.F_SEQUENCE.S).slice(0, 10)
           );
           const matrixId = query.MATRIX_SHAREID.S;
           return (

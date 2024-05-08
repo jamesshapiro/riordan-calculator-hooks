@@ -16,7 +16,7 @@ const AuthDialog = () => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [awaitingConfirmation, setAwaitingConfirmation] = React.useState(false);
-
+  
   function handleLoginAttempt() {
     handleLogin(email, password);
     setDialogOpen(false);
