@@ -24,6 +24,12 @@ import StatsDisplay from '../StatsDisplay';
 import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
 
+import Home from '../Home';
+import About from '../About';
+import Sequences from '../Sequences';
+
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
 
@@ -32,65 +38,73 @@ function App() {
     <UserProvider>
       <DataProvider>
         <SoundProvider>
-          <DeepBackdrop />
-          <Backdrop />
-          <FlexColumnWrapper>
-            <NavBar />
-            <HeaderDiv>
-              <Header />
-            </HeaderDiv>
-            <LeftDiv>
-              <ModeComboBox />
-            </LeftDiv>
-            <MatrixHeader />
-            <ShareDialog />
-            <FlexRowWrapper>
-              <SequenceControlPanel />
-              <LayoutGroup>
-                <TableWrapper>
-                  <tbody>
-                    <WindowControls />
-                    <Sequence sequenceId={'g'} />
-                    <Sequence sequenceId={'f'} />
-                  </tbody>
-                </TableWrapper>
-              </LayoutGroup>
-            </FlexRowWrapper>
-            <FlexRowWrapper>
+          <Router>
+            <DeepBackdrop />
+            <Backdrop />
+            <FlexColumnWrapper>
+              <Link to='/sequences'>Sequences</Link>
+              <NavBar />
+              <HeaderDiv>
+                <Header />
+              </HeaderDiv>
               <LeftDiv>
-                <SubmitButton />
+                <ModeComboBox />
               </LeftDiv>
-              <CenterDiv>
-                <Matrix variant='default' />
-              </CenterDiv>
-            </FlexRowWrapper>
-            <FlexRowWrapper>
-              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-              <CenterDiv>
-                <Matrix variant='stieltjes' />
-              </CenterDiv>
-            </FlexRowWrapper>
-            <FlexRowWrapper>
-              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-              <CenterDiv>
-                <StarSequence variant='a' />
-              </CenterDiv>
-            </FlexRowWrapper>
-            <FlexRowWrapper>
-              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-              <CenterDiv>
-                <StarSequence variant='b' />
-              </CenterDiv>
-            </FlexRowWrapper>
-            <FlexRowWrapper>
-              <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-              <CenterDiv>
-                <StarSequence variant='z' />
-              </CenterDiv>
-            </FlexRowWrapper>
-            <UserHistory />
-            {/* <StatsDisplay /> */}
-          </FlexColumnWrapper>
+              <MatrixHeader />
+              <ShareDialog />
+              <FlexRowWrapper>
+                <SequenceControlPanel />
+                <LayoutGroup>
+                  <TableWrapper>
+                    <tbody>
+                      <WindowControls />
+                      <Sequence sequenceId={'g'} />
+                      <Sequence sequenceId={'f'} />
+                    </tbody>
+                  </TableWrapper>
+                </LayoutGroup>
+              </FlexRowWrapper>
+              <FlexRowWrapper>
+                <LeftDiv>
+                  <SubmitButton />
+                </LeftDiv>
+                <CenterDiv>
+                  <Matrix variant='default' />
+                </CenterDiv>
+              </FlexRowWrapper>
+              <FlexRowWrapper>
+                <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+                <CenterDiv>
+                  <Matrix variant='stieltjes' />
+                </CenterDiv>
+              </FlexRowWrapper>
+              <FlexRowWrapper>
+                <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+                <CenterDiv>
+                  <StarSequence variant='a' />
+                </CenterDiv>
+              </FlexRowWrapper>
+              <FlexRowWrapper>
+                <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+                <CenterDiv>
+                  <StarSequence variant='b' />
+                </CenterDiv>
+              </FlexRowWrapper>
+              <FlexRowWrapper>
+                <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+                <CenterDiv>
+                  <StarSequence variant='z' />
+                </CenterDiv>
+              </FlexRowWrapper>
+              <UserHistory />
+              {/* <StatsDisplay /> */}
+            </FlexColumnWrapper>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/about' component={About} />
+              <Route path='/sequences' component={Sequences} />
+            </Switch>
+          </Router>
         </SoundProvider>
       </DataProvider>
     </UserProvider>
