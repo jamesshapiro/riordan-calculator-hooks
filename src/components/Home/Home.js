@@ -59,6 +59,12 @@ function Home() {
       <FlexRowWrapper>
         <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
         <CenterDiv>
+          <Matrix variant='inverse' />
+        </CenterDiv>
+      </FlexRowWrapper>
+      <FlexRowWrapper>
+        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
+        <CenterDiv>
           <Matrix variant='stieltjes' />
         </CenterDiv>
       </FlexRowWrapper>

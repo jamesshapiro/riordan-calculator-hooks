@@ -39,6 +39,7 @@ function Matrix({ variant }) {
   if (!matrix) {
     return <></>;
   }
+  console.log(variant)
   const parsedMatrix = JSON.parse(matrix);
   const matrices = {
     classic: {
@@ -46,6 +47,11 @@ function Matrix({ variant }) {
         id: 'riordan group elem',
         title: 'Riordan Group Element',
         leftMargin: '0',
+      },
+      inverse: {
+        id: 'riordan group inverse',
+        title: 'Riordan Group Inverse',
+        leftMargin: '96px',
       },
       stieltjes: {
         id: 'stieltjes',
@@ -59,6 +65,11 @@ function Matrix({ variant }) {
         title: 'Exponential Riordan Group Element',
         leftMargin: '0',
       },
+      inverse: {
+        id: 'riordan group inverse',
+        title: 'Riordan Group Inverse',
+        leftMargin: '96px',
+      },
       stieltjes: {
         id: 'exponentialstieltjes',
         title: 'Stieltjes/Projection Matrix',
@@ -66,7 +77,12 @@ function Matrix({ variant }) {
       },
     },
   };
+  console.log(parsedMatrix)
   let displayMatrix = parsedMatrix[matrices[metaMode][variant]['id']];
+  console.log(displayMatrix)
+  if (!displayMatrix) {
+    return <></>;
+  }
   let matrixTitle = matrices[metaMode][variant]['title'];
   const leftMargin = matrices[metaMode][variant]['leftMargin'];
 

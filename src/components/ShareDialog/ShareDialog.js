@@ -30,7 +30,6 @@ function ShareDialog() {
       Authorization: token,
     };
     setRecipientEmail('');
-    console.log(`${recipientEmail}, ${shareMatrixId}`)
     const request = new Request(URL, {
       method: 'GET',
       headers: HEADERS,
@@ -39,17 +38,13 @@ function ShareDialog() {
     
     const response = await fetch(request);
     const json = await response.json();
-    console.log(json)
   };
-
-  console.log(`shareMatrixId=${shareMatrixId}`);
 
   function handleClick(event) {
     const link = `${DEFAULT_URL}/?${shareMatrixId}`;
     navigator.clipboard
       .writeText(link)
       .then(() => {
-        console.log('Link copied to clipboard');
         setLinkIsCopied(true);
         setTimeout(() => setLinkIsCopied(false), 2000);
       })
