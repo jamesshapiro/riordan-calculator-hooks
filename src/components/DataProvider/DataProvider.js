@@ -146,7 +146,6 @@ function DataProvider({ children }) {
       const response = await fetch(request);
       const json = await response.json();
       setMatrix((oldData) => json);
-      console.log(json);
       const parsedJson = JSON.parse(json);
       const shareId = parsedJson['shareid'];
       setShareMatrixId(shareId);

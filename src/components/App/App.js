@@ -10,7 +10,7 @@ import History from '../History';
 
 import Home from '../Home';
 import About from '../About';
-import Sequences from '../Sequences';
+import SequenceEditor from '../SequenceEditor';
 
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ function App() {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/about' component={About} />
-              <Route path='/sequences' component={Sequences} />
+              <Route path='/sequences' component={SequenceEditor} />
               <Route path='/history' component={History} />
             </Switch>
           </Router>

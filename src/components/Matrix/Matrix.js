@@ -39,7 +39,6 @@ function Matrix({ variant }) {
   if (!matrix) {
     return <></>;
   }
-  console.log(variant)
   const parsedMatrix = JSON.parse(matrix);
   const matrices = {
     classic: {
@@ -77,9 +76,7 @@ function Matrix({ variant }) {
       },
     },
   };
-  console.log(parsedMatrix)
   let displayMatrix = parsedMatrix[matrices[metaMode][variant]['id']];
-  console.log(displayMatrix)
   if (!displayMatrix) {
     return <></>;
   }
