@@ -2,9 +2,6 @@ import React from 'react';
 
 import Header from '../Header';
 
-import DataProvider from '../DataProvider';
-import UserProvider from '../UserProvider';
-
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 import UserHistory from '../UserHistory/UserHistory';
@@ -15,20 +12,14 @@ import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
-import Backdrop from '../Backdrop';
-import DeepBackdrop from '../DeepBackdrop';
 import NavBar from '../NavBar';
 import WindowControls from '../WindowControls';
 import MatrixHeader from '../MatrixHeader';
-import SoundProvider from '../SoundProvider';
 import StatsDisplay from '../StatsDisplay';
 import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
 
-import About from '../About';
-import Sequences from '../Sequences';
-
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -89,7 +80,6 @@ function Home() {
           <StarSequence variant='z' />
         </CenterDiv>
       </FlexRowWrapper>
-      <UserHistory />
       {/* <StatsDisplay /> */}
     </FlexColumnWrapper>
   );
