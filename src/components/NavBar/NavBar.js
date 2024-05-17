@@ -9,12 +9,12 @@ import useSound from 'use-sound';
 import AuthDialog from '../AuthDialog';
 import volumeOnSound from '../../sounds/volume-on.wav';
 import volumeOffSound from '../../sounds/volume-off.wav';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   const { isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
   const { volume, toggleMute } = React.useContext(SoundContext);
-  const Hi = isAuthenticated ? `Hi ${user}` : '';
 
   const [playVolumeOnSound] = useSound(volumeOnSound);
   const [playVolumeOffSound] = useSound(volumeOffSound);
@@ -93,7 +93,11 @@ function NavBar() {
         {volume === 1 ? volumeOnSVG : volumeMutedSVG}
       </NavItem>
       {LoginLogout}
-      <NavItem>About</NavItem>
+
+      <NavItem>
+        <Link to='/about'>About</Link>
+      </NavItem>
+
       {isAuthenticated && (
         <NavItem>
           {name} {settingsSVG}
@@ -128,6 +132,14 @@ const NavItem = styled.button`
   /* height: 50px; */
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  color: inherit;
+
+  a {
+    /* Target the <Link> component specifically */
+    text-decoration: none; /* Remove text underline */
+    color: inherit; /* Inherit text color from NavItem */
+  }
 `;
 
 // --number-box-hover-background-color: hsl(240, 10%, 85%);

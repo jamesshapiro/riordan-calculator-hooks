@@ -25,7 +25,7 @@ function Home() {
   return (
     <FlexColumnWrapper>
       <Link to='/sequences'>Sequences</Link>
-      <Link to='/about'>About</Link>
+
       <Link to='/history'>History</Link>
       <NavBar />
       <HeaderDiv>
