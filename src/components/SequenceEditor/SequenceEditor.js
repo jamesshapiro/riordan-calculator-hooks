@@ -15,6 +15,7 @@ function SequenceEditor() {
       <HeaderDiv>
         <Header />
       </HeaderDiv>
+      <VerticalSpace />
       {sequences.map((sequence, index) => {
         console.log(sequence);
         return (
@@ -33,6 +34,10 @@ function SequenceEditor() {
 }
 
 export default SequenceEditor;
+
+const VerticalSpace = styled.div`
+  min-height: 50px;
+`;
 
 const Wrapper = styled.div`
   margin-left: 10px;
