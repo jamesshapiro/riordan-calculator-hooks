@@ -10,27 +10,25 @@ import Header from '../Header';
 
 function SequenceEditor() {
   return (
-    <Wrapper>
-      <FlexColumnWrapper>
-        <NavBar />
-        <HeaderDiv>
-          <Header />
-        </HeaderDiv>
-        {sequences.map((sequence, index) => {
-          console.log(sequence);
-          return (
-            <>
-              <p></p>
-              <SequenceEditorSequence
-                name={sequence.name}
-                key={`seq-${index}`}
-                sequenceValues={sequence.sequence}
-              />
-            </>
-          );
-        })}
-      </FlexColumnWrapper>
-    </Wrapper>
+    <FlexColumnWrapper>
+      <NavBar />
+      <HeaderDiv>
+        <Header />
+      </HeaderDiv>
+      {sequences.map((sequence, index) => {
+        console.log(sequence);
+        return (
+          <>
+            <p></p>
+            <SequenceEditorSequence
+              name={sequence.name}
+              key={`seq-${index}`}
+              sequenceValues={sequence.sequence}
+            />
+          </>
+        );
+      })}
+    </FlexColumnWrapper>
   );
 }
 

@@ -19,12 +19,6 @@ function History() {
 
 export default History;
 
-const Wrapper = styled.div`
-  margin-left: 10px;
-  margin-top: 10px;
-  z-index: 10;
-`;
-
 const HeaderDiv = styled.div`
   align-self: flex-start;
   padding-left: 300px;

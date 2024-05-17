@@ -11,6 +11,8 @@ import volumeOnSound from '../../sounds/volume-on.wav';
 import volumeOffSound from '../../sounds/volume-off.wav';
 import { Link } from 'react-router-dom';
 
+import UserDropdown from '../UserDropdown';
+
 function NavBar() {
   const { isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
@@ -100,7 +102,9 @@ function NavBar() {
 
       {isAuthenticated && (
         <NavItem>
-          {name} {settingsSVG}
+          <UserDropdown>
+            {name} {settingsSVG}
+          </UserDropdown>
         </NavItem>
       )}
     </FlexWrapper>
@@ -136,9 +140,8 @@ const NavItem = styled.button`
   color: inherit;
 
   a {
-    /* Target the <Link> component specifically */
-    text-decoration: none; /* Remove text underline */
-    color: inherit; /* Inherit text color from NavItem */
+    text-decoration: none;
+    color: inherit;
   }
 `;
 

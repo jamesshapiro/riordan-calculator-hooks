@@ -24,12 +24,9 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <FlexColumnWrapper>
-      <Link to='/sequences'>Sequences</Link>
-
-      <Link to='/history'>History</Link>
       <NavBar />
       <HeaderDiv>
-        <Header />
+        <Header isHome={true} />
       </HeaderDiv>
       <LeftDiv>
         <ModeComboBox />

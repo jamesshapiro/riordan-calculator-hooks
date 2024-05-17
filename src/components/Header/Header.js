@@ -6,7 +6,7 @@ import { SoundContext } from '../SoundProvider';
 import useSound from 'use-sound';
 import clickSound from '../../sounds/click2.wav';
 
-function Header() {
+function Header({ isHome }) {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
   const isClassicSelected = metaMode === 'classic';
   const { volume } = React.useContext(SoundContext);
@@ -29,18 +29,22 @@ function Header() {
           <StyledLink href='/'>Riordan Calculator</StyledLink>
         </StyledHeader>
       </HeaderWrapper>
-      <StyledButton
-        isSelected={isClassicSelected}
-        onClick={() => handleMetaModeClick('classic')}
-      >
-        Classic
-      </StyledButton>
-      <StyledButton
-        isSelected={!isClassicSelected}
-        onClick={() => handleMetaModeClick('exponential')}
-      >
-        Exponential
-      </StyledButton>
+      {isHome && (
+        <StyledButton
+          isSelected={isClassicSelected}
+          onClick={() => handleMetaModeClick('classic')}
+        >
+          Classic
+        </StyledButton>
+      )}
+      {isHome && (
+        <StyledButton
+          isSelected={!isClassicSelected}
+          onClick={() => handleMetaModeClick('exponential')}
+        >
+          Exponential
+        </StyledButton>
+      )}
     </Wrapper>
   );
 }
