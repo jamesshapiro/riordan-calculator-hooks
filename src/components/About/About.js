@@ -20,10 +20,10 @@ function About() {
         <a href='https://en.wikipedia.org/wiki/Louis_Shapiro_(mathematician)'>
           Louis Shapiro
         </a>
-        . It was signficantly upgraded in 2024 and is free to use. If it helps
-        you discover new results, I would appreciate if you mention the website
-        somewhere in your paper so that others can take advantage of it.
-        However, this is not required.
+        . It was signficantly upgraded in 2024 and is free to use. If this
+        website helps you discover new results, I would appreciate if you
+        mention it somewhere in your paper so that others can take advantage of
+        the calculator. However, this is purely optional.
       </P>
     </FlexColumnWrapper>
   );
