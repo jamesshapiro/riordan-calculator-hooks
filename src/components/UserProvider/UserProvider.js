@@ -26,6 +26,8 @@ function UserProvider({ children }) {
   const [token, setToken] = React.useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const [userQueries, setUserQueries] = React.useState([]);
+  const [userSequences, setUserSequences] = React.useState([]);
+  const [userDefaultSequences, setUserDefaultSequences] = React.useState([]);
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
   const [stats, setStats] = React.useState(null);
   const [name, setName] = React.useState('');
@@ -69,6 +71,30 @@ function UserProvider({ children }) {
       setUserQueries(items);
     };
     getUserHistory();
+  }, [isAuthenticated, user, token]);
+
+  React.useEffect(() => {
+    const getUserSequenceDefaults = async () => {
+      if (!isAuthenticated) return;
+      if (!token) return;
+      const URL = AUTH_ENDPOINT + 'sequences';
+      const HEADERS = {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      };
+      const request = new Request(URL, {
+        method: 'GET',
+        headers: HEADERS,
+        timeout: 100000,
+      });
+      const response = await fetch(request);
+      const json = await response.json();
+      const defaultSequences = json['USER_DEFAULT_SEQUENCES'];
+      const sequences = json['USER_SEQUENCES'];
+      setUserSequences(sequences);
+      setUserDefaultSequences(defaultSequences);
+    };
+    getUserSequenceDefaults();
   }, [isAuthenticated, user, token]);
 
   React.useEffect(() => {
@@ -196,6 +222,10 @@ function UserProvider({ children }) {
         stats,
         deleteQuery,
         name,
+        userSequences,
+        userDefaultSequences,
+        setUserSequences,
+        setUserDefaultSequences,
       }}
     >
       {children}
