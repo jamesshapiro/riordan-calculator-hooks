@@ -10,7 +10,15 @@ import NavBar from '../NavBar';
 import Header from '../Header';
 
 function SequenceEditor() {
-  const { userSequences, userDefaultSequences } = React.useContext(UserContext);
+  const {
+    userSequences,
+    userDefaultSequences,
+    setUserSequences,
+    setUserDefaultSequences,
+  } = React.useContext(UserContext);
+
+  console.log(`userSequences=${userSequences}`);
+  console.log(`userDefaultSequences=${userDefaultSequences}`);
 
   function getSequenceDisplay(sequenceTerms) {
     return [...sequenceTerms, '...'].map((term, index) => {

@@ -77,7 +77,7 @@ function UserProvider({ children }) {
     const getUserSequenceDefaults = async () => {
       if (!isAuthenticated) return;
       if (!token) return;
-      const URL = AUTH_ENDPOINT + 'sequences';
+      const URL = AUTH_ENDPOINT + 'sequence';
       const HEADERS = {
         'Content-Type': 'application/json',
         Authorization: token,
@@ -89,9 +89,11 @@ function UserProvider({ children }) {
       });
       const response = await fetch(request);
       const json = await response.json();
-      const defaultSequences = json['USER_DEFAULT_SEQUENCES'];
-      const sequences = json['USER_SEQUENCES'];
-      setUserSequences(sequences);
+      const defaultSequences = json['default_sequences'];
+      const customSequences = json['custom_sequences'];
+      console.log(`defaultSequences=${JSON.stringify(defaultSequences)}`);
+      console.log(`sequences=${JSON.stringify(customSequences)}`);
+      setUserSequences(customSequences);
       setUserDefaultSequences(defaultSequences);
     };
     getUserSequenceDefaults();
