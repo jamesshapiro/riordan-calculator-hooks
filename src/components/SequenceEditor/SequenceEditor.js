@@ -8,6 +8,7 @@ import { sequences } from '../../data';
 import styled from 'styled-components';
 import NavBar from '../NavBar';
 import Header from '../Header';
+import SequenceEditorSelectTable from '../SequenceEditorSelectTable';
 
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
@@ -18,6 +19,7 @@ function SequenceEditor() {
     setUserDefaultHiddenSequences,
     token,
   } = React.useContext(UserContext);
+  const [selectedOption, setSelectedOption] = React.useState('default');
 
   const updateDefaults = async (sequenceId, displayOption) => {
     const URL =
@@ -87,6 +89,62 @@ function SequenceEditor() {
     </StyledSVG>
   );
 
+  const presetTable = (
+    <Table>
+      <thead>
+        <tr>
+          <TDWrapper>Title</TDWrapper>
+          <TDWrapper>Sequence</TDWrapper>
+          <TDWrapper>Hide/Show</TDWrapper>
+        </tr>
+      </thead>
+      <tbody>
+        {sequences.map((sequence, index) => {
+          const sequenceName = sequence.name;
+          const sequenceId = sequence.id;
+          const sequenceSequence = sequence.sequence;
+          const displayTerms = getSequenceDisplay(
+            sequenceSequence.slice(0, 15)
+          );
+          const hideIconPredicate =
+            userDefaultHiddenSequences &&
+            userDefaultHiddenSequences.includes(sequenceId);
+          const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
+          return (
+            <tr key={index}>
+              <TDWrapper>{sequenceName}</TDWrapper>
+              <TDWrapper>{displayTerms}</TDWrapper>
+              <TDWrapper>
+                <Preview
+                  onClick={() => {
+                    if (userDefaultHiddenSequences.includes(sequenceId)) {
+                      updateDefaults(sequenceId, 'true');
+                      setUserDefaultHiddenSequences((oldValue) => {
+                        const newValue = oldValue.filter(
+                          (item) => item !== sequenceId
+                        );
+                        return newValue;
+                      });
+                    } else {
+                      updateDefaults(sequenceId, 'false');
+                      setUserDefaultHiddenSequences((oldValue) => {
+                        const newValue = [...oldValue];
+                        newValue.push(sequenceId);
+                        return newValue;
+                      });
+                    }
+                  }}
+                >
+                  {icon}
+                </Preview>
+              </TDWrapper>
+            </tr>
+          );
+        })}
+      </tbody>
+    </Table>
+  );
+
   return (
     <FlexColumnWrapper>
       <NavBar />
@@ -94,71 +152,11 @@ function SequenceEditor() {
         <Header />
       </HeaderDiv>
       <VerticalSpace />
-      {/* {sequences.map((sequence, index) => {
-        return (
-          <>
-            <p></p>
-            <SequenceEditorSequence
-              name={sequence.name}
-              key={`seq-${index}`}
-              sequenceValues={sequence.sequence}
-            />
-          </>
-        );
-      })} */}
-      <Table>
-        <thead>
-          <tr>
-            <TDWrapper>Title</TDWrapper>
-            <TDWrapper>Sequence</TDWrapper>
-            <TDWrapper>Hide/Show</TDWrapper>
-          </tr>
-        </thead>
-        <tbody>
-          {sequences.map((sequence, index) => {
-            const sequenceName = sequence.name;
-            const sequenceId = sequence.id;
-            const sequenceSequence = sequence.sequence;
-            const displayTerms = getSequenceDisplay(
-              sequenceSequence.slice(0, 15)
-            );
-            const hideIconPredicate =
-              userDefaultHiddenSequences &&
-              userDefaultHiddenSequences.includes(sequenceId);
-            const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
-            return (
-              <tr key={index}>
-                <TDWrapper>{sequenceName}</TDWrapper>
-                <TDWrapper>{displayTerms}</TDWrapper>
-                <TDWrapper>
-                  <Preview
-                    onClick={() => {
-                      if (userDefaultHiddenSequences.includes(sequenceId)) {
-                        updateDefaults(sequenceId, 'true');
-                        setUserDefaultHiddenSequences((oldValue) => {
-                          const newValue = oldValue.filter(
-                            (item) => item !== sequenceId
-                          );
-                          return newValue;
-                        });
-                      } else {
-                        updateDefaults(sequenceId, 'false');
-                        setUserDefaultHiddenSequences((oldValue) => {
-                          const newValue = [...oldValue];
-                          newValue.push(sequenceId);
-                          return newValue;
-                        });
-                      }
-                    }}
-                  >
-                    {icon}
-                  </Preview>
-                </TDWrapper>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <SequenceEditorSelectTable
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+      />
+      {selectedOption === 'default' ? presetTable : null}
     </FlexColumnWrapper>
   );
 }
@@ -204,7 +202,7 @@ const Table = styled.table`
   border-collapse: collapse;
   border: 1.5px solid var(--mini-number-box-border-color);
   width: fit-content;
-  margin-top: 200px;
+  margin-top: 20px;
   margin-right: 30px;
   margin-bottom: 300px;
 `;
