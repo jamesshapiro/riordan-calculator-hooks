@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { sequences } from '../../data';
+import { UserContext } from '../UserProvider';
 import { DataContext } from '../DataProvider';
 import * as style from './SequenceComboBox.module.css';
 import './style.css';
@@ -15,6 +16,8 @@ import {
 const SequenceComboBox = ({ sequenceId }) => {
   const { handleSelectSequence, currentGSelection, currentFSelection } =
     React.useContext(DataContext);
+  const { userSequences, userDefaultHiddenSequences } =
+    React.useContext(UserContext);
   const currentSelection =
     sequenceId === 'g' ? currentGSelection : currentFSelection;
 
@@ -49,6 +52,12 @@ const SequenceComboBox = ({ sequenceId }) => {
                 Sequences
               </Select.Label>
               {sequences.map((item) => {
+                if (
+                  userDefaultHiddenSequences &&
+                  userDefaultHiddenSequences.includes(item.id)
+                ) {
+                  return null;
+                }
                 return (
                   <SelectItem key={item.id} value={item.id}>
                     {item.name}

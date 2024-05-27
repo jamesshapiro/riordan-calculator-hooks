@@ -27,7 +27,8 @@ function UserProvider({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
   const [userQueries, setUserQueries] = React.useState([]);
   const [userSequences, setUserSequences] = React.useState([]);
-  const [userDefaultSequences, setUserDefaultSequences] = React.useState([]);
+  const [userDefaultHiddenSequences, setUserDefaultHiddenSequences] =
+    React.useState([]);
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
   const [stats, setStats] = React.useState(null);
   const [name, setName] = React.useState('');
@@ -89,12 +90,11 @@ function UserProvider({ children }) {
       });
       const response = await fetch(request);
       const json = await response.json();
-      const defaultSequences = json['default_sequences'];
+      const defaultHiddenSequences = json['default_hidden_sequences'];
       const customSequences = json['custom_sequences'];
-      console.log(`defaultSequences=${JSON.stringify(defaultSequences)}`);
-      console.log(`sequences=${JSON.stringify(customSequences)}`);
+
       setUserSequences(customSequences);
-      setUserDefaultSequences(defaultSequences);
+      setUserDefaultHiddenSequences(defaultHiddenSequences);
     };
     getUserSequenceDefaults();
   }, [isAuthenticated, user, token]);
@@ -225,9 +225,9 @@ function UserProvider({ children }) {
         deleteQuery,
         name,
         userSequences,
-        userDefaultSequences,
+        userDefaultHiddenSequences,
         setUserSequences,
-        setUserDefaultSequences,
+        setUserDefaultHiddenSequences,
       }}
     >
       {children}

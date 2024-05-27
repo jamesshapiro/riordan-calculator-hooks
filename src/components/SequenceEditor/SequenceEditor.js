@@ -9,16 +9,30 @@ import styled from 'styled-components';
 import NavBar from '../NavBar';
 import Header from '../Header';
 
+const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+
 function SequenceEditor() {
   const {
     userSequences,
-    userDefaultSequences,
-    setUserSequences,
-    setUserDefaultSequences,
+    userDefaultHiddenSequences,
+    setUserDefaultHiddenSequences,
+    token,
   } = React.useContext(UserContext);
 
-  console.log(`userSequences=${userSequences}`);
-  console.log(`userDefaultSequences=${userDefaultSequences}`);
+  const updateDefaults = async (sequenceId, displayOption) => {
+    const URL =
+      AUTH_ENDPOINT + `preset?sequence=${sequenceId}&display=${displayOption}`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const request = new Request(URL, {
+      method: 'PUT',
+      headers: HEADERS,
+      timeout: 100000,
+    });
+    fetch(request);
+  };
 
   function getSequenceDisplay(sequenceTerms) {
     return [...sequenceTerms, '...'].map((term, index) => {
@@ -55,7 +69,7 @@ function SequenceEditor() {
     </StyledSVG>
   );
 
-  const SearchSVG = (
+  const EyeOnSVG = (
     <StyledSVG
       xmlns='http://www.w3.org/2000/svg'
       width='24'
@@ -81,7 +95,6 @@ function SequenceEditor() {
       </HeaderDiv>
       <VerticalSpace />
       {/* {sequences.map((sequence, index) => {
-        console.log(sequence);
         return (
           <>
             <p></p>
@@ -104,16 +117,42 @@ function SequenceEditor() {
         <tbody>
           {sequences.map((sequence, index) => {
             const sequenceName = sequence.name;
+            const sequenceId = sequence.id;
             const sequenceSequence = sequence.sequence;
             const displayTerms = getSequenceDisplay(
               sequenceSequence.slice(0, 15)
             );
+            const hideIconPredicate =
+              userDefaultHiddenSequences &&
+              userDefaultHiddenSequences.includes(sequenceId);
+            const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
             return (
               <tr key={index}>
                 <TDWrapper>{sequenceName}</TDWrapper>
                 <TDWrapper>{displayTerms}</TDWrapper>
                 <TDWrapper>
-                  <Preview>{SearchSVG}</Preview>
+                  <Preview
+                    onClick={() => {
+                      if (userDefaultHiddenSequences.includes(sequenceId)) {
+                        updateDefaults(sequenceId, 'true');
+                        setUserDefaultHiddenSequences((oldValue) => {
+                          const newValue = oldValue.filter(
+                            (item) => item !== sequenceId
+                          );
+                          return newValue;
+                        });
+                      } else {
+                        updateDefaults(sequenceId, 'false');
+                        setUserDefaultHiddenSequences((oldValue) => {
+                          const newValue = [...oldValue];
+                          newValue.push(sequenceId);
+                          return newValue;
+                        });
+                      }
+                    }}
+                  >
+                    {icon}
+                  </Preview>
                 </TDWrapper>
               </tr>
             );
