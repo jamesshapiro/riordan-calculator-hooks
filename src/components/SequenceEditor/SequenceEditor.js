@@ -145,6 +145,8 @@ function SequenceEditor() {
     </Table>
   );
 
+  const customSequence = <SequenceEditorSequence />;
+
   return (
     <FlexColumnWrapper>
       <NavBar />
@@ -156,7 +158,7 @@ function SequenceEditor() {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
-      {selectedOption === 'default' ? presetTable : null}
+      {selectedOption === 'default' ? presetTable : customSequence}
     </FlexColumnWrapper>
   );
 }

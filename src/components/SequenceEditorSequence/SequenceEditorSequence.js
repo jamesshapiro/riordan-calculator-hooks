@@ -11,48 +11,33 @@ import { range } from '../../utils';
 
 import styled from 'styled-components';
 
-function SequenceEditorSequence({ sequenceValues, name, editable = false, index = 0 }) {
-  const {
-    sequenceLength,
-    gSequence,
-    fSequence,
-    handleSequenceChange,
-    fJustIncreased,
-    gJustIncreased,
-    mode,
-  } = React.useContext(DataContext);
-  
+function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
+  const [sequence, setSequence] = React.useState([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
+  const [sequenceLength, setSequenceLength] = React.useState(7);
+
   function handleNumberChange(index, newValue) {
-    const newSequence = [...sequence];
-    const targetIndex = index % sequenceLength;
-    newSequence[targetIndex] = parseInt(newValue);
-    handleSequenceChange(sequenceId, newSequence);
+    setSequence((oldSequence) => {
+      const newSequence = [...oldSequence];
+      newSequence[index] = parseInt(newValue);
+      return newSequence;
+    });
   }
 
-  const elements = sequenceValues
-    .slice(0, Math.min(sequenceLength, fSequence.length, gSequence.length))
+  const elements = sequence
+    .slice(0, Math.min(sequenceLength, sequence.length))
     .map((num, index) => {
       const isLast = index === sequenceLength - 1;
       const isFirst = index === 0;
-      const distanceToSequenceEnd = sequenceValues.length - 1 - index;
+      const distanceToSequenceEnd = sequence.length - 1 - index;
 
-      // const firstTiming =
-      //   didJustIncrease && isFirst
-      //     ? {
-      //         scale: {
-      //           delay: 10,
-      //           duration: 0.1,
-      //         },
-      //       }
-      //     : null;
       const damping = isFirst ? 50 : Math.max(100 - 10 * index, 30);
-      const seqZIndex =
-         {
-              zIndex: 10 + index,
-              position: 'relative',
-            }
-      const disableNumberBox = !editable
-      const delta=0
+      const seqZIndex = {
+        zIndex: 10 + index,
+        position: 'relative',
+      };
+      const delta = 0;
 
       return (
         <td key={`${index + delta}-${num}`}>
@@ -75,20 +60,16 @@ function SequenceEditorSequence({ sequenceValues, name, editable = false, index 
               value={num}
               index={index + delta}
               sequenceId={index}
-              sequenceValue={sequenceValues}
+              sequenceValue={sequence}
               key={`${index + delta}-${num}`}
               isFirst={isFirst}
               isLast={isLast}
               onSubmit={handleNumberChange}
-              disabled={disableNumberBox}
             />
           </motion.div>
         </td>
       );
     });
-  const disablePrepend =
-    (['bell', 'appell', 'twobell'].includes(mode) && sequenceId === 'f') ||
-    (['derivative', 'associated'].includes(mode) && sequenceId === 'g');
   const delta = 0;
   const prependZeroElement = (
     <td key={`prependzero-${delta}`} style={{ zIndex: 0 }}>
@@ -105,19 +86,18 @@ function SequenceEditorSequence({ sequenceValues, name, editable = false, index 
         <ActionBox
           actionType={'prependZero'}
           sequenceId={`seqed-${index}`}
-          sequenceValue={sequenceValues}
+          sequenceValue={sequence}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
-          enabled={!disablePrepend}
         />
       </motion.div>
     </td>
   );
 
-  const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
-  const numAugmentBoxes = shorterSequenceLength - sequenceLength;
+  const numAugmentBoxes = Math.min(sequence.length - sequenceLength, 0);
   const mysteryBoxes = range(numAugmentBoxes).map((index) => {
-    const distanceToSequenceEnd = sequenceValues.length - sequenceLength - 1 - index;
+    const distanceToSequenceEnd =
+      sequenceValues.length - sequenceLength - 1 - index;
     // const opacity = Math.max(1 - index * 0.25, 0.05);
     const opacity = Math.max(1.5 / (index + 1), 0.15);
 
@@ -158,7 +138,6 @@ function SequenceEditorSequence({ sequenceValues, name, editable = false, index 
             sequenceId={`seqed-${index}`}
             sequenceValue={sequenceValues}
             key={`augment-${delta}`}
-            enabled={false}
           />
         </motion.div>
       </td>
@@ -179,9 +158,10 @@ function SequenceEditorSequence({ sequenceValues, name, editable = false, index 
 export default SequenceEditorSequence;
 
 const Wrapper = styled.tr`
+  margin-top: 100px;
   color: var(--number-box-font-color);
 `;
 
 const SequenceTitle = styled.td`
   min-width: 160px;
-`
+`;
