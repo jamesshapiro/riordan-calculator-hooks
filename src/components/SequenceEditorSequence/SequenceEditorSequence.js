@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { DataContext } from '../DataProvider';
-import NumberBox from '../NumberBox';
-import ActionBox from '../ActionBox';
+import SequenceEditorNumberBox from '../SequenceEditorNumberBox';
+import SequenceEditorActionBox from '../SequenceEditorActionBox';
 import Spacer from '../Spacer';
 import { motion } from 'framer-motion';
 import { range } from '../../utils';
@@ -23,6 +23,11 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
       newSequence[index] = parseInt(newValue);
       return newSequence;
     });
+  }
+
+  function handleSequenceChange(newSequence) {
+    setSequence(newSequence);
+    console.log(`newSequence=${newSequence}`);
   }
 
   const elements = sequence
@@ -56,7 +61,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
               // firstTiming,
             }}
           >
-            <NumberBox
+            <SequenceEditorNumberBox
               value={num}
               index={index + delta}
               sequenceId={index}
@@ -64,6 +69,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
               key={`${index + delta}-${num}`}
               isFirst={isFirst}
               isLast={isLast}
+              handleSequenceChange={handleSequenceChange}
               onSubmit={handleNumberChange}
             />
           </motion.div>
@@ -83,7 +89,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
           damping: 30 + 5 * 0,
         }}
       >
-        <ActionBox
+        <SequenceEditorActionBox
           actionType={'prependZero'}
           sequenceId={`seqed-${index}`}
           sequenceValue={sequence}
