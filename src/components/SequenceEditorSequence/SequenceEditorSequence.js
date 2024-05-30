@@ -95,6 +95,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
           sequenceValue={sequence}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
+          enabled={true}
         />
       </motion.div>
     </td>
@@ -139,7 +140,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
           }}
         >
           {/* Investigate if this is really necessary anymore */}
-          <ActionBox
+          <SequenceEditorActionBox
             actionType={'augment'}
             sequenceId={`seqed-${index}`}
             sequenceValue={sequenceValues}

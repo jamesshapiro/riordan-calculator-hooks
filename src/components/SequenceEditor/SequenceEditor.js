@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import NavBar from '../NavBar';
 import Header from '../Header';
 import SequenceEditorSelectTable from '../SequenceEditorSelectTable';
+import SequenceEditorWindowControls from '../SequenceEditorWindowControls/SequenceEditorWindowControls';
 
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
@@ -145,7 +146,14 @@ function SequenceEditor() {
     </Table>
   );
 
-  const customSequence = <SequenceEditorSequence />;
+  const customSequence = (
+    <TableWrapper>
+      <tbody>
+        <SequenceEditorWindowControls />
+        <SequenceEditorSequence />
+      </tbody>
+    </TableWrapper>
+  );
 
   return (
     <FlexColumnWrapper>
@@ -164,6 +172,11 @@ function SequenceEditor() {
 }
 
 export default SequenceEditor;
+
+const TableWrapper = styled.table`
+  margin-left: 10px;
+  padding-top: 13px;
+`;
 
 const VerticalSpace = styled.div`
   min-height: 50px;

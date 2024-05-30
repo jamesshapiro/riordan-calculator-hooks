@@ -54,6 +54,7 @@ const SequenceComboBox = ({ sequenceId }) => {
               {sequences.map((item) => {
                 if (
                   userDefaultHiddenSequences &&
+                  Array.isArray(userDefaultHiddenSequences) &&
                   userDefaultHiddenSequences.includes(item.id)
                 ) {
                   return null;
