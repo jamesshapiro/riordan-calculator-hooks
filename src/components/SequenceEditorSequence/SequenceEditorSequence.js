@@ -101,10 +101,12 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
     </td>
   );
 
-  const numAugmentBoxes = Math.min(sequence.length - sequenceLength, 0);
+  const numAugmentBoxes = Math.max(sequence.length - sequenceLength, 0);
+  console.log(`numAugmentBoxes=${numAugmentBoxes}`);
+  console.log(`sequence.length=${sequence.length}`);
+  console.log(`sequenceLength=${sequenceLength}`);
   const mysteryBoxes = range(numAugmentBoxes).map((index) => {
-    const distanceToSequenceEnd =
-      sequenceValues.length - sequenceLength - 1 - index;
+    const distanceToSequenceEnd = sequence.length - sequenceLength - 1 - index;
     // const opacity = Math.max(1 - index * 0.25, 0.05);
     const opacity = Math.max(1.5 / (index + 1), 0.15);
 
