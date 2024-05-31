@@ -8,6 +8,10 @@ const OPTIONS = [
     name: 'Show/Hide Default Sequences',
   },
   {
+    id: 'add',
+    name: 'Add Custom Sequence',
+  },
+  {
     id: 'custom',
     name: 'Manage Custom Sequences',
   },

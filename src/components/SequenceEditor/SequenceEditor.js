@@ -166,7 +166,9 @@ function SequenceEditor() {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
-      {selectedOption === 'default' ? presetTable : customSequence}
+      {selectedOption === 'default' && presetTable}
+      {selectedOption === 'add' && customSequence}
+      {selectedOption === 'custom' && presetTable}
     </FlexColumnWrapper>
   );
 }
