@@ -12,13 +12,20 @@ import { range } from '../../utils';
 import styled from 'styled-components';
 
 function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
-  const [sequence, setSequence] = React.useState([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  ]);
-  const [sequenceLength, setSequenceLength] = React.useState(7);
+  // const [sequence, setSequence] = React.useState([
+  // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  // ]);
+  // const [sequenceLength, setSequenceLength] = React.useState(7);
+
+  const {
+    customSequence,
+    setCustomSequence,
+    customSequenceLength,
+    setCustomSequenceLength,
+  } = React.useContext(DataContext);
 
   function handleNumberChange(index, newValue) {
-    setSequence((oldSequence) => {
+    setCustomSequence((oldSequence) => {
       const newSequence = [...oldSequence];
       newSequence[index] = parseInt(newValue);
       return newSequence;
@@ -26,16 +33,16 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
   }
 
   function handleSequenceChange(newSequence) {
-    setSequence(newSequence);
+    setCustomSequence(newSequence);
     console.log(`newSequence=${newSequence}`);
   }
 
-  const elements = sequence
-    .slice(0, Math.min(sequenceLength, sequence.length))
+  const elements = customSequence
+    .slice(0, Math.min(customSequenceLength, customSequence.length))
     .map((num, index) => {
-      const isLast = index === sequenceLength - 1;
+      const isLast = index === customSequenceLength - 1;
       const isFirst = index === 0;
-      const distanceToSequenceEnd = sequence.length - 1 - index;
+      const distanceToSequenceEnd = customSequence.length - 1 - index;
 
       const damping = isFirst ? 50 : Math.max(100 - 10 * index, 30);
       const seqZIndex = {
@@ -65,7 +72,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
               value={num}
               index={index + delta}
               sequenceId={index}
-              sequenceValue={sequence}
+              sequenceValue={customSequence}
               key={`${index + delta}-${num}`}
               isFirst={isFirst}
               isLast={isLast}
@@ -92,7 +99,7 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
         <SequenceEditorActionBox
           actionType={'prependZero'}
           sequenceId={`seqed-${index}`}
-          sequenceValue={sequence}
+          sequenceValue={customSequence}
           key={`prependzero-${delta}`}
           onSubmit={handleNumberChange}
           enabled={true}
@@ -101,12 +108,16 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
     </td>
   );
 
-  const numAugmentBoxes = Math.max(sequence.length - sequenceLength, 0);
+  const numAugmentBoxes = Math.max(
+    customSequence.length - customSequenceLength,
+    0
+  );
   console.log(`numAugmentBoxes=${numAugmentBoxes}`);
-  console.log(`sequence.length=${sequence.length}`);
-  console.log(`sequenceLength=${sequenceLength}`);
+  console.log(`sequence.length=${customSequence.length}`);
+  console.log(`sequenceLength=${customSequenceLength}`);
   const mysteryBoxes = range(numAugmentBoxes).map((index) => {
-    const distanceToSequenceEnd = sequence.length - sequenceLength - 1 - index;
+    const distanceToSequenceEnd =
+      customSequence.length - customSequenceLength - 1 - index;
     // const opacity = Math.max(1 - index * 0.25, 0.05);
     const opacity = Math.max(1.5 / (index + 1), 0.15);
 

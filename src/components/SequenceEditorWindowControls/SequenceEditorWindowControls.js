@@ -16,30 +16,21 @@ import TooltipWrapper from '../TooltipWrapper';
 
 import styled from 'styled-components';
 
-function SequenceEditorWindowControls({ sequenceId }) {
+function SequenceEditorWindowControls({}) {
   const { volume } = React.useContext(SoundContext);
   const [playClick] = useSound(clickSound, { volume });
-  const {
-    sequenceLength,
-    gSequence,
-    fSequence,
-    handleTruncateSequence,
-    handleAugmentSequence,
-  } = React.useContext(DataContext);
 
-  const sequence = sequenceId === 'g' ? gSequence : fSequence;
+  const { customSequence, customSequenceLength, setCustomSequenceLength } =
+    React.useContext(DataContext);
 
   function handleClick(action) {
-    action();
+    // action();
     playClick();
   }
 
-  const numElements = Math.min(
-    sequenceLength,
-    fSequence.length,
-    gSequence.length
-  );
-  const elements = sequence.slice(0, numElements).map((num, index) => {
+  const numElements = Math.min(customSequenceLength + 1, customSequence.length);
+  //const numElements = customSequence.length;
+  const elements = customSequence.slice(0, numElements).map((num, index) => {
     const leftArrow =
       index === numElements - 1 ? (
         <TooltipWrapper
@@ -50,7 +41,10 @@ function SequenceEditorWindowControls({ sequenceId }) {
           arrowshiftY='0'
         >
           <Bubble
-            onClick={() => handleClick(handleTruncateSequence)}
+            onClick={() => {
+              setCustomSequenceLength((oldLength) => oldLength - 1);
+              handleClick();
+            }}
             $isleft='true'
           >
             <ChevronLeftIcon width='18' height='18' />
@@ -63,8 +57,8 @@ function SequenceEditorWindowControls({ sequenceId }) {
   });
   const prependZeroElement = <td key={`window-first`} style={{ zIndex: 0 }} />;
 
-  const shorterSequenceLength = Math.min(fSequence.length, gSequence.length);
-  const numAugmentBoxes = shorterSequenceLength - sequenceLength;
+  const shorterSequenceLength = customSequence.length;
+  const numAugmentBoxes = shorterSequenceLength - customSequenceLength;
   const boxes = range(numAugmentBoxes).map((index) => {
     const rightArrow =
       index === 0 ? (
@@ -75,7 +69,12 @@ function SequenceEditorWindowControls({ sequenceId }) {
           arrowshiftX='0'
           arrowshiftY='0'
         >
-          <Bubble onClick={() => handleClick(handleAugmentSequence)}>
+          <Bubble
+            onClick={() => {
+              setCustomSequenceLength((oldLength) => oldLength + 1);
+              handleClick();
+            }}
+          >
             <ChevronRightIcon width='18' height='18' />
           </Bubble>
         </TooltipWrapper>
