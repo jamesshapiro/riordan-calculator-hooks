@@ -1,14 +1,15 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import SequenceEditorControl from '../SequenceControl';
+import SequenceControl from '../SequenceControl';
 
 function SequenceControlPanel() {
   return (
     <Wrapper>
       <table>
         <tbody>
-          <SequenceEditorControl />
+          <SequenceControl sequenceId={'g'} />
+          <SequenceControl sequenceId={'f'} />
         </tbody>
       </table>
     </Wrapper>
