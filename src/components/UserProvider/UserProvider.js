@@ -75,6 +75,10 @@ function UserProvider({ children }) {
   }, [isAuthenticated, user, token]);
 
   function processUserSequences(sequences) {
+    console.log(`sequences=${JSON.stringify(sequences)}`);
+    if (!sequences || Object.keys(sequences).length === 0) {
+      return [];
+    }
     return sequences.map((sequence) => {
       const sequenceName = sequence.SK1.S.split('#')[1];
       const sequenceId = sequenceName.replace(' ', '_');
@@ -165,6 +169,32 @@ function UserProvider({ children }) {
     const json = await response.json();
   };
 
+  const deleteSequence = async (sequenceId) => {
+    const oldSequence = userSequences.filter((sequence) => {
+      return sequence.id === sequenceId;
+    })[0];
+    setUserSequences((oldValue) => {
+      return oldValue.filter((sequence) => {
+        return sequence !== sequenceId;
+      });
+    });
+    const sequenceTitle = oldSequence.name;
+    const payload = { title: sequenceTitle };
+    const URL = AUTH_ENDPOINT + `sequence`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const request = new Request(URL, {
+      method: 'DELETE',
+      headers: HEADERS,
+      body: JSON.stringify(payload),
+      timeout: 100000,
+    });
+    const response = await fetch(request);
+    const json = await response.json();
+  };
+
   const handleLogout = async () => {
     try {
       await signOut();
@@ -242,6 +272,7 @@ function UserProvider({ children }) {
         userDefaultHiddenSequences,
         setUserSequences,
         setUserDefaultHiddenSequences,
+        deleteSequence,
       }}
     >
       {children}

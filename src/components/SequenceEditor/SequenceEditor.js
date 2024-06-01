@@ -11,6 +11,7 @@ import Header from '../Header';
 import SequenceEditorSelectTable from '../SequenceEditorSelectTable';
 import SequenceEditorWindowControls from '../SequenceEditorWindowControls';
 import SequenceEditorSubmitButton from '../SequenceEditorSubmitButton';
+import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmDeleteSequenceDialog';
 
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
@@ -173,28 +174,7 @@ function SequenceEditor() {
               <TDWrapper>{sequenceName}</TDWrapper>
               <TDWrapper>{displayTerms}</TDWrapper>
               <TDWrapper>
-                <Preview
-                  onClick={() => {
-                    if (userDefaultHiddenSequences.includes(sequenceId)) {
-                      updateDefaults(sequenceId, 'true');
-                      setUserDefaultHiddenSequences((oldValue) => {
-                        const newValue = oldValue.filter(
-                          (item) => item !== sequenceId
-                        );
-                        return newValue;
-                      });
-                    } else {
-                      updateDefaults(sequenceId, 'false');
-                      setUserDefaultHiddenSequences((oldValue) => {
-                        const newValue = [...oldValue];
-                        newValue.push(sequenceId);
-                        return newValue;
-                      });
-                    }
-                  }}
-                >
-                  {icon}
-                </Preview>
+                <SequenceEditorConfirmDeleteSequenceDialog id={sequenceId} />
               </TDWrapper>
             </tr>
           );
