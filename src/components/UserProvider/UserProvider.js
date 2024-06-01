@@ -173,11 +173,6 @@ function UserProvider({ children }) {
     const oldSequence = userSequences.filter((sequence) => {
       return sequence.id === sequenceId;
     })[0];
-    setUserSequences((oldValue) => {
-      return oldValue.filter((sequence) => {
-        return sequence !== sequenceId;
-      });
-    });
     const sequenceTitle = oldSequence.name;
     const payload = { title: sequenceTitle };
     const URL = AUTH_ENDPOINT + `sequence`;

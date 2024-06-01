@@ -16,6 +16,7 @@ import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmD
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
 function SequenceEditor() {
+  console.log('rendering');
   const {
     userSequences,
     userDefaultHiddenSequences,
@@ -147,6 +148,8 @@ function SequenceEditor() {
       </tbody>
     </Table>
   );
+
+  console.log(`userSequences=${JSON.stringify(userSequences)}`);
 
   const customTable = (
     <Table>

@@ -7,10 +7,19 @@ import { UserContext } from '../UserProvider';
 import styled from 'styled-components';
 
 const SequenceEditorConfirmDeleteSequenceDialog = ({ id }) => {
-  const { setIsAuthModalOpen, deleteSequence } = React.useContext(UserContext);
+  const { setIsAuthModalOpen, deleteSequence, setUserSequences } =
+    React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
   function handleDelete(id) {
+    console.log('handling delete');
+    console.log(`delete id=${id}`);
+    setUserSequences((oldValue) => {
+      return oldValue.filter((sequence) => {
+        return sequence.id !== id;
+      });
+    });
+    console.log('completing delete');
     deleteSequence(id);
     setDialogOpen(false);
     setIsAuthModalOpen(false);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
+import { UserContext } from '../UserProvider';
 import styled from 'styled-components';
 import { SpinnerInfinity } from 'spinners-react';
 import useSound from 'use-sound';
@@ -10,16 +11,21 @@ import { SoundContext } from '../SoundProvider';
 function SequenceEditorSubmitButton() {
   const { customSequence, customSequenceLength, addCustomSequence } =
     React.useContext(DataContext);
+  const { setUserSequences } = React.useContext(UserContext);
   const { volume } = React.useContext(SoundContext);
   const [playSubmit] = useSound(submitSound, { volume });
 
   const buttonContents = 'Add Sequence';
 
   function handleAddSequence() {
-    addCustomSequence(
-      customSequence.slice(0, customSequenceLength),
-      'dummy title'
-    );
+    const prefixValues = customSequence.slice(0, customSequenceLength);
+    addCustomSequence(prefixValues, 'dummy title');
+    setUserSequences((oldValue) => {
+      return [
+        ...oldValue,
+        { name: 'dummy title', id: 'dummy_title', sequence: prefixValues },
+      ];
+    });
   }
 
   return (
