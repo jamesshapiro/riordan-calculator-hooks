@@ -401,6 +401,23 @@ function DataProvider({ children }) {
     });
   }
 
+  const addCustomSequence = async (sequenceValues, sequenceTitle) => {
+    const URL = AUTH_ENDPOINT + `sequence`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const payload = { title: sequenceTitle, values: sequenceValues };
+    const request = new Request(URL, {
+      method: 'PUT',
+      headers: HEADERS,
+      body: JSON.stringify(payload),
+      timeout: 100000,
+    });
+    const response = await fetch(request);
+    const json = await response.json();
+  };
+
   // const handleTab = React.useCallback(tabFocus, []);
   useKeydown('Tab', !isAuthModalOpen, (event, bothShiftAndTabWerePressed) => {
     if (!isAuthModalOpen) {
@@ -450,6 +467,7 @@ function DataProvider({ children }) {
         setCustomSequence,
         customSequenceLength,
         setCustomSequenceLength,
+        addCustomSequence,
       }}
     >
       {children}

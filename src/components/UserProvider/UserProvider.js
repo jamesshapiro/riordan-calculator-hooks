@@ -74,6 +74,19 @@ function UserProvider({ children }) {
     getUserHistory();
   }, [isAuthenticated, user, token]);
 
+  function processUserSequences(sequences) {
+    return sequences.map((sequence) => {
+      const sequenceName = sequence.SK1.S.split('#')[1];
+      const sequenceId = sequenceName.replace(' ', '_');
+      const sequenceValues = JSON.parse(sequence.VALUES.S);
+      return {
+        name: sequenceName,
+        id: sequenceId,
+        sequence: sequenceValues,
+      };
+    });
+  }
+
   React.useEffect(() => {
     const getUserSequenceDefaults = async () => {
       if (!isAuthenticated) return;
@@ -92,8 +105,9 @@ function UserProvider({ children }) {
       const json = await response.json();
       const defaultHiddenSequences = json['default_hidden_sequences'];
       const customSequences = json['custom_sequences'];
+      const processed = processUserSequences(customSequences);
 
-      setUserSequences(customSequences);
+      setUserSequences(processed);
       setUserDefaultHiddenSequences(defaultHiddenSequences);
     };
     getUserSequenceDefaults();

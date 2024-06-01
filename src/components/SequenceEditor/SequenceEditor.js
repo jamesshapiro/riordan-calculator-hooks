@@ -9,7 +9,8 @@ import styled from 'styled-components';
 import NavBar from '../NavBar';
 import Header from '../Header';
 import SequenceEditorSelectTable from '../SequenceEditorSelectTable';
-import SequenceEditorWindowControls from '../SequenceEditorWindowControls/SequenceEditorWindowControls';
+import SequenceEditorWindowControls from '../SequenceEditorWindowControls';
+import SequenceEditorSubmitButton from '../SequenceEditorSubmitButton';
 
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
@@ -146,11 +147,68 @@ function SequenceEditor() {
     </Table>
   );
 
+  const customTable = (
+    <Table>
+      <thead>
+        <tr>
+          <TDWrapper>Title</TDWrapper>
+          <TDWrapper>Sequence</TDWrapper>
+          <TDWrapper>Delete?</TDWrapper>
+        </tr>
+      </thead>
+      <tbody>
+        {userSequences.map((sequence, index) => {
+          const sequenceName = sequence.name;
+          const sequenceId = sequence.id;
+          const sequenceSequence = sequence.sequence;
+          const displayTerms = getSequenceDisplay(
+            sequenceSequence.slice(0, 15)
+          );
+          const hideIconPredicate =
+            userDefaultHiddenSequences &&
+            userDefaultHiddenSequences.includes(sequenceId);
+          const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
+          return (
+            <tr key={index}>
+              <TDWrapper>{sequenceName}</TDWrapper>
+              <TDWrapper>{displayTerms}</TDWrapper>
+              <TDWrapper>
+                <Preview
+                  onClick={() => {
+                    if (userDefaultHiddenSequences.includes(sequenceId)) {
+                      updateDefaults(sequenceId, 'true');
+                      setUserDefaultHiddenSequences((oldValue) => {
+                        const newValue = oldValue.filter(
+                          (item) => item !== sequenceId
+                        );
+                        return newValue;
+                      });
+                    } else {
+                      updateDefaults(sequenceId, 'false');
+                      setUserDefaultHiddenSequences((oldValue) => {
+                        const newValue = [...oldValue];
+                        newValue.push(sequenceId);
+                        return newValue;
+                      });
+                    }
+                  }}
+                >
+                  {icon}
+                </Preview>
+              </TDWrapper>
+            </tr>
+          );
+        })}
+      </tbody>
+    </Table>
+  );
+
   const customSequence = (
     <TableWrapper>
       <tbody>
         <SequenceEditorWindowControls />
         <SequenceEditorSequence />
+        <SequenceEditorSubmitButton />
       </tbody>
     </TableWrapper>
   );
@@ -168,7 +226,7 @@ function SequenceEditor() {
       />
       {selectedOption === 'default' && presetTable}
       {selectedOption === 'add' && customSequence}
-      {selectedOption === 'custom' && presetTable}
+      {selectedOption === 'custom' && customTable}
     </FlexColumnWrapper>
   );
 }
