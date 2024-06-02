@@ -11,12 +11,29 @@ const AuthDialog = () => {
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
   const { handleLogin, handleSignUp, handleConfirmSignUp, setIsAuthModalOpen } =
     React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [awaitingConfirmation, setAwaitingConfirmation] = React.useState(false);
-  
+
+  const passwordIsLongEnough = password.length >= 8;
+  const passwordContainsNumber = /\d/.test(password);
+  const passwordContainsSpecialCharacter =
+    /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password);
+  const passwordContainsUppercase = /[A-Z]/.test(password);
+  const passwordContainsLowercase = /[a-z]/.test(password);
+  const passwordMatchesConfirm =
+    password === confirmPassword && password.length > 0;
+  const passwordIsValid =
+    passwordIsLongEnough &&
+    passwordContainsNumber &&
+    passwordContainsSpecialCharacter &&
+    passwordContainsUppercase &&
+    passwordContainsLowercase &&
+    passwordMatchesConfirm;
+
   function handleLoginAttempt() {
     handleLogin(email, password);
     setDialogOpen(false);
@@ -24,6 +41,18 @@ const AuthDialog = () => {
   }
 
   function handleSignUpAttempt() {
+    if (!passwordIsValid) {
+      window.alert('Password is not valid! Review the requirements!');
+      return;
+    }
+    if (email === '') {
+      window.alert('Email not valid!');
+      return;
+    }
+    if (firstname === '' || lastname === '') {
+      window.alert('Must provide a first and last name!');
+      return;
+    }
     handleSignUp(email, password, firstname, lastname);
     setAwaitingConfirmation(true);
   }
@@ -90,6 +119,48 @@ const AuthDialog = () => {
           type='password'
         />
       </fieldset>
+      <fieldset className='Fieldset'>
+        <label className='Label' htmlFor='confirmpassword'>
+          Confirm Password
+        </label>
+        <input
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className='Input'
+          id='password'
+          type='password'
+        />
+      </fieldset>
+      {passwordIsLongEnough ? (
+        <div style={{ color: 'green' }}>&gt;= 8 characters long</div>
+      ) : (
+        <div style={{ color: 'red' }}>&lt; 8 characters long!</div>
+      )}
+      {passwordContainsNumber ? (
+        <div style={{ color: 'green' }}>&gt;=1 number</div>
+      ) : (
+        <div style={{ color: 'red' }}>&lt;1 number!</div>
+      )}
+      {passwordContainsSpecialCharacter ? (
+        <div style={{ color: 'green' }}>&gt;=1 special character</div>
+      ) : (
+        <div style={{ color: 'red' }}>&lt;1 special character</div>
+      )}
+      {passwordContainsUppercase ? (
+        <div style={{ color: 'green' }}>&gt;=1 uppercase letter</div>
+      ) : (
+        <div style={{ color: 'red' }}>&lt;1 uppercase letter</div>
+      )}
+      {passwordContainsLowercase ? (
+        <div style={{ color: 'green' }}>&gt;=1 lowercase letter</div>
+      ) : (
+        <div style={{ color: 'red' }}>&lt;1 lowercase letter</div>
+      )}
+      {passwordMatchesConfirm ? (
+        <div style={{ color: 'green' }}>Password matches confirm</div>
+      ) : (
+        <div style={{ color: 'red' }}>Password & confirm don't match</div>
+      )}
       <div
         style={{
           display: 'flex',
@@ -187,6 +258,7 @@ const AuthDialog = () => {
                   type='password'
                 />
               </fieldset>
+
               <div
                 style={{
                   display: 'flex',
