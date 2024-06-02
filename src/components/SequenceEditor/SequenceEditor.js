@@ -23,9 +23,10 @@ function SequenceEditor() {
     setUserDefaultHiddenSequences,
     token,
   } = React.useContext(UserContext);
-  const { customSequenceTitle, setCustomSequenceTitle } =
+  const { customSequenceTitle, setCustomSequenceTitle, setCustomSequence } =
     React.useContext(DataContext);
   const [selectedOption, setSelectedOption] = React.useState('default');
+  const [oeisId, setOeisId] = React.useState('');
 
   const updateDefaults = async (sequenceId, displayOption) => {
     const URL =
@@ -40,6 +41,26 @@ function SequenceEditor() {
       timeout: 100000,
     });
     fetch(request);
+  };
+
+  const fetchOEIS = async (oeisId) => {
+    const URL = AUTH_ENDPOINT + `oeis?oeis_id=A${oeisId}`;
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const request = new Request(URL, {
+      method: 'GET',
+      headers: HEADERS,
+      timeout: 100000,
+    });
+    const response = await fetch(request);
+    const json = await response.json();
+    console.log(json.sequence);
+    setCustomSequence(json.sequence.slice(0, 15));
+    setCustomSequenceTitle((oldTitle) => {
+      return `${oldTitle}${oldTitle !== '' ? ' ' : ''}(A${oeisId})`;
+    });
   };
 
   function getSequenceDisplay(sequenceTerms) {
@@ -197,15 +218,6 @@ function SequenceEditor() {
     </Table>
   );
 
-  const sequenceTitle = (
-    <TitleBox>
-      Sequence Title:{' '}
-      <StyledHeader>
-        <span>{customSequenceTitle}</span>
-      </StyledHeader>
-    </TitleBox>
-  );
-
   const titleHeader = (
     <form
       onSubmit={(event) => {
@@ -223,6 +235,36 @@ function SequenceEditor() {
     </form>
   );
 
+  const oeisImport = (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (oeisId.length !== 6) {
+          window.alert('OEIS ID must be exactly six digits long');
+        }
+        fetchOEIS(oeisId);
+        setOeisId('');
+      }}
+    >
+      <Aspan>A</Aspan>
+      <TitleInput
+        id='oeis-field'
+        value={oeisId}
+        placeholder='123456 (Optional OEIS ID)'
+        onChange={(event) => {
+          if (event.target.value !== '' && !/^\d+$/.test(event.target.value)) {
+            return;
+          }
+          if (event.target.value.length > 6) {
+            return;
+          }
+          setOeisId(event.target.value);
+        }}
+      />
+      <StyledSubmitButton type='submit'>Import</StyledSubmitButton>
+    </form>
+  );
+
   const customSequence = (
     <>
       <TableWrapper>
@@ -232,6 +274,7 @@ function SequenceEditor() {
         </tbody>
       </TableWrapper>
       {titleHeader}
+      {oeisImport}
       <SequenceEditorSubmitButton />
     </>
   );
@@ -256,6 +299,10 @@ function SequenceEditor() {
 
 export default SequenceEditor;
 
+const Aspan = styled.span`
+  font-size: 36px;
+`;
+
 const TitleInput = styled.input`
   background-color: var(--matrix-header-field);
   padding: 12px;
@@ -266,6 +313,30 @@ const TitleInput = styled.input`
   margin-top: 50px;
   margin-bottom: 10px;
   font-size: 2rem;
+`;
+
+const StyledSubmitButton = styled.button`
+  z-index: 10000;
+  margin-top: 55px;
+  margin-left: 10px;
+  min-width: 50px;
+  width: fit-content;
+  /* width: fit-content; */
+  height: 19px;
+  border: 1px solid var(--submit-button-border);
+  padding: 10px;
+  border-radius: var(--number-box-border-radius);
+  color: white;
+  background-color: var(--submit-button-background);
+  &:hover {
+    background-image: revert;
+    background-color: var(--hover-button-color);
+    color: white;
+  }
+  &:active {
+    background-color: var(--active-button-color);
+    color: white;
+  }
 `;
 
 const TitleSpan = styled.span`

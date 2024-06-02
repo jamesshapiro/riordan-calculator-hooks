@@ -17,12 +17,8 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
   // ]);
   // const [sequenceLength, setSequenceLength] = React.useState(7);
 
-  const {
-    customSequence,
-    setCustomSequence,
-    customSequenceLength,
-    setCustomSequenceLength,
-  } = React.useContext(DataContext);
+  const { customSequence, setCustomSequence, customSequenceLength } =
+    React.useContext(DataContext);
 
   function handleNumberChange(index, newValue) {
     setCustomSequence((oldSequence) => {
