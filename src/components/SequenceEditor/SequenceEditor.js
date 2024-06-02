@@ -2,6 +2,7 @@ import React from 'react';
 
 import SequenceEditorSequence from '../SequenceEditorSequence';
 
+import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
 import { sequences } from '../../data';
 
@@ -16,13 +17,14 @@ import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmD
 const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
 function SequenceEditor() {
-  console.log('rendering');
   const {
     userSequences,
     userDefaultHiddenSequences,
     setUserDefaultHiddenSequences,
     token,
   } = React.useContext(UserContext);
+  const { customSequenceTitle, setCustomSequenceTitle } =
+    React.useContext(DataContext);
   const [selectedOption, setSelectedOption] = React.useState('default');
 
   const updateDefaults = async (sequenceId, displayOption) => {
@@ -112,35 +114,50 @@ function SequenceEditor() {
           );
           const hideIconPredicate =
             userDefaultHiddenSequences &&
+            Object.keys(userDefaultHiddenSequences).length > 0 &&
             userDefaultHiddenSequences.includes(sequenceId);
           const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
+          const hideShowOption = (
+            <Preview
+              onClick={() => {
+                if (
+                  userDefaultHiddenSequences &&
+                  Object.keys(userDefaultHiddenSequences).length > 0 &&
+                  userDefaultHiddenSequences.includes(sequenceId)
+                ) {
+                  updateDefaults(sequenceId, 'true');
+                  setUserDefaultHiddenSequences((oldValue) => {
+                    const newValue = oldValue.filter(
+                      (item) => item !== sequenceId
+                    );
+                    return newValue;
+                  });
+                } else {
+                  updateDefaults(sequenceId, 'false');
+                  setUserDefaultHiddenSequences((oldValue) => {
+                    console.log(`oldValue=${JSON.stringify(oldValue)}`);
+                    var newValue = [];
+                    if (
+                      oldValue &&
+                      Object.keys(userDefaultHiddenSequences).length > 0
+                    ) {
+                      newValue = [...oldValue];
+                    }
+                    newValue.push(sequenceId);
+                    return newValue;
+                  });
+                }
+              }}
+            >
+              {icon}
+            </Preview>
+          );
           return (
             <tr key={index}>
               <TDWrapper>{sequenceName}</TDWrapper>
               <TDWrapper>{displayTerms}</TDWrapper>
               <TDWrapper>
-                <Preview
-                  onClick={() => {
-                    if (userDefaultHiddenSequences.includes(sequenceId)) {
-                      updateDefaults(sequenceId, 'true');
-                      setUserDefaultHiddenSequences((oldValue) => {
-                        const newValue = oldValue.filter(
-                          (item) => item !== sequenceId
-                        );
-                        return newValue;
-                      });
-                    } else {
-                      updateDefaults(sequenceId, 'false');
-                      setUserDefaultHiddenSequences((oldValue) => {
-                        const newValue = [...oldValue];
-                        newValue.push(sequenceId);
-                        return newValue;
-                      });
-                    }
-                  }}
-                >
-                  {icon}
-                </Preview>
+                {sequence.id !== 'catalan' && hideShowOption}
               </TDWrapper>
             </tr>
           );
@@ -148,8 +165,6 @@ function SequenceEditor() {
       </tbody>
     </Table>
   );
-
-  console.log(`userSequences=${JSON.stringify(userSequences)}`);
 
   const customTable = (
     <Table>
@@ -168,10 +183,6 @@ function SequenceEditor() {
           const displayTerms = getSequenceDisplay(
             sequenceSequence.slice(0, 15)
           );
-          const hideIconPredicate =
-            userDefaultHiddenSequences &&
-            userDefaultHiddenSequences.includes(sequenceId);
-          const icon = hideIconPredicate ? EyeOffSVG : EyeOnSVG;
           return (
             <tr key={index}>
               <TDWrapper>{sequenceName}</TDWrapper>
@@ -186,14 +197,43 @@ function SequenceEditor() {
     </Table>
   );
 
+  const sequenceTitle = (
+    <TitleBox>
+      Sequence Title:{' '}
+      <StyledHeader>
+        <span>{customSequenceTitle}</span>
+      </StyledHeader>
+    </TitleBox>
+  );
+
+  const titleHeader = (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      <TitleInput
+        id='title-field'
+        value={customSequenceTitle}
+        placeholder='Give Your Sequence A Title!'
+        onChange={(event) => {
+          setCustomSequenceTitle(event.target.value);
+        }}
+      />
+    </form>
+  );
+
   const customSequence = (
-    <TableWrapper>
-      <tbody>
-        <SequenceEditorWindowControls />
-        <SequenceEditorSequence />
-        <SequenceEditorSubmitButton />
-      </tbody>
-    </TableWrapper>
+    <>
+      <TableWrapper>
+        <tbody>
+          <SequenceEditorWindowControls />
+          <SequenceEditorSequence />
+        </tbody>
+      </TableWrapper>
+      {titleHeader}
+      <SequenceEditorSubmitButton />
+    </>
   );
 
   return (
@@ -215,6 +255,36 @@ function SequenceEditor() {
 }
 
 export default SequenceEditor;
+
+const TitleInput = styled.input`
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  display: inline;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 2rem;
+`;
+
+const TitleSpan = styled.span`
+  cursor: pointer;
+`;
+
+const TitleBox = styled.div`
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  margin-bottom: 10px;
+  display: inline;
+`;
+
+const StyledHeader = styled.h1`
+  text-align: left;
+`;
 
 const TableWrapper = styled.table`
   margin-left: 10px;

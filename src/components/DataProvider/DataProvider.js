@@ -36,12 +36,13 @@ function DataProvider({ children }) {
   const [shareMatrixId, setShareMatrixId] = React.useState('');
   const [createdAt, setCreatedAt] = React.useState('');
   const [creatorName, setCreatorName] = React.useState('');
+  const [customSequenceTitle, setCustomSequenceTitle] = React.useState('');
   const [customSequence, setCustomSequence] = React.useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
-  const [customSequenceLength, setCustomSequenceLength] = React.useState(7);
+  const [customSequenceLength, setCustomSequenceLength] = React.useState(10);
 
-  const { isAuthenticated, isAuthModalOpen, token } =
+  const { isAuthenticated, isAuthModalOpen, token, userSequences } =
     React.useContext(UserContext);
 
   function getDerivativeSequence(fSequence) {
@@ -298,8 +299,10 @@ function DataProvider({ children }) {
       return;
     }
     // const setSequence = targetSequence === 'g' ? setGSequence : setFSequence;
-    const sequence = sequences.filter((item) => item.id === selectedSequence)[0]
-      .sequence;
+    const allSequences = [...sequences, ...userSequences];
+    const sequence = allSequences.filter(
+      (item) => item.id === selectedSequence
+    )[0].sequence;
     const finalSequence = targetSequence === 'g' ? sequence : [0, ...sequence];
     // setSequence(finalSequence);
     handleSequenceChange(targetSequence, finalSequence, false);
@@ -468,6 +471,8 @@ function DataProvider({ children }) {
         customSequenceLength,
         setCustomSequenceLength,
         addCustomSequence,
+        customSequenceTitle,
+        setCustomSequenceTitle,
       }}
     >
       {children}

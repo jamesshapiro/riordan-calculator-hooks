@@ -34,7 +34,6 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
 
   function handleSequenceChange(newSequence) {
     setCustomSequence(newSequence);
-    console.log(`newSequence=${newSequence}`);
   }
 
   const elements = customSequence
@@ -112,9 +111,6 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
     customSequence.length - customSequenceLength,
     0
   );
-  console.log(`numAugmentBoxes=${numAugmentBoxes}`);
-  console.log(`sequence.length=${customSequence.length}`);
-  console.log(`sequenceLength=${customSequenceLength}`);
   const mysteryBoxes = range(numAugmentBoxes).map((index) => {
     const distanceToSequenceEnd =
       customSequence.length - customSequenceLength - 1 - index;

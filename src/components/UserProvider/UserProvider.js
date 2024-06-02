@@ -75,13 +75,12 @@ function UserProvider({ children }) {
   }, [isAuthenticated, user, token]);
 
   function processUserSequences(sequences) {
-    console.log(`sequences=${JSON.stringify(sequences)}`);
     if (!sequences || Object.keys(sequences).length === 0) {
       return [];
     }
     return sequences.map((sequence) => {
       const sequenceName = sequence.SK1.S.split('#')[1];
-      const sequenceId = sequenceName.replace(' ', '_');
+      const sequenceId = `custom#${sequenceName.replace(/ /g, '_')}`;
       const sequenceValues = JSON.parse(sequence.VALUES.S);
       return {
         name: sequenceName,

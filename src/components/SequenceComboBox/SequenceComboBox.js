@@ -25,8 +25,11 @@ const SequenceComboBox = ({ sequenceId }) => {
 
   function handleSelectValue(selection) {
     // setValue(selection);
+    console.log(`selection=${selection}`);
     handleSelectSequence(sequenceId, selection);
   }
+
+  const userSequencesExist = userSequences.length > 0;
 
   return (
     <Select.Root
@@ -49,7 +52,7 @@ const SequenceComboBox = ({ sequenceId }) => {
           <Select.Viewport className={style.SelectViewport}>
             <Select.Group>
               <Select.Label key='grouplabel' className={style.SelectLabel}>
-                Sequences
+                Default Sequences
               </Select.Label>
               {sequences.map((item) => {
                 if (
@@ -67,6 +70,23 @@ const SequenceComboBox = ({ sequenceId }) => {
               })}
               <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>
+            {userSequencesExist && (
+              <Select.Separator className='SelectSeparator' />
+            )}
+            {userSequencesExist && (
+              <Select.Group>
+                <Select.Label key='customlabel' className={style.SelectLabel}>
+                  Custom Sequences
+                </Select.Label>
+                {userSequences.map((item) => {
+                  return (
+                    <SelectItem key={item.id} value={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  );
+                })}
+              </Select.Group>
+            )}
             {/* <Select.Separator className={style.SelectSeparator} />
           <Select.Group></Select.Group> */}
           </Select.Viewport>

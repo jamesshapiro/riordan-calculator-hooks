@@ -30,7 +30,6 @@ function SequenceEditorActionBox({
     handleSelectSequence(sequenceId, 'custom');
     playClick();
   }
-  console.log('I exist');
 
   const onClickAction = enabled ? handleClick : null;
 
