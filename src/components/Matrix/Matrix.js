@@ -103,8 +103,30 @@ function Matrix({ variant }) {
       return a + b;
     }, 0);
   });
+
+  const zeroEV = displayMatrix.map((row) => {
+    const newVector = Array.from({ length: row.length }, (_, i) => i);
+    const unreducedProduct = row.map((elem, idx) => {
+      return elem * newVector[idx];
+    });
+    return unreducedProduct.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  });
+
+  const oneEV = displayMatrix.map((row) => {
+    const newVector = Array.from({ length: row.length }, (_, i) => i + 1);
+    const unreducedProduct = row.map((elem, idx) => {
+      return elem * newVector[idx];
+    });
+    return unreducedProduct.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+  });
   const rowSumsOEISQuery = rowSums.join('%2C');
   const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
+  const zeroEVOEISQuery = zeroEV.join('%2C');
+  const oneEVOEISQuery = oneEV.join('%2C');
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
@@ -191,6 +213,50 @@ function Matrix({ variant }) {
                 </a>
               </TooltipWrapper>
             </MatrixCell>
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              $row={0}
+              $col={displayMatrix[0].length + 2}
+              key={`0,${displayMatrix[0].length + 2}`}
+            >
+              <TooltipWrapper
+                message='OEIS Zero-Indexed Expected Value Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${zeroEVOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              $row={0}
+              $col={displayMatrix[0].length + 3}
+              key={`0,${displayMatrix[0].length + 3}`}
+            >
+              <TooltipWrapper
+                message='OEIS One-Indexed Expected Value Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${oneEVOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
           </tr>
           {displayMatrix.map((row, rowIndex) => {
             const searchEntries = displayMatrix[rowIndex].slice(
@@ -243,6 +309,16 @@ function Matrix({ variant }) {
                 >
                   {alternatingRowSums[rowIndex]}
                 </AlternatingRowSumsMatrixCell>
+                <ZeroEVMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 3}`}
+                >
+                  {zeroEV[rowIndex]}
+                </ZeroEVMatrixCell>
+                <OneEVMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 4}`}
+                >
+                  {oneEV[rowIndex]}
+                </OneEVMatrixCell>
               </tr>
             );
           })}
@@ -300,6 +376,16 @@ const RowSumsMatrixCell = styled(MatrixCell)`
 const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-alternating-row-sums-background-color);
   background-image: var(--alternating-row-sums-box-gradient);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const ZeroEVMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-zero-ev-background-color);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const OneEVMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-one-ev-background-color);
   color: var(--alternating-rows-sums-font-color);
 `;
 

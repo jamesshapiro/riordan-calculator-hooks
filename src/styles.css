@@ -56,6 +56,8 @@ body {
   --rows-sums-font-color: #000;
 
   --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
+  --matrix-cell-zero-ev-background-color: hsl(6, 36%, 80%);
+  --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
   --alternating-row-sums-box-gradient: #f00;
   --alternating-rows-sums-font-color: #000;
   /* --background-gradient-bottom: #f00; */
