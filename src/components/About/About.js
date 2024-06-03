@@ -40,7 +40,10 @@ const P = styled.p`
     text-decoration: none;
     color: blue;
   }
+  border: 1px solid blue;
+  background-color: white;
   max-width: 600px;
+  padding: 20px;
 `;
 
 const Wrapper = styled.div`
