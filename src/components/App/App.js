@@ -12,7 +12,7 @@ import Home from '../Home';
 import About from '../About';
 import SequenceEditor from '../SequenceEditor';
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 // import '@aws-amplify/ui-react/styles.css';
@@ -25,12 +25,12 @@ function App() {
           <Router>
             <DeepBackdrop />
             <Backdrop />
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/about' component={About} />
-              <Route path='/sequences' component={SequenceEditor} />
-              <Route path='/history' component={History} />
-            </Switch>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/sequences' element={<SequenceEditor />} />
+              <Route path='/history' element={<History />} />
+            </Routes>
           </Router>
         </SoundProvider>
       </DataProvider>
