@@ -54,7 +54,7 @@ function Matrix({ variant }) {
       },
       stieltjes: {
         id: 'stieltjes',
-        title: 'Stieltjes/Projection Matrix',
+        title: 'Stieltjes/Production Matrix',
         leftMargin: '96px',
       },
     },
@@ -103,6 +103,8 @@ function Matrix({ variant }) {
       return a + b;
     }, 0);
   });
+  const numRows = displayMatrix.length;
+  const numCols = displayMatrix[0].length;
 
   const zeroEV = displayMatrix.map((row) => {
     const newVector = Array.from({ length: row.length }, (_, i) => i);
@@ -123,10 +125,19 @@ function Matrix({ variant }) {
       return a + b;
     }, 0);
   });
-  const rowSumsOEISQuery = rowSums.join('%2C');
-  const alternatingRowSumsOEISQuery = alternatingRowSums.join('%2C');
-  const zeroEVOEISQuery = zeroEV.join('%2C');
-  const oneEVOEISQuery = oneEV.join('%2C');
+  const rowSumsOEISQuery = (
+    numCols < numRows ? rowSums.slice(0, -1) : rowSums
+  ).join('%2C');
+  const alternatingRowSumsOEISQuery = (
+    numCols < numRows ? alternatingRowSums.slice(0, -1) : alternatingRowSums
+  ).join('%2C');
+  const zeroEVOEISQuery = (
+    numCols < numRows ? zeroEV.slice(0, -1) : zeroEV
+  ).join('%2C');
+  const oneEVOEISQuery = (numCols < numRows ? oneEV.slice(0, -1) : oneEV).join(
+    '%2C'
+  );
+
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
@@ -264,6 +275,7 @@ function Matrix({ variant }) {
               rowIndex + 1
             );
             const searchQueryParam = searchEntries.join('%2C');
+            const lastRowIdx = rowSums.length - 1;
             return (
               <tr key={`row${rowIndex}`}>
                 <MatrixCell
@@ -302,22 +314,30 @@ function Matrix({ variant }) {
                 <RowSumsMatrixCell
                   key={`${rowIndex},${displayMatrix[0].length + 1}`}
                 >
-                  {rowSums[rowIndex]}
+                  {rowIndex < lastRowIdx || numRows === numCols
+                    ? rowSums[rowIndex]
+                    : ''}
                 </RowSumsMatrixCell>
                 <AlternatingRowSumsMatrixCell
                   key={`${rowIndex},${displayMatrix[0].length + 2}`}
                 >
-                  {alternatingRowSums[rowIndex]}
+                  {rowIndex < lastRowIdx || numRows === numCols
+                    ? alternatingRowSums[rowIndex]
+                    : ''}
                 </AlternatingRowSumsMatrixCell>
                 <ZeroEVMatrixCell
                   key={`${rowIndex},${displayMatrix[0].length + 3}`}
                 >
-                  {zeroEV[rowIndex]}
+                  {rowIndex < lastRowIdx || numRows === numCols
+                    ? zeroEV[rowIndex]
+                    : ''}
                 </ZeroEVMatrixCell>
                 <OneEVMatrixCell
                   key={`${rowIndex},${displayMatrix[0].length + 4}`}
                 >
-                  {oneEV[rowIndex]}
+                  {rowIndex < lastRowIdx || numRows === numCols
+                    ? oneEV[rowIndex]
+                    : ''}
                 </OneEVMatrixCell>
               </tr>
             );
