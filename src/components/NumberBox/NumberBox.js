@@ -108,9 +108,14 @@ function NumberBox({
   }
 
   function handleKeyPress(value) {
-    let cleaned = value.replace(/[^0-9]/g, '');
-    if (value.startsWith('0') && value.length > 1) {
+    let cleaned = value.replace(/[^0-9-]/g, '');
+    if (cleaned.startsWith('-0') && cleaned.length > 2) {
+      cleaned = '-' + cleaned.slice(2);
+    } else if (value.startsWith('0') && value.length > 1) {
       cleaned = value.slice(1);
+    }
+    if (cleaned.endsWith('-') && cleaned.length > 1) {
+      cleaned = cleaned.slice(0, -1);
     }
     setDigits(cleaned);
   }
