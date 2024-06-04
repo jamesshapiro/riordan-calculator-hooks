@@ -18,16 +18,15 @@ function SequenceEditorActionBox({
   const { volume } = React.useContext(SoundContext);
   const [playClick] = useSound(clickSound, { volume });
 
-  const { handleSelectSequence, handleSequenceChange } =
-    React.useContext(DataContext);
+  const { setCustomSequence } = React.useContext(DataContext);
   const symbol = actionType === 'prependZero' ? '>>' : '?';
 
   function handleClick() {
     if (actionType === 'prependZero') {
       // handleAddZero(sequenceId);
-      handleSequenceChange(sequenceId, [0, ...sequenceValue]);
+      setCustomSequence([0, ...sequenceValue]);
+      // handleSequenceChange(sequenceId, [0, ...sequenceValue]);
     }
-    handleSelectSequence(sequenceId, 'custom');
     playClick();
   }
 

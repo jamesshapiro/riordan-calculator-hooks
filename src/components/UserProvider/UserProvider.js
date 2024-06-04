@@ -137,9 +137,9 @@ function UserProvider({ children }) {
         headers: HEADERS,
         timeout: 100000,
       });
-      // const response = await fetch(request);
-      // const json = await response.json();
-      // setStats(json);
+      const response = await fetch(request);
+      const json = await response.json();
+      setStats(json);
     };
     getStats();
   }, [isAuthenticated, user, token]);

@@ -38,7 +38,7 @@ function DataProvider({ children }) {
   const [creatorName, setCreatorName] = React.useState('');
   const [customSequenceTitle, setCustomSequenceTitle] = React.useState('');
   const [customSequence, setCustomSequence] = React.useState([
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
   const [customSequenceLength, setCustomSequenceLength] = React.useState(10);
 

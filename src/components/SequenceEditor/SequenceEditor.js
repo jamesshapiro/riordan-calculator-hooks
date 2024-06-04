@@ -224,6 +224,7 @@ function SequenceEditor() {
         event.preventDefault();
       }}
     >
+      <Aspan>Title: </Aspan>
       <TitleInput
         id='title-field'
         value={customSequenceTitle}
@@ -267,14 +268,15 @@ function SequenceEditor() {
 
   const customSequence = (
     <>
+      {titleHeader}
+      {oeisImport}
       <TableWrapper>
         <tbody>
           <SequenceEditorWindowControls />
           <SequenceEditorSequence />
         </tbody>
       </TableWrapper>
-      {titleHeader}
-      {oeisImport}
+
       <SequenceEditorSubmitButton />
     </>
   );
@@ -358,7 +360,7 @@ const StyledHeader = styled.h1`
 `;
 
 const TableWrapper = styled.table`
-  margin-left: 10px;
+  margin-left: -150px;
   padding-top: 13px;
 `;
 
@@ -383,7 +385,7 @@ const FlexColumnWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  align-items: center;
+  /* align-items: center; */
   /* background-color: hsl(240, 40%, 90%); */
   margin-left: 0px;
 `;
