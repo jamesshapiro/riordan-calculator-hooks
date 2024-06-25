@@ -17,6 +17,7 @@ function StarSequence({ variant }) {
   const sequence = parsedMatrix[`${variant} seq`];
   const title = `${variant.toUpperCase()}-sequence: `;
   const searchQueryParam = sequence.join('%2C');
+  const displayBSequence = parsedMatrix['riordan pseudo'];
 
   const displayOptions = {
     classic: {
@@ -24,7 +25,7 @@ function StarSequence({ variant }) {
         display: true,
       },
       b: {
-        display: false,
+        display: displayBSequence,
       },
       z: {
         display: true,
