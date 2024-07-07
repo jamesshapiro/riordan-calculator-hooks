@@ -60,8 +60,13 @@ body {
   --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
   --alternating-row-sums-box-gradient: #f00;
   --alternating-rows-sums-font-color: #000;
+  --matrix-cell-antidiagonal-sums-background-color: hsl(87, 54%, 60%);
+  --matrix-cell-alternating-antidiagonal-sums-background-color: hsl(
+    167,
+    54%,
+    70%
+  );
   /* --background-gradient-bottom: #f00; */
-
   --mini-number-box-height: 33px;
   --mini-number-box-width: 33px;
   --mini-number-box-background-color: hsl(240, 10%, 95%);

@@ -165,6 +165,39 @@ function Matrix({ variant }) {
 
   const lowerTriangularOEISQuery = lowerTriangularEntries.join('%2C');
 
+  const getAntiDiagonalSum = (matrix, row, col, alternating = false) => {
+    let sum = 0;
+    let firstRow = row;
+    while (row >= 0 && col < matrix[0].length) {
+      sum += matrix[row][col];
+      row--;
+      col++;
+    }
+    if (alternating && firstRow % 2 !== 0) {
+      sum = -sum;
+    }
+    return sum;
+  };
+  const antiDiagonalSums = displayMatrix.map((_, rowIndex) => {
+    return getAntiDiagonalSum(displayMatrix, rowIndex, 0);
+  });
+
+  const alternatingAntiDiagonalSums = displayMatrix.map((_, rowIndex) => {
+    return getAntiDiagonalSum(displayMatrix, rowIndex, 0, true);
+  });
+
+  console.log(
+    `alternatingAntiDiagonalSums=${JSON.stringify(alternatingAntiDiagonalSums)}`
+  );
+
+  const antiDiagonalSumsOEISQuery = antiDiagonalSums
+    .slice(0, numRows)
+    .join('%2C');
+
+  const alternatingAntiDiagonalSumsOEISQuery = alternatingAntiDiagonalSums
+    .slice(0, numRows)
+    .join('%2C');
+
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
@@ -328,6 +361,50 @@ function Matrix({ variant }) {
                 </a>
               </TooltipWrapper>
             </MatrixCell>
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              $row={0}
+              $col={displayMatrix[0].length + 4}
+              key={`0,${displayMatrix[0].length + 4}`}
+            >
+              <TooltipWrapper
+                message='OEIS Anti-Diagonal Sums Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${antiDiagonalSumsOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              $row={0}
+              $col={displayMatrix[0].length + 5}
+              key={`0,${displayMatrix[0].length + 5}`}
+            >
+              <TooltipWrapper
+                message='OEIS Alternating Anti-Diagonal Sums Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-10px'
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${alternatingAntiDiagonalSumsOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
           </tr>
           {displayMatrix.map((row, rowIndex) => {
             const searchEntries = displayMatrix[rowIndex].slice(
@@ -336,6 +413,10 @@ function Matrix({ variant }) {
             );
             const searchQueryParam = searchEntries.join('%2C');
             const lastRowIdx = rowSums.length - 1;
+
+            console.log(
+              `alternatingAntiDiagonalSums=${JSON.stringify(alternatingAntiDiagonalSums)}`
+            );
             return (
               <tr key={`row${rowIndex}`}>
                 <MatrixCell
@@ -399,6 +480,16 @@ function Matrix({ variant }) {
                     ? oneEV[rowIndex]
                     : ''}
                 </OneEVMatrixCell>
+                <AntiDiagonalSumsMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 5}`}
+                >
+                  {antiDiagonalSums[rowIndex]}
+                </AntiDiagonalSumsMatrixCell>
+                <AlternatingAntiDiagonalSumsMatrixCell
+                  key={`${rowIndex},${displayMatrix[0].length + 6}`}
+                >
+                  {alternatingAntiDiagonalSums[rowIndex]}
+                </AlternatingAntiDiagonalSumsMatrixCell>
               </tr>
             );
           })}
@@ -445,28 +536,6 @@ const MatrixCell = styled.td`
         : 'revert'};
   color: ${(p) =>
     p.$row > 0 && p.$col > p.$row ? 'var(--number-box-font-color)' : 'white'};
-`;
-
-const RowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-row-sums-background-color);
-  background-image: var(--row-sums-box-gradient);
-  color: var(--rows-sums-font-color);
-`;
-
-const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-alternating-row-sums-background-color);
-  background-image: var(--alternating-row-sums-box-gradient);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const ZeroEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-zero-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const OneEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-one-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
 `;
 
 const StyledShareButton = styled.button`
@@ -561,4 +630,38 @@ const CopyCelebration = styled.span`
   padding: 10px;
   font-size: 24px;
   height: 72px;
+`;
+
+const RowSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-row-sums-background-color);
+  background-image: var(--row-sums-box-gradient);
+  color: var(--rows-sums-font-color);
+`;
+
+const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-alternating-row-sums-background-color);
+  background-image: var(--alternating-row-sums-box-gradient);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const ZeroEVMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-zero-ev-background-color);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const OneEVMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-one-ev-background-color);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const AntiDiagonalSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-antidiagonal-sums-background-color);
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
+  background-color: var(
+    --matrix-cell-alternating-antidiagonal-sums-background-color
+  );
+  color: var(--alternating-rows-sums-font-color);
 `;
