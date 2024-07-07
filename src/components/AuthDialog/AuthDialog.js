@@ -218,7 +218,7 @@ const AuthDialog = () => {
       }}
     >
       <Dialog.Trigger asChild>
-        <div className='Button violet'>Login</div>
+        <div className='Button violet'>Login/Signup</div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className='AuthDialogOverlay' />
