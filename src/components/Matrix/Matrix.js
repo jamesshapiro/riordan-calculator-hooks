@@ -10,9 +10,12 @@ import TooltipWrapper from '../TooltipWrapper';
 function Matrix({ variant }) {
   const { matrix, matrixCreator, metaMode } = React.useContext(DataContext);
   const { user } = React.useContext(UserContext);
+  const [isCopied, setIsCopied] = React.useState(false);
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 1500);
   };
 
   // function arrayToLatexMatrix(array) {
@@ -147,7 +150,6 @@ function Matrix({ variant }) {
     <StyledShareButton>Share</StyledShareButton>
   ) : null;
   shareButton = null;
-  console.log(`displayMatrix=${JSON.stringify(displayMatrix)}`);
 
   const matrixLaTeX = arrayToLatexMatrix(displayMatrix);
 
@@ -155,9 +157,13 @@ function Matrix({ variant }) {
     <Wrapper $leftmargin={leftMargin}>
       <h1>
         {matrixTitle}{' '}
-        <LaTeXButton onClick={() => handleCopy(matrixLaTeX)}>
-          {LaTeXSVG}
-        </LaTeXButton>
+        {isCopied ? (
+          <CopyCelebration> {LaTeXSVG} Copied to Clipboard! 🎉</CopyCelebration>
+        ) : (
+          <LaTeXButton onClick={() => handleCopy(matrixLaTeX)}>
+            {LaTeXSVG}
+          </LaTeXButton>
+        )}
       </h1>
       <MatrixTable>
         <tbody key='matrixbody'>
@@ -506,3 +512,9 @@ const LaTeXSVG = (
     />
   </svg>
 );
+
+const CopyCelebration = styled.span`
+  border: 1px solid black;
+  background-color: white;
+  padding: 10px;
+`;
