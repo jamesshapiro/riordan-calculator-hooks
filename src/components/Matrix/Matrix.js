@@ -517,4 +517,6 @@ const CopyCelebration = styled.span`
   border: 1px solid black;
   background-color: white;
   padding: 10px;
+  font-size: 24px;
+  height: 72px;
 `;
