@@ -145,6 +145,26 @@ function Matrix({ variant }) {
     '%2C'
   );
 
+  const lowerTriangularEntries = [];
+  let entryCount = 0; // Counter to keep track of the number of entries added
+
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j <= i; j++) {
+      if (entryCount >= 21) {
+        // Check if 21 entries have already been added
+        break; // Break the inner loop if 21 entries are reached
+      }
+      lowerTriangularEntries.push(displayMatrix[i][j]);
+      entryCount++; // Increment the counter after adding an entry
+    }
+    if (entryCount >= 21) {
+      // Check again to break the outer loop if necessary
+      break;
+    }
+  }
+
+  const lowerTriangularOEISQuery = lowerTriangularEntries.join('%2C');
+
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
     <StyledShareButton>Share</StyledShareButton>
@@ -168,10 +188,32 @@ function Matrix({ variant }) {
       <MatrixTable>
         <tbody key='matrixbody'>
           <tr key='oeisrow'>
-            {range(0, displayMatrix[0].length + 1).map((item, colIndex) => {
+            <MatrixCell
+              style={{ paddingLeft: '15px' }}
+              $row={0}
+              $col={0}
+              key={`0,0`}
+            >
+              <TooltipWrapper
+                message='OEIS Lower Triangular Lookup'
+                side='top'
+                sideOffset={5}
+                arrowshiftX='-30px' // Adjust arrow position
+                arrowshiftY='0'
+              >
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://oeis.org/search?q=${lowerTriangularOEISQuery}&language=english&go=Search`}
+                >
+                  {SearchSVG}
+                </a>
+              </TooltipWrapper>
+            </MatrixCell>
+            {range(1, displayMatrix[0].length + 1).map((item, colIndex) => {
               const searchEntries = displayMatrix
-                .map((row) => row[colIndex - 1])
-                .slice(colIndex - 1);
+                .map((row) => row[colIndex])
+                .slice(colIndex);
               const searchQueryParam = searchEntries.join('%2C');
               return (
                 <MatrixCell
@@ -192,7 +234,7 @@ function Matrix({ variant }) {
                       rel='noreferrer'
                       href={`https://oeis.org/search?q=${searchQueryParam}&language=english&go=Search`}
                     >
-                      {colIndex > 0 ? SearchSVG : ''}
+                      {SearchSVG}
                     </a>
                   </TooltipWrapper>
                 </MatrixCell>
