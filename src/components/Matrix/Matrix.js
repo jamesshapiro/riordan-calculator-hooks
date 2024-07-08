@@ -167,14 +167,13 @@ function Matrix({ variant }) {
 
   const getAntiDiagonalSum = (matrix, row, col, alternating = false) => {
     let sum = 0;
-    let firstRow = row;
+    let value = alternating ? -1 : 1;
+    let sign = 1;
     while (row >= 0 && col < matrix[0].length) {
-      sum += matrix[row][col];
+      sum += matrix[row][col] * sign;
       row--;
       col++;
-    }
-    if (alternating && firstRow % 2 !== 0) {
-      sum = -sum;
+      sign = sign * value;
     }
     return sum;
   };
