@@ -185,10 +185,6 @@ function Matrix({ variant }) {
     return getAntiDiagonalSum(displayMatrix, rowIndex, 0, true);
   });
 
-  console.log(
-    `alternatingAntiDiagonalSums=${JSON.stringify(alternatingAntiDiagonalSums)}`
-  );
-
   const antiDiagonalSumsOEISQuery = antiDiagonalSums
     .slice(0, numRows)
     .join('%2C');

@@ -41,6 +41,8 @@
 //   );
 // };
 
+import React from 'react';
+
 function useInterval(callback, delay) {
   const intervalRef = React.useRef(null);
   const savedCallback = React.useRef(callback);
@@ -56,3 +58,5 @@ function useInterval(callback, delay) {
   }, [delay]);
   return intervalRef;
 }
+
+export default useInterval;

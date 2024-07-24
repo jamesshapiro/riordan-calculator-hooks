@@ -11,6 +11,7 @@ import {
   fetchAuthSession,
 } from '@aws-amplify/auth';
 import awsExports from '../../aws-exports';
+import useInterval from '../../hooks/use-interval.hook';
 Amplify.configure(awsExports);
 
 export const UserContext = React.createContext();
@@ -32,6 +33,18 @@ function UserProvider({ children }) {
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
   const [stats, setStats] = React.useState(null);
   const [name, setName] = React.useState('');
+
+  const fetchToken = async () => {
+    try {
+      const { tokens } = await fetchAuthSession({ forceRefresh: true });
+      const idToken = tokens.idToken.toString();
+      setToken(idToken);
+    } catch (err) {
+      setIsAuthenticated(false);
+    }
+  };
+
+  useInterval(fetchToken, isAuthenticated ? 3600000 : null);
 
   React.useEffect(() => {
     const getUserData = async () => {
