@@ -37,9 +37,12 @@ https://stackoverflow.com/questions/78337527/how-to-get-the-use-sound-hook-worki
 }
 ```
 
-2. run `npm install howler`
+2.
 
-3. in your package.json, include the following line:
+- (a.) run `npm install howler`
+- (b.) run `npm install use-sound`
+
+3. at the bottom level of your package.json (e.g. right after dependencies), include the following line:
 
 ```json
 "alias": {
@@ -47,7 +50,9 @@ https://stackoverflow.com/questions/78337527/how-to-get-the-use-sound-hook-worki
 },
 ```
 
-Finally, here's a code snippet using the sound effect:
+4. Upload your sounds to src/sounds/[example_sound.mp3]
+
+5. Finally, here's a code snippet using the sound effect:
 
 ```js
 import React from 'react';
