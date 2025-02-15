@@ -10,6 +10,7 @@ import History from '../History';
 
 import Home from '../Home';
 import About from '../About';
+import Papers from '../Papers';
 import SequenceEditor from '../SequenceEditor';
 
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
+              <Route path='/papers' element={<Papers />} />
               <Route path='/sequences' element={<SequenceEditor />} />
               <Route path='/history' element={<History />} />
             </Routes>

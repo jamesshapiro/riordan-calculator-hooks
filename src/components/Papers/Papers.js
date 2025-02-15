@@ -6,7 +6,7 @@ import NavBar from '../NavBar';
 import Header from '../Header';
 import email from '../../../public/riordanpapers.png';
 
-function About() {
+function Papers() {
   return (
     <FlexColumnWrapper>
       <NavBar />
@@ -15,28 +15,21 @@ function About() {
       </HeaderDiv>
       <VerticalSpace />
       <P>
-        The Riordan Calculator was created by{' '}
-        <a href='https://jamesshapiro.com'>James Shapiro</a> in consultation
-        with his father, Riordan expert{' '}
-        <a href='https://en.wikipedia.org/wiki/Louis_Shapiro_(mathematician)'>
-          Louis Shapiro
-        </a>
-        . It was signficantly upgraded in 2024 and is free to use. If this
-        website helps you discover new results, I would appreciate if you
-        mention it somewhere in your paper so that others can take advantage of
-        the calculator. However, this is purely optional.
+        We are now including any Riordan-related papers that you choose to
+        submit. Please only submit papers that you can authorize us to
+        re-publish.
         <br />
         <br />
-        If you do credit the Riordan Calculator in the original publication of
-        your paper, you are encouraged to submit it to the new Riordan
-        Calculator Papers section of the website! Please submit papers to
+        Only papers that credit the Riordan Calculator in the original
+        publication are eligible for inclusion on riordancalculator.com. You are
+        encouraged to submit your papers to
         <img
           src={email}
           alt='Riordan Papers'
           style={{
             width: '170px',
             display: 'inline',
-            transform: 'translate(2px, 5px)',
+            transform: 'translate(2px, 4px)',
           }}
         />
       </P>
@@ -44,7 +37,7 @@ function About() {
   );
 }
 
-export default About;
+export default Papers;
 
 const VerticalSpace = styled.div`
   min-height: 150px;

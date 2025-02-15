@@ -97,6 +97,10 @@ function NavBar() {
       {LoginLogout}
 
       <NavItem>
+        <Link to='/papers'>Papers</Link>
+      </NavItem>
+
+      <NavItem>
         <Link to='/about'>About</Link>
       </NavItem>
 
