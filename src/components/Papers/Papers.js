@@ -15,7 +15,7 @@ function Papers() {
       </HeaderDiv>
       <VerticalSpace />
       <P>
-        We are now highlighting Riordan-related papers on the website! Please
+        We are now re-publishing Riordan-related papers on the website! Please
         only submit papers that you can authorize us to re-publish.
         <br />
         <br />
