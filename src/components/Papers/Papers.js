@@ -15,9 +15,8 @@ function Papers() {
       </HeaderDiv>
       <VerticalSpace />
       <P>
-        We are now including any Riordan-related papers that you choose to
-        submit. Please only submit papers that you can authorize us to
-        re-publish.
+        We are now highlighting Riordan-related papers on the website! Please
+        only submit papers that you can authorize us to re-publish.
         <br />
         <br />
         Only papers that credit the Riordan Calculator in the original
@@ -32,6 +31,9 @@ function Papers() {
             transform: 'translate(2px, 4px)',
           }}
         />
+        <br />
+        <br />
+        We are currently reviewing submissions.
       </P>
     </FlexColumnWrapper>
   );
