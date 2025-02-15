@@ -15,13 +15,12 @@ function Papers() {
       </HeaderDiv>
       <VerticalSpace />
       <P>
-        We are now re-publishing Riordan-related papers on the website! Please
-        only submit papers that you can authorize us to re-publish.
+        We are now re-publishing Riordan-related papers on the website!
         <br />
         <br />
-        Only papers that credit the Riordan Calculator in the original
-        publication are eligible for inclusion on riordancalculator.com. You are
-        encouraged to submit your papers to
+        Any papers that credit the Riordan Calculator in their official
+        published version are eligible for inclusion on riordancalculator.com.
+        You are encouraged to submit your papers to
         <img
           src={email}
           alt='Riordan Papers'

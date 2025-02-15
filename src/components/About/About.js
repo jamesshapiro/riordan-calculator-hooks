@@ -27,9 +27,10 @@ function About() {
         the calculator. However, this is purely optional.
         <br />
         <br />
-        If you do credit the Riordan Calculator in the original publication of
-        your paper, you are encouraged to submit it to the new Riordan
-        Calculator Papers section of the website! Please submit papers to
+        You are encouraged to submit your papers to the new Riordan Calculator
+        Papers section of the website! Any papers that credit the Riordan
+        Calculator in their official published version are eligible for
+        inclusion. Please submit papers to
         <img
           src={email}
           alt='Riordan Papers'
