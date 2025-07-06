@@ -42,8 +42,86 @@ function DataProvider({ children }) {
   ]);
   const [customSequenceLength, setCustomSequenceLength] = React.useState(10);
 
+  // OEIS sequence state
+  const [oeisSequence, setOeisSequence] = React.useState(null);
+  const [oeisSequenceId, setOeisSequenceId] = React.useState('');
+  const [isOeisLoading, setIsOeisLoading] = React.useState(false);
+  const [oeisError, setOeisError] = React.useState('');
+
   const { isAuthenticated, isAuthModalOpen, token, userSequences } =
     React.useContext(UserContext);
+
+  // OEIS sequence fetching function
+  const fetchOeisSequence = React.useCallback(async (sequenceId, token) => {
+    setIsOeisLoading(true);
+    setOeisError('');
+    const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL;
+    const URL = AUTH_ENDPOINT + `oeis?oeis_id=${sequenceId}`;
+    console.log(`URL=${URL}`);
+    console.log(`token=${token}`);
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    };
+    const request = new Request(URL, {
+      method: 'GET',
+      headers: HEADERS,
+      timeout: 100000,
+    });
+
+    try {
+      const response = await fetch(request);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const sequence = data.sequence;
+
+      if (sequence) {
+        const sequenceData = sequence.slice(0, 15);
+
+        if (sequenceData) {
+          setOeisSequence(sequenceData);
+          setOeisSequenceId(sequenceId);
+        } else {
+          throw new Error('No sequence data found');
+        }
+      } else {
+        throw new Error('Sequence not found');
+      }
+    } catch (error) {
+      console.error('Error fetching OEIS sequence:', error);
+      setOeisError(error.message || 'Failed to fetch sequence');
+      setOeisSequence(null);
+      setOeisSequenceId('');
+    } finally {
+      setIsOeisLoading(false);
+    }
+  }, []);
+
+  // Function to set OEIS sequence to F sequence
+  const setOeisToF = React.useCallback(
+    (sequence) => {
+      if (sequence && sequence.length > 0) {
+        handleSequenceChange('f', sequence);
+        setCurrentFSelection('custom');
+      }
+    },
+    [handleSequenceChange]
+  );
+
+  // Function to set OEIS sequence to G sequence
+  const setOeisToG = React.useCallback(
+    (sequence) => {
+      if (sequence && sequence.length > 0) {
+        handleSequenceChange('g', sequence);
+        setCurrentGSelection('custom');
+      }
+    },
+    [handleSequenceChange]
+  );
 
   function getDerivativeSequence(fSequence) {
     if (metaMode === 'exponential') {
@@ -473,6 +551,17 @@ function DataProvider({ children }) {
         addCustomSequence,
         customSequenceTitle,
         setCustomSequenceTitle,
+        oeisSequence,
+        setOeisSequence,
+        oeisSequenceId,
+        setOeisSequenceId,
+        isOeisLoading,
+        setIsOeisLoading,
+        oeisError,
+        setOeisError,
+        fetchOeisSequence,
+        setOeisToF,
+        setOeisToG,
       }}
     >
       {children}

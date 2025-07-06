@@ -18,10 +18,26 @@ import MatrixHeader from '../MatrixHeader';
 import StatsDisplay from '../StatsDisplay';
 import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
+import OEISInput from '../OEISInput/OEISInput';
+import OEISSequenceDisplay from '../OEISSequenceDisplay/OEISSequenceDisplay';
 
 import { Link } from 'react-router-dom';
+import { DataContext } from '../DataProvider';
+import { UserContext } from '../UserProvider';
 
 function Home() {
+  const {
+    fetchOeisSequence,
+    oeisSequence,
+    oeisSequenceId,
+    isOeisLoading,
+    oeisError,
+    setOeisToF,
+    setOeisToG,
+  } = React.useContext(DataContext);
+
+  const { token } = React.useContext(UserContext);
+
   return (
     <FlexColumnWrapper>
       <NavBar />
@@ -31,6 +47,20 @@ function Home() {
       <LeftDiv>
         <ModeComboBox />
       </LeftDiv>
+      <OEISContainer>
+        <OEISInput
+          onFetchSequence={(oeisId) => fetchOeisSequence(oeisId, token)}
+          isLoading={isOeisLoading}
+        />
+        {oeisError && <ErrorMessage>{oeisError}</ErrorMessage>}
+        <OEISSequenceDisplay
+          sequence={oeisSequence}
+          sequenceId={oeisSequenceId}
+          onSetToF={setOeisToF}
+          onSetToG={setOeisToG}
+          isLoading={isOeisLoading}
+        />
+      </OEISContainer>
       <MatrixHeader />
       <ShareDialog />
       <FlexRowWrapper>
@@ -105,6 +135,18 @@ const LeftDiv = styled.div`
 
 const CenterDiv = styled.div`
   align-self: flex-start;
+`;
+
+const OEISContainer = styled.div`
+  align-self: flex-start;
+  padding-left: 300px;
+  margin: 10px 0;
+`;
+
+const ErrorMessage = styled.div`
+  color: #dc3545;
+  font-size: 14px;
+  margin: 5px 0;
 `;
 
 const FlexColumnWrapper = styled.div`
