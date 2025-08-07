@@ -2,16 +2,11 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
-import { SoundContext } from '../SoundProvider';
 
-import useSound from 'use-sound';
-import clickSound from '../../sounds/click.wav';
 
 import TooltipWrapper from '../TooltipWrapper';
 
 function ActionBox({ actionType, sequenceId, sequenceValue, enabled }) {
-  const { volume } = React.useContext(SoundContext);
-  const [playClick] = useSound(clickSound, { volume });
 
   const { handleSelectSequence, handleSequenceChange } =
     React.useContext(DataContext);
@@ -23,7 +18,6 @@ function ActionBox({ actionType, sequenceId, sequenceValue, enabled }) {
       handleSequenceChange(sequenceId, [0, ...sequenceValue]);
     }
     handleSelectSequence(sequenceId, 'custom');
-    playClick();
   }
 
   const onClickAction = enabled ? handleClick : null;

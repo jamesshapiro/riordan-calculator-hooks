@@ -5,7 +5,6 @@ import UserProvider from '../UserProvider';
 
 import Backdrop from '../Backdrop';
 import DeepBackdrop from '../DeepBackdrop';
-import SoundProvider from '../SoundProvider';
 import History from '../History';
 
 import Home from '../Home';
@@ -22,7 +21,6 @@ function App() {
   return (
     <UserProvider>
       <DataProvider>
-        <SoundProvider>
           <Router>
             <DeepBackdrop />
             <Backdrop />
@@ -34,7 +32,6 @@ function App() {
               <Route path='/history' element={<History />} />
             </Routes>
           </Router>
-        </SoundProvider>
       </DataProvider>
     </UserProvider>
   );

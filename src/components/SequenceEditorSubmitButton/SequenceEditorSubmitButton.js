@@ -3,10 +3,7 @@ import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
 import styled from 'styled-components';
 import { SpinnerInfinity } from 'spinners-react';
-import useSound from 'use-sound';
-import submitSound from '../../sounds/compute2.wav';
 
-import { SoundContext } from '../SoundProvider';
 
 function SequenceEditorSubmitButton() {
   const {
@@ -17,8 +14,6 @@ function SequenceEditorSubmitButton() {
     setCustomSequenceTitle,
   } = React.useContext(DataContext);
   const { userSequences, setUserSequences } = React.useContext(UserContext);
-  const { volume } = React.useContext(SoundContext);
-  const [playSubmit] = useSound(submitSound, { volume });
 
   const buttonContents = 'Add Sequence';
 
@@ -45,7 +40,6 @@ function SequenceEditorSubmitButton() {
       ];
     });
     setCustomSequenceTitle('');
-    playSubmit();
     window.alert('sequence added successfully!');
   }
 

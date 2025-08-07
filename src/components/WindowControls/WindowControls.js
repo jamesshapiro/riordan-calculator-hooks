@@ -1,24 +1,17 @@
 import React from 'react';
 
 import { DataContext } from '../DataProvider';
-import { SoundContext } from '../SoundProvider';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 
 import Spacer from '../Spacer';
 import { range } from '../../utils';
 
-import useSound from 'use-sound';
-import clickSound from '../../sounds/click.wav';
 
 import TooltipWrapper from '../TooltipWrapper';
-
-// import * as whooshSfx from '../../../public/sounds/delete-item.wav'; // 'sounds/delete-item.wav';
 
 import styled from 'styled-components';
 
 function WindowControls({ sequenceId }) {
-  const { volume } = React.useContext(SoundContext);
-  const [playClick] = useSound(clickSound, { volume });
   const {
     sequenceLength,
     gSequence,
@@ -31,7 +24,6 @@ function WindowControls({ sequenceId }) {
 
   function handleClick(action) {
     action();
-    playClick();
   }
 
   const numElements = Math.min(

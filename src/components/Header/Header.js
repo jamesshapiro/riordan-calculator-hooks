@@ -1,23 +1,13 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
-import { SoundContext } from '../SoundProvider';
-
-import useSound from 'use-sound';
-import clickSound from '../../sounds/click2.wav';
 
 function Header({ isHome }) {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
   const isClassicSelected = metaMode === 'classic';
-  const { volume } = React.useContext(SoundContext);
-
-  const [playClick] = useSound(clickSound, { volume });
 
   function handleMetaModeClick(metaMode) {
     setMetaMode((oldValue) => {
-      if (oldValue !== metaMode) {
-        playClick();
-      }
       return metaMode;
     });
   }

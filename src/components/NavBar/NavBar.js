@@ -2,13 +2,9 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
-import { SoundContext } from '../SoundProvider';
 
-import useSound from 'use-sound';
 
 import AuthDialog from '../AuthDialog';
-import volumeOnSound from '../../sounds/volume-on.wav';
-import volumeOffSound from '../../sounds/volume-off.wav';
 import { Link } from 'react-router-dom';
 
 import UserDropdown from '../UserDropdown';
@@ -16,16 +12,6 @@ import UserDropdown from '../UserDropdown';
 function NavBar() {
   const { isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
-  const { volume, toggleMute } = React.useContext(SoundContext);
-
-  const [playVolumeOnSound] = useSound(volumeOnSound);
-  const [playVolumeOffSound] = useSound(volumeOffSound);
-
-  function handleVolumeClick() {
-    const playSound = volume === 1 ? playVolumeOffSound : playVolumeOnSound;
-    playSound();
-    toggleMute();
-  }
 
   const LoginLogout = isAuthenticated ? (
     <NavItem onClick={handleLogout}>Logout</NavItem>
@@ -91,9 +77,6 @@ function NavBar() {
 
   return (
     <FlexWrapper>
-      <NavItem onClick={handleVolumeClick}>
-        {volume === 1 ? volumeOnSVG : volumeMutedSVG}
-      </NavItem>
       {LoginLogout}
 
       <NavItem>

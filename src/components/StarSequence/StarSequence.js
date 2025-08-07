@@ -3,8 +3,6 @@ import React from 'react';
 import { DataContext } from '../DataProvider';
 import Spacer from '../Spacer';
 
-// import * as whooshSfx from '../../../public/sounds/delete-item.wav'; // 'sounds/delete-item.wav';
-
 import styled from 'styled-components';
 import TooltipWrapper from '../TooltipWrapper';
 

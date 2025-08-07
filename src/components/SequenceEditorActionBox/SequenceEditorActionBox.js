@@ -2,10 +2,6 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { DataContext } from '../DataProvider';
-import { SoundContext } from '../SoundProvider';
-
-import useSound from 'use-sound';
-import clickSound from '../../sounds/click.wav';
 
 import TooltipWrapper from '../TooltipWrapper';
 
@@ -15,8 +11,6 @@ function SequenceEditorActionBox({
   sequenceValue,
   enabled,
 }) {
-  const { volume } = React.useContext(SoundContext);
-  const [playClick] = useSound(clickSound, { volume });
 
   const { setCustomSequence } = React.useContext(DataContext);
   const symbol = actionType === 'prependZero' ? '>>' : '?';
@@ -27,7 +21,6 @@ function SequenceEditorActionBox({
       setCustomSequence([0, ...sequenceValue]);
       // handleSequenceChange(sequenceId, [0, ...sequenceValue]);
     }
-    playClick();
   }
 
   const onClickAction = enabled ? handleClick : null;

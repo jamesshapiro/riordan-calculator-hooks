@@ -3,10 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
-import { SoundContext } from '../SoundProvider';
-
-import useSound from 'use-sound';
-import whooshSound from '../../sounds/whoosh.mp3';
 
 import TooltipWrapper from '../TooltipWrapper';
 
@@ -20,13 +16,10 @@ function NumberBox({
   zIndex,
   disabled = false,
 }) {
-  const { volume } = React.useContext(SoundContext);
   const [digits, setDigits] = React.useState(value);
   const [isSelected, setIsSelected] = React.useState(false);
   const buttonRef = React.useRef(null);
   const divRef = React.useRef(null);
-  const [playWhoosh] = useSound(whooshSound, { volume });
-  // const [playClick] = useSound(clickSound, { volume });
   const {
     targetBoxIndex,
     setTargetBoxIndex,
@@ -41,7 +34,6 @@ function NumberBox({
     if (isFirst) {
       handleSequenceChange(sequenceId, sequenceValue.slice(1));
       // handleLeftShift(sequenceId);
-      playWhoosh();
     } else {
       handleTruncateSequence();
     }

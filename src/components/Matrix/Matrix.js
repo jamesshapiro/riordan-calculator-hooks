@@ -72,7 +72,7 @@ function Matrix({ variant }) {
         leftMargin: '0',
       },
       inverse: {
-        id: 'riordan group inverse',
+        id: 'exp inverse',
         title: 'Riordan Group Inverse',
         leftMargin: '96px',
       },
@@ -409,9 +409,6 @@ function Matrix({ variant }) {
             const searchQueryParam = searchEntries.join('%2C');
             const lastRowIdx = rowSums.length - 1;
 
-            console.log(
-              `alternatingAntiDiagonalSums=${JSON.stringify(alternatingAntiDiagonalSums)}`
-            );
             return (
               <tr key={`row${rowIndex}`}>
                 <MatrixCell
