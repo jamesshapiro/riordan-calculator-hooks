@@ -38,10 +38,34 @@
 
 ## Development
 
-Built with [Parcel](https://parceljs.org/).
+Built with Next.js (TypeScript-enabled) and statically exported.
 
 ```
 npm install
 npm run dev
 npm run build
 ```
+
+Static build output is generated in `out/`.
+
+## Environment variables
+
+Use `.env` for client-exposed variables:
+
+- `NEXT_PUBLIC_MATRIX_URL`
+- `NEXT_PUBLIC_MATRIX_URL_AUTH`
+- `NEXT_PUBLIC_API_KEY`
+
+## Deployment
+
+This repo is configured for AWS Amplify via `amplify.yml`:
+
+- Build command: `npm run build`
+- Artifact directory: `out`
+
+The Next config enables:
+
+- `output: 'export'`
+- `trailingSlash: true`
+
+This produces route folders like `/about/index.html`, so refreshes on static routes (for example `/about`) resolve correctly on static hosting.

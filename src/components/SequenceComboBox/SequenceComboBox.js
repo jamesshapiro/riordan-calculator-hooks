@@ -3,8 +3,7 @@ import React from 'react';
 import { sequences } from '../../data';
 import { UserContext } from '../UserProvider';
 import { DataContext } from '../DataProvider';
-import * as style from './SequenceComboBox.module.css';
-import './style.css';
+import style from './SequenceComboBox.module.css';
 
 import * as Select from '@radix-ui/react-select';
 import {

@@ -4,11 +4,6 @@
   margin-top: 30px;
 }
 
-/* reset */
-button {
-  all: unset;
-}
-
 .selectRoot {
   height: var(--number-box-height);
 }

@@ -6,10 +6,9 @@ import { DataContext } from '../DataProvider';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';
 
 const DEFAULT_URL = 'riordancalculator.com';
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
 
 function ShareDialog() {
   const { isAuthenticated, token } = React.useContext(UserContext);

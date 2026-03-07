@@ -4,7 +4,7 @@ import React from 'react';
 import { MODES } from '../../constants';
 import { DataContext } from '../DataProvider';
 
-import * as style from './ModeComboBox.module.css';
+import style from './ModeComboBox.module.css';
 
 import * as Select from '@radix-ui/react-select';
 // import classnames from 'classnames';

@@ -12,7 +12,7 @@ function History() {
       <HeaderDiv>
         <Header />
       </HeaderDiv>
-      <UserHistory />;
+      <UserHistory />
     </FlexColumnWrapper>
   );
 }

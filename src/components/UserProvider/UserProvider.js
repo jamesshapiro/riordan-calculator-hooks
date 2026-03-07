@@ -16,9 +16,9 @@ Amplify.configure(awsExports);
 
 export const UserContext = React.createContext();
 
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 function UserProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);

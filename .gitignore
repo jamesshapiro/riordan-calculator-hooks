@@ -5,9 +5,9 @@ node_modules
 .pnp
 .pnp.js
 
-# parcel-generated files
-dist
-.parcel-cache
+# next build output
+.next
+out
 
 # misc
 .DS_Store
