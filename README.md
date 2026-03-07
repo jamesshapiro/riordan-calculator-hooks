@@ -1,70 +1,47 @@
 # Riordan Calculator
 
-## Riordan Calculator
+## Active Repos
 
-This project is created with [Parcel](https://parceljs.org/), a modern JS build tool. It's intended to be run locally, on your computer, using Node.js and NPM.
+### Frontend
+- **Repo**: `/home/james/code/riordan-calculator-hooks`
+- **Deployed to**: `riordancalculator.com` (S3 bucket `s3://riordancalculator.com` + CloudFront `E2JU45ZDYZG6SU`)
+- **API endpoints** (in `.env`):
+  - Unauthenticated: `https://yar08qypp7.execute-api.us-east-1.amazonaws.com/dev/`
+  - Authenticated: `https://31mb8vbzh2.execute-api.us-east-1.amazonaws.com/dev/`
 
-- Create a new component.
-  - Don't forget, you can use an NPM script to generate the scaffolding for you!
+### Backend (API + Lambda)
+- **Repo**: `/home/james/code/terragrunt-infrastructure-live`
+- **Terragrunt configs**:
+  - `jamesshapiro/us-east-1/default/riordan-api/terragrunt.hcl` (unauthenticated)
+  - `jamesshapiro/us-east-1/default/riordan-api-auth/terragrunt.hcl` (authenticated, Cognito)
+- **Lambda source code**: `jamesshapiro/us-east-1/default/riordan-api/lambda_function/`
+- **Deployed lambda package**: Both APIs share the same S3 artifact at `s3://athens-build-lambda-code/riordan-calc/archive.zip`
+- **Runtime**: Python 3.12, 2GB RAM, 150s timeout
 
-## Getting started
+#### API Endpoints
+
+| Resource | riordan-api | riordan-api-auth |
+|----------|:-----------:|:----------------:|
+| `PUT /queries` (calculate_matrix) | x | x |
+| `GET /queries` (get_queries) | x | x |
+| `GET /stats` (get_stats) | x | x |
+| `GET /query` (get_query) | | x |
+| `PUT /query` (put_query_metadata) | | x |
+| `DELETE /query` (delete_query) | | x |
+| `GET /email` (send_email) | | x |
+| `PUT /email` (unsubscribe_email) | | x |
+| `GET /oeis` (fetch_oeis_sequence) | | x |
+| `GET /sequence` (get_sequences) | | x |
+| `PUT /sequence` (put_sequences) | | x |
+| `DELETE /sequence` (delete_sequence) | | x |
+| `PUT /preset` (update_preset) | | x |
+
+## Development
+
+Built with [Parcel](https://parceljs.org/).
 
 ```
 npm install
-```
-
-## Useful Commands
-
-```
 npm run dev
 npm run build
-npm link new-component (to add my own version of new-component)
-nc NewComponentName (my alias for npm run new-component NewComponentName)
-```
-
-## How to get sound working:
-
-https://stackoverflow.com/questions/78337527/how-to-get-the-use-sound-hook-working-with-parcel
-
-1. create a .parcelrc file in the root directory with the following contents:
-
-```json
-{
-  "extends": "@parcel/config-default",
-  "transformers": {
-    "*.{au,wav,mp3}": ["@parcel/transformer-raw"]
-  }
-}
-```
-
-2.
-
-- (a.) run `npm install howler`
-- (b.) run `npm install use-sound`
-
-3. at the bottom level of your package.json (e.g. right after dependencies), include the following line:
-
-```json
-"alias": {
-    "howler": "howler/dist/howler.core.min.js"
-},
-```
-
-4. Upload your sounds to src/sounds/[example_sound.mp3]
-
-5. Finally, here's a code snippet using the sound effect:
-
-```js
-import React from 'react';
-
-import useSound from 'use-sound';
-import submitSound from '../../sounds/compute.wav';
-
-function SubmitButton() {
-  const [playSubmit] = useSound(submitSound);
-
-  return <button onClick={playSubmit}>{'Submit'}</button>;
-}
-
-export default SubmitButton;
 ```
