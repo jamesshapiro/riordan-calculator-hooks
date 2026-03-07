@@ -4,7 +4,7 @@
 
 ### Frontend
 - **Repo**: `/home/james/code/riordan-calculator-hooks`
-- **Deployed to**: `riordancalculator.com` (S3 bucket `s3://riordancalculator.com` + CloudFront `E2JU45ZDYZG6SU`)
+- **Deployed to**: `riordancalculator.com` (AWS Amplify, static Next.js export)
 - **API endpoints** (in `.env`):
   - Unauthenticated: `https://yar08qypp7.execute-api.us-east-1.amazonaws.com/dev/`
   - Authenticated: `https://31mb8vbzh2.execute-api.us-east-1.amazonaws.com/dev/`
@@ -36,12 +36,30 @@
 | `DELETE /sequence` (delete_sequence) | | x |
 | `PUT /preset` (update_preset) | | x |
 
-## Development
+## Architecture
 
-Built with [Parcel](https://parceljs.org/).
+Built with [Next.js](https://nextjs.org/) (static export) + TypeScript. Deployed to AWS Amplify.
+
+Static routes (`/about`, `/papers`, `/sequences`, `/history`) each produce their own HTML file via `output: 'export'`, so direct navigation and page refresh work without server-side routing.
+
+### Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_MATRIX_URL` | Unauthenticated API base URL |
+| `NEXT_PUBLIC_MATRIX_URL_AUTH` | Authenticated API base URL |
+| `NEXT_PUBLIC_API_KEY` | API key for unauthenticated calls |
+
+### AWS Amplify Auth
+
+Place your `aws-exports.js` in `src/`. This file is gitignored.
+
+## Development
 
 ```
 npm install
 npm run dev
 npm run build
 ```
+
+Build output is in the `out/` directory.

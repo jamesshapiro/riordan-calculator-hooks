@@ -1,13 +1,14 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
+import Link from 'next/link';
 
-function Header({ isHome }) {
+function Header({ isHome }: any) {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
   const isClassicSelected = metaMode === 'classic';
 
-  function handleMetaModeClick(metaMode) {
-    setMetaMode((oldValue) => {
+  function handleMetaModeClick(metaMode: string) {
+    setMetaMode(() => {
       return metaMode;
     });
   }
@@ -21,7 +22,7 @@ function Header({ isHome }) {
       </HeaderWrapper>
       {isHome && (
         <StyledButton
-          isSelected={isClassicSelected}
+          $isSelected={isClassicSelected}
           onClick={() => handleMetaModeClick('classic')}
         >
           Classic
@@ -29,7 +30,7 @@ function Header({ isHome }) {
       )}
       {isHome && (
         <StyledButton
-          isSelected={!isClassicSelected}
+          $isSelected={!isClassicSelected}
           onClick={() => handleMetaModeClick('exponential')}
         >
           Exponential
@@ -39,23 +40,16 @@ function Header({ isHome }) {
   );
 }
 
-const Wrapper = styled.div`
-  /* flex-direction: column; */
-`;
+const Wrapper = styled.div``;
 
 const HeaderWrapper = styled.header`
   width: 300px;
   display: inline;
-
-  /* margin-bottom: 1px; */
   border: 1px solid var(--number-box-border-color);
-  /* border-radius: 4px; */
   padding: 20px;
   padding-top: 25px;
   border-radius: 3px;
   background-color: var(--number-box-background-color);
-  /* box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
-    hsl(0, 0%, 50%); */
 `;
 
 const StyledHeader = styled.h1`
@@ -65,7 +59,7 @@ const StyledHeader = styled.h1`
   color: var(--header-color);
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   display: inline;
   font-size: 24px;
   font-weight: 500;
@@ -76,24 +70,22 @@ const StyledLink = styled.a`
   }
 `;
 
-const StyledButton = styled(({ isSelected, ...props }) => (
-  <button {...props} />
-))`
+const StyledButton = styled.button<{ $isSelected: boolean }>`
   font-size: 16px;
   background-color: ${(p) =>
-    p.isSelected ? 'var(--mode-button-selected)' : 'white'};
+    p.$isSelected ? 'var(--mode-button-selected)' : 'white'};
   border: 1px solid var(--mode-button-selected);
-  color: ${(p) => (p.isSelected ? 'white' : 'var(--mode-button-selected)')};
+  color: ${(p) => (p.$isSelected ? 'white' : 'var(--mode-button-selected)')};
   padding: 10px;
   border-radius: 12px;
-  cursor: ${(p) => (!p.isSelected ? 'pointer' : 'default')};
+  cursor: ${(p) => (!p.$isSelected ? 'pointer' : 'default')};
   margin: 3px;
   &:first-of-type {
     margin-left: 30px;
   }
   &:hover {
     background-color: ${(p) =>
-      !p.isSelected
+      !p.$isSelected
         ? 'var(--hover-button-color)'
         : 'var(--active-button-color)'};
     color: white;

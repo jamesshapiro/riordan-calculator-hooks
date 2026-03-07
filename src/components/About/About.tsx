@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import NavBar from '../NavBar';
 import Header from '../Header';
-import email from '../../../public/riordanpapers.png';
 
 function About() {
   return (
@@ -32,7 +31,7 @@ function About() {
         Calculator in their official published version are eligible for
         inclusion. Please submit papers to
         <img
-          src={email}
+          src='/riordanpapers.png'
           alt='Riordan Papers'
           style={{
             width: '170px',
@@ -62,12 +61,6 @@ const P = styled.p`
   padding: 20px;
 `;
 
-const Wrapper = styled.div`
-  margin-left: 10px;
-  margin-top: 10px;
-  z-index: 10;
-`;
-
 const HeaderDiv = styled.div`
   align-self: flex-start;
   padding-left: 300px;
@@ -80,6 +73,5 @@ const FlexColumnWrapper = styled.div`
   height: 100%;
   width: 100%;
   align-items: center;
-  /* background-color: hsl(240, 40%, 90%); */
   margin-left: 0px;
 `;

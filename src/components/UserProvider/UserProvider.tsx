@@ -5,31 +5,34 @@ import {
   signOut,
   signIn,
   signUp,
-  // resendSignUpCode,
   fetchUserAttributes,
   confirmSignUp,
   fetchAuthSession,
 } from '@aws-amplify/auth';
-import awsExports from '../../aws-exports';
 import useInterval from '../../hooks/use-interval.hook';
-Amplify.configure(awsExports);
 
-export const UserContext = React.createContext();
+import awsExports from '../../aws-exports';
 
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
+if (awsExports && Object.keys(awsExports).length > 0) {
+  Amplify.configure(awsExports);
+}
 
-function UserProvider({ children }) {
+export const UserContext = React.createContext<any>({});
+
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+function UserProvider({ children }: any) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [authUpdated, setAuthUpdated] = React.useState(0);
   const [user, setUser] = React.useState('');
-  const [token, setToken] = React.useState(null);
+  const [token, setToken] = React.useState<any>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
-  const [userQueries, setUserQueries] = React.useState([]);
-  const [userSequences, setUserSequences] = React.useState([]);
+  const [userQueries, setUserQueries] = React.useState<any[]>([]);
+  const [userSequences, setUserSequences] = React.useState<any[]>([]);
   const [userDefaultHiddenSequences, setUserDefaultHiddenSequences] =
-    React.useState([]);
+    React.useState<any[]>([]);
   const [infiniteScrollToken, setInfiniteScrollToken] = React.useState(null);
   const [stats, setStats] = React.useState(null);
   const [name, setName] = React.useState('');
@@ -37,7 +40,7 @@ function UserProvider({ children }) {
   const fetchToken = async () => {
     try {
       const { tokens } = await fetchAuthSession({ forceRefresh: true });
-      const idToken = tokens.idToken.toString();
+      const idToken = tokens!.idToken!.toString();
       setToken(idToken);
     } catch (err) {
       setIsAuthenticated(false);
@@ -53,12 +56,11 @@ function UserProvider({ children }) {
         const userAttributes = await fetchUserAttributes();
         setIsAuthenticated(true);
         setUser(username);
-        setName(userAttributes['given_name']);
+        setName(userAttributes['given_name'] || '');
         const { tokens } = await fetchAuthSession({ forceRefresh: true });
-        const idToken = tokens.idToken.toString();
+        const idToken = tokens!.idToken!.toString();
         setToken(idToken);
       } catch (err) {
-        // console.log(err);
         setIsAuthenticated(false);
       }
     };
@@ -70,14 +72,13 @@ function UserProvider({ children }) {
       if (!isAuthenticated) return;
       if (!token) return;
       const URL = AUTH_ENDPOINT + 'queries';
-      const HEADERS = {
+      const HEADERS: any = {
         'Content-Type': 'application/json',
         Authorization: token,
       };
-      const request = new Request(URL, {
+      const request = new Request(URL!, {
         method: 'GET',
         headers: HEADERS,
-        timeout: 100000,
       });
       const response = await fetch(request);
       const json = await response.json();
@@ -87,11 +88,11 @@ function UserProvider({ children }) {
     getUserHistory();
   }, [isAuthenticated, user, token]);
 
-  function processUserSequences(sequences) {
+  function processUserSequences(sequences: any) {
     if (!sequences || Object.keys(sequences).length === 0) {
       return [];
     }
-    return sequences.map((sequence) => {
+    return sequences.map((sequence: any) => {
       const sequenceName = sequence.SK1.S.split('#')[1];
       const sequenceId = `custom#${sequenceName.replace(/ /g, '_')}`;
       const sequenceValues = JSON.parse(sequence.VALUES.S);
@@ -108,14 +109,13 @@ function UserProvider({ children }) {
       if (!isAuthenticated) return;
       if (!token) return;
       const URL = AUTH_ENDPOINT + 'sequence';
-      const HEADERS = {
+      const HEADERS: any = {
         'Content-Type': 'application/json',
         Authorization: token,
       };
-      const request = new Request(URL, {
+      const request = new Request(URL!, {
         method: 'GET',
         headers: HEADERS,
-        timeout: 100000,
       });
       const response = await fetch(request);
       const json = await response.json();
@@ -135,7 +135,7 @@ function UserProvider({ children }) {
       const URL = isAuthenticated
         ? AUTH_ENDPOINT + `stats`
         : ENDPOINT + `stats`;
-      const HEADERS = isAuthenticated
+      const HEADERS: any = isAuthenticated
         ? {
             'Content-Type': 'application/json',
             Authorization: token,
@@ -145,10 +145,9 @@ function UserProvider({ children }) {
             'x-api-key': API_KEY,
           };
 
-      const request = new Request(URL, {
+      const request = new Request(URL!, {
         method: 'GET',
         headers: HEADERS,
-        timeout: 100000,
       });
       const response = await fetch(request);
       const json = await response.json();
@@ -157,46 +156,44 @@ function UserProvider({ children }) {
     getStats();
   }, [isAuthenticated, user, token]);
 
-  const deleteQuery = async (queryId) => {
-    const oldQuery = userQueries.filter((query) => {
+  const deleteQuery = async (queryId: string) => {
+    const oldQuery = userQueries.filter((query: any) => {
       return query.MATRIX_SHAREID.S === queryId;
     })[0];
     const oldUlid = oldQuery.MATRIX_ULID.S;
     setUserQueries((oldValue) => {
-      return oldValue.filter((query) => {
+      return oldValue.filter((query: any) => {
         return query.MATRIX_SHAREID.S !== queryId;
       });
     });
     const URL = AUTH_ENDPOINT + `query?id=${queryId}&ulid=${oldUlid}`;
-    const HEADERS = {
+    const HEADERS: any = {
       'Content-Type': 'application/json',
       Authorization: token,
     };
-    const request = new Request(URL, {
+    const request = new Request(URL!, {
       method: 'DELETE',
       headers: HEADERS,
-      timeout: 100000,
     });
     const response = await fetch(request);
     const json = await response.json();
   };
 
-  const deleteSequence = async (sequenceId) => {
-    const oldSequence = userSequences.filter((sequence) => {
+  const deleteSequence = async (sequenceId: string) => {
+    const oldSequence = userSequences.filter((sequence: any) => {
       return sequence.id === sequenceId;
     })[0];
     const sequenceTitle = oldSequence.name;
     const payload = { title: sequenceTitle };
     const URL = AUTH_ENDPOINT + `sequence`;
-    const HEADERS = {
+    const HEADERS: any = {
       'Content-Type': 'application/json',
       Authorization: token,
     };
-    const request = new Request(URL, {
+    const request = new Request(URL!, {
       method: 'DELETE',
       headers: HEADERS,
       body: JSON.stringify(payload),
-      timeout: 100000,
     });
     const response = await fetch(request);
     const json = await response.json();
@@ -209,12 +206,10 @@ function UserProvider({ children }) {
       setUser('');
       setName('');
       setAuthUpdated((oldValue) => oldValue + 1);
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (email: string, password: string) => {
     try {
       const input = {
         username: email,
@@ -222,12 +217,10 @@ function UserProvider({ children }) {
       };
       const response = await signIn(input);
       setAuthUpdated((oldValue) => oldValue + 1);
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
-  const handleSignUp = async (email, password, firstname, lastname) => {
+  const handleSignUp = async (email: string, password: string, firstname: string, lastname: string) => {
     try {
       const input = {
         username: email,
@@ -241,21 +234,17 @@ function UserProvider({ children }) {
         },
       };
       const signUpResponse = await signUp(input);
-    } catch (err) {
-      // console.log(err);
-    }
+    } catch (err) {}
   };
 
-  const handleConfirmSignUp = async (email, code) => {
+  const handleConfirmSignUp = async (email: string, code: string) => {
     try {
       const { isSignUpComplete, nextStep } = await confirmSignUp({
         username: email,
         confirmationCode: code,
       });
       setAuthUpdated((oldValue) => oldValue + 1);
-    } catch (error) {
-      // console.log('error confirming sign up', error);
-    }
+    } catch (error) {}
   };
 
   return (

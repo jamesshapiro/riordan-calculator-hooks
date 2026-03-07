@@ -62,10 +62,10 @@ function SequenceEditorNumberBox({
   //   };
   // });
 
-  const bodyStyles = getComputedStyle(document.body);
+  const bodyStyles = typeof window !== 'undefined' ? getComputedStyle(document.body) : null;
   const boxLength = bodyStyles
-    .getPropertyValue('--number-box-width')
-    .replace('px', '');
+    ? bodyStyles.getPropertyValue('--number-box-width').replace('px', '')
+    : '60';
   const minfontsize = '0.8rem';
   const maxfontsize = '1.1rem';
 

@@ -1,17 +1,22 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';
 import { UserContext } from '../UserProvider';
 
 import styled from 'styled-components';
 
-const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
-  const { setIsAuthModalOpen } = React.useContext(UserContext);
+const SequenceEditorConfirmDeleteSequenceDialog = ({ id }) => {
+  const { setIsAuthModalOpen, deleteSequence, setUserSequences } =
+    React.useContext(UserContext);
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
-  function handleDelete(matrixId) {
-    deleteQuery(matrixId);
+  function handleDelete(id) {
+    setUserSequences((oldValue) => {
+      return oldValue.filter((sequence) => {
+        return sequence.id !== id;
+      });
+    });
+    deleteSequence(id);
     setDialogOpen(false);
     setIsAuthModalOpen(false);
   }
@@ -63,10 +68,7 @@ const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
             }}
           >
             <Dialog.Close asChild>
-              <button
-                className='Button red'
-                onClick={() => handleDelete(matrixId)}
-              >
+              <button className='Button red' onClick={() => handleDelete(id)}>
                 Delete
               </button>
             </Dialog.Close>
@@ -82,7 +84,7 @@ const ConfirmDeleteQueryDialog = ({ matrixId, deleteQuery }) => {
   );
 };
 
-export default ConfirmDeleteQueryDialog;
+export default SequenceEditorConfirmDeleteSequenceDialog;
 
 const StyledSVG = styled.svg`
   cursor: pointer;
