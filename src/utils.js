@@ -29,10 +29,6 @@ export const formatDate = (dateString) => {
   return `${formattedDate}, ${formattedTime}`;
 };
 
-export const sample = (arr) => {
-  return arr[Math.floor(Math.random() * arr.length)];
-};
-
 export const range = (start, end, step = 1) => {
   let output = [];
   if (typeof end === 'undefined') {
@@ -44,6 +40,3 @@ export const range = (start, end, step = 1) => {
   }
   return output;
 };
-
-export const random = (min, max) =>
-  Math.floor(Math.random() * (max - min)) + min;

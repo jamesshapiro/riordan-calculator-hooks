@@ -4,8 +4,6 @@ import Header from '../Header';
 
 import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
-import UserHistory from '../UserHistory/UserHistory';
-
 import { LayoutGroup } from 'framer-motion';
 
 import styled from 'styled-components';
@@ -15,13 +13,11 @@ import Matrix from '../Matrix';
 import NavBar from '../NavBar';
 import WindowControls from '../WindowControls';
 import MatrixHeader from '../MatrixHeader';
-import StatsDisplay from '../StatsDisplay';
 import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
 import OEISInput from '../OEISInput/OEISInput';
 import OEISSequenceDisplay from '../OEISSequenceDisplay/OEISSequenceDisplay';
 
-import { Link } from 'react-router-dom';
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
 
@@ -113,16 +109,11 @@ function Home() {
           <StarSequence variant='z' />
         </CenterDiv>
       </FlexRowWrapper>
-      {/* <StatsDisplay /> */}
     </FlexColumnWrapper>
   );
 }
 
 export default Home;
-
-const BottomSpace = styled.div`
-  height: 100px;
-`;
 
 const HeaderDiv = styled.div`
   align-self: flex-start;
