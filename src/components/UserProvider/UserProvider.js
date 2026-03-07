@@ -10,15 +10,28 @@ import {
   confirmSignUp,
   fetchAuthSession,
 } from '@aws-amplify/auth';
-import awsExports from '../../aws-exports';
 import useInterval from '../../hooks/use-interval.hook';
-Amplify.configure(awsExports);
+
+const amplifyAuthConfig = {
+  Auth: {
+    Cognito: {
+      userPoolId: process.env.NEXT_PUBLIC_AWS_USER_POOL_ID,
+      userPoolClientId: process.env.NEXT_PUBLIC_AWS_USER_POOL_WEB_CLIENT_ID,
+      identityPoolId: process.env.NEXT_PUBLIC_AWS_COGNITO_IDENTITY_POOL_ID,
+      loginWith: {
+        email: true,
+      },
+    },
+  },
+};
+
+Amplify.configure(amplifyAuthConfig);
 
 export const UserContext = React.createContext();
 
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL || '';
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH || '';
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || '';
 
 function UserProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);

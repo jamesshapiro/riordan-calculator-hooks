@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import NavBar from '../NavBar';
 import Header from '../Header';
-import email from '../../../public/riordanpapers.png';
 
 function Papers() {
   return (
@@ -22,7 +21,7 @@ function Papers() {
         published version are eligible for inclusion on riordancalculator.com.
         You are encouraged to submit your papers to
         <img
-          src={email}
+          src='/riordanpapers.png'
           alt='Riordan Papers'
           style={{
             width: '170px',

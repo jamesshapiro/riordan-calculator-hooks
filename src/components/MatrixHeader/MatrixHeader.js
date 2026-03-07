@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { formatDate } from '../../utils';
 
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH || '';
 
 function MatrixHeader() {
   const { matrixCreator, matrixId, title, comment, createdAt, creatorName } =
