@@ -4,7 +4,6 @@ import { sequences } from '../../data';
 import { UserContext } from '../UserProvider';
 import { DataContext } from '../DataProvider';
 import * as style from './SequenceComboBox.module.css';
-import './style.css';
 
 import * as Select from '@radix-ui/react-select';
 import {
@@ -71,7 +70,7 @@ const SequenceComboBox = ({ sequenceId }) => {
               <SelectItem value={'custom'}>{'Custom'}</SelectItem>
             </Select.Group>
             {userSequencesExist && (
-              <Select.Separator className='SelectSeparator' />
+              <Select.Separator className={style.SelectSeparator} />
             )}
             {userSequencesExist && (
               <Select.Group>
@@ -102,7 +101,7 @@ const SequenceComboBox = ({ sequenceId }) => {
 const SelectItem = React.forwardRef(
   ({ children, className, ...props }, forwardedRef) => {
     return (
-      <Select.Item className={'SelectItem'} {...props} ref={forwardedRef}>
+      <Select.Item className={style.SelectItem} {...props} ref={forwardedRef}>
         <Select.ItemText>{children}</Select.ItemText>
         <Select.ItemIndicator className={style.SelectItemIndicator}>
           <CheckIcon />

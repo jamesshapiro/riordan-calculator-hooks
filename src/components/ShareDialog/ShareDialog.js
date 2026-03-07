@@ -3,13 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
 import { DataContext } from '../DataProvider';
+import { AUTH_ENDPOINT, SITE_URL } from '../../config/runtime';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';
-
-const DEFAULT_URL = 'riordancalculator.com';
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
 function ShareDialog() {
   const { isAuthenticated, token } = React.useContext(UserContext);
@@ -22,6 +19,11 @@ function ShareDialog() {
   if (!matrix) {
     return;
   }
+
+  const baseUrl =
+    SITE_URL || (typeof window === 'undefined' ? '' : window.location.origin);
+  const normalizedBaseUrl = baseUrl.replace(/\/$/, '');
+  const shareLink = `${normalizedBaseUrl}/?id=${shareMatrixId}`;
 
   const sendEmail = async (shareMatrixId) => {
     const URL = AUTH_ENDPOINT + `email?id=${shareMatrixId}&recipient=${recipientEmail}`;
@@ -41,9 +43,8 @@ function ShareDialog() {
   };
 
   function handleClick(event) {
-    const link = `${DEFAULT_URL}/?${shareMatrixId}`;
     navigator.clipboard
-      .writeText(link)
+      .writeText(shareLink)
       .then(() => {
         setLinkIsCopied(true);
         setTimeout(() => setLinkIsCopied(false), 2000);
@@ -79,7 +80,7 @@ function ShareDialog() {
   const linkText = !linkIsCopied ? (
     <>
       {clipboardSVG}
-      <>{`${DEFAULT_URL}/?${shareMatrixId}`}</>
+      <>{shareLink}</>
     </>
   ) : (
     'Link Copied to Clipboard!'

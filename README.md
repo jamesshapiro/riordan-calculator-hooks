@@ -38,10 +38,46 @@
 
 ## Development
 
-Built with [Parcel](https://parceljs.org/).
+Built with [Next.js](https://nextjs.org/) static export and TypeScript.
 
 ```
 npm install
 npm run dev
 npm run build
 ```
+
+## Static architecture
+
+- Routes are exported as static files with Next.js `output: 'export'`
+- `trailingSlash: true` emits `/about/index.html`, `/papers/index.html`, `/history/index.html`, and `/sequences/index.html`
+- AWS Amplify deploys the generated `out/` directory through the GitHub integration
+- Share links use `/?id=<share-id>`
+
+This setup fixes direct-refresh behavior for static routes like `riordancalculator.com/about`.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` for local development.
+
+Required public runtime variables:
+
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_MATRIX_URL`
+- `NEXT_PUBLIC_MATRIX_URL_AUTH`
+- `NEXT_PUBLIC_API_KEY`
+
+Optional auth variables:
+
+- `NEXT_PUBLIC_COGNITO_USER_POOL_ID`
+- `NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`
+- `NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID`
+
+If the Cognito variables are omitted, the calculator still builds and the anonymous portions of the site work, but login/signup stays unavailable.
+
+## Amplify deployment
+
+Amplify should run the repository with the included `amplify.yml`:
+
+- install dependencies with `npm ci`
+- build with `npm run build`
+- publish the `out/` directory

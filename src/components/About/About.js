@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import NavBar from '../NavBar';
 import Header from '../Header';
-import email from '../../../public/riordanpapers.png';
 
 function About() {
   return (
@@ -30,16 +29,10 @@ function About() {
         You are encouraged to submit your papers to the new Riordan Calculator
         Papers section of the website! Any papers that credit the Riordan
         Calculator in their official published version are eligible for
-        inclusion. Please submit papers to
-        <img
-          src={email}
-          alt='Riordan Papers'
-          style={{
-            width: '170px',
-            display: 'inline',
-            transform: 'translate(2px, 5px)',
-          }}
-        />
+        inclusion. Please submit papers to{' '}
+        <a href='mailto:papers@riordancalculator.com'>
+          papers@riordancalculator.com
+        </a>
       </P>
     </FlexColumnWrapper>
   );

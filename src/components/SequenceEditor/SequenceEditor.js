@@ -4,6 +4,7 @@ import SequenceEditorSequence from '../SequenceEditorSequence';
 
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
+import { AUTH_ENDPOINT } from '../../config/runtime';
 import { sequences } from '../../data';
 
 import styled from 'styled-components';
@@ -13,8 +14,6 @@ import SequenceEditorSelectTable from '../SequenceEditorSelectTable';
 import SequenceEditorWindowControls from '../SequenceEditorWindowControls';
 import SequenceEditorSubmitButton from '../SequenceEditorSubmitButton';
 import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmDeleteSequenceDialog';
-
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
 
 function SequenceEditor() {
   const {

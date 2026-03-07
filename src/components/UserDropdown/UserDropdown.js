@@ -1,8 +1,7 @@
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import './styles.css';
-
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import styled from 'styled-components';
 
 const UserDropdown = ({ user, children }) => {
   return (
@@ -15,16 +14,16 @@ const UserDropdown = ({ user, children }) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className='DropdownMenuContent' sideOffset={5}>
-          <Link to='/sequences'>
-            <DropdownMenu.Item className='DropdownMenuItem'>
+          <DropdownMenu.Item asChild className='DropdownMenuItem'>
+            <DropdownLink href='/sequences'>
               Sequences
-            </DropdownMenu.Item>
-          </Link>
-          <Link to='/history'>
-            <DropdownMenu.Item className='DropdownMenuItem'>
+            </DropdownLink>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item asChild className='DropdownMenuItem'>
+            <DropdownLink href='/history'>
               History
-            </DropdownMenu.Item>
-          </Link>
+            </DropdownLink>
+          </DropdownMenu.Item>
 
           {/* <DropdownMenu.Separator className='DropdownMenuSeparator' />
           <DropdownMenu.CheckboxItem
@@ -56,3 +55,10 @@ const UserDropdown = ({ user, children }) => {
 };
 
 export default UserDropdown;
+
+const DropdownLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+`;

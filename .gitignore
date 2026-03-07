@@ -9,6 +9,11 @@ node_modules
 dist
 .parcel-cache
 
+# next-generated files
+.next
+out
+*.tsbuildinfo
+
 # misc
 .DS_Store
 .env.local

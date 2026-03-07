@@ -1,19 +1,19 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import Link from 'next/link';
+import styled, { css } from 'styled-components';
 import { UserContext } from '../UserProvider';
 
 
 import AuthDialog from '../AuthDialog';
-import { Link } from 'react-router-dom';
 
 import UserDropdown from '../UserDropdown';
 
 function NavBar() {
-  const { isAuthenticated, user, name, handleLogout } =
+  const { authIsConfigured, isAuthenticated, name, handleLogout } =
     React.useContext(UserContext);
 
-  const LoginLogout = isAuthenticated ? (
+  const LoginLogout = !authIsConfigured ? null : isAuthenticated ? (
     <NavItem onClick={handleLogout}>Logout</NavItem>
   ) : (
     <NavItem>
@@ -79,13 +79,9 @@ function NavBar() {
     <FlexWrapper>
       {LoginLogout}
 
-      <NavItem>
-        <Link to='/papers'>Papers</Link>
-      </NavItem>
+      <NavItemLink href='/papers'>Papers</NavItemLink>
 
-      <NavItem>
-        <Link to='/about'>About</Link>
-      </NavItem>
+      <NavItemLink href='/about'>About</NavItemLink>
 
       {isAuthenticated && (
         <NavItem>
@@ -107,7 +103,7 @@ const FlexWrapper = styled.div`
   gap: 10px;
 `;
 
-const NavItem = styled.button`
+const navItemStyles = css`
   background-color: var(--number-box-background-color);
   color: var(--number-box-font-color);
   border-left: 1px solid var(--number-box-border-color);
@@ -120,16 +116,18 @@ const NavItem = styled.button`
   /* width: 100px; */
   display: flex;
   padding: 2px 6px;
-  /* height: 50px; */
   align-items: center;
   justify-content: center;
   text-decoration: none;
   color: inherit;
+`;
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+const NavItem = styled.button`
+  ${navItemStyles}
+`;
+
+const NavItemLink = styled(Link)`
+  ${navItemStyles}
 `;
 
 // --number-box-hover-background-color: hsl(240, 10%, 85%);

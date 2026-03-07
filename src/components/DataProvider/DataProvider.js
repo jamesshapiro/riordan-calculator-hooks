@@ -1,15 +1,12 @@
 import React from 'react';
 
 import useKeydown from '../../hooks/use-keydown.hook';
+import { API_KEY, AUTH_ENDPOINT, ENDPOINT } from '../../config/runtime';
 import { sequences } from '../../data';
 
 import { UserContext } from '../UserProvider';
 
 export const DataContext = React.createContext();
-
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
 
 function DataProvider({ children }) {
   const [sequenceLength, setSequenceLength] = React.useState(8);
@@ -55,7 +52,6 @@ function DataProvider({ children }) {
   const fetchOeisSequence = React.useCallback(async (sequenceId, token) => {
     setIsOeisLoading(true);
     setOeisError('');
-    const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL;
     const URL = AUTH_ENDPOINT + `oeis?oeis_id=${sequenceId}`;
     console.log(`URL=${URL}`);
     console.log(`token=${token}`);
@@ -329,14 +325,27 @@ function DataProvider({ children }) {
     }
   }, [matrixId, token]);
 
-  // get ? search params from the URL and print them
-  const searchParam = window.location.search;
-  if (matrixId === '' && searchParam.length > 1) {
-    setMatrixId(searchParam.slice(1));
-    if (!matrix) {
-      setShareMatrixId(searchParam.slice(1));
+  React.useEffect(() => {
+    if (typeof window === 'undefined' || matrixId !== '') {
+      return;
     }
-  }
+
+    const searchParam = window.location.search;
+    if (searchParam.length <= 1) {
+      return;
+    }
+
+    const params = new URLSearchParams(searchParam);
+    const requestedMatrixId = params.get('id') || searchParam.slice(1);
+    if (!requestedMatrixId) {
+      return;
+    }
+
+    setMatrixId(requestedMatrixId);
+    if (!matrix) {
+      setShareMatrixId(requestedMatrixId);
+    }
+  }, [matrix, matrixId]);
 
   function handleCompute() {
     setComputeWasRequested(true);
