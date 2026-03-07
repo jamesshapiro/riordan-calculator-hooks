@@ -129,7 +129,7 @@ const oldSequenceMap = {
   ],
 };
 
-export const sequenceNames = Object.keys(oldSequenceMap);
+const sequenceNames = Object.keys(oldSequenceMap);
 
 export const sequences = sequenceNames.map((sequenceName, index) => {
   const capitalized = sequenceName

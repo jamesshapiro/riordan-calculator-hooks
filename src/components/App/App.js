@@ -12,10 +12,7 @@ import About from '../About';
 import Papers from '../Papers';
 import SequenceEditor from '../SequenceEditor';
 
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-
-// import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
-// import '@aws-amplify/ui-react/styles.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
