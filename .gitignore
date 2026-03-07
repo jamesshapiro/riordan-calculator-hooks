@@ -8,6 +8,9 @@ node_modules
 # parcel-generated files
 dist
 .parcel-cache
+.next
+out
+tsconfig.tsbuildinfo
 
 # misc
 .DS_Store

@@ -38,10 +38,29 @@
 
 ## Development
 
-Built with [Parcel](https://parceljs.org/).
+Built with [Next.js](https://nextjs.org/) and exported as a static site for AWS Amplify hosting.
 
 ```
 npm install
 npm run dev
 npm run build
 ```
+
+## Deployment
+
+The site is configured as a static Next.js export.
+
+- Static routes are generated for `/`, `/about`, `/papers`, `/sequences`, and `/history`
+- `npm run build` emits the deployable static site through Next.js export output
+- AWS Amplify can deploy the repo directly from GitHub using the Next.js integration
+
+## Environment Variables
+
+Client-side API and auth configuration now use public Next.js environment variables:
+
+- `NEXT_PUBLIC_MATRIX_URL`
+- `NEXT_PUBLIC_MATRIX_URL_AUTH`
+- `NEXT_PUBLIC_API_KEY`
+- `NEXT_PUBLIC_COGNITO_USER_POOL_ID`
+- `NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`
+- `NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID`

@@ -10,15 +10,18 @@ import {
   confirmSignUp,
   fetchAuthSession,
 } from '@aws-amplify/auth';
-import awsExports from '../../aws-exports';
 import useInterval from '../../hooks/use-interval.hook';
-Amplify.configure(awsExports);
+import amplifyConfig, { authIsConfigured } from '../../amplify-config';
+
+if (amplifyConfig) {
+  Amplify.configure(amplifyConfig);
+}
 
 export const UserContext = React.createContext();
 
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 function UserProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
@@ -35,6 +38,9 @@ function UserProvider({ children }) {
   const [name, setName] = React.useState('');
 
   const fetchToken = async () => {
+    if (!authIsConfigured) {
+      return;
+    }
     try {
       const { tokens } = await fetchAuthSession({ forceRefresh: true });
       const idToken = tokens.idToken.toString();
@@ -48,6 +54,10 @@ function UserProvider({ children }) {
 
   React.useEffect(() => {
     const getUserData = async () => {
+      if (!authIsConfigured) {
+        setIsAuthenticated(false);
+        return;
+      }
       try {
         const { username, userId, signInDetails } = await getCurrentUser();
         const userAttributes = await fetchUserAttributes();
@@ -203,6 +213,9 @@ function UserProvider({ children }) {
   };
 
   const handleLogout = async () => {
+    if (!authIsConfigured) {
+      return;
+    }
     try {
       await signOut();
       setIsAuthenticated(false);
@@ -215,6 +228,9 @@ function UserProvider({ children }) {
   };
 
   const handleLogin = async (email, password) => {
+    if (!authIsConfigured) {
+      return;
+    }
     try {
       const input = {
         username: email,
@@ -228,6 +244,9 @@ function UserProvider({ children }) {
   };
 
   const handleSignUp = async (email, password, firstname, lastname) => {
+    if (!authIsConfigured) {
+      return;
+    }
     try {
       const input = {
         username: email,
@@ -247,6 +266,9 @@ function UserProvider({ children }) {
   };
 
   const handleConfirmSignUp = async (email, code) => {
+    if (!authIsConfigured) {
+      return;
+    }
     try {
       const { isSignUpComplete, nextStep } = await confirmSignUp({
         username: email,
@@ -262,6 +284,7 @@ function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         isAuthenticated,
+        authIsConfigured,
         setIsAuthenticated,
         user,
         handleLogout,

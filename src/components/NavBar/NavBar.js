@@ -1,24 +1,25 @@
 import React from 'react';
 
+import Link from 'next/link';
 import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
 
-
 import AuthDialog from '../AuthDialog';
-import { Link } from 'react-router-dom';
 
 import UserDropdown from '../UserDropdown';
 
 function NavBar() {
-  const { isAuthenticated, user, name, handleLogout } =
+  const { authIsConfigured, isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
 
   const LoginLogout = isAuthenticated ? (
     <NavItem onClick={handleLogout}>Logout</NavItem>
-  ) : (
+  ) : authIsConfigured ? (
     <NavItem>
       <AuthDialog />
     </NavItem>
+  ) : (
+    <></>
   );
 
   const settingsSVG = (
@@ -80,11 +81,11 @@ function NavBar() {
       {LoginLogout}
 
       <NavItem>
-        <Link to='/papers'>Papers</Link>
+        <Link href='/papers'>Papers</Link>
       </NavItem>
 
       <NavItem>
-        <Link to='/about'>About</Link>
+        <Link href='/about'>About</Link>
       </NavItem>
 
       {isAuthenticated && (
@@ -107,7 +108,7 @@ const FlexWrapper = styled.div`
   gap: 10px;
 `;
 
-const NavItem = styled.button`
+const NavItem = styled.div`
   background-color: var(--number-box-background-color);
   color: var(--number-box-font-color);
   border-left: 1px solid var(--number-box-border-color);

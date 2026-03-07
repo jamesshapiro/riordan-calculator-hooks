@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import './styles.css';
 
 import styled from 'styled-components';
 

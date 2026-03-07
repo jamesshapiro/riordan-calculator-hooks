@@ -7,9 +7,9 @@ import { UserContext } from '../UserProvider';
 
 export const DataContext = React.createContext();
 
-const ENDPOINT = process.env.REACT_APP_MATRIX_URL;
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 function DataProvider({ children }) {
   const [sequenceLength, setSequenceLength] = React.useState(8);
@@ -55,7 +55,7 @@ function DataProvider({ children }) {
   const fetchOeisSequence = React.useCallback(async (sequenceId, token) => {
     setIsOeisLoading(true);
     setOeisError('');
-    const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL;
+    const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL;
     const URL = AUTH_ENDPOINT + `oeis?oeis_id=${sequenceId}`;
     console.log(`URL=${URL}`);
     console.log(`token=${token}`);
@@ -330,13 +330,19 @@ function DataProvider({ children }) {
   }, [matrixId, token]);
 
   // get ? search params from the URL and print them
-  const searchParam = window.location.search;
-  if (matrixId === '' && searchParam.length > 1) {
-    setMatrixId(searchParam.slice(1));
-    if (!matrix) {
-      setShareMatrixId(searchParam.slice(1));
+  React.useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
     }
-  }
+    const searchParam = window.location.search;
+    if (matrixId === '' && searchParam.length > 1) {
+      const nextMatrixId = searchParam.slice(1);
+      setMatrixId(nextMatrixId);
+      if (!matrix) {
+        setShareMatrixId(nextMatrixId);
+      }
+    }
+  }, [matrixId, matrix]);
 
   function handleCompute() {
     setComputeWasRequested(true);
