@@ -1,8 +1,6 @@
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import './styles.css';
-
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const UserDropdown = ({ user, children }) => {
   return (
@@ -15,12 +13,12 @@ const UserDropdown = ({ user, children }) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className='DropdownMenuContent' sideOffset={5}>
-          <Link to='/sequences'>
+          <Link href='/sequences'>
             <DropdownMenu.Item className='DropdownMenuItem'>
               Sequences
             </DropdownMenu.Item>
           </Link>
-          <Link to='/history'>
+          <Link href='/history'>
             <DropdownMenu.Item className='DropdownMenuItem'>
               History
             </DropdownMenu.Item>

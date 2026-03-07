@@ -73,7 +73,7 @@ const ModeComboBox = ({ sequenceId }) => {
 };
 
 const SelectItem = React.forwardRef(
-  ({ children, className, ...props }, forwardedRef) => {
+  function SelectItem({ children, className, ...props }, forwardedRef) {
     return (
       <Select.Item className={'SelectItem'} {...props} ref={forwardedRef}>
         <Select.ItemText>{children}</Select.ItemText>

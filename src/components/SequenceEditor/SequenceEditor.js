@@ -14,7 +14,7 @@ import SequenceEditorWindowControls from '../SequenceEditorWindowControls';
 import SequenceEditorSubmitButton from '../SequenceEditorSubmitButton';
 import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmDeleteSequenceDialog';
 
-const AUTH_ENDPOINT = process.env.REACT_APP_MATRIX_URL_AUTH;
+const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH;
 
 function SequenceEditor() {
   const {

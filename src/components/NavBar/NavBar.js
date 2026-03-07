@@ -5,7 +5,7 @@ import { UserContext } from '../UserProvider';
 
 
 import AuthDialog from '../AuthDialog';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import UserDropdown from '../UserDropdown';
 
@@ -80,11 +80,11 @@ function NavBar() {
       {LoginLogout}
 
       <NavItem>
-        <Link to='/papers'>Papers</Link>
+        <Link href='/papers'>Papers</Link>
       </NavItem>
 
       <NavItem>
-        <Link to='/about'>About</Link>
+        <Link href='/about'>About</Link>
       </NavItem>
 
       {isAuthenticated && (

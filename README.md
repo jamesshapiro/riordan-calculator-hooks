@@ -4,7 +4,7 @@
 
 ### Frontend
 - **Repo**: `/home/james/code/riordan-calculator-hooks`
-- **Deployed to**: `riordancalculator.com` (S3 bucket `s3://riordancalculator.com` + CloudFront `E2JU45ZDYZG6SU`)
+- **Deployed to**: `riordancalculator.com` via AWS Amplify (GitHub integration, Next.js static export)
 - **API endpoints** (in `.env`):
   - Unauthenticated: `https://yar08qypp7.execute-api.us-east-1.amazonaws.com/dev/`
   - Authenticated: `https://31mb8vbzh2.execute-api.us-east-1.amazonaws.com/dev/`
@@ -38,10 +38,19 @@
 
 ## Development
 
-Built with [Parcel](https://parceljs.org/).
+Built with [Next.js](https://nextjs.org/) (static export) and TypeScript. Deployed to AWS Amplify via GitHub integration.
 
 ```
 npm install
+cp .env.example .env.local  # then fill in your values
 npm run dev
 npm run build
 ```
+
+### Environment Variables
+
+See `.env.example` for required variables. These use the `NEXT_PUBLIC_` prefix for client-side access.
+
+### Static Export
+
+The site is configured with `output: 'export'` in `next.config.js`, producing a fully static build in the `out/` directory. Each route gets its own `index.html` file, so paths like `/about` persist on browser refresh.

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import './styles.css';
 import { UserContext } from '../UserProvider';
 import * as Tabs from '@radix-ui/react-tabs';
 
@@ -158,7 +157,7 @@ const AuthDialog = () => {
       {passwordMatchesConfirm ? (
         <div style={{ color: 'green' }}>Password matches confirm</div>
       ) : (
-        <div style={{ color: 'red' }}>Password & confirm don't match</div>
+        <div style={{ color: 'red' }}>{"Password & confirm don't match"}</div>
       )}
       <div
         style={{

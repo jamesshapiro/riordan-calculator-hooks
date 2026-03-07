@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import NavBar from '../NavBar';
 import Header from '../Header';
-import email from '../../../public/riordanpapers.png';
+
+const email = '/riordanpapers.png';
 
 function Papers() {
   return (
@@ -21,6 +22,8 @@ function Papers() {
         Any papers that credit the Riordan Calculator in their official
         published version are eligible for inclusion on riordancalculator.com.
         You are encouraged to submit your papers to
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={email}
           alt='Riordan Papers'

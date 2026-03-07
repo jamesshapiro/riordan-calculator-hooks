@@ -45,7 +45,7 @@ function SequenceEditorSelectTable({ selectedOption, setSelectedOption }) {
         <TBody>
           {OPTIONS.map((option) => {
             return (
-              <TR>
+              <TR key={option.id}>
                 <CheckTD>{selectedOption === option.id ? check : null}</CheckTD>
                 <TD>
                   <Button

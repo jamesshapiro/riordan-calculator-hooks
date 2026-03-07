@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
 
@@ -16,7 +17,9 @@ function Header({ isHome }) {
     <Wrapper>
       <HeaderWrapper>
         <StyledHeader>
-          <StyledLink href='/'>Riordan Calculator</StyledLink>
+          <Link href='/' style={{ display: 'inline', fontSize: '24px', fontWeight: 500, color: 'var(--header-color)', textDecoration: 'none' }}>
+            Riordan Calculator
+          </Link>
         </StyledHeader>
       </HeaderWrapper>
       {isHome && (

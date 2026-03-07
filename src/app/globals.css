@@ -1,0 +1,798 @@
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/blue.css';
+
+/* ===== reset.css ===== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* ===== styles.css ===== */
+
+body {
+  font-family: 'Lato', sans-serif;
+  --number-box-height: 45px;
+  --number-box-width: 60px;
+  --spacer-width: 15px;
+
+  --number-box-background-color: hsl(240, 10%, 95%);
+  --number-box-hover-background-color: hsl(55, 100%, 91%);
+  --matrix-cell-background-color: hsl(240, 50%, 93%);
+
+  --action-box-background-color: hsl(240 10% 95% / 50%);
+  --action-box-hover-background-color: hsl(240 10% 85% / 50%);
+  --action-box-hover-font-color: hsl(240 90% 50% / 50%);
+  --action-box-font-color: hsl(240 65% 40% / 50%);
+  --action-box-border-color: hsl(240 65% 65% / 50%);
+  --bubble-hover-background-color: hsl(240, 100%, 50%);
+
+  --matrix-header-field: hsl(240, 60%, 95%);
+
+  --number-box-hover-font-color: hsl(240, 100%, 50%);
+  --number-box-font-color: hsl(240, 85%, 40%);
+  --number-box-border-color: hsl(240, 85%, 65%);
+  --bubble-hover-border-color: hsl(240, 100%, 90%);
+  --number-box-border-radius: 8px;
+
+  --number-box-disabled-background-color: hsl(240, 5%, 90%);
+  --number-box-disabled-font-color: hsl(240, 25%, 40%);
+  --number-box-disabled-border-color: hsl(240, 65%, 65%);
+
+  --header-color: hsl(240, 85%, 35%);
+  --active-button-color: hsl(240, 85%, 35%);
+  --hover-button-color: hsl(240, 60%, 55%);
+  --mode-button-selected: hsl(240, 85%, 35%);
+  --min-cell-width: 20px;
+  --min-button-width: 20px;
+
+  --background-gradient-top: hsl(223, 44%, 76%);
+  --background-gradient-bottom: hsl(240, 83%, 91%);
+
+  --select-td-background: hsl(240, 75%, 89%);
+  --submit-button-background: hsl(240, 100%, 71%);
+  --submit-button-border: hsl(240, 42%, 40%);
+  --box-shadow-distance: 2px;
+
+  --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
+  --box-gradient-reverse: linear-gradient(
+    hsl(240, 75%, 89%),
+    hsl(240, 50%, 93%)
+  );
+
+  --matrix-cell-row-sums-background-color: hsl(122, 69%, 82%);
+  --row-sums-box-gradient: #f00;
+  --rows-sums-font-color: #000;
+
+  --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
+  --matrix-cell-zero-ev-background-color: hsl(6, 36%, 80%);
+  --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
+  --alternating-row-sums-box-gradient: #f00;
+  --alternating-rows-sums-font-color: #000;
+  --matrix-cell-antidiagonal-sums-background-color: hsl(87, 54%, 60%);
+  --matrix-cell-alternating-antidiagonal-sums-background-color: hsl(
+    167,
+    54%,
+    70%
+  );
+  --mini-number-box-height: 33px;
+  --mini-number-box-width: 33px;
+  --mini-number-box-background-color: hsl(240, 10%, 95%);
+  --mini-number-box-font-color: hsl(240, 85%, 40%);
+  --mini-number-box-border-color: hsl(240, 85%, 65%);
+  --mini-number-box-border-radius: 4px;
+  --user-history-cell-background: hsl(240, 75%, 94%);
+
+  --star-sequence-font-color: hsl(240, 90%, 25%);
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.nonexistent {
+  color: hsl(240, 85%, 65%);
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+header {
+  display: flex;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--color-gray-700);
+  color: var(--color-gray-300);
+}
+
+header .side {
+  width: var(--header-height);
+  display: grid;
+  place-content: center;
+}
+
+h1 {
+  flex: 1;
+  font-size: 2rem;
+  line-height: var(--header-height);
+  text-align: center;
+}
+
+@media (max-width: 25rem) {
+  h1 {
+    font-size: 1.25rem;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+/* ===== AuthDialog/styles.css ===== */
+
+.AuthDialogOverlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.AuthDialogContent {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 90vw;
+  max-width: 450px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.AuthDialogTitle {
+  margin: 0;
+  font-weight: 500;
+  color: var(--mauve-12);
+}
+
+.TabsRoot {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  box-shadow: 0 2px 10px var(--black-a4);
+}
+
+.TabsList {
+  flex-shrink: 0;
+  display: flex;
+  border-bottom: 1px solid var(--mauve-6);
+}
+
+.TabsTrigger {
+  font-family: inherit;
+  background-color: white;
+  padding: 0 20px;
+  height: 45px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--mauve-11);
+  user-select: none;
+}
+.TabsTrigger:first-child {
+  border-top-left-radius: 6px;
+}
+.TabsTrigger:last-child {
+  border-top-right-radius: 6px;
+}
+.TabsTrigger:hover {
+  color: var(--violet-11);
+}
+.TabsTrigger[data-state='active'] {
+  color: var(--violet-11);
+  box-shadow:
+    inset 0 -1px 0 0 currentColor,
+    0 1px 0 0 currentColor;
+}
+.TabsTrigger:focus {
+  position: relative;
+}
+
+.TabsContent {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: white;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  outline: none;
+}
+
+.Text {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--mauve-11);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.Fieldset {
+  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.Label {
+  font-size: 13px;
+  line-height: 1;
+  margin-bottom: 10px;
+  color: var(--violet-12);
+  display: block;
+}
+
+.Input {
+  flex: 1 0 auto;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--violet-11);
+  box-shadow: 0 0 0 1px var(--violet-7);
+  height: 35px;
+}
+.Input:focus {
+  box-shadow: 0 0 0 2px var(--violet-8);
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  height: 35px;
+}
+.Button.green {
+  background-color: var(--green-4);
+  color: var(--green-11);
+}
+.Button.green:hover {
+  background-color: var(--green-5);
+}
+.Button.green:focus {
+  box-shadow: 0 0 0 2px var(--green-7);
+}
+
+/* ===== ConfirmDeleteQueryDialog/styles.css ===== */
+
+.ConfirmDialogTitle {
+  padding-bottom: 10px;
+}
+
+.ConfirmDialogContent {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 450px;
+  max-height: 85vh;
+  padding: 25px;
+  padding-top: 60px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ConfirmDialogContent:focus {
+  outline: none;
+}
+
+.Button.red {
+  background-color: var(--red-4);
+  color: var(--red-11);
+}
+.Button.red:hover {
+  background-color: var(--red-5);
+}
+.Button.red:focus {
+  box-shadow: 0 0 0 2px var(--red-7);
+}
+
+.ConfirmIconButton {
+  font-family: inherit;
+  border-radius: 100%;
+  border: 1px solid var(--violet-7);
+  height: 25px;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet-11);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.ConfirmIconButton:hover {
+  background-color: var(--violet-4);
+}
+.ConfirmIconButton:focus {
+  box-shadow: 0 0 0 2px var(--violet-7);
+}
+
+/* ===== ShareDialog/styles.css ===== */
+
+.DialogTrigger {
+  z-index: 10000;
+  margin-top: 55px;
+  margin-left: 10px;
+  width: fit-content;
+  height: 19px;
+  border: 1px solid var(--submit-button-border);
+  padding: 10px;
+  border-radius: var(--number-box-border-radius);
+  color: white;
+  background-color: var(--submit-button-background);
+}
+.DialogTrigger:hover {
+  background-image: revert;
+  background-color: var(--hover-button-color);
+  color: white;
+}
+.DialogTrigger:active {
+  background-color: var(--active-button-color);
+  color: white;
+}
+
+.DialogOverlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogParagraph {
+  min-width: fit-content;
+  width: 260px;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--violet-11);
+  box-shadow: 0 0 0 1px var(--violet-7);
+  height: 35px;
+}
+
+.DialogContent {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 450px;
+  max-height: 85vh;
+  padding: 25px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.DialogContent:focus {
+  outline: none;
+}
+
+.DialogTitle {
+  margin: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: var(--mauve-12);
+  font-size: 17px;
+}
+
+.DialogDescription {
+  margin: 10px 0 20px;
+  color: var(--mauve-11);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.DialogButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 2px solid var(--blue-11);
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  height: 35px;
+}
+
+.DialogButton.blue {
+  background-color: var(--blue-4);
+  color: var(--blue-11);
+}
+.DialogButton.blue:hover {
+  background-color: var(--blue-5);
+}
+.DialogButton.blue:focus {
+  box-shadow: 0 0 0 2px var(--blue-7);
+}
+
+.DialogIconButton {
+  font-family: inherit;
+  border-radius: 100%;
+  height: 25px;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet-11);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.DialogIconButton:hover {
+  background-color: var(--violet-4);
+}
+.DialogIconButton:focus {
+  box-shadow: 0 0 0 2px var(--violet-7);
+}
+
+.DialogFieldset {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.DialogLabel {
+  font-size: 15px;
+  color: var(--violet-11);
+  text-align: left;
+}
+
+.DialogInput {
+  width: 100%;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--violet-11);
+  box-shadow: 0 0 0 1px var(--violet-7);
+  height: 35px;
+}
+.DialogInput:focus {
+  box-shadow: 0 0 0 2px var(--violet-8);
+}
+
+/* ===== TooltipWrapper/styles.css ===== */
+
+.TooltipContent {
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 15px;
+  line-height: 1;
+  color: black;
+  background-color: white;
+  box-shadow:
+    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  user-select: none;
+  animation-duration: 250ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+.TooltipContent[data-state='delayed-open'][data-side='top'] {
+  animation-name: slideDownAndFade;
+}
+.TooltipContent[data-state='delayed-open'][data-side='right'] {
+  animation-name: slideLeftAndFade;
+}
+.TooltipContent[data-state='delayed-open'][data-side='bottom'] {
+  animation-name: slideUpAndFade;
+}
+.TooltipContent[data-state='delayed-open'][data-side='left'] {
+  animation-name: slideRightAndFade;
+}
+
+.TooltipArrow {
+  fill: white;
+}
+
+.IconButton {
+  font-family: inherit;
+  border-radius: 100%;
+  height: 35px;
+  width: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet-11);
+  background-color: white;
+  box-shadow: 0 2px 10px var(--black-a7);
+}
+.IconButton:hover {
+  background-color: var(--violet-3);
+}
+.IconButton:focus {
+  box-shadow: 0 0 0 2px black;
+}
+
+/* ===== UserDropdown/styles.css ===== */
+
+.DropdownMenuContent,
+.DropdownMenuSubContent {
+  min-width: 220px;
+  background-color: white;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.DropdownMenuContent[data-side='top'],
+.DropdownMenuSubContent[data-side='top'] {
+  animation-name: slideDownAndFade;
+}
+.DropdownMenuContent[data-side='right'],
+.DropdownMenuSubContent[data-side='right'] {
+  animation-name: slideLeftAndFade;
+}
+.DropdownMenuContent[data-side='bottom'],
+.DropdownMenuSubContent[data-side='bottom'] {
+  animation-name: slideUpAndFade;
+}
+.DropdownMenuContent[data-side='left'],
+.DropdownMenuSubContent[data-side='left'] {
+  animation-name: slideRightAndFade;
+}
+
+.DropdownMenuItem,
+.DropdownMenuCheckboxItem,
+.DropdownMenuRadioItem,
+.DropdownMenuSubTrigger {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--violet-11);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 5px;
+  position: relative;
+  padding-left: 25px;
+  user-select: none;
+  outline: none;
+}
+
+.DropdownMenuContent a {
+  color: inherit;
+  text-decoration: none;
+}
+.DropdownMenuSubTrigger[data-state='open'] {
+  background-color: var(--violet-4);
+  color: var(--violet-11);
+}
+.DropdownMenuItem[data-disabled],
+.DropdownMenuCheckboxItem[data-disabled],
+.DropdownMenuRadioItem[data-disabled],
+.DropdownMenuSubTrigger[data-disabled] {
+  color: var(--mauve-8);
+  pointer-events: none;
+}
+.DropdownMenuItem[data-highlighted],
+.DropdownMenuCheckboxItem[data-highlighted],
+.DropdownMenuRadioItem[data-highlighted],
+.DropdownMenuSubTrigger[data-highlighted] {
+  background-color: var(--violet-9);
+  color: var(--violet-1);
+}
+
+.DropdownMenuLabel {
+  padding-left: 25px;
+  font-size: 12px;
+  line-height: 25px;
+  color: var(--mauve-11);
+}
+
+.DropdownMenuSeparator {
+  height: 1px;
+  background-color: var(--violet-6);
+  margin: 5px;
+}
+
+.DropdownMenuItemIndicator {
+  position: absolute;
+  left: 0;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DropdownMenuArrow {
+  fill: white;
+}
+
+.RightSlot {
+  margin-left: auto;
+  padding-left: 20px;
+  color: var(--mauve-11);
+}
+[data-highlighted] > .RightSlot {
+  color: white;
+}
+[data-disabled] .RightSlot {
+  color: var(--mauve-8);
+}
+
+/* ===== Global SelectItem (used by ComboBox components) ===== */
+
+.SelectItem {
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 35px 0 25px;
+  position: relative;
+  user-select: none;
+}
+.SelectItem[data-disabled] {
+  color: var(--mauve-8);
+  pointer-events: none;
+}
+.SelectItem[data-highlighted] {
+  outline: none;
+  background-color: var(--hover-button-color);
+  color: white;
+}
+
+/* ===== Keyframe animations ===== */
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
