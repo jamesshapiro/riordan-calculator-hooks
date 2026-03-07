@@ -1,0 +1,137 @@
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/blue.css';
+
+body {
+  font-family: 'Lato', sans-serif;
+  --number-box-height: 45px;
+  --number-box-width: 60px;
+  --spacer-width: 15px;
+
+  --number-box-background-color: hsl(240, 10%, 95%);
+  --number-box-hover-background-color: hsl(55, 100%, 91%);
+  --matrix-cell-background-color: hsl(240, 50%, 93%);
+
+  --action-box-background-color: hsl(240 10% 95% / 50%);
+  --action-box-hover-background-color: hsl(240 10% 85% / 50%);
+  --action-box-hover-font-color: hsl(240 90% 50% / 50%);
+  --action-box-font-color: hsl(240 65% 40% / 50%);
+  --action-box-border-color: hsl(240 65% 65% / 50%);
+  --bubble-hover-background-color: hsl(240, 100%, 50%);
+
+  --matrix-header-field: hsl(240, 60%, 95%);
+
+  --number-box-hover-font-color: hsl(240, 100%, 50%);
+  --number-box-font-color: hsl(240, 85%, 40%);
+  --number-box-border-color: hsl(240, 85%, 65%);
+  --bubble-hover-border-color: hsl(240, 100%, 90%);
+  --number-box-border-radius: 8px;
+
+  --number-box-disabled-background-color: hsl(240, 5%, 90%);
+  --number-box-disabled-font-color: hsl(240, 25%, 40%);
+  --number-box-disabled-border-color: hsl(240, 65%, 65%);
+
+  --header-color: hsl(240, 85%, 35%);
+  --active-button-color: hsl(240, 85%, 35%);
+  --hover-button-color: hsl(240, 60%, 55%);
+  --mode-button-selected: hsl(240, 85%, 35%);
+  --min-cell-width: 20px;
+  --min-button-width: 20px;
+
+  --background-gradient-top: hsl(223, 44%, 76%);
+  --background-gradient-bottom: hsl(240, 83%, 91%);
+
+  --select-td-background: hsl(240, 75%, 89%);
+  --submit-button-background: hsl(240, 100%, 71%);
+  --submit-button-border: hsl(240, 42%, 40%);
+  --box-shadow-distance: 2px;
+
+  --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
+  --box-gradient-reverse: linear-gradient(
+    hsl(240, 75%, 89%),
+    hsl(240, 50%, 93%)
+  );
+
+  --matrix-cell-row-sums-background-color: hsl(122, 69%, 82%);
+  --row-sums-box-gradient: #f00;
+  --rows-sums-font-color: #000;
+
+  --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
+  --matrix-cell-zero-ev-background-color: hsl(6, 36%, 80%);
+  --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
+  --alternating-row-sums-box-gradient: #f00;
+  --alternating-rows-sums-font-color: #000;
+  --matrix-cell-antidiagonal-sums-background-color: hsl(87, 54%, 60%);
+  --matrix-cell-alternating-antidiagonal-sums-background-color: hsl(
+    167,
+    54%,
+    70%
+  );
+  --mini-number-box-height: 33px;
+  --mini-number-box-width: 33px;
+  --mini-number-box-background-color: hsl(240, 10%, 95%);
+  --mini-number-box-font-color: hsl(240, 85%, 40%);
+  --mini-number-box-border-color: hsl(240, 85%, 65%);
+  --mini-number-box-border-radius: 4px;
+  --user-history-cell-background: hsl(240, 75%, 94%);
+
+  --star-sequence-font-color: hsl(240, 90%, 25%);
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.nonexistent {
+  color: hsl(240, 85%, 65%);
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+header {
+  display: flex;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--color-gray-700);
+  color: var(--color-gray-300);
+}
+
+header .side {
+  width: var(--header-height);
+  display: grid;
+  place-content: center;
+}
+
+h1 {
+  flex: 1;
+  font-size: 2rem;
+  line-height: var(--header-height);
+  text-align: center;
+}
+
+@media (max-width: 25rem) {
+  h1 {
+    font-size: 1.25rem;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}

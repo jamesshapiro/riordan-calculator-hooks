@@ -3,11 +3,10 @@
 ## Active Repos
 
 ### Frontend
-- **Repo**: `/home/james/code/riordan-calculator-hooks`
-- **Deployed to**: `riordancalculator.com` (S3 bucket `s3://riordancalculator.com` + CloudFront `E2JU45ZDYZG6SU`)
-- **API endpoints** (in `.env`):
-  - Unauthenticated: `https://yar08qypp7.execute-api.us-east-1.amazonaws.com/dev/`
-  - Authenticated: `https://31mb8vbzh2.execute-api.us-east-1.amazonaws.com/dev/`
+- **Deployed to**: `riordancalculator.com` (AWS Amplify via Next.js static export)
+- **API endpoints** (in `.env.local`):
+  - Unauthenticated: `NEXT_PUBLIC_MATRIX_URL`
+  - Authenticated: `NEXT_PUBLIC_MATRIX_URL_AUTH`
 
 ### Backend (API + Lambda)
 - **Repo**: `/home/james/code/terragrunt-infrastructure-live`
@@ -36,9 +35,21 @@
 | `DELETE /sequence` (delete_sequence) | | x |
 | `PUT /preset` (update_preset) | | x |
 
-## Development
+## Architecture
 
-Built with [Parcel](https://parceljs.org/).
+Built with [Next.js](https://nextjs.org/) (App Router) and TypeScript. Static export via `output: 'export'` in `next.config.ts`. Deployed to AWS Amplify.
+
+### Environment Variables
+
+```
+NEXT_PUBLIC_MATRIX_URL=https://yar08qypp7.execute-api.us-east-1.amazonaws.com/dev/
+NEXT_PUBLIC_MATRIX_URL_AUTH=https://31mb8vbzh2.execute-api.us-east-1.amazonaws.com/dev/
+NEXT_PUBLIC_API_KEY=<your-api-key>
+NEXT_PUBLIC_USER_POOL_ID=<your-cognito-user-pool-id>
+NEXT_PUBLIC_USER_POOL_CLIENT_ID=<your-cognito-client-id>
+```
+
+## Development
 
 ```
 npm install
