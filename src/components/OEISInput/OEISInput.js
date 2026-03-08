@@ -65,7 +65,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10px 0;
+  margin: 12px 0;
 `;
 
 const InputGroup = styled.div`
@@ -75,53 +75,59 @@ const InputGroup = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  color: hsl(215, 55%, 25%);
 `;
 
 const Input = styled.input`
   width: 80px;
   padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid hsl(215, 25%, 85%);
+  border-radius: 6px;
   font-size: 14px;
-  font-family: monospace;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: hsl(215, 55%, 25%);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
   &:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: hsl(215, 55%, 50%);
+    box-shadow: 0 0 0 3px hsl(215, 55%, 50%, 0.1);
   }
 
   &:disabled {
-    background-color: #f5f5f5;
+    background-color: hsl(215, 15%, 96%);
     cursor: not-allowed;
   }
 `;
 
 const FetchButton = styled.button`
   padding: 8px 16px;
-  background-color: #007bff;
+  background-color: hsl(215, 55%, 28%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
 
   &:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: hsl(215, 55%, 38%);
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: hsl(215, 15%, 80%);
     cursor: not-allowed;
   }
 `;
 
 const ErrorMessage = styled.div`
-  color: #dc3545;
+  color: hsl(0, 60%, 45%);
   font-size: 12px;
-  margin-top: 4px;
+  font-weight: 500;
+  margin-top: 6px;
 `;
 
 export default OEISInput;

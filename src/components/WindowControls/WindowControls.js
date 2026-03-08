@@ -90,25 +90,25 @@ function WindowControls({ sequenceId }) {
 export default WindowControls;
 
 const Wrapper = styled.tr`
-  color: var(--number-box-font-color);
+  color: hsl(215, 40%, 40%);
 `;
 
 const Bubble = styled.div`
-  background-color: var(--number-box-background-color);
-  border: 2px solid var(--action-box-border-color);
+  background-color: #ffffff;
+  border: 1.5px solid hsl(215, 25%, 80%);
   &:hover {
-    background-color: var(--bubble-hover-background-color);
+    background-color: hsl(215, 55%, 22%);
     color: white;
-    border: 2px solid var(--bubble-hover-border-color);
+    border-color: hsl(215, 55%, 22%);
   }
   margin-left: ${(p) => (p.$isleft ? 'auto' : '0')};
   margin-right: ${(p) => (!p.$isleft ? 'auto' : '0')};
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   z-index: 10;
-
+  transition: all 0.15s ease;
   display: flex;
   justify-content: center;
   align-items: center;

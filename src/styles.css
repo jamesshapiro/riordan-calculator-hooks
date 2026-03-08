@@ -2,93 +2,94 @@
   Custom styles // JS
 */
 body {
-  font-family: 'Lato', sans-serif;
-  --number-box-height: 45px;
-  --number-box-width: 60px;
-  --spacer-width: 15px;
+  font-family: 'Inter', 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  color: hsl(215, 25%, 15%);
+  --number-box-height: 44px;
+  --number-box-width: 64px;
+  --spacer-width: 12px;
 
-  --number-box-background-color: hsl(240, 10%, 95%);
-  --number-box-hover-background-color: hsl(55, 100%, 91%);
-  --matrix-cell-background-color: hsl(240, 50%, 93%);
+  --number-box-background-color: hsl(215, 30%, 97%);
+  --number-box-hover-background-color: hsl(215, 40%, 93%);
+  --matrix-cell-background-color: hsl(215, 20%, 96%);
 
-  --action-box-background-color: hsl(240 10% 95% / 50%);
-  --action-box-hover-background-color: hsl(240 10% 85% / 50%);
-  --action-box-hover-font-color: hsl(240 90% 50% / 50%);
-  --action-box-font-color: hsl(240 65% 40% / 50%);
-  --action-box-border-color: hsl(240 65% 65% / 50%);
-  --bubble-hover-background-color: hsl(240, 100%, 50%);
+  --action-box-background-color: hsl(215 20% 95% / 60%);
+  --action-box-hover-background-color: hsl(215 30% 90% / 70%);
+  --action-box-hover-font-color: hsl(215 70% 40%);
+  --action-box-font-color: hsl(215 40% 50%);
+  --action-box-border-color: hsl(215 30% 75%);
+  --bubble-hover-background-color: hsl(215, 65%, 35%);
 
-  --matrix-header-field: hsl(240, 60%, 95%);
+  --matrix-header-field: hsl(215, 25%, 97%);
 
-  --number-box-hover-font-color: hsl(240, 100%, 50%);
-  --number-box-font-color: hsl(240, 85%, 40%);
-  --number-box-border-color: hsl(240, 85%, 65%);
-  --bubble-hover-border-color: hsl(240, 100%, 90%);
-  --number-box-border-radius: 8px;
+  --number-box-hover-font-color: hsl(215, 70%, 35%);
+  --number-box-font-color: hsl(215, 55%, 30%);
+  --number-box-border-color: hsl(215, 30%, 78%);
+  --bubble-hover-border-color: hsl(215, 50%, 85%);
+  --number-box-border-radius: 6px;
 
-  --number-box-disabled-background-color: hsl(240, 5%, 90%);
-  --number-box-disabled-font-color: hsl(240, 25%, 40%);
-  --number-box-disabled-border-color: hsl(240, 65%, 65%);
+  --number-box-disabled-background-color: hsl(215, 10%, 93%);
+  --number-box-disabled-font-color: hsl(215, 15%, 55%);
+  --number-box-disabled-border-color: hsl(215, 20%, 78%);
 
-  --header-color: hsl(240, 85%, 35%);
-  --active-button-color: hsl(240, 85%, 35%);
-  --hover-button-color: hsl(240, 60%, 55%);
-  --mode-button-selected: hsl(240, 85%, 35%);
+  --header-color: hsl(215, 60%, 22%);
+  --active-button-color: hsl(215, 60%, 22%);
+  --hover-button-color: hsl(215, 55%, 40%);
+  --mode-button-selected: hsl(215, 60%, 25%);
   --min-cell-width: 20px;
   --min-button-width: 20px;
 
-  --background-gradient-top: hsl(223, 44%, 76%);
-  --background-gradient-bottom: hsl(240, 83%, 91%);
+  --background-gradient-top: #ffffff;
+  --background-gradient-bottom: hsl(215, 30%, 97%);
 
-  --select-td-background: hsl(240, 75%, 89%);
-  --submit-button-background: hsl(240, 100%, 71%);
-  --submit-button-border: hsl(240, 42%, 40%);
-  --box-shadow-distance: 2px;
+  --select-td-background: hsl(215, 35%, 92%);
+  --submit-button-background: hsl(215, 60%, 30%);
+  --submit-button-border: hsl(215, 55%, 22%);
+  --box-shadow-distance: 1px;
 
-  --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
+  --box-gradient: linear-gradient(hsl(215, 20%, 97%), hsl(215, 25%, 94%));
   --box-gradient-reverse: linear-gradient(
-    hsl(240, 75%, 89%),
-    hsl(240, 50%, 93%)
+    hsl(215, 25%, 94%),
+    hsl(215, 20%, 97%)
   );
 
-  --matrix-cell-row-sums-background-color: hsl(122, 69%, 82%);
-  --row-sums-box-gradient: #f00;
-  --rows-sums-font-color: #000;
+  --matrix-cell-row-sums-background-color: hsl(152, 35%, 90%);
+  --row-sums-box-gradient: none;
+  --rows-sums-font-color: hsl(152, 40%, 22%);
 
-  --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
-  --matrix-cell-zero-ev-background-color: hsl(6, 36%, 80%);
-  --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
-  --alternating-row-sums-box-gradient: #f00;
-  --alternating-rows-sums-font-color: #000;
-  --matrix-cell-antidiagonal-sums-background-color: hsl(87, 54%, 60%);
+  --matrix-cell-alternating-row-sums-background-color: hsl(40, 45%, 91%);
+  --matrix-cell-zero-ev-background-color: hsl(350, 30%, 93%);
+  --matrix-cell-one-ev-background-color: hsl(25, 40%, 91%);
+  --alternating-row-sums-box-gradient: none;
+  --alternating-rows-sums-font-color: hsl(215, 25%, 20%);
+  --matrix-cell-antidiagonal-sums-background-color: hsl(170, 30%, 90%);
   --matrix-cell-alternating-antidiagonal-sums-background-color: hsl(
-    167,
-    54%,
-    70%
+    200,
+    30%,
+    91%
   );
-  /* --background-gradient-bottom: #f00; */
   --mini-number-box-height: 33px;
   --mini-number-box-width: 33px;
-  --mini-number-box-background-color: hsl(240, 10%, 95%);
-  --mini-number-box-font-color: hsl(240, 85%, 40%);
-  --mini-number-box-border-color: hsl(240, 85%, 65%);
+  --mini-number-box-background-color: hsl(215, 20%, 97%);
+  --mini-number-box-font-color: hsl(215, 55%, 30%);
+  --mini-number-box-border-color: hsl(215, 30%, 78%);
   --mini-number-box-border-radius: 4px;
-  --user-history-cell-background: hsl(240, 75%, 94%);
+  --user-history-cell-background: hsl(215, 25%, 96%);
 
-  --star-sequence-font-color: hsl(240, 90%, 25%);
+  --star-sequence-font-color: hsl(215, 60%, 22%);
 }
 
 body,
 html {
   height: 100%;
+  background-color: #ffffff;
 }
 
 .nonexistent {
-  color: hsl(240, 85%, 65%);
+  color: hsl(215, 50%, 55%);
 }
 
 button {
-  /* margin: 0; */
   padding: 0;
   border: none;
   background: transparent;
@@ -100,8 +101,8 @@ button {
 header {
   display: flex;
   height: var(--header-height);
-  border-bottom: 1px solid var(--color-gray-700);
-  color: var(--color-gray-300);
+  border-bottom: 1px solid hsl(215, 20%, 90%);
+  color: hsl(215, 25%, 40%);
 }
 
 header .side {
@@ -112,9 +113,11 @@ header .side {
 
 h1 {
   flex: 1;
-  font-size: 2rem;
+  font-size: 1.75rem;
   line-height: var(--header-height);
   text-align: center;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 @media (max-width: 25rem) {

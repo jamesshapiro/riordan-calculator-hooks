@@ -101,10 +101,12 @@ function StarSequence({ variant }) {
 export default StarSequence;
 
 const StyledSVG = styled.svg`
-  &:visited {
-    --link-color: : var(--number-box-font-color);
-  }
   max-width: 100%;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 // const SearchSVG = (
@@ -132,7 +134,7 @@ const SearchSVG = (
     height='16'
     viewBox='0 0 16 16'
     fill='none'
-    stroke='var(--number-box-font-color)'
+    stroke='hsl(215, 45%, 40%)'
     strokeWidth='1.5'
     strokeLinecap='round'
     strokeLinejoin='round'
@@ -145,18 +147,19 @@ const SearchSVG = (
 
 const StyledH2 = styled.h2`
   display: inline;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 `;
 
 const OuterOuterWrapper = styled.div`
-  margin-top: 30px;
+  margin-top: 36px;
   margin-left: 195px;
 `;
 
 const OuterWrapper = styled.tr`
   margin-top: 10px;
   min-width: fit-content;
-  /* padding-top: 10px; */
-  /* padding-top: 100px; */
   color: var(--star-sequence-font-color);
 `;
 
@@ -164,24 +167,23 @@ const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: default;
-  background-color: var(--number-box-background-color);
+  background-color: #ffffff;
   border-radius: var(--number-box-border-radius);
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid hsl(215, 25%, 88%);
   z-index: 1;
-  /* padding: 10%; */
+  font-variant-numeric: tabular-nums;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
+  color: hsl(215, 55%, 30%);
   width: fit-content;
   height: 100%;
   width: 100%;
@@ -189,6 +191,7 @@ const InnerContainer = styled.div`
 
 const InnerElement = styled.p`
   width: fit-content;
+  font-weight: 500;
   font-size: clamp(
     ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
@@ -200,32 +203,31 @@ const LookupWrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: default;
-  background-color: var(--number-box-background-color);
+  background-color: #ffffff;
   border-radius: var(--number-box-border-radius);
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid hsl(215, 25%, 88%);
   z-index: 1;
+  transition: background-color 0.15s ease;
   &:hover {
-    background-color: var(--number-box-hover-background-color);
+    background-color: hsl(215, 30%, 96%);
   }
-  /* padding: 10%; */
 `;
 
 const LookupInnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
+  color: hsl(215, 45%, 40%);
   width: fit-content;
   height: 100%;
   width: 100%;
   &:hover {
-    color: var(--number-box-hover-font-color);
+    color: hsl(215, 60%, 30%);
   }
 `;
 

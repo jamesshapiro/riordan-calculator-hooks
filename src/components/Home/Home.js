@@ -131,24 +131,24 @@ const CenterDiv = styled.div`
 const OEISContainer = styled.div`
   align-self: flex-start;
   padding-left: 300px;
-  margin: 10px 0;
+  margin: 16px 0;
 `;
 
 const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: 14px;
-  margin: 5px 0;
+  color: hsl(0, 60%, 45%);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 6px 0;
 `;
 
 const FlexColumnWrapper = styled.div`
-  padding-left: 35px;
+  padding: 24px 40px 60px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   align-items: center;
-  /* background-color: hsl(240, 40%, 90%); */
-  margin-left: 0px;
+  background-color: #ffffff;
 `;
 
 const FlexRowWrapper = styled.div`
@@ -158,6 +158,6 @@ const FlexRowWrapper = styled.div`
 `;
 
 const TableWrapper = styled.table`
-  margin-left: 10px;
-  padding-top: 13px;
+  margin-left: 12px;
+  padding-top: 16px;
 `;

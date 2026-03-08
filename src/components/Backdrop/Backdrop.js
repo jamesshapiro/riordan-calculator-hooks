@@ -35,9 +35,6 @@ const StyledBackdrop = styled.div`
   left: 0;
   min-height: ${(p) => p.height};
   width: ${(p) => p.width};
-  background-image: linear-gradient(
-    var(--background-gradient-top),
-    var(--background-gradient-bottom)
-  );
+  background-color: #ffffff;
   z-index: -1000;
 `;

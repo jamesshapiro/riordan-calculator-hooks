@@ -57,16 +57,16 @@ const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: ${(p) => (p.$enabled ? 'pointer' : 'default')};
-  background-color: var(--number-box-background-color);
+  background-color: ${(p) => p.$enabled ? '#ffffff' : 'hsl(215, 15%, 96%)'};
   &:hover {
     background-color: ${(p) =>
       p.$enabled
-        ? 'var(--number-box-hover-background-color)'
-        : 'var(--number-box-background-color)'};
+        ? 'hsl(215, 30%, 95%)'
+        : 'hsl(215, 15%, 96%)'};
     color: ${(p) =>
       p.$enabled
-        ? 'var(--number-box-hover-font-color)'
-        : 'var(--number-box-font-color)'};
+        ? 'hsl(215, 60%, 30%)'
+        : 'hsl(215, 30%, 55%)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;
@@ -74,19 +74,18 @@ const Wrapper = styled.div`
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 2px dashed var(--number-box-border-color);
+  border: 1.5px dashed hsl(215, 25%, 82%);
   z-index: 0;
-  /* padding: 10%; */
+  transition: all 0.15s ease;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
+  color: hsl(215, 30%, 55%);
   &:hover {
-    color: var(--number-box-hover-font-color);
+    color: hsl(215, 55%, 30%);
   }
   width: fit-content;
   height: 100%;
@@ -95,5 +94,6 @@ const InnerContainer = styled.div`
 
 const InnerElement = styled.p`
   width: fit-content;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 `;
