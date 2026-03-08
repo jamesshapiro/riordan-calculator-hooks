@@ -12,23 +12,27 @@ import About from '../About';
 import Papers from '../Papers';
 import SequenceEditor from '../SequenceEditor';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 function App() {
+  const pathname =
+    typeof window !== 'undefined' ? window.location.pathname : '/';
+  const normalizedPath = pathname.endsWith('/') && pathname !== '/'
+    ? pathname.slice(0, -1)
+    : pathname;
+  const routeMap = {
+    '/': <Home />,
+    '/about': <About />,
+    '/papers': <Papers />,
+    '/sequences': <SequenceEditor />,
+    '/history': <History />,
+  };
+  const activeRoute = routeMap[normalizedPath] || <Home />;
+
   return (
     <UserProvider>
       <DataProvider>
-          <Router>
-            <DeepBackdrop />
-            <Backdrop />
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/papers' element={<Papers />} />
-              <Route path='/sequences' element={<SequenceEditor />} />
-              <Route path='/history' element={<History />} />
-            </Routes>
-          </Router>
+        <DeepBackdrop />
+        <Backdrop />
+        {activeRoute}
       </DataProvider>
     </UserProvider>
   );
