@@ -40,63 +40,65 @@ function Header({ isHome }) {
 }
 
 const Wrapper = styled.div`
-  /* flex-direction: column; */
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 const HeaderWrapper = styled.header`
-  width: 300px;
   display: inline;
-
-  /* margin-bottom: 1px; */
-  border: 1px solid var(--number-box-border-color);
-  /* border-radius: 4px; */
-  padding: 20px;
-  padding-top: 25px;
-  border-radius: 3px;
-  background-color: var(--number-box-background-color);
-  /* box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
-    hsl(0, 0%, 50%); */
+  border: none;
+  padding: 0;
+  background-color: transparent;
 `;
 
 const StyledHeader = styled.h1`
   display: inline;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--header-color);
+  font-size: 22px;
+  font-weight: 700;
+  color: hsl(215, 60%, 22%);
+  letter-spacing: -0.02em;
 `;
 
 const StyledLink = styled.a`
   display: inline;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--header-color);
+  font-size: 22px;
+  font-weight: 700;
+  color: hsl(215, 60%, 22%);
   text-decoration: none;
+  letter-spacing: -0.02em;
   &:visited {
-    color: var(--header-color);
+    color: hsl(215, 60%, 22%);
   }
 `;
 
 const StyledButton = styled(({ isSelected, ...props }) => (
   <button {...props} />
 ))`
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 500;
   background-color: ${(p) =>
-    p.isSelected ? 'var(--mode-button-selected)' : 'white'};
-  border: 1px solid var(--mode-button-selected);
-  color: ${(p) => (p.isSelected ? 'white' : 'var(--mode-button-selected)')};
-  padding: 10px;
-  border-radius: 12px;
+    p.isSelected ? 'hsl(215, 55%, 22%)' : '#ffffff'};
+  border: 1px solid ${(p) =>
+    p.isSelected ? 'hsl(215, 55%, 22%)' : 'hsl(215, 25%, 82%)'};
+  color: ${(p) => (p.isSelected ? 'white' : 'hsl(215, 40%, 40%)')};
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: ${(p) => (!p.isSelected ? 'pointer' : 'default')};
-  margin: 3px;
+  transition: all 0.15s ease;
   &:first-of-type {
-    margin-left: 30px;
+    margin-left: 0;
   }
   &:hover {
     background-color: ${(p) =>
       !p.isSelected
-        ? 'var(--hover-button-color)'
-        : 'var(--active-button-color)'};
+        ? 'hsl(215, 50%, 35%)'
+        : 'hsl(215, 55%, 22%)'};
     color: white;
+    border-color: ${(p) =>
+      !p.isSelected
+        ? 'hsl(215, 50%, 35%)'
+        : 'hsl(215, 55%, 22%)'};
   }
 `;
 

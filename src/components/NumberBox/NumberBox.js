@@ -199,21 +199,21 @@ export default NumberBox;
 
 const CloseBubble = styled.div`
   position: absolute;
-  background-color: var(--number-box-background-color);
-  border: 2px dashed var(--action-box-border-color);
+  background-color: #ffffff;
+  border: 1.5px solid hsl(215, 25%, 80%);
   &:hover {
-    background-color: var(--bubble-hover-background-color);
+    background-color: hsl(215, 55%, 22%);
     color: white;
-    border: 2px dashed var(--bubble-hover-border-color);
+    border-color: hsl(215, 55%, 22%);
   }
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   cursor: pointer;
-  top: -20px;
+  top: -16px;
   left: 37px;
   z-index: ${(p) => p.zidx};
-
+  transition: all 0.15s ease;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -226,12 +226,12 @@ const Wrapper = styled.div`
   background-color: ${(p) =>
     p.disabled
       ? 'var(--number-box-disabled-background-color)'
-      : 'var(--number-box-background-color)'};
+      : '#ffffff'};
   &:hover {
     background-color: ${(p) =>
       p.disabled
         ? 'var(--number-box-disabled-background-color)'
-        : 'var(--number-box-hover-background-color)'};
+        : 'hsl(215, 30%, 97%)'};
   }
   border-radius: var(--number-box-border-radius);
   width: fit-content;
@@ -239,26 +239,25 @@ const Wrapper = styled.div`
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid hsl(215, 25%, 85%);
   z-index: 1;
-  /* padding: 10%; */
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  font-variant-numeric: tabular-nums;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
   color: ${(p) =>
     p.disabled
       ? 'var(--number-box-disabled-font-color)'
-      : 'var(--number-box-font-color)'};
+      : 'hsl(215, 55%, 25%)'};
   &:hover {
     color: ${(p) =>
       p.disabled
         ? 'var(--number-box-disabled-font-color)'
-        : 'var(--number-box-hover-font-color)'};
+        : 'hsl(215, 60%, 22%)'};
   }
   width: fit-content;
   height: 100%;
@@ -267,6 +266,7 @@ const InnerContainer = styled.div`
 
 const InnerElement = styled.p`
   width: fit-content;
+  font-weight: 500;
   font-size: clamp(
     ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
@@ -275,8 +275,8 @@ const InnerElement = styled.p`
 `;
 
 const StyledInput = styled.input`
-  font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 40%);
+  color: hsl(215, 55%, 25%);
+  font-weight: 500;
   font-size: clamp(
     ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
@@ -286,9 +286,14 @@ const StyledInput = styled.input`
   width: max(var(--number-box-width), var(--number-box-width));
   margin-left: 2px;
   text-align: center;
-
   line-height: normal;
-  border: 1px solid var(--number-box-hover-font-color);
+  border: 1px solid hsl(215, 50%, 60%);
   background-color: white;
   box-sizing: border-box;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+    border-color: hsl(215, 55%, 50%);
+    box-shadow: 0 0 0 2px hsl(215, 55%, 50%, 0.15);
+  }
 `;

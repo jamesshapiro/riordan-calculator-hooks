@@ -36,35 +36,38 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 15px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  margin: 16px 0;
+  padding: 16px 20px;
+  border: 1px solid hsl(215, 25%, 88%);
+  border-radius: 8px;
+  background-color: #ffffff;
   min-width: 300px;
+  box-shadow: 0 1px 3px hsl(215, 20%, 50%, 0.05);
 `;
 
 const Title = styled.h3`
   margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  color: hsl(215, 55%, 25%);
 `;
 
 const SequenceContainer = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 14px;
 `;
 
 const SequenceText = styled.div`
-  font-family: monospace;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  color: hsl(215, 20%, 40%);
+  margin-bottom: 6px;
   word-break: break-all;
+  line-height: 1.6;
 `;
 
 const SequenceInfo = styled.div`
   font-size: 12px;
-  color: #777;
+  color: hsl(215, 15%, 55%);
 `;
 
 const ButtonGroup = styled.div`
@@ -74,19 +77,21 @@ const ButtonGroup = styled.div`
 
 const SetButton = styled.button`
   padding: 8px 16px;
-  background-color: #28a745;
+  background-color: hsl(215, 55%, 28%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
 
   &:hover:not(:disabled) {
-    background-color: #218838;
+    background-color: hsl(215, 55%, 38%);
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: hsl(215, 15%, 80%);
     cursor: not-allowed;
   }
 `;

@@ -204,62 +204,92 @@ const StyledSVG = styled.svg`
   stroke-linecap: round;
   stroke-linejoin: round;
   transform: translateY(2px);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const TitleInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 14px 16px;
+  border: 1px solid hsl(215, 25%, 85%);
+  border-radius: 6px;
   min-width: 500px;
   display: inline;
-  margin-bottom: 10px;
-  font-size: 2rem;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: hsl(215, 60%, 22%);
+  letter-spacing: -0.01em;
+  &:focus {
+    outline: none;
+    border-color: hsl(215, 55%, 50%);
+    box-shadow: 0 0 0 3px hsl(215, 55%, 50%, 0.1);
+  }
 `;
 
 const TitleBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 14px 16px;
+  border: 1px solid hsl(215, 25%, 88%);
+  border-radius: 6px;
   min-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: inline;
 `;
 
 const CommentInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border: 1px solid hsl(215, 25%, 85%);
+  border-radius: 6px;
   min-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: flex-start;
+  font-size: 0.95rem;
+  color: hsl(215, 20%, 35%);
+  &:focus {
+    outline: none;
+    border-color: hsl(215, 55%, 50%);
+    box-shadow: 0 0 0 3px hsl(215, 55%, 50%, 0.1);
+  }
 `;
 
 const CommentBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border: 1px solid hsl(215, 25%, 88%);
+  border-radius: 6px;
   min-width: 500px;
   max-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: hsl(215, 20%, 35%);
+  line-height: 1.6;
 `;
 
 const AttributionBox = styled.div`
   text-align: center;
-  background-color: white;
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 14px 20px;
+  border: 1px solid hsl(215, 25%, 88%);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px hsl(215, 20%, 50%, 0.06);
 `;
 
 const StyledH1 = styled.h1`
   text-align: left;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: hsl(215, 60%, 22%);
 `;
 
 const AttributionP = styled.p`
   cursor: default;
+  font-size: 0.9rem;
+  color: hsl(215, 20%, 45%);
+  line-height: 1.6;
 `;

@@ -104,27 +104,27 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-self: flex-end;
-  gap: 10px;
+  gap: 6px;
 `;
 
 const NavItem = styled.button`
-  background-color: var(--number-box-background-color);
-  color: var(--number-box-font-color);
-  border-left: 1px solid var(--number-box-border-color);
-  border-bottom: 1px solid var(--number-box-border-color);
-  border-right: 1px solid var(--number-box-border-color);
+  background-color: transparent;
+  color: hsl(215, 40%, 40%);
+  border: 1px solid hsl(215, 25%, 88%);
+  border-radius: 6px;
+  transition: all 0.15s ease;
   &:hover {
-    background-color: var(--number-box-border-color);
+    background-color: hsl(215, 55%, 22%);
     color: white;
+    border-color: hsl(215, 55%, 22%);
   }
-  /* width: 100px; */
   display: flex;
-  padding: 2px 6px;
-  /* height: 50px; */
+  padding: 6px 14px;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: inherit;
+  font-size: 13px;
+  font-weight: 500;
 
   a {
     text-decoration: none;

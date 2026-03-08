@@ -495,39 +495,50 @@ function Matrix({ variant }) {
 export default Matrix;
 
 const Wrapper = styled.div`
-  margin-top: 40px;
+  margin-top: 48px;
   margin-left: ${(p) => p.$leftmargin};
 `;
 
 const MatrixTable = styled.table`
   margin-left: 100px;
-  margin-top: 20px;
+  margin-top: 24px;
   border-spacing: 0px;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
 `;
 
 const MatrixRow = styled.tr``;
 
 const MatrixCell = styled.td`
-  border: 1px solid var(--number-box-border-color);
-  min-width: 60px;
-  height: 50px;
+  border: 1px solid ${(p) =>
+    p.$col === 0 || p.$row === 0
+      ? 'hsl(215, 25%, 85%)'
+      : p.$row > 0 && p.$col > p.$row
+        ? 'hsl(215, 20%, 88%)'
+        : 'hsl(215, 40%, 30%)'};
+  min-width: 62px;
+  height: 44px;
   text-align: center;
+  padding: 0 8px;
+  font-weight: ${(p) =>
+    p.$col === 0 || p.$row === 0 ? '400' : '500'};
+  letter-spacing: 0.01em;
   background-color: ${(p) =>
     p.$col === 0 || p.$row === 0
-      ? 'var(--select-td-background)'
+      ? 'hsl(215, 25%, 95%)'
       : p.$row > 0 && p.$col > p.$row
-        ? 'var(--matrix-cell-background-color)'
-        : 'black'};
-
-  background-image: ${(p) =>
-    p.$col === 0 || p.$row === 0
-      ? 'revert'
-      : p.$col > p.$row
-        ? 'var(--box-gradient)'
-        : 'revert'};
+        ? '#ffffff'
+        : 'hsl(215, 55%, 22%)'};
+  background-image: none;
   color: ${(p) =>
-    p.$row > 0 && p.$col > p.$row ? 'var(--number-box-font-color)' : 'white'};
+    p.$col === 0 || p.$row === 0
+      ? 'hsl(215, 45%, 40%)'
+      : p.$row > 0 && p.$col > p.$row
+        ? 'hsl(215, 30%, 45%)'
+        : '#ffffff'};
+  transition: background-color 0.1s ease;
 `;
 
 const StyledShareButton = styled.button`
@@ -536,15 +547,14 @@ const StyledShareButton = styled.button`
   margin-left: 10px;
   width: 65px;
   text-align: center;
-  /* width: fit-content; */
   height: 19px;
   border: 1px solid var(--submit-button-border);
   padding: 10px;
   border-radius: var(--number-box-border-radius);
   color: white;
+  font-weight: 500;
   background-color: var(--submit-button-background);
   &:hover {
-    background-image: revert;
     background-color: var(--hover-button-color);
     color: white;
   }
@@ -555,21 +565,23 @@ const StyledShareButton = styled.button`
 `;
 
 const StyledSVG = styled.svg`
-  &:visited {
-    --link-color: : var(--number-box-font-color);
-  }
   display: block;
   max-width: 100%;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const SearchSVG = (
   <StyledSVG
     xmlns='http://www.w3.org/2000/svg'
-    width='24'
-    height='24'
+    width='18'
+    height='18'
     viewBox='0 0 24 24'
     fill='none'
-    stroke='var(--number-box-font-color)'
+    stroke='hsl(215, 45%, 40%)'
     strokeWidth='2'
     strokeLinecap='round'
     strokeLinejoin='round'
@@ -581,8 +593,15 @@ const SearchSVG = (
 );
 
 const LaTeXButton = styled.button`
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid hsl(215, 25%, 82%);
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  &:hover {
+    background-color: hsl(215, 25%, 95%);
+    border-color: hsl(215, 40%, 65%);
+  }
 `;
 
 const LaTeXSVG = (
@@ -617,38 +636,50 @@ const LaTeXSVG = (
 );
 
 const CopyCelebration = styled.span`
-  border: 1px solid black;
-  background-color: white;
-  padding: 10px;
-  font-size: 24px;
-  height: 72px;
+  border: 1px solid hsl(215, 25%, 82%);
+  background-color: #ffffff;
+  padding: 8px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 4px;
+  color: hsl(152, 40%, 30%);
 `;
 
 const RowSumsMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-row-sums-background-color);
-  background-image: var(--row-sums-box-gradient);
+  background-image: none;
   color: var(--rows-sums-font-color);
+  border-color: hsl(152, 20%, 82%);
+  font-weight: 500;
 `;
 
 const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-alternating-row-sums-background-color);
-  background-image: var(--alternating-row-sums-box-gradient);
+  background-image: none;
   color: var(--alternating-rows-sums-font-color);
+  border-color: hsl(40, 25%, 82%);
+  font-weight: 500;
 `;
 
 const ZeroEVMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-zero-ev-background-color);
   color: var(--alternating-rows-sums-font-color);
+  border-color: hsl(350, 20%, 85%);
+  font-weight: 500;
 `;
 
 const OneEVMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-one-ev-background-color);
   color: var(--alternating-rows-sums-font-color);
+  border-color: hsl(25, 25%, 82%);
+  font-weight: 500;
 `;
 
 const AntiDiagonalSumsMatrixCell = styled(MatrixCell)`
   background-color: var(--matrix-cell-antidiagonal-sums-background-color);
   color: var(--alternating-rows-sums-font-color);
+  border-color: hsl(170, 20%, 82%);
+  font-weight: 500;
 `;
 
 const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
@@ -656,4 +687,6 @@ const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
     --matrix-cell-alternating-antidiagonal-sums-background-color
   );
   color: var(--alternating-rows-sums-font-color);
+  border-color: hsl(200, 20%, 82%);
+  font-weight: 500;
 `;

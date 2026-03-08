@@ -39,21 +39,26 @@ const StyledSubmitButton = styled.button`
   z-index: 10000;
   margin-top: 55px;
   margin-left: 10px;
-  width: 65px;
-  /* width: fit-content; */
-  height: 19px;
+  min-width: 90px;
+  height: auto;
   border: 1px solid var(--submit-button-border);
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: var(--number-box-border-radius);
   color: white;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
   background-color: var(--submit-button-background);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 3px hsl(215, 50%, 20%, 0.15);
   &:hover {
-    background-image: revert;
     background-color: var(--hover-button-color);
     color: white;
+    box-shadow: 0 2px 6px hsl(215, 50%, 20%, 0.2);
   }
   &:active {
     background-color: var(--active-button-color);
     color: white;
+    box-shadow: none;
   }
 `;
