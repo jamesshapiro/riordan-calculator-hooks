@@ -36,57 +36,66 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 15px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  margin: 12px 0;
+  padding: 16px 20px;
+  border: 1px solid #e8e4df;
+  border-radius: 10px;
+  background-color: #ffffff;
   min-width: 300px;
 `;
 
 const Title = styled.h3`
   margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1a1612;
+  letter-spacing: -0.01em;
 `;
 
 const SequenceContainer = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 14px;
 `;
 
 const SequenceText = styled.div`
-  font-family: monospace;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: #6b6560;
+  margin-bottom: 6px;
   word-break: break-all;
+  line-height: 1.5;
 `;
 
 const SequenceInfo = styled.div`
-  font-size: 12px;
-  color: #777;
+  font-size: 0.75rem;
+  color: #9a9088;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const SetButton = styled.button`
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 6px 14px;
+  background-color: transparent;
+  color: #3c3024;
+  border: 1px solid #d4cdc4;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
 
   &:hover:not(:disabled) {
-    background-color: #218838;
+    background-color: #f0ece7;
+    border-color: #b4aa9e;
+    color: #1a1612;
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: #f0ece8;
+    color: #9a9088;
+    border-color: #e8e4df;
     cursor: not-allowed;
   }
 `;

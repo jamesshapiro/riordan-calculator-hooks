@@ -2,80 +2,77 @@
   Custom styles // JS
 */
 body {
-  font-family: 'Lato', sans-serif;
-  --number-box-height: 45px;
-  --number-box-width: 60px;
-  --spacer-width: 15px;
+  font-family: 'Inter', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  --number-box-height: 42px;
+  --number-box-width: 56px;
+  --spacer-width: 12px;
 
-  --number-box-background-color: hsl(240, 10%, 95%);
-  --number-box-hover-background-color: hsl(55, 100%, 91%);
-  --matrix-cell-background-color: hsl(240, 50%, 93%);
+  --number-box-background-color: #ffffff;
+  --number-box-hover-background-color: #f5f0eb;
+  --matrix-cell-background-color: #faf8f6;
 
-  --action-box-background-color: hsl(240 10% 95% / 50%);
-  --action-box-hover-background-color: hsl(240 10% 85% / 50%);
-  --action-box-hover-font-color: hsl(240 90% 50% / 50%);
-  --action-box-font-color: hsl(240 65% 40% / 50%);
-  --action-box-border-color: hsl(240 65% 65% / 50%);
-  --bubble-hover-background-color: hsl(240, 100%, 50%);
+  --action-box-background-color: rgba(245, 241, 237, 0.6);
+  --action-box-hover-background-color: rgba(230, 224, 217, 0.7);
+  --action-box-hover-font-color: rgba(60, 54, 47, 0.8);
+  --action-box-font-color: rgba(100, 92, 82, 0.6);
+  --action-box-border-color: rgba(180, 170, 158, 0.4);
+  --bubble-hover-background-color: #3c3024;
 
-  --matrix-header-field: hsl(240, 60%, 95%);
+  --matrix-header-field: #faf8f6;
 
-  --number-box-hover-font-color: hsl(240, 100%, 50%);
-  --number-box-font-color: hsl(240, 85%, 40%);
-  --number-box-border-color: hsl(240, 85%, 65%);
-  --bubble-hover-border-color: hsl(240, 100%, 90%);
-  --number-box-border-radius: 8px;
+  --number-box-hover-font-color: #1a1612;
+  --number-box-font-color: #3c3024;
+  --number-box-border-color: #d4cdc4;
+  --bubble-hover-border-color: #b4aa9e;
+  --number-box-border-radius: 6px;
 
-  --number-box-disabled-background-color: hsl(240, 5%, 90%);
-  --number-box-disabled-font-color: hsl(240, 25%, 40%);
-  --number-box-disabled-border-color: hsl(240, 65%, 65%);
+  --number-box-disabled-background-color: #f0ece8;
+  --number-box-disabled-font-color: #9a9088;
+  --number-box-disabled-border-color: #d4cdc4;
 
-  --header-color: hsl(240, 85%, 35%);
-  --active-button-color: hsl(240, 85%, 35%);
-  --hover-button-color: hsl(240, 60%, 55%);
-  --mode-button-selected: hsl(240, 85%, 35%);
+  --header-color: #1a1612;
+  --active-button-color: #1a1612;
+  --hover-button-color: #3c3024;
+  --mode-button-selected: #1a1612;
   --min-cell-width: 20px;
   --min-button-width: 20px;
 
-  --background-gradient-top: hsl(223, 44%, 76%);
-  --background-gradient-bottom: hsl(240, 83%, 91%);
+  --background-gradient-top: #faf9f7;
+  --background-gradient-bottom: #f0ece7;
 
-  --select-td-background: hsl(240, 75%, 89%);
-  --submit-button-background: hsl(240, 100%, 71%);
-  --submit-button-border: hsl(240, 42%, 40%);
-  --box-shadow-distance: 2px;
+  --select-td-background: #f5f2ee;
+  --submit-button-background: #1a1612;
+  --submit-button-border: #1a1612;
+  --box-shadow-distance: 1px;
 
-  --box-gradient: linear-gradient(hsl(240, 50%, 93%), hsl(240, 75%, 89%));
-  --box-gradient-reverse: linear-gradient(
-    hsl(240, 75%, 89%),
-    hsl(240, 50%, 93%)
-  );
+  --box-gradient: linear-gradient(#faf8f6, #f5f2ee);
+  --box-gradient-reverse: linear-gradient(#f5f2ee, #faf8f6);
 
-  --matrix-cell-row-sums-background-color: hsl(122, 69%, 82%);
-  --row-sums-box-gradient: #f00;
-  --rows-sums-font-color: #000;
+  --matrix-cell-row-sums-background-color: #e8efe4;
+  --row-sums-box-gradient: none;
+  --rows-sums-font-color: #3c3024;
 
-  --matrix-cell-alternating-row-sums-background-color: hsl(48, 77%, 74%);
-  --matrix-cell-zero-ev-background-color: hsl(6, 36%, 80%);
-  --matrix-cell-one-ev-background-color: hsl(23, 81%, 71%);
-  --alternating-row-sums-box-gradient: #f00;
-  --alternating-rows-sums-font-color: #000;
-  --matrix-cell-antidiagonal-sums-background-color: hsl(87, 54%, 60%);
-  --matrix-cell-alternating-antidiagonal-sums-background-color: hsl(
-    167,
-    54%,
-    70%
-  );
-  /* --background-gradient-bottom: #f00; */
+  --matrix-cell-alternating-row-sums-background-color: #f2ede2;
+  --matrix-cell-zero-ev-background-color: #f0e8e4;
+  --matrix-cell-one-ev-background-color: #ede4db;
+  --alternating-row-sums-box-gradient: none;
+  --alternating-rows-sums-font-color: #3c3024;
+  --matrix-cell-antidiagonal-sums-background-color: #e4ece0;
+  --matrix-cell-alternating-antidiagonal-sums-background-color: #dfe9e6;
+
   --mini-number-box-height: 33px;
   --mini-number-box-width: 33px;
-  --mini-number-box-background-color: hsl(240, 10%, 95%);
-  --mini-number-box-font-color: hsl(240, 85%, 40%);
-  --mini-number-box-border-color: hsl(240, 85%, 65%);
+  --mini-number-box-background-color: #ffffff;
+  --mini-number-box-font-color: #3c3024;
+  --mini-number-box-border-color: #d4cdc4;
   --mini-number-box-border-radius: 4px;
-  --user-history-cell-background: hsl(240, 75%, 94%);
+  --user-history-cell-background: #faf8f6;
 
-  --star-sequence-font-color: hsl(240, 90%, 25%);
+  --star-sequence-font-color: #1a1612;
+
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body,
@@ -84,11 +81,10 @@ html {
 }
 
 .nonexistent {
-  color: hsl(240, 85%, 65%);
+  color: #9a9088;
 }
 
 button {
-  /* margin: 0; */
   padding: 0;
   border: none;
   background: transparent;
@@ -100,8 +96,7 @@ button {
 header {
   display: flex;
   height: var(--header-height);
-  border-bottom: 1px solid var(--color-gray-700);
-  color: var(--color-gray-300);
+  color: #3c3024;
 }
 
 header .side {
@@ -112,14 +107,16 @@ header .side {
 
 h1 {
   flex: 1;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   line-height: var(--header-height);
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 25rem) {
   h1 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 }
 

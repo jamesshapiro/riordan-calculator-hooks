@@ -207,59 +207,83 @@ const StyledSVG = styled.svg`
 `;
 
 const TitleInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
   min-width: 500px;
   display: inline;
-  margin-bottom: 10px;
-  font-size: 2rem;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1612;
+  outline: none;
+  transition: border-color 0.15s ease;
+  &:focus {
+    border-color: #b4aa9e;
+    box-shadow: 0 0 0 3px rgba(60, 48, 36, 0.08);
+  }
 `;
 
 const TitleBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
   min-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: inline;
 `;
 
 const CommentInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 10px 16px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
   min-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: flex-start;
+  color: #3c3024;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  &:focus {
+    border-color: #b4aa9e;
+    box-shadow: 0 0 0 3px rgba(60, 48, 36, 0.08);
+  }
 `;
 
 const CommentBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
+  background-color: #ffffff;
+  padding: 10px 16px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
   min-width: 500px;
   max-width: 500px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  color: #3c3024;
+  font-size: 0.9rem;
 `;
 
 const AttributionBox = styled.div`
   text-align: center;
-  background-color: white;
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
+  color: #6b6560;
+  font-size: 0.85rem;
 `;
 
 const StyledH1 = styled.h1`
   text-align: left;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1612;
 `;
 
 const AttributionP = styled.p`
   cursor: default;
+  line-height: 1.6;
 `;

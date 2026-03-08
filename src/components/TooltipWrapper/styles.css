@@ -1,18 +1,19 @@
 .TooltipContent {
-  border-radius: 4px;
-  padding: 10px 15px;
-  font-size: 15px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
   line-height: 1;
-  color: black;
-  background-color: white;
-  box-shadow:
-    hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  color: #1a1612;
+  background-color: #ffffff;
+  border: 1px solid #e8e4df;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   user-select: none;
-  animation-duration: 250ms;
+  animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
   transform-origin: var(--radix-tooltip-content-transform-origin);
+  letter-spacing: 0.01em;
 }
 .TooltipContent[data-state='delayed-open'][data-side='top'] {
   animation-name: slideDownAndFade;
@@ -28,27 +29,26 @@
 }
 
 .TooltipArrow {
-  fill: white;
-  /* transform: translateX(-10px); */
+  fill: #ffffff;
 }
 
 .IconButton {
   font-family: inherit;
-  border-radius: 100%;
-  height: 35px;
-  width: 35px;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--violet-11);
-  background-color: white;
-  box-shadow: 0 2px 10px var(--black-a7);
+  color: #3c3024;
+  background-color: #ffffff;
+  border: 1px solid #e8e4df;
 }
 .IconButton:hover {
-  background-color: var(--violet-3);
+  background-color: #f5f0eb;
 }
 .IconButton:focus {
-  box-shadow: 0 0 0 2px black;
+  box-shadow: 0 0 0 3px rgba(60, 48, 36, 0.08);
 }
 
 @keyframes slideUpAndFade {

@@ -101,42 +101,20 @@ function StarSequence({ variant }) {
 export default StarSequence;
 
 const StyledSVG = styled.svg`
-  &:visited {
-    --link-color: : var(--number-box-font-color);
-  }
   max-width: 100%;
 `;
-
-// const SearchSVG = (
-//   <StyledSVG
-//     xmlns='http://www.w3.org/2000/svg'
-//     width='12'
-//     height='12'
-//     viewBox='0 0 12 12'
-//     fill='none'
-//     stroke='var(--number-box-font-color)'
-//     strokeWidth='1.5'
-//     strokeLinecap='round'
-//     strokeLinejoin='round'
-//     className='lucide lucide-search'
-//   >
-//     <circle cx='5.5' cy='5.5' r='4' />
-//     <path d='m10.5 10.5-2.15-2.15' />
-//   </StyledSVG>
-// );
 
 const SearchSVG = (
   <StyledSVG
     xmlns='http://www.w3.org/2000/svg'
-    width='16'
-    height='16'
+    width='14'
+    height='14'
     viewBox='0 0 16 16'
     fill='none'
-    stroke='var(--number-box-font-color)'
+    stroke='#6b6560'
     strokeWidth='1.5'
     strokeLinecap='round'
     strokeLinejoin='round'
-    className='lucide lucide-search'
   >
     <circle cx='7.2' cy='7.2' r='5.33' />
     <path d='m14 14-2.85-2.85' />
@@ -145,95 +123,93 @@ const SearchSVG = (
 
 const StyledH2 = styled.h2`
   display: inline;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1a1612;
+  letter-spacing: -0.01em;
 `;
 
 const OuterOuterWrapper = styled.div`
-  margin-top: 30px;
-  margin-left: 195px;
+  margin-top: 32px;
+  background: #ffffff;
+  border: 1px solid #e8e4df;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 `;
 
 const OuterWrapper = styled.tr`
-  margin-top: 10px;
+  margin-top: 0;
   min-width: fit-content;
-  /* padding-top: 10px; */
-  /* padding-top: 100px; */
-  color: var(--star-sequence-font-color);
+  color: #1a1612;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 `;
 
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: default;
-  background-color: var(--number-box-background-color);
-  border-radius: var(--number-box-border-radius);
+  background-color: #faf8f6;
+  border-radius: 6px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
-  height: var(--number-box-height);
+  height: 38px;
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid #e8e4df;
   z-index: 1;
-  /* padding: 10%; */
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
-  width: fit-content;
-  height: 100%;
+  color: #3c3024;
   width: 100%;
+  height: 100%;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
 `;
 
 const InnerElement = styled.p`
   width: fit-content;
-  font-size: clamp(
-    ${(p) => p.$minfontsize},
-    ${(p) => p.fontSize},
-    ${(p) => p.$maxfontsize}
-  );
+  font-size: 0.85rem;
 `;
 
 const LookupWrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: default;
-  background-color: var(--number-box-background-color);
-  border-radius: var(--number-box-border-radius);
+  background-color: #faf8f6;
+  border-radius: 6px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
-  height: var(--number-box-height);
+  height: 38px;
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid #e8e4df;
   z-index: 1;
+  transition: all 0.15s ease;
   &:hover {
-    background-color: var(--number-box-hover-background-color);
+    background-color: #f0ece7;
+    border-color: #d4cdc4;
   }
-  /* padding: 10%; */
 `;
 
 const LookupInnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
-  width: fit-content;
-  height: 100%;
+  color: #6b6560;
   width: 100%;
+  height: 100%;
   &:hover {
-    color: var(--number-box-hover-font-color);
+    color: #1a1612;
   }
 `;
 
 const LookupInnerElement = styled.p`
   width: fit-content;
-  font-size: clamp(
-    ${(p) => p.$minfontsize},
-    ${(p) => p.fontSize},
-    ${(p) => p.$maxfontsize}
-  );
 `;

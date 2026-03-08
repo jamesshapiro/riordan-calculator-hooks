@@ -57,43 +57,35 @@ const Wrapper = styled.div`
   position: relative;
   display: inline-block;
   cursor: ${(p) => (p.$enabled ? 'pointer' : 'default')};
-  background-color: var(--number-box-background-color);
+  background-color: #faf8f6;
   &:hover {
-    background-color: ${(p) =>
-      p.$enabled
-        ? 'var(--number-box-hover-background-color)'
-        : 'var(--number-box-background-color)'};
-    color: ${(p) =>
-      p.$enabled
-        ? 'var(--number-box-hover-font-color)'
-        : 'var(--number-box-font-color)'};
+    background-color: ${(p) => (p.$enabled ? '#f0ece7' : '#faf8f6')};
+    color: ${(p) => (p.$enabled ? '#1a1612' : '#6b6560')};
   }
-  border-radius: var(--number-box-border-radius);
+  border-radius: 6px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 2px dashed var(--number-box-border-color);
+  border: 1.5px dashed #d4cdc4;
   z-index: 0;
-  /* padding: 10%; */
+  transition: all 0.15s ease;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
+  color: #6b6560;
   &:hover {
-    color: var(--number-box-hover-font-color);
+    color: #1a1612;
   }
-  width: fit-content;
-  height: 100%;
   width: 100%;
+  height: 100%;
 `;
 
 const InnerElement = styled.p`
   width: fit-content;
-  font-size: 1rem;
+  font-size: 0.85rem;
 `;
