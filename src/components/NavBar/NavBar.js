@@ -104,27 +104,28 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-self: flex-end;
-  gap: 10px;
+  gap: 4px;
+  padding: 8px 12px 0 0;
 `;
 
 const NavItem = styled.button`
-  background-color: var(--number-box-background-color);
-  color: var(--number-box-font-color);
-  border-left: 1px solid var(--number-box-border-color);
-  border-bottom: 1px solid var(--number-box-border-color);
-  border-right: 1px solid var(--number-box-border-color);
+  background-color: transparent;
+  color: #6b6560;
+  border: none;
+  border-radius: 6px;
   &:hover {
-    background-color: var(--number-box-border-color);
-    color: white;
+    background-color: #f0ece7;
+    color: #1a1612;
   }
-  /* width: 100px; */
   display: flex;
-  padding: 2px 6px;
-  /* height: 50px; */
+  padding: 6px 12px;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.15s ease;
 
   a {
     text-decoration: none;

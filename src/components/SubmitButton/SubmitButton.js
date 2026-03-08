@@ -37,23 +37,30 @@ export default SubmitButton;
 
 const StyledSubmitButton = styled.button`
   z-index: 10000;
-  margin-top: 55px;
+  margin-top: 8px;
   margin-left: 10px;
-  width: 65px;
-  /* width: fit-content; */
-  height: 19px;
-  border: 1px solid var(--submit-button-border);
-  padding: 10px;
-  border-radius: var(--number-box-border-radius);
-  color: white;
-  background-color: var(--submit-button-background);
+  min-width: 88px;
+  height: 36px;
+  border: 1px solid #1a1612;
+  padding: 0 20px;
+  border-radius: 8px;
+  color: #faf9f7;
+  background-color: #1a1612;
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
-    background-image: revert;
-    background-color: var(--hover-button-color);
-    color: white;
+    background-color: #3c3024;
+    border-color: #3c3024;
+    color: #faf9f7;
   }
   &:active {
-    background-color: var(--active-button-color);
-    color: white;
+    background-color: #1a1612;
+    transform: scale(0.98);
+    color: #faf9f7;
   }
 `;

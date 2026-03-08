@@ -199,24 +199,24 @@ export default NumberBox;
 
 const CloseBubble = styled.div`
   position: absolute;
-  background-color: var(--number-box-background-color);
-  border: 2px dashed var(--action-box-border-color);
+  background-color: #ffffff;
+  border: 1.5px solid #d4cdc4;
   &:hover {
-    background-color: var(--bubble-hover-background-color);
-    color: white;
-    border: 2px dashed var(--bubble-hover-border-color);
+    background-color: #3c3024;
+    color: #faf9f7;
+    border-color: #3c3024;
   }
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  top: -20px;
+  top: -14px;
   left: 37px;
   z-index: ${(p) => p.zidx};
-
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.15s ease;
 `;
 
 const Wrapper = styled.div`
@@ -224,45 +224,33 @@ const Wrapper = styled.div`
   display: inline-block;
   cursor: ${(p) => (p.disabled ? 'default' : 'text')};
   background-color: ${(p) =>
-    p.disabled
-      ? 'var(--number-box-disabled-background-color)'
-      : 'var(--number-box-background-color)'};
+    p.disabled ? '#f0ece8' : '#ffffff'};
   &:hover {
     background-color: ${(p) =>
-      p.disabled
-        ? 'var(--number-box-disabled-background-color)'
-        : 'var(--number-box-hover-background-color)'};
+      p.disabled ? '#f0ece8' : '#f5f0eb'};
   }
-  border-radius: var(--number-box-border-radius);
+  border-radius: 6px;
   width: fit-content;
   min-width: var(--number-box-width);
   width: 100%;
   height: var(--number-box-height);
   margin: 1px;
-  border: 1px solid var(--number-box-border-color);
+  border: 1px solid #d4cdc4;
   z-index: 1;
-  /* padding: 10%; */
+  transition: all 0.15s ease;
 `;
 
 const InnerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
-  color: ${(p) =>
-    p.disabled
-      ? 'var(--number-box-disabled-font-color)'
-      : 'var(--number-box-font-color)'};
+  color: ${(p) => (p.disabled ? '#9a9088' : '#3c3024')};
   &:hover {
-    color: ${(p) =>
-      p.disabled
-        ? 'var(--number-box-disabled-font-color)'
-        : 'var(--number-box-hover-font-color)'};
+    color: ${(p) => (p.disabled ? '#9a9088' : '#1a1612')};
   }
-  width: fit-content;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  font-variant-numeric: tabular-nums;
 `;
 
 const InnerElement = styled.p`
@@ -275,8 +263,7 @@ const InnerElement = styled.p`
 `;
 
 const StyledInput = styled.input`
-  font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 40%);
+  color: #1a1612;
   font-size: clamp(
     ${(p) => p.$minfontsize},
     ${(p) => p.fontSize},
@@ -286,9 +273,14 @@ const StyledInput = styled.input`
   width: max(var(--number-box-width), var(--number-box-width));
   margin-left: 2px;
   text-align: center;
-
   line-height: normal;
-  border: 1px solid var(--number-box-hover-font-color);
-  background-color: white;
+  border: 1.5px solid #b4aa9e;
+  background-color: #ffffff;
   box-sizing: border-box;
+  border-radius: 4px;
+  outline: none;
+  &:focus {
+    border-color: #3c3024;
+    box-shadow: 0 0 0 2px rgba(60, 48, 36, 0.1);
+  }
 `;

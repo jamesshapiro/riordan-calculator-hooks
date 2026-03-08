@@ -65,7 +65,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10px 0;
+  margin: 8px 0;
 `;
 
 const InputGroup = styled.div`
@@ -75,53 +75,66 @@ const InputGroup = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 16px;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: #333;
+  color: #3c3024;
+  font-variant-numeric: tabular-nums;
 `;
 
 const Input = styled.input`
   width: 80px;
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  font-family: monospace;
+  padding: 7px 12px;
+  border: 1px solid #d4cdc4;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #1a1612;
+  background: #ffffff;
+  transition: border-color 0.15s ease;
 
   &:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #b4aa9e;
+    box-shadow: 0 0 0 3px rgba(60, 48, 36, 0.08);
   }
 
   &:disabled {
-    background-color: #f5f5f5;
+    background-color: #f0ece8;
     cursor: not-allowed;
+    color: #9a9088;
   }
 `;
 
 const FetchButton = styled.button`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 7px 16px;
+  background-color: #1a1612;
+  color: #faf9f7;
+  border: 1px solid #1a1612;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
 
   &:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #3c3024;
+    border-color: #3c3024;
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: #d4cdc4;
+    border-color: #d4cdc4;
+    color: #9a9088;
     cursor: not-allowed;
   }
 `;
 
 const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: 12px;
+  color: #c45340;
+  font-size: 0.75rem;
   margin-top: 4px;
+  font-weight: 500;
 `;
 
 export default OEISInput;

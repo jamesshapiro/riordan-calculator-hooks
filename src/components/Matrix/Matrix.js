@@ -202,17 +202,17 @@ function Matrix({ variant }) {
   const matrixLaTeX = arrayToLatexMatrix(displayMatrix);
 
   return (
-    <Wrapper $leftmargin={leftMargin}>
-      <h1>
-        {matrixTitle}{' '}
+    <Wrapper>
+      <MatrixTitleRow>
+        <MatrixTitle>{matrixTitle}</MatrixTitle>
         {isCopied ? (
-          <CopyCelebration> {LaTeXSVG} Copied to Clipboard! 🎉</CopyCelebration>
+          <CopyCelebration>Copied</CopyCelebration>
         ) : (
           <LaTeXButton onClick={() => handleCopy(matrixLaTeX)}>
             {LaTeXSVG}
           </LaTeXButton>
         )}
-      </h1>
+      </MatrixTitleRow>
       <MatrixTable>
         <tbody key='matrixbody'>
           <tr key='oeisrow'>
@@ -495,39 +495,55 @@ function Matrix({ variant }) {
 export default Matrix;
 
 const Wrapper = styled.div`
-  margin-top: 40px;
-  margin-left: ${(p) => p.$leftmargin};
+  margin-top: 48px;
+  background: #ffffff;
+  border: 1px solid #e8e4df;
+  border-radius: 12px;
+  padding: 32px 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+`;
+
+const MatrixTitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ebe7e2;
+`;
+
+const MatrixTitle = styled.h2`
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1612;
+  letter-spacing: -0.02em;
+  margin: 0;
 `;
 
 const MatrixTable = styled.table`
-  margin-left: 100px;
-  margin-top: 20px;
+  margin-top: 0;
   border-spacing: 0px;
   border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
 `;
 
-const MatrixRow = styled.tr``;
-
 const MatrixCell = styled.td`
-  border: 1px solid var(--number-box-border-color);
-  min-width: 60px;
-  height: 50px;
+  border: 1px solid #ebe7e2;
+  min-width: 54px;
+  height: 40px;
   text-align: center;
+  padding: 0 6px;
+  font-weight: ${(p) => (p.$row > 0 && p.$col <= p.$row ? '500' : '400')};
   background-color: ${(p) =>
     p.$col === 0 || p.$row === 0
-      ? 'var(--select-td-background)'
+      ? '#f7f5f2'
       : p.$row > 0 && p.$col > p.$row
-        ? 'var(--matrix-cell-background-color)'
-        : 'black'};
-
-  background-image: ${(p) =>
-    p.$col === 0 || p.$row === 0
-      ? 'revert'
-      : p.$col > p.$row
-        ? 'var(--box-gradient)'
-        : 'revert'};
+        ? '#faf9f7'
+        : '#1a1612'};
   color: ${(p) =>
-    p.$row > 0 && p.$col > p.$row ? 'var(--number-box-font-color)' : 'white'};
+    p.$row > 0 && p.$col > p.$row ? '#9a9088' : p.$col === 0 || p.$row === 0 ? '#6b6560' : '#faf9f7'};
+  transition: background-color 0.15s ease;
 `;
 
 const StyledShareButton = styled.button`
@@ -536,7 +552,6 @@ const StyledShareButton = styled.button`
   margin-left: 10px;
   width: 65px;
   text-align: center;
-  /* width: fit-content; */
   height: 19px;
   border: 1px solid var(--submit-button-border);
   padding: 10px;
@@ -544,7 +559,6 @@ const StyledShareButton = styled.button`
   color: white;
   background-color: var(--submit-button-background);
   &:hover {
-    background-image: revert;
     background-color: var(--hover-button-color);
     color: white;
   }
@@ -555,9 +569,6 @@ const StyledShareButton = styled.button`
 `;
 
 const StyledSVG = styled.svg`
-  &:visited {
-    --link-color: : var(--number-box-font-color);
-  }
   display: block;
   max-width: 100%;
 `;
@@ -565,15 +576,14 @@ const StyledSVG = styled.svg`
 const SearchSVG = (
   <StyledSVG
     xmlns='http://www.w3.org/2000/svg'
-    width='24'
-    height='24'
+    width='16'
+    height='16'
     viewBox='0 0 24 24'
     fill='none'
-    stroke='var(--number-box-font-color)'
+    stroke='#9a9088'
     strokeWidth='2'
     strokeLinecap='round'
     strokeLinejoin='round'
-    className='lucide lucide-search'
   >
     <circle cx='11' cy='11' r='8' />
     <path d='m21 21-4.3-4.3' />
@@ -581,79 +591,93 @@ const SearchSVG = (
 );
 
 const LaTeXButton = styled.button`
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid #e8e4df;
+  background-color: #faf8f6;
+  border-radius: 6px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+  &:hover {
+    background-color: #f0ece7;
+    border-color: #d4cdc4;
+  }
 `;
 
 const LaTeXSVG = (
   <svg
-    width='64px'
-    height='48px'
+    width='48px'
+    height='36px'
     viewBox='0 0 64 48'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
   >
     <path
       d='M18.525 31.482h-.482c-.192 1.966-.462 4.357-3.855 4.357h-1.562c-.905 0-.944-.136-.944-.772V24.831c0-.655 0-.925 1.812-.925h.636v-.578c-.694.058-2.429.058-3.22.058-.751 0-2.255 0-2.91-.058v.578h.443c1.485 0 1.523.212 1.523.906v10.12c0 .694-.038.907-1.523.907H8v.597h10.005l.52-4.954z'
-      fill='#000000'
+      fill='#3c3024'
     />
     <path
       d='M18.198 23.308c-.078-.23-.116-.308-.367-.308-.25 0-.308.077-.385.308l-3.104 7.866c-.135.327-.366.925-1.561.925v.482h2.988v-.482c-.598 0-.964-.27-.964-.656 0-.096.02-.135.058-.27l.655-1.657h3.817l.771 1.966a.65.65 0 0 1 .077.231c0 .386-.732.386-1.099.386v.482h3.798v-.482h-.27c-.906 0-1.002-.135-1.137-.52l-3.277-8.27zm-.771 1.37 1.715 4.356h-3.431l1.716-4.357z'
-      fill='#000000'
+      fill='#3c3024'
     />
     <path
       d='M33.639 23.443h-11.74l-.347 4.318h.463c.27-3.103.558-3.74 3.47-3.74.346 0 .848 0 1.04.04.405.076.405.288.405.732v10.12c0 .656 0 .926-2.024.926h-.771v.597c.79-.058 2.737-.058 3.624-.058s2.872 0 3.663.058v-.597h-.771c-2.024 0-2.024-.27-2.024-.926v-10.12c0-.386 0-.656.347-.733.212-.038.732-.038 1.098-.038 2.892 0 3.181.636 3.45 3.74h.483l-.366-4.319z'
-      fill='#000000'
+      fill='#3c3024'
     />
     <path
       d='M43.971 35.82h-.482c-.482 2.949-.925 4.356-4.221 4.356h-2.545c-.906 0-.945-.135-.945-.771v-5.128h1.716c1.87 0 2.082.617 2.082 2.255h.482v-5.089h-.482c0 1.639-.212 2.236-2.082 2.236h-1.716v-4.607c0-.636.039-.77.945-.77h2.467c2.95 0 3.451 1.06 3.76 3.739h.481l-.54-4.318H32.097v.578h.444c1.484 0 1.523.212 1.523.906V39.27c0 .694-.039.906-1.523.906h-.444v.597h11.065l.81-4.954z'
-      fill='#000000'
+      fill='#3c3024'
     />
     <path
       d='m49.773 29.014 2.641-3.855c.405-.617 1.06-1.234 2.776-1.253v-.578h-4.588v.578c.772.02 1.196.443 1.196.887 0 .192-.039.231-.174.443l-2.198 3.239-2.467-3.702c-.039-.057-.135-.212-.135-.289 0-.231.424-.559 1.234-.578v-.578c-.656.058-2.063.058-2.795.058-.598 0-1.793-.02-2.506-.058v.578h.366c1.06 0 1.426.135 1.793.675l3.527 5.34-3.142 4.645c-.27.386-.848 1.273-2.776 1.273v.597h4.588v-.597c-.886-.02-1.214-.54-1.214-.887 0-.174.058-.25.193-.463l2.718-4.029 3.045 4.588c.039.077.097.154.097.212 0 .232-.424.56-1.253.579v.597c.675-.058 2.082-.058 2.795-.058.81 0 1.696.02 2.506.058v-.597h-.366c-1.003 0-1.407-.097-1.812-.694l-4.049-6.13z'
-      fill='#000000'
+      fill='#3c3024'
     />
   </svg>
 );
 
 const CopyCelebration = styled.span`
-  border: 1px solid black;
-  background-color: white;
-  padding: 10px;
-  font-size: 24px;
-  height: 72px;
+  border: 1px solid #d4cdc4;
+  background-color: #f0ece7;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #3c3024;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
 `;
 
 const RowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-row-sums-background-color);
-  background-image: var(--row-sums-box-gradient);
-  color: var(--rows-sums-font-color);
+  background-color: #eef3eb;
+  color: #3c3024;
+  font-weight: 500;
 `;
 
 const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-alternating-row-sums-background-color);
-  background-image: var(--alternating-row-sums-box-gradient);
-  color: var(--alternating-rows-sums-font-color);
+  background-color: #f5f0e4;
+  color: #3c3024;
+  font-weight: 500;
 `;
 
 const ZeroEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-zero-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
+  background-color: #f3ece8;
+  color: #3c3024;
+  font-weight: 500;
 `;
 
 const OneEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-one-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
+  background-color: #f0eae3;
+  color: #3c3024;
+  font-weight: 500;
 `;
 
 const AntiDiagonalSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-antidiagonal-sums-background-color);
-  color: var(--alternating-rows-sums-font-color);
+  background-color: #eaf0e6;
+  color: #3c3024;
+  font-weight: 500;
 `;
 
 const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(
-    --matrix-cell-alternating-antidiagonal-sums-background-color
-  );
-  color: var(--alternating-rows-sums-font-color);
+  background-color: #e6eeeb;
+  color: #3c3024;
+  font-weight: 500;
 `;

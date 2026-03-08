@@ -59,7 +59,7 @@ function Home() {
       </OEISContainer>
       <MatrixHeader />
       <ShareDialog />
-      <FlexRowWrapper>
+      <InputSection>
         <SequenceControlPanel />
         <LayoutGroup>
           <TableWrapper>
@@ -70,45 +70,19 @@ function Home() {
             </tbody>
           </TableWrapper>
         </LayoutGroup>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>
-          <SubmitButton />
-        </LeftDiv>
-        <CenterDiv>
-          <Matrix variant='default' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
-          <Matrix variant='inverse' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
-          <Matrix variant='stieltjes' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
-          <StarSequence variant='a' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
-          <StarSequence variant='b' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
-          <StarSequence variant='z' />
-        </CenterDiv>
-      </FlexRowWrapper>
+      </InputSection>
+      <ComputeRow>
+        <SubmitButton />
+      </ComputeRow>
+      <MatrixResultsSection>
+        <Matrix variant='default' />
+        <Matrix variant='inverse' />
+        <Matrix variant='stieltjes' />
+        <StarSequence variant='a' />
+        <StarSequence variant='b' />
+        <StarSequence variant='z' />
+      </MatrixResultsSection>
+      <BottomSpacer />
     </FlexColumnWrapper>
   );
 }
@@ -118,26 +92,24 @@ export default Home;
 const HeaderDiv = styled.div`
   align-self: flex-start;
   padding-left: 300px;
+  margin-top: 8px;
 `;
 
 const LeftDiv = styled.div`
   align-self: flex-start;
 `;
 
-const CenterDiv = styled.div`
-  align-self: flex-start;
-`;
-
 const OEISContainer = styled.div`
   align-self: flex-start;
   padding-left: 300px;
-  margin: 10px 0;
+  margin: 12px 0;
 `;
 
 const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: 14px;
-  margin: 5px 0;
+  color: #c45340;
+  font-size: 13px;
+  margin: 6px 0;
+  font-weight: 500;
 `;
 
 const FlexColumnWrapper = styled.div`
@@ -147,14 +119,33 @@ const FlexColumnWrapper = styled.div`
   height: 100%;
   width: 100%;
   align-items: center;
-  /* background-color: hsl(240, 40%, 90%); */
   margin-left: 0px;
 `;
 
-const FlexRowWrapper = styled.div`
+const InputSection = styled.div`
   display: flex;
   flex-direction: row;
   align-self: flex-start;
+`;
+
+const ComputeRow = styled.div`
+  align-self: flex-start;
+  padding-left: 0;
+  margin-top: 16px;
+  margin-bottom: 8px;
+`;
+
+const MatrixResultsSection = styled.div`
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 35px);
+  max-width: 100%;
+  padding-bottom: 24px;
+`;
+
+const BottomSpacer = styled.div`
+  height: 80px;
 `;
 
 const TableWrapper = styled.table`

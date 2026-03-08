@@ -40,63 +40,59 @@ function Header({ isHome }) {
 }
 
 const Wrapper = styled.div`
-  /* flex-direction: column; */
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 const HeaderWrapper = styled.header`
-  width: 300px;
   display: inline;
-
-  /* margin-bottom: 1px; */
-  border: 1px solid var(--number-box-border-color);
-  /* border-radius: 4px; */
-  padding: 20px;
-  padding-top: 25px;
-  border-radius: 3px;
-  background-color: var(--number-box-background-color);
-  /* box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
-    hsl(0, 0%, 50%); */
+  padding: 14px 20px;
+  border: 1px solid #e8e4df;
+  border-radius: 8px;
+  background-color: #ffffff;
 `;
 
 const StyledHeader = styled.h1`
   display: inline;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--header-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1612;
+  letter-spacing: -0.02em;
 `;
 
 const StyledLink = styled.a`
   display: inline;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--header-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1612;
   text-decoration: none;
+  letter-spacing: -0.02em;
   &:visited {
-    color: var(--header-color);
+    color: #1a1612;
   }
 `;
 
 const StyledButton = styled(({ isSelected, ...props }) => (
   <button {...props} />
 ))`
-  font-size: 16px;
-  background-color: ${(p) =>
-    p.isSelected ? 'var(--mode-button-selected)' : 'white'};
-  border: 1px solid var(--mode-button-selected);
-  color: ${(p) => (p.isSelected ? 'white' : 'var(--mode-button-selected)')};
-  padding: 10px;
-  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: ${(p) => (p.isSelected ? '#1a1612' : 'transparent')};
+  border: 1px solid ${(p) => (p.isSelected ? '#1a1612' : '#d4cdc4')};
+  color: ${(p) => (p.isSelected ? '#faf9f7' : '#6b6560')};
+  padding: 7px 16px;
+  border-radius: 20px;
   cursor: ${(p) => (!p.isSelected ? 'pointer' : 'default')};
-  margin: 3px;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
   &:first-of-type {
-    margin-left: 30px;
+    margin-left: 0;
   }
   &:hover {
-    background-color: ${(p) =>
-      !p.isSelected
-        ? 'var(--hover-button-color)'
-        : 'var(--active-button-color)'};
-    color: white;
+    background-color: ${(p) => (!p.isSelected ? '#f0ece7' : '#1a1612')};
+    color: ${(p) => (!p.isSelected ? '#1a1612' : '#faf9f7')};
+    border-color: ${(p) => (!p.isSelected ? '#b4aa9e' : '#1a1612')};
   }
 `;
 
