@@ -16,6 +16,25 @@ import '../src/components/ShareDialog/styles.css';
 import '../src/components/TooltipWrapper/styles.css';
 import '../src/components/UserDropdown/styles.css';
 
+const BUILD_VERSION = '1.0.1';
+
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <div
+        style={{
+          position: 'fixed',
+          bottom: 4,
+          right: 8,
+          fontSize: 11,
+          opacity: 0.4,
+          color: 'gray',
+          pointerEvents: 'none',
+        }}
+      >
+        v{BUILD_VERSION}
+      </div>
+    </>
+  );
 }
