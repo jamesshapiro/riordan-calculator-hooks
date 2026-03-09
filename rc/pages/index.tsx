@@ -4,4 +4,6 @@ const HomeRoute = dynamic(() => import('../src/next/HomeRoute'), {
   ssr: false,
 });
 
-export default HomeRoute;
+export default function IndexPage() {
+  return <HomeRoute />;
+}

@@ -4,4 +4,6 @@ const SequencesRoute = dynamic(() => import('../src/next/SequencesRoute'), {
   ssr: false,
 });
 
-export default SequencesRoute;
+export default function SequencesPage() {
+  return <SequencesRoute />;
+}

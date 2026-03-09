@@ -4,4 +4,6 @@ const AboutRoute = dynamic(() => import('../src/next/AboutRoute'), {
   ssr: false,
 });
 
-export default AboutRoute;
+export default function AboutPage() {
+  return <AboutRoute />;
+}

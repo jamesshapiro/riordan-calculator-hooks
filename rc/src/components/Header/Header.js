@@ -17,7 +17,7 @@ function Header({ isHome }) {
     <Wrapper>
       <HeaderWrapper>
         <StyledHeader>
-          <StyledLink href='/' shallow>Riordan Calculator</StyledLink>
+          <StyledLink href='/'>Riordan Calculator</StyledLink>
         </StyledHeader>
       </HeaderWrapper>
       {isHome && (

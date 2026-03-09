@@ -16,13 +16,13 @@ const UserDropdown = ({ user, children }) => {
         <DropdownMenu.Content className='DropdownMenuContent' sideOffset={5}>
           <DropdownMenu.Item
             className='DropdownMenuItem'
-            onSelect={() => router.push('/sequences/', undefined, { shallow: true })}
+            onSelect={() => router.push('/sequences/')}
           >
             Sequences
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className='DropdownMenuItem'
-            onSelect={() => router.push('/history/', undefined, { shallow: true })}
+            onSelect={() => router.push('/history/')}
           >
             History
           </DropdownMenu.Item>

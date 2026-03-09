@@ -4,4 +4,6 @@ const PapersRoute = dynamic(() => import('../src/next/PapersRoute'), {
   ssr: false,
 });
 
-export default PapersRoute;
+export default function PapersPage() {
+  return <PapersRoute />;
+}

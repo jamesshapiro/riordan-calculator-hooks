@@ -79,9 +79,9 @@ function NavBar() {
     <FlexWrapper>
       {LoginLogout}
 
-      <NavLink href='/papers/' shallow>Papers</NavLink>
+      <NavLink href='/papers/'>Papers</NavLink>
 
-      <NavLink href='/about/' shallow>About</NavLink>
+      <NavLink href='/about/'>About</NavLink>
 
       {isAuthenticated && (
         <NavItem>
