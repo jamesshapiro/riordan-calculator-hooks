@@ -1,9 +1,3 @@
-import dynamic from 'next/dynamic';
+import SequencesRoute from '../src/next/SequencesRoute';
 
-const SequencesRoute = dynamic(() => import('../src/next/SequencesRoute'), {
-  ssr: false,
-});
-
-export default function SequencesPage() {
-  return <SequencesRoute />;
-}
+export default SequencesRoute;

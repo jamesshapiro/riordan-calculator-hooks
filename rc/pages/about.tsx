@@ -1,9 +1,3 @@
-import dynamic from 'next/dynamic';
+import AboutRoute from '../src/next/AboutRoute';
 
-const AboutRoute = dynamic(() => import('../src/next/AboutRoute'), {
-  ssr: false,
-});
-
-export default function AboutPage() {
-  return <AboutRoute />;
-}
+export default AboutRoute;

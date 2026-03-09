@@ -16,7 +16,7 @@ import '../src/components/ShareDialog/styles.css';
 import '../src/components/TooltipWrapper/styles.css';
 import '../src/components/UserDropdown/styles.css';
 
-const BUILD_VERSION = '1.0.2';
+const BUILD_VERSION = '1.0.3';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

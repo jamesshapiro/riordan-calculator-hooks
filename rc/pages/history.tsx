@@ -1,9 +1,3 @@
-import dynamic from 'next/dynamic';
+import HistoryRoute from '../src/next/HistoryRoute';
 
-const HistoryRoute = dynamic(() => import('../src/next/HistoryRoute'), {
-  ssr: false,
-});
-
-export default function HistoryPage() {
-  return <HistoryRoute />;
-}
+export default HistoryRoute;
