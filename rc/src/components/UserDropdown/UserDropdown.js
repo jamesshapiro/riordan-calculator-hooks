@@ -13,12 +13,12 @@ const UserDropdown = ({ user, children }) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className='DropdownMenuContent' sideOffset={5}>
-          <Link href='/sequences'>
+          <Link href='/sequences/'>
             <DropdownMenu.Item className='DropdownMenuItem'>
               Sequences
             </DropdownMenu.Item>
           </Link>
-          <Link href='/history'>
+          <Link href='/history/'>
             <DropdownMenu.Item className='DropdownMenuItem'>
               History
             </DropdownMenu.Item>

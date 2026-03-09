@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 function Header({ isHome }) {
   const { metaMode, setMetaMode } = React.useContext(DataContext);
@@ -65,7 +66,7 @@ const StyledHeader = styled.h1`
   color: var(--header-color);
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   display: inline;
   font-size: 24px;
   font-weight: 500;

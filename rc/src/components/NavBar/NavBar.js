@@ -79,13 +79,9 @@ function NavBar() {
     <FlexWrapper>
       {LoginLogout}
 
-      <NavItem>
-        <Link href='/papers'>Papers</Link>
-      </NavItem>
+      <NavLink href='/papers/'>Papers</NavLink>
 
-      <NavItem>
-        <Link href='/about'>About</Link>
-      </NavItem>
+      <NavLink href='/about/'>About</NavLink>
 
       {isAuthenticated && (
         <NavItem>
@@ -130,6 +126,23 @@ const NavItem = styled.button`
     text-decoration: none;
     color: inherit;
   }
+`;
+
+const NavLink = styled(Link)`
+  background-color: var(--number-box-background-color);
+  color: var(--number-box-font-color);
+  border-left: 1px solid var(--number-box-border-color);
+  border-bottom: 1px solid var(--number-box-border-color);
+  border-right: 1px solid var(--number-box-border-color);
+  &:hover {
+    background-color: var(--number-box-border-color);
+    color: white;
+  }
+  display: flex;
+  padding: 2px 6px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 `;
 
 // --number-box-hover-background-color: hsl(240, 10%, 85%);
