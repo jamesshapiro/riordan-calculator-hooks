@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import Link from 'next/link';
 import { UserContext } from '../UserProvider';
 import ConfirmDeleteQueryDialog from '../ConfirmDeleteQueryDialog';
 
@@ -171,7 +172,7 @@ function UserHistory() {
           return (
             <tr key={index}>
               <TDWrapper>
-                <Permalink href={`/?${matrixId}`}>{linkSVG24}</Permalink>
+                <Permalink href={`/?${matrixId}`} passHref legacyBehavior={false}>{linkSVG24}</Permalink>
               </TDWrapper>
               <TDWrapper>{matrixTitle}</TDWrapper>
               <TDWrapper>{formatDate(query.CREATED_AT.S)}</TDWrapper>
@@ -218,7 +219,7 @@ const TDWrapper = styled.td`
   padding: 8px;
 `;
 
-const Permalink = styled.a`
+const Permalink = styled(Link)`
   text-decoration: none;
   padding-left: 20px;
 

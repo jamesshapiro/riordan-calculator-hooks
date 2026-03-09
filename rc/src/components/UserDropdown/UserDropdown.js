@@ -1,8 +1,9 @@
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const UserDropdown = ({ user, children }) => {
+  const router = useRouter();
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -13,16 +14,18 @@ const UserDropdown = ({ user, children }) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className='DropdownMenuContent' sideOffset={5}>
-          <Link href='/sequences/'>
-            <DropdownMenu.Item className='DropdownMenuItem'>
-              Sequences
-            </DropdownMenu.Item>
-          </Link>
-          <Link href='/history/'>
-            <DropdownMenu.Item className='DropdownMenuItem'>
-              History
-            </DropdownMenu.Item>
-          </Link>
+          <DropdownMenu.Item
+            className='DropdownMenuItem'
+            onSelect={() => router.push('/sequences/')}
+          >
+            Sequences
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            className='DropdownMenuItem'
+            onSelect={() => router.push('/history/')}
+          >
+            History
+          </DropdownMenu.Item>
 
           {/* <DropdownMenu.Separator className='DropdownMenuSeparator' />
           <DropdownMenu.CheckboxItem
