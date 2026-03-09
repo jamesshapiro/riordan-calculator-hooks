@@ -1,25 +1,4 @@
 version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - cd rc
-        - npm ci
-    build:
-      commands:
-        - cd rc
-        - npm run build
-  artifacts:
-    baseDirectory: rc/out
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - rc/node_modules/**/*
-
-
-
-version: 1
 applications:
   - appRoot: rc
     frontend:
