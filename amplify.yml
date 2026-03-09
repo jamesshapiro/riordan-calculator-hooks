@@ -16,3 +16,25 @@ frontend:
   cache:
     paths:
       - rc/node_modules/**/*
+
+
+
+version: 1
+applications:
+  - appRoot: rc
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: out
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - .next/cache/**/*
