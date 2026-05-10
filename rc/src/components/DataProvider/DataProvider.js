@@ -42,6 +42,8 @@ function DataProvider({ children }) {
   ]);
   const [customSequenceLength, setCustomSequenceLength] = React.useState(10);
 
+  const [hSequence, setHSequence] = React.useState(Array(20).fill(0));
+
   // OEIS sequence state
   const [oeisSequence, setOeisSequence] = React.useState(null);
   const [oeisSequenceId, setOeisSequenceId] = React.useState('');
@@ -121,6 +123,14 @@ function DataProvider({ children }) {
     },
     [handleSequenceChange]
   );
+
+  const setOeisToH = React.useCallback((sequence) => {
+    if (sequence && sequence.length > 0) {
+      const padded = [...sequence];
+      while (padded.length < 20) padded.push(0);
+      setHSequence(padded);
+    }
+  }, []);
 
   function getDerivativeSequence(fSequence) {
     if (metaMode === 'exponential') {
@@ -565,6 +575,9 @@ function DataProvider({ children }) {
         fetchOeisSequence,
         setOeisToF,
         setOeisToG,
+        hSequence,
+        setHSequence,
+        setOeisToH,
       }}
     >
       {children}

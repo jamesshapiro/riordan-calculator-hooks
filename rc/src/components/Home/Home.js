@@ -17,6 +17,7 @@ import ShareDialog from '../ShareDialog';
 import StarSequence from '../StarSequence';
 import OEISInput from '../OEISInput/OEISInput';
 import OEISSequenceDisplay from '../OEISSequenceDisplay/OEISSequenceDisplay';
+import HSequence from '../HSequence';
 
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
@@ -30,6 +31,7 @@ function Home() {
     oeisError,
     setOeisToF,
     setOeisToG,
+    setOeisToH,
   } = React.useContext(DataContext);
 
   const { token } = React.useContext(UserContext);
@@ -54,6 +56,7 @@ function Home() {
           sequenceId={oeisSequenceId}
           onSetToF={setOeisToF}
           onSetToG={setOeisToG}
+          onSetToH={setOeisToH}
           isLoading={isOeisLoading}
         />
       </OEISContainer>
@@ -76,6 +79,7 @@ function Home() {
           <SubmitButton />
         </LeftDiv>
         <CenterDiv>
+          <HSequence />
           <Matrix variant='default' />
         </CenterDiv>
       </FlexRowWrapper>

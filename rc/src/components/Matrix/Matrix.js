@@ -8,7 +8,8 @@ import styled from 'styled-components';
 import TooltipWrapper from '../TooltipWrapper';
 
 function Matrix({ variant }) {
-  const { matrix, matrixCreator, metaMode } = React.useContext(DataContext);
+  const { matrix, matrixCreator, metaMode, hSequence } =
+    React.useContext(DataContext);
   const { user } = React.useContext(UserContext);
   const [isCopied, setIsCopied] = React.useState(false);
 
@@ -192,6 +193,20 @@ function Matrix({ variant }) {
   const alternatingAntiDiagonalSumsOEISQuery = alternatingAntiDiagonalSums
     .slice(0, numRows)
     .join('%2C');
+
+  const safeHSequence = Array.isArray(hSequence) ? hSequence : [];
+  const hHasEntries = safeHSequence
+    .slice(0, numCols)
+    .some((v) => Number(v) !== 0);
+  const hColumn = displayMatrix.map((row) =>
+    row.reduce(
+      (acc, elem, idx) => acc + elem * (Number(safeHSequence[idx]) || 0),
+      0
+    )
+  );
+  const hColumnOEISQuery = (
+    numCols < numRows ? hColumn.slice(0, -1) : hColumn
+  ).join('%2C');
 
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
@@ -400,6 +415,30 @@ function Matrix({ variant }) {
                 </a>
               </TooltipWrapper>
             </MatrixCell>
+            {hHasEntries && (
+              <MatrixCell
+                style={{ paddingLeft: '15px' }}
+                $row={0}
+                $col={displayMatrix[0].length + 6}
+                key={`0,${displayMatrix[0].length + 6}`}
+              >
+                <TooltipWrapper
+                  message='OEIS h-Sequence Column Lookup'
+                  side='top'
+                  sideOffset={5}
+                  arrowshiftX='-10px'
+                  arrowshiftY='0'
+                >
+                  <a
+                    target='_blank'
+                    rel='noreferrer'
+                    href={`https://oeis.org/search?q=${hColumnOEISQuery}&language=english&go=Search`}
+                  >
+                    {SearchSVG}
+                  </a>
+                </TooltipWrapper>
+              </MatrixCell>
+            )}
           </tr>
           {displayMatrix.map((row, rowIndex) => {
             const searchEntries = displayMatrix[rowIndex].slice(
@@ -482,6 +521,15 @@ function Matrix({ variant }) {
                 >
                   {alternatingAntiDiagonalSums[rowIndex]}
                 </AlternatingAntiDiagonalSumsMatrixCell>
+                {hHasEntries && (
+                  <HColumnMatrixCell
+                    key={`${rowIndex},${displayMatrix[0].length + 7}`}
+                  >
+                    {rowIndex < lastRowIdx || numRows === numCols
+                      ? hColumn[rowIndex]
+                      : ''}
+                  </HColumnMatrixCell>
+                )}
               </tr>
             );
           })}
@@ -655,5 +703,10 @@ const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
   background-color: var(
     --matrix-cell-alternating-antidiagonal-sums-background-color
   );
+  color: var(--alternating-rows-sums-font-color);
+`;
+
+const HColumnMatrixCell = styled(MatrixCell)`
+  background-color: var(--matrix-cell-h-column-background-color);
   color: var(--alternating-rows-sums-font-color);
 `;

@@ -6,6 +6,7 @@ const OEISSequenceDisplay = ({
   sequenceId,
   onSetToF,
   onSetToG,
+  onSetToH,
   isLoading,
 }) => {
   if (!sequence) return null;
@@ -27,6 +28,11 @@ const OEISSequenceDisplay = ({
         <SetButton onClick={() => onSetToG(sequence)} disabled={isLoading}>
           Set to G Sequence
         </SetButton>
+        {onSetToH && (
+          <SetButton onClick={() => onSetToH(sequence)} disabled={isLoading}>
+            Set to H Sequence
+          </SetButton>
+        )}
       </ButtonGroup>
     </Container>
   );

@@ -66,6 +66,7 @@ body {
     54%,
     70%
   );
+  --matrix-cell-h-column-background-color: hsl(280, 55%, 80%);
   /* --background-gradient-bottom: #f00; */
   --mini-number-box-height: 33px;
   --mini-number-box-width: 33px;
