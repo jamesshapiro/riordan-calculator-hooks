@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { UserContext } from '../UserProvider';
-import { DataContext } from '../DataProvider';
 import Link from 'next/link';
 
 import styles from './NavBar.module.css';
@@ -13,11 +12,6 @@ import UserDropdown from '../UserDropdown';
 function NavBar() {
   const { isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
-  const {
-    discoveryMode,
-    setDiscoveryMode,
-    loadDiscovery,
-  } = React.useContext(DataContext);
 
   const LoginLogout = isAuthenticated ? (
     <button className={styles.navItem} onClick={handleLogout}>Logout</button>
@@ -84,28 +78,6 @@ function NavBar() {
   return (
     <div className={styles.flexWrapper}>
       {LoginLogout}
-
-      <button
-        className={styles.navLink}
-        onClick={() => {
-          if (!discoveryMode) {
-            window.location.hash = 'discovery';
-            loadDiscovery(0);
-          } else {
-            window.location.hash = '';
-            setDiscoveryMode(false);
-          }
-        }}
-        style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          color: discoveryMode ? '#FFD700' : undefined,
-          fontWeight: discoveryMode ? 700 : undefined,
-        }}
-      >
-        Discovery
-      </button>
 
       <Link href='/benchmarks/' className={styles.navLink}>Benchmarks</Link>
 
