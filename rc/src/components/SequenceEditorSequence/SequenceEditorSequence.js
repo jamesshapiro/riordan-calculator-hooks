@@ -7,7 +7,7 @@ import Spacer from '../Spacer';
 import { motion } from 'framer-motion';
 import { range } from '../../utils';
 
-import styled from 'styled-components';
+import styles from './SequenceEditorSequence.module.css';
 
 function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
   // const [sequence, setSequence] = React.useState([
@@ -155,23 +155,15 @@ function SequenceEditorSequence({ sequenceValues, name, index = 0 }) {
   });
 
   return (
-    <Wrapper>
-      <SequenceTitle>{name}</SequenceTitle>
+    <tr className={styles.wrapper}>
+      <td className={styles.sequenceTitle}>{name}</td>
       {prependZeroElement}
       <Spacer />
       {elements}
       {mysteryBoxes}
-    </Wrapper>
+    </tr>
   );
 }
 
 export default SequenceEditorSequence;
 
-const Wrapper = styled.tr`
-  margin-top: 100px;
-  color: var(--number-box-font-color);
-`;
-
-const SequenceTitle = styled.td`
-  min-width: 160px;
-`;

@@ -1,0 +1,46 @@
+.headerDiv {
+  align-self: flex-start;
+  padding-left: 300px;
+}
+
+.leftDiv {
+  align-self: flex-start;
+}
+
+.centerDiv {
+  align-self: flex-start;
+}
+
+.oeisContainer {
+  align-self: flex-start;
+  padding-left: 300px;
+  margin: 10px 0;
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.flexColumnWrapper {
+  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  /* background-color: hsl(240, 40%, 90%); */
+  margin-left: 0px;
+}
+
+.flexRowWrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+}
+
+.tableWrapper {
+  margin-left: 10px;
+  padding-top: 13px;
+}

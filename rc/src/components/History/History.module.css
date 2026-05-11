@@ -1,0 +1,15 @@
+.headerDiv {
+  align-self: flex-start;
+  padding-left: 300px;
+}
+
+.flexColumnWrapper {
+  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  /* background-color: hsl(240, 40%, 90%); */
+  margin-left: 0px;
+}

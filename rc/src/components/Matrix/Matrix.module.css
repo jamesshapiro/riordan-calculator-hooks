@@ -1,0 +1,151 @@
+.wrapper {
+  margin-top: 40px;
+}
+
+.matrixTable {
+  margin-left: 100px;
+  margin-top: 20px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.matrixCellSearch {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--select-td-background);
+}
+
+.matrixCellLower {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.matrixCellUpper {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-background-color);
+  background-image: var(--box-gradient);
+  color: var(--number-box-font-color);
+}
+
+.styledShareButton {
+  z-index: 10000;
+  margin-top: 55px;
+  margin-left: 10px;
+  width: 65px;
+  text-align: center;
+  height: 19px;
+  border: 1px solid var(--submit-button-border);
+  padding: 10px;
+  border-radius: var(--number-box-border-radius);
+  color: white;
+  background-color: var(--submit-button-background);
+}
+
+.styledShareButton:hover {
+  background-image: revert;
+  background-color: var(--hover-button-color);
+  color: white;
+}
+
+.styledShareButton:active {
+  background-color: var(--active-button-color);
+  color: white;
+}
+
+.styledSVG {
+  display: block;
+  max-width: 100%;
+}
+
+.styledSVG:visited {
+  --link-color: var(--number-box-font-color);
+}
+
+.latexButton {
+  border: 1px solid black;
+  background-color: white;
+}
+
+.copyCelebration {
+  border: 1px solid black;
+  background-color: white;
+  padding: 10px;
+  font-size: 24px;
+  height: 72px;
+}
+
+.rowSumsMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-row-sums-background-color);
+  background-image: var(--row-sums-box-gradient);
+  color: var(--rows-sums-font-color);
+}
+
+.alternatingRowSumsMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-alternating-row-sums-background-color);
+  background-image: var(--alternating-row-sums-box-gradient);
+  color: var(--alternating-rows-sums-font-color);
+}
+
+.zeroEVMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-zero-ev-background-color);
+  color: var(--alternating-rows-sums-font-color);
+}
+
+.oneEVMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-one-ev-background-color);
+  color: var(--alternating-rows-sums-font-color);
+}
+
+.antiDiagonalSumsMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-antidiagonal-sums-background-color);
+  color: var(--alternating-rows-sums-font-color);
+}
+
+.alternatingAntiDiagonalSumsMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(
+    --matrix-cell-alternating-antidiagonal-sums-background-color
+  );
+  color: var(--alternating-rows-sums-font-color);
+}
+
+.hColumnMatrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+  background-color: var(--matrix-cell-h-column-background-color);
+  color: var(--alternating-rows-sums-font-color);
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styles from './SequenceControl.module.css';
 
 import { DataContext } from '../DataProvider';
 import SequenceComboBox from '../SequenceComboBox';
@@ -8,30 +8,18 @@ import SequenceComboBox from '../SequenceComboBox';
 function SequenceControl({ sequenceId }) {
   const { mode } = React.useContext(DataContext);
 
+  const isHidden =
+    (sequenceId === 'f' && ['bell', 'appell', 'twobell'].includes(mode)) ||
+    (sequenceId === 'g' && ['derivative', 'associated'].includes(mode));
+
   return (
-    <Wrapper $sequenceid={sequenceId} mode={mode}>
+    <tr style={{ visibility: isHidden ? 'hidden' : 'revert' }}>
       <td>{sequenceId}:</td>
-      <SelectWrapper>
+      <td className={styles.selectWrapper}>
         <SequenceComboBox sequenceId={sequenceId} />
-      </SelectWrapper>
-    </Wrapper>
+      </td>
+    </tr>
   );
 }
 
 export default SequenceControl;
-
-const Wrapper = styled.tr`
-  visibility: ${(p) =>
-    (p.$sequenceid === 'f' && ['bell', 'appell', 'twobell'].includes(p.mode)) ||
-    (p.$sequenceid === 'g' && ['derivative', 'associated'].includes(p.mode))
-      ? 'hidden'
-      : 'revert'};
-`;
-
-const SelectWrapper = styled.td`
-  min-width: 210px;
-  display: relative;
-  flex-direction: column;
-  /* background-color: var(--select-td-background); */
-  height: var(--number-box-height);
-`;

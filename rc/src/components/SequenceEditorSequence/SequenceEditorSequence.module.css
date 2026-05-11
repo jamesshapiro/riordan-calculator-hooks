@@ -1,0 +1,8 @@
+.wrapper {
+  margin-top: 100px;
+  color: var(--number-box-font-color);
+}
+
+.sequenceTitle {
+  min-width: 160px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
 
-import styled from 'styled-components';
+import styles from './TooltipWrapper.module.css';
 
 const TooltipWrapper = ({
   children,
@@ -33,9 +33,9 @@ const TooltipWrapper = ({
   );
 
   const infoSVG2 = (
-    <StyledSVG
+    <svg
       xmlns='http://www.w3.org/2000/svg'
-      className='lucide lucide-info'
+      className={`lucide lucide-info ${styles.styledSvg}`}
       viewBox='0 0 15 15'
       width='15'
       height='15'
@@ -43,7 +43,7 @@ const TooltipWrapper = ({
       <circle cx='7.5' cy='7.5' r='6.25' />
       <path d='M7.5 10v-2.5' />
       <path d='M7.5 5h.01' />
-    </StyledSVG>
+    </svg>
   );
 
   return (
@@ -64,7 +64,7 @@ const TooltipWrapper = ({
             }}
           >
             {!omitInfo && infoSVG2}
-            {!omitInfo && <SpacerDiv />}
+            {!omitInfo && <div className={styles.spacerDiv} />}
             {message}
 
             <Tooltip.Arrow
@@ -80,19 +80,5 @@ const TooltipWrapper = ({
     </Tooltip.Provider>
   );
 };
-
-const SpacerDiv = styled.div`
-  min-width: 5px;
-  z-index: -1px;
-`;
-
-const StyledSVG = styled.svg`
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: translateY(-1px);
-`;
 
 export default TooltipWrapper;

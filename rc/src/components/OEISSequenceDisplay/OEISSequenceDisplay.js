@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styles from './OEISSequenceDisplay.module.css';
 
 const OEISSequenceDisplay = ({
   sequence,
@@ -12,89 +12,30 @@ const OEISSequenceDisplay = ({
   if (!sequence) return null;
 
   return (
-    <Container>
-      <Title>OEIS Sequence {sequenceId}</Title>
-      <SequenceContainer>
-        <SequenceText>
+    <div className={styles.container}>
+      <h3 className={styles.title}>OEIS Sequence {sequenceId}</h3>
+      <div className={styles.sequenceContainer}>
+        <div className={styles.sequenceText}>
           {sequence.slice(0, 20).join(', ')}
           {sequence.length > 20 && '...'}
-        </SequenceText>
-        <SequenceInfo>Length: {sequence.length} terms</SequenceInfo>
-      </SequenceContainer>
-      <ButtonGroup>
-        <SetButton onClick={() => onSetToF(sequence)} disabled={isLoading}>
+        </div>
+        <div className={styles.sequenceInfo}>Length: {sequence.length} terms</div>
+      </div>
+      <div className={styles.buttonGroup}>
+        <button className={styles.setButton} onClick={() => onSetToF(sequence)} disabled={isLoading}>
           Set to F Sequence
-        </SetButton>
-        <SetButton onClick={() => onSetToG(sequence)} disabled={isLoading}>
+        </button>
+        <button className={styles.setButton} onClick={() => onSetToG(sequence)} disabled={isLoading}>
           Set to G Sequence
-        </SetButton>
+        </button>
         {onSetToH && (
-          <SetButton onClick={() => onSetToH(sequence)} disabled={isLoading}>
+          <button className={styles.setButton} onClick={() => onSetToH(sequence)} disabled={isLoading}>
             Set to H Sequence
-          </SetButton>
+          </button>
         )}
-      </ButtonGroup>
-    </Container>
+      </div>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 15px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-  min-width: 300px;
-`;
-
-const Title = styled.h3`
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
-`;
-
-const SequenceContainer = styled.div`
-  margin-bottom: 15px;
-`;
-
-const SequenceText = styled.div`
-  font-family: monospace;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 5px;
-  word-break: break-all;
-`;
-
-const SequenceInfo = styled.div`
-  font-size: 12px;
-  color: #777;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const SetButton = styled.button`
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-
-  &:hover:not(:disabled) {
-    background-color: #218838;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
 
 export default OEISSequenceDisplay;

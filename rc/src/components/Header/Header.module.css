@@ -1,0 +1,70 @@
+.wrapper {
+  /* flex-direction: column; */
+}
+
+.headerWrapper {
+  width: 300px;
+  display: inline;
+  /* margin-bottom: 1px; */
+  border: 1px solid var(--number-box-border-color);
+  /* border-radius: 4px; */
+  padding: 20px;
+  padding-top: 25px;
+  border-radius: 3px;
+  background-color: var(--number-box-background-color);
+  /* box-shadow: var(--box-shadow-distance) var(--box-shadow-distance)
+    hsl(0, 0%, 50%); */
+}
+
+.styledHeader {
+  display: inline;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--header-color);
+}
+
+.styledLink {
+  display: inline;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--header-color);
+  text-decoration: none;
+}
+
+.styledLink:visited {
+  color: var(--header-color);
+}
+
+.styledButton {
+  font-size: 16px;
+  border: 1px solid var(--mode-button-selected);
+  padding: 10px;
+  border-radius: 12px;
+  margin: 3px;
+}
+
+.styledButton:first-of-type {
+  margin-left: 30px;
+}
+
+.styledButtonSelected {
+  background-color: var(--mode-button-selected);
+  color: white;
+  cursor: default;
+}
+
+.styledButtonSelected:hover {
+  background-color: var(--active-button-color);
+  color: white;
+}
+
+.styledButtonUnselected {
+  background-color: white;
+  color: var(--mode-button-selected);
+  cursor: pointer;
+}
+
+.styledButtonUnselected:hover {
+  background-color: var(--hover-button-color);
+  color: white;
+}

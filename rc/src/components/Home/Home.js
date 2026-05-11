@@ -6,7 +6,6 @@ import Sequence from '../Sequence';
 import SequenceControlPanel from '../SequenceControlPanel';
 import { LayoutGroup } from 'framer-motion';
 
-import styled from 'styled-components';
 import ModeComboBox from '../ModeComboBox';
 import SubmitButton from '../SubmitButton';
 import Matrix from '../Matrix';
@@ -21,6 +20,7 @@ import HSequence from '../HSequence';
 
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
+import styles from './Home.module.css';
 
 function Home() {
   const {
@@ -37,20 +37,20 @@ function Home() {
   const { token } = React.useContext(UserContext);
 
   return (
-    <FlexColumnWrapper>
+    <div className={styles.flexColumnWrapper}>
       <NavBar />
-      <HeaderDiv>
+      <div className={styles.headerDiv}>
         <Header isHome={true} />
-      </HeaderDiv>
-      <LeftDiv>
+      </div>
+      <div className={styles.leftDiv}>
         <ModeComboBox />
-      </LeftDiv>
-      <OEISContainer>
+      </div>
+      <div className={styles.oeisContainer}>
         <OEISInput
           onFetchSequence={(oeisId) => fetchOeisSequence(oeisId, token)}
           isLoading={isOeisLoading}
         />
-        {oeisError && <ErrorMessage>{oeisError}</ErrorMessage>}
+        {oeisError && <div className={styles.errorMessage}>{oeisError}</div>}
         <OEISSequenceDisplay
           sequence={oeisSequence}
           sequenceId={oeisSequenceId}
@@ -59,109 +59,62 @@ function Home() {
           onSetToH={setOeisToH}
           isLoading={isOeisLoading}
         />
-      </OEISContainer>
+      </div>
       <MatrixHeader />
       <ShareDialog />
-      <FlexRowWrapper>
+      <div className={styles.flexRowWrapper}>
         <SequenceControlPanel />
         <LayoutGroup>
-          <TableWrapper>
+          <table className={styles.tableWrapper}>
             <tbody>
               <WindowControls />
               <Sequence sequenceId={'g'} />
               <Sequence sequenceId={'f'} />
             </tbody>
-          </TableWrapper>
+          </table>
         </LayoutGroup>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>
           <SubmitButton />
-        </LeftDiv>
-        <CenterDiv>
+        </div>
+        <div className={styles.centerDiv}>
           <HSequence />
           <Matrix variant='default' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
+        </div>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>{/* <SubmitButton /> */}</div>
+        <div className={styles.centerDiv}>
           <Matrix variant='inverse' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
+        </div>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>{/* <SubmitButton /> */}</div>
+        <div className={styles.centerDiv}>
           <Matrix variant='stieltjes' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
+        </div>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>{/* <SubmitButton /> */}</div>
+        <div className={styles.centerDiv}>
           <StarSequence variant='a' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
+        </div>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>{/* <SubmitButton /> */}</div>
+        <div className={styles.centerDiv}>
           <StarSequence variant='b' />
-        </CenterDiv>
-      </FlexRowWrapper>
-      <FlexRowWrapper>
-        <LeftDiv>{/* <SubmitButton /> */}</LeftDiv>
-        <CenterDiv>
+        </div>
+      </div>
+      <div className={styles.flexRowWrapper}>
+        <div className={styles.leftDiv}>{/* <SubmitButton /> */}</div>
+        <div className={styles.centerDiv}>
           <StarSequence variant='z' />
-        </CenterDiv>
-      </FlexRowWrapper>
-    </FlexColumnWrapper>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default Home;
-
-const HeaderDiv = styled.div`
-  align-self: flex-start;
-  padding-left: 300px;
-`;
-
-const LeftDiv = styled.div`
-  align-self: flex-start;
-`;
-
-const CenterDiv = styled.div`
-  align-self: flex-start;
-`;
-
-const OEISContainer = styled.div`
-  align-self: flex-start;
-  padding-left: 300px;
-  margin: 10px 0;
-`;
-
-const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: 14px;
-  margin: 5px 0;
-`;
-
-const FlexColumnWrapper = styled.div`
-  padding-left: 35px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  /* background-color: hsl(240, 40%, 90%); */
-  margin-left: 0px;
-`;
-
-const FlexRowWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-self: flex-start;
-`;
-
-const TableWrapper = styled.table`
-  margin-left: 10px;
-  padding-top: 13px;
-`;

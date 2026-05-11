@@ -3,7 +3,7 @@ import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
 import { range } from '../../utils';
 
-import styled from 'styled-components';
+import styles from './Matrix.module.css';
 
 import TooltipWrapper from '../TooltipWrapper';
 
@@ -19,24 +19,15 @@ function Matrix({ variant }) {
     setTimeout(() => setIsCopied(false), 1500);
   };
 
-  // function arrayToLatexMatrix(array) {
-  //   let latex = '\\begin{bmatrix}\n';
-  //   array.forEach((row) => {
-  //     latex += row.join(' & ') + ' \\\\\n';
-  //   });
-  //   latex += '\\end{bmatrix}';
-  //   return `\\[\n${latex}\n\\]`;
-  // }
-
   function arrayToLatexMatrix(array) {
-    const numColumns = array[0].length; // Number of columns based on the first row
+    const numColumns = array[0].length;
     let latex = '\\begin{bmatrix}\n';
 
     array.forEach((row) => {
       if (row.length !== numColumns) {
         throw new Error('All rows must have the same number of columns');
       }
-      latex += row.join(' & ') + ' \\\\ \n'; // Correct: Join with ' & ' and then add '\\'
+      latex += row.join(' & ') + ' \\\\ \n';
     });
 
     latex += '\\end{bmatrix}';
@@ -147,19 +138,17 @@ function Matrix({ variant }) {
   );
 
   const lowerTriangularEntries = [];
-  let entryCount = 0; // Counter to keep track of the number of entries added
+  let entryCount = 0;
 
   for (let i = 0; i < numRows; i++) {
     for (let j = 0; j <= i; j++) {
       if (entryCount >= 21) {
-        // Check if 21 entries have already been added
-        break; // Break the inner loop if 21 entries are reached
+        break;
       }
       lowerTriangularEntries.push(displayMatrix[i][j]);
-      entryCount++; // Increment the counter after adding an entry
+      entryCount++;
     }
     if (entryCount >= 21) {
-      // Check again to break the outer loop if necessary
       break;
     }
   }
@@ -208,40 +197,49 @@ function Matrix({ variant }) {
     numCols < numRows ? hColumn.slice(0, -1) : hColumn
   ).join('%2C');
 
+  const getMatrixCellClassName = (row, col) => {
+    if (col === 0 || row === 0) {
+      return styles.matrixCellSearch;
+    }
+    if (row > 0 && col > row) {
+      return styles.matrixCellUpper;
+    }
+    return styles.matrixCellLower;
+  };
+
   const userIsMatrixCreator = user === matrixCreator;
   let shareButton = userIsMatrixCreator ? (
-    <StyledShareButton>Share</StyledShareButton>
+    <button className={styles.styledShareButton}>Share</button>
   ) : null;
   shareButton = null;
 
   const matrixLaTeX = arrayToLatexMatrix(displayMatrix);
 
   return (
-    <Wrapper $leftmargin={leftMargin}>
+    <div className={styles.wrapper} style={{ marginLeft: leftMargin }}>
       <h1>
         {matrixTitle}{' '}
         {isCopied ? (
-          <CopyCelebration> {LaTeXSVG} Copied to Clipboard! 🎉</CopyCelebration>
+          <span className={styles.copyCelebration}> {LaTeXSVG} Copied to Clipboard! 🎉</span>
         ) : (
-          <LaTeXButton onClick={() => handleCopy(matrixLaTeX)}>
+          <button className={styles.latexButton} onClick={() => handleCopy(matrixLaTeX)}>
             {LaTeXSVG}
-          </LaTeXButton>
+          </button>
         )}
       </h1>
-      <MatrixTable>
+      <table className={styles.matrixTable}>
         <tbody key='matrixbody'>
           <tr key='oeisrow'>
-            <MatrixCell
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={0}
               key={`0,0`}
             >
               <TooltipWrapper
                 message='OEIS Lower Triangular Lookup'
                 side='top'
                 sideOffset={5}
-                arrowshiftX='-30px' // Adjust arrow position
+                arrowshiftX='-30px'
                 arrowshiftY='0'
               >
                 <a
@@ -252,17 +250,16 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
+            </td>
             {range(1, displayMatrix[0].length + 1).map((item, colIndex) => {
               const searchEntries = displayMatrix
                 .map((row) => row[colIndex])
                 .slice(colIndex);
               const searchQueryParam = searchEntries.join('%2C');
               return (
-                <MatrixCell
+                <td
+                  className={styles.matrixCellSearch}
                   style={{ paddingLeft: '15px' }}
-                  $row={0}
-                  $col={colIndex}
                   key={`0,${colIndex}`}
                 >
                   <TooltipWrapper
@@ -280,13 +277,12 @@ function Matrix({ variant }) {
                       {SearchSVG}
                     </a>
                   </TooltipWrapper>
-                </MatrixCell>
+                </td>
               );
             })}
-            <MatrixCell
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length}
               key={`0,${displayMatrix[0].length}`}
             >
               <TooltipWrapper
@@ -304,11 +300,10 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
-            <MatrixCell
+            </td>
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length + 1}
               key={`0,${displayMatrix[0].length + 1}`}
             >
               <TooltipWrapper
@@ -326,11 +321,10 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
-            <MatrixCell
+            </td>
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length + 2}
               key={`0,${displayMatrix[0].length + 2}`}
             >
               <TooltipWrapper
@@ -348,11 +342,10 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
-            <MatrixCell
+            </td>
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length + 3}
               key={`0,${displayMatrix[0].length + 3}`}
             >
               <TooltipWrapper
@@ -370,11 +363,10 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
-            <MatrixCell
+            </td>
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length + 4}
               key={`0,${displayMatrix[0].length + 4}`}
             >
               <TooltipWrapper
@@ -392,11 +384,10 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
-            <MatrixCell
+            </td>
+            <td
+              className={styles.matrixCellSearch}
               style={{ paddingLeft: '15px' }}
-              $row={0}
-              $col={displayMatrix[0].length + 5}
               key={`0,${displayMatrix[0].length + 5}`}
             >
               <TooltipWrapper
@@ -414,12 +405,11 @@ function Matrix({ variant }) {
                   {SearchSVG}
                 </a>
               </TooltipWrapper>
-            </MatrixCell>
+            </td>
             {hHasEntries && (
-              <MatrixCell
+              <td
+                className={styles.matrixCellSearch}
                 style={{ paddingLeft: '15px' }}
-                $row={0}
-                $col={displayMatrix[0].length + 6}
                 key={`0,${displayMatrix[0].length + 6}`}
               >
                 <TooltipWrapper
@@ -437,7 +427,7 @@ function Matrix({ variant }) {
                     {SearchSVG}
                   </a>
                 </TooltipWrapper>
-              </MatrixCell>
+              </td>
             )}
           </tr>
           {displayMatrix.map((row, rowIndex) => {
@@ -450,10 +440,9 @@ function Matrix({ variant }) {
 
             return (
               <tr key={`row${rowIndex}`}>
-                <MatrixCell
+                <td
+                  className={styles.matrixCellSearch}
                   style={{ paddingLeft: '15px' }}
-                  $row={rowIndex}
-                  $col={0}
                   key={`${rowIndex},0`}
                 >
                   <TooltipWrapper
@@ -471,147 +460,85 @@ function Matrix({ variant }) {
                       {SearchSVG}
                     </a>
                   </TooltipWrapper>
-                </MatrixCell>
+                </td>
                 {row.map((num, colIndex) => {
                   return (
-                    <MatrixCell
-                      $row={rowIndex + 1}
-                      $col={colIndex + 1}
+                    <td
+                      className={getMatrixCellClassName(rowIndex + 1, colIndex + 1)}
                       key={`${rowIndex},${colIndex + 1}`}
                     >
                       {num}
-                    </MatrixCell>
+                    </td>
                   );
                 })}
-                <RowSumsMatrixCell
+                <td
+                  className={styles.rowSumsMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 1}`}
                 >
                   {rowIndex < lastRowIdx || numRows === numCols
                     ? rowSums[rowIndex]
                     : ''}
-                </RowSumsMatrixCell>
-                <AlternatingRowSumsMatrixCell
+                </td>
+                <td
+                  className={styles.alternatingRowSumsMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 2}`}
                 >
                   {rowIndex < lastRowIdx || numRows === numCols
                     ? alternatingRowSums[rowIndex]
                     : ''}
-                </AlternatingRowSumsMatrixCell>
-                <ZeroEVMatrixCell
+                </td>
+                <td
+                  className={styles.zeroEVMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 3}`}
                 >
                   {rowIndex < lastRowIdx || numRows === numCols
                     ? zeroEV[rowIndex]
                     : ''}
-                </ZeroEVMatrixCell>
-                <OneEVMatrixCell
+                </td>
+                <td
+                  className={styles.oneEVMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 4}`}
                 >
                   {rowIndex < lastRowIdx || numRows === numCols
                     ? oneEV[rowIndex]
                     : ''}
-                </OneEVMatrixCell>
-                <AntiDiagonalSumsMatrixCell
+                </td>
+                <td
+                  className={styles.antiDiagonalSumsMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 5}`}
                 >
                   {antiDiagonalSums[rowIndex]}
-                </AntiDiagonalSumsMatrixCell>
-                <AlternatingAntiDiagonalSumsMatrixCell
+                </td>
+                <td
+                  className={styles.alternatingAntiDiagonalSumsMatrixCell}
                   key={`${rowIndex},${displayMatrix[0].length + 6}`}
                 >
                   {alternatingAntiDiagonalSums[rowIndex]}
-                </AlternatingAntiDiagonalSumsMatrixCell>
+                </td>
                 {hHasEntries && (
-                  <HColumnMatrixCell
+                  <td
+                    className={styles.hColumnMatrixCell}
                     key={`${rowIndex},${displayMatrix[0].length + 7}`}
                   >
                     {rowIndex < lastRowIdx || numRows === numCols
                       ? hColumn[rowIndex]
                       : ''}
-                  </HColumnMatrixCell>
+                  </td>
                 )}
               </tr>
             );
           })}
         </tbody>
-      </MatrixTable>
+      </table>
       {/* {shareButton} */}
-    </Wrapper>
+    </div>
   );
 }
 
 export default Matrix;
 
-const Wrapper = styled.div`
-  margin-top: 40px;
-  margin-left: ${(p) => p.$leftmargin};
-`;
-
-const MatrixTable = styled.table`
-  margin-left: 100px;
-  margin-top: 20px;
-  border-spacing: 0px;
-  border-collapse: collapse;
-`;
-
-const MatrixRow = styled.tr``;
-
-const MatrixCell = styled.td`
-  border: 1px solid var(--number-box-border-color);
-  min-width: 60px;
-  height: 50px;
-  text-align: center;
-  background-color: ${(p) =>
-    p.$col === 0 || p.$row === 0
-      ? 'var(--select-td-background)'
-      : p.$row > 0 && p.$col > p.$row
-        ? 'var(--matrix-cell-background-color)'
-        : 'black'};
-
-  background-image: ${(p) =>
-    p.$col === 0 || p.$row === 0
-      ? 'revert'
-      : p.$col > p.$row
-        ? 'var(--box-gradient)'
-        : 'revert'};
-  color: ${(p) =>
-    p.$row > 0 && p.$col > p.$row ? 'var(--number-box-font-color)' : 'white'};
-`;
-
-const StyledShareButton = styled.button`
-  z-index: 10000;
-  margin-top: 55px;
-  margin-left: 10px;
-  width: 65px;
-  text-align: center;
-  /* width: fit-content; */
-  height: 19px;
-  border: 1px solid var(--submit-button-border);
-  padding: 10px;
-  border-radius: var(--number-box-border-radius);
-  color: white;
-  background-color: var(--submit-button-background);
-  &:hover {
-    background-image: revert;
-    background-color: var(--hover-button-color);
-    color: white;
-  }
-  &:active {
-    background-color: var(--active-button-color);
-    color: white;
-  }
-`;
-
-const StyledSVG = styled.svg`
-  &:visited {
-    --link-color: : var(--number-box-font-color);
-  }
-  display: block;
-  max-width: 100%;
-`;
-
 const SearchSVG = (
-  <StyledSVG
+  <svg
     xmlns='http://www.w3.org/2000/svg'
     width='24'
     height='24'
@@ -621,17 +548,12 @@ const SearchSVG = (
     strokeWidth='2'
     strokeLinecap='round'
     strokeLinejoin='round'
-    className='lucide lucide-search'
+    className={`${styles.styledSVG} lucide lucide-search`}
   >
     <circle cx='11' cy='11' r='8' />
     <path d='m21 21-4.3-4.3' />
-  </StyledSVG>
+  </svg>
 );
-
-const LaTeXButton = styled.button`
-  border: 1px solid black;
-  background-color: white;
-`;
 
 const LaTeXSVG = (
   <svg
@@ -663,50 +585,3 @@ const LaTeXSVG = (
     />
   </svg>
 );
-
-const CopyCelebration = styled.span`
-  border: 1px solid black;
-  background-color: white;
-  padding: 10px;
-  font-size: 24px;
-  height: 72px;
-`;
-
-const RowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-row-sums-background-color);
-  background-image: var(--row-sums-box-gradient);
-  color: var(--rows-sums-font-color);
-`;
-
-const AlternatingRowSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-alternating-row-sums-background-color);
-  background-image: var(--alternating-row-sums-box-gradient);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const ZeroEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-zero-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const OneEVMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-one-ev-background-color);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const AntiDiagonalSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-antidiagonal-sums-background-color);
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const AlternatingAntiDiagonalSumsMatrixCell = styled(MatrixCell)`
-  background-color: var(
-    --matrix-cell-alternating-antidiagonal-sums-background-color
-  );
-  color: var(--alternating-rows-sums-font-color);
-`;
-
-const HColumnMatrixCell = styled(MatrixCell)`
-  background-color: var(--matrix-cell-h-column-background-color);
-  color: var(--alternating-rows-sums-font-color);
-`;

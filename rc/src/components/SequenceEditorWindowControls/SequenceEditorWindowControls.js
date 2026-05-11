@@ -8,7 +8,7 @@ import { range } from '../../utils';
 
 import TooltipWrapper from '../TooltipWrapper';
 
-import styled from 'styled-components';
+import styles from './SequenceEditorWindowControls.module.css';
 
 function SequenceEditorWindowControls({}) {
 
@@ -31,15 +31,16 @@ function SequenceEditorWindowControls({}) {
           arrowshiftX='0'
           arrowshiftY='0'
         >
-          <Bubble
+          <div
+            className={styles.bubble}
             onClick={() => {
               setCustomSequenceLength((oldLength) => oldLength - 1);
               handleClick();
             }}
-            $isleft='true'
+            style={{ marginLeft: 'auto', marginRight: '0' }}
           >
             <ChevronLeftIcon width='18' height='18' />
-          </Bubble>
+          </div>
         </TooltipWrapper>
       ) : (
         ''
@@ -60,14 +61,16 @@ function SequenceEditorWindowControls({}) {
           arrowshiftX='0'
           arrowshiftY='0'
         >
-          <Bubble
+          <div
+            className={styles.bubble}
             onClick={() => {
               setCustomSequenceLength((oldLength) => oldLength + 1);
               handleClick();
             }}
+            style={{ marginLeft: '0', marginRight: 'auto' }}
           >
             <ChevronRightIcon width='18' height='18' />
-          </Bubble>
+          </div>
         </TooltipWrapper>
       ) : (
         ''
@@ -76,38 +79,14 @@ function SequenceEditorWindowControls({}) {
   });
 
   return (
-    <Wrapper>
+    <tr className={styles.wrapper}>
       {prependZeroElement}
       <Spacer />
       {elements}
       {boxes}
-    </Wrapper>
+    </tr>
   );
 }
 
 export default SequenceEditorWindowControls;
 
-const Wrapper = styled.tr`
-  color: var(--number-box-font-color);
-`;
-
-const Bubble = styled.div`
-  background-color: var(--number-box-background-color);
-  border: 2px solid var(--action-box-border-color);
-  &:hover {
-    background-color: var(--bubble-hover-background-color);
-    color: white;
-    border: 2px solid var(--bubble-hover-border-color);
-  }
-  margin-left: ${(p) => (p.$isleft ? 'auto' : '0')};
-  margin-right: ${(p) => (!p.$isleft ? 'auto' : '0')};
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  z-index: 10;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;

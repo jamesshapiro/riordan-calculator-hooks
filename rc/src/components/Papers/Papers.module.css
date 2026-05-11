@@ -1,0 +1,31 @@
+.flexColumnWrapper {
+  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  /* background-color: hsl(240, 40%, 90%); */
+  margin-left: 0px;
+}
+
+.headerDiv {
+  align-self: flex-start;
+  padding-left: 300px;
+}
+
+.verticalSpace {
+  min-height: 150px;
+}
+
+.p {
+  border: 1px solid blue;
+  background-color: white;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.p a {
+  text-decoration: none;
+  color: blue;
+}

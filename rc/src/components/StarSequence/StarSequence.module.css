@@ -1,0 +1,102 @@
+.styledSvg {
+  max-width: 100%;
+}
+
+.styledSvg:visited {
+  --link-color: : var(--number-box-font-color);
+}
+
+.styledH2 {
+  display: inline;
+}
+
+.outerOuterWrapper {
+  margin-top: 30px;
+  margin-left: 195px;
+  transition: all 0.3s;
+}
+
+.highlighted {
+  border-radius: 8px;
+  box-shadow: 0 0 12px 2px #FFD700, inset 0 0 8px 0 rgba(255, 215, 0, 0.08);
+  border: 2px solid #FFD700;
+  padding: 6px 8px;
+  margin-top: 24px;
+}
+
+.outerWrapper {
+  margin-top: 10px;
+  min-width: fit-content;
+  color: var(--star-sequence-font-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  background-color: var(--number-box-background-color);
+  border-radius: var(--number-box-border-radius);
+  width: fit-content;
+  min-width: var(--number-box-width);
+  width: 100%;
+  height: var(--number-box-height);
+  margin: 1px;
+  border: 1px solid var(--number-box-border-color);
+  z-index: 1;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  color: var(--number-box-font-color);
+  width: fit-content;
+  height: 100%;
+  width: 100%;
+}
+
+.innerElement {
+  width: fit-content;
+}
+
+.lookupWrapper {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  background-color: var(--number-box-background-color);
+  border-radius: var(--number-box-border-radius);
+  width: fit-content;
+  min-width: var(--number-box-width);
+  width: 100%;
+  height: var(--number-box-height);
+  margin: 1px;
+  border: 1px solid var(--number-box-border-color);
+  z-index: 1;
+}
+
+.lookupWrapper:hover {
+  background-color: var(--number-box-hover-background-color);
+}
+
+.lookupInnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  color: var(--number-box-font-color);
+  width: fit-content;
+  height: 100%;
+  width: 100%;
+}
+
+.lookupInnerContainer:hover {
+  color: var(--number-box-hover-font-color);
+}
+
+.lookupInnerElement {
+  width: fit-content;
+}

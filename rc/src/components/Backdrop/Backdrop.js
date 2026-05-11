@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styles from './Backdrop.module.css';
 import { DataContext } from '../DataProvider';
 
 function Backdrop() {
@@ -24,20 +24,12 @@ function Backdrop() {
       window.removeEventListener('resize', handleResize);
     };
   }, [matrix]);
-  return <StyledBackdrop height={height} width={width} />;
+  return (
+    <div
+      className={styles.backdrop}
+      style={{ minHeight: height, width: width }}
+    />
+  );
 }
 
 export default Backdrop;
-
-const StyledBackdrop = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-height: ${(p) => p.height};
-  width: ${(p) => p.width};
-  background-image: linear-gradient(
-    var(--background-gradient-top),
-    var(--background-gradient-bottom)
-  );
-  z-index: -1000;
-`;

@@ -1,0 +1,7 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--background-gradient-bottom);
+  z-index: -2000;
+}

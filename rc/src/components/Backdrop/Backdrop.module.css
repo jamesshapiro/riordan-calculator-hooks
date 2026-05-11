@@ -1,0 +1,10 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(
+    var(--background-gradient-top),
+    var(--background-gradient-bottom)
+  );
+  z-index: -1000;
+}

@@ -1,0 +1,69 @@
+.titleSpan {
+  cursor: pointer;
+}
+
+.styledSVG {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(2px);
+}
+
+.titleInput {
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  display: inline;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.titleBox {
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  margin-bottom: 10px;
+  display: inline;
+}
+
+.commentInput {
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.commentBox {
+  background-color: var(--matrix-header-field);
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 2px;
+  min-width: 500px;
+  max-width: 500px;
+  margin-bottom: 10px;
+}
+
+.attributionBox {
+  text-align: center;
+  background-color: white;
+  padding: 12px;
+  border: solid 1px var(--number-box-border-color);
+  border-radius: 10px;
+}
+
+.styledH1 {
+  text-align: left;
+}
+
+.attributionP {
+  cursor: default;
+}

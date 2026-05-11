@@ -1,0 +1,24 @@
+.styledSubmitButton {
+  z-index: 10000;
+  margin-top: 55px;
+  min-width: 105px;
+  width: fit-content;
+  /* width: fit-content; */
+  height: 19px;
+  border: 1px solid var(--submit-button-border);
+  padding: 10px;
+  border-radius: var(--number-box-border-radius);
+  color: white;
+  background-color: var(--submit-button-background);
+}
+
+.styledSubmitButton:hover {
+  background-image: revert;
+  background-color: var(--hover-button-color);
+  color: white;
+}
+
+.styledSubmitButton:active {
+  background-color: var(--active-button-color);
+  color: white;
+}

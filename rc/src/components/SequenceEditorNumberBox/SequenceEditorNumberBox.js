@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styles from './SequenceEditorNumberBox.module.css';
 
 import { DataContext } from '../DataProvider';
 
@@ -114,6 +114,8 @@ function SequenceEditorNumberBox({
     event.target.select();
   };
 
+  const fontSizeClamp = `clamp(${minfontsize}, ${maxfontsizeRem}, ${maxfontsize})`;
+
   const inputNumberBox = (
     <form
       onSubmit={(event) => {
@@ -123,11 +125,10 @@ function SequenceEditorNumberBox({
         handleSelectSequence(sequenceId, 'custom');
       }}
     >
-      <StyledInput
+      <input
+        className={styles.styledInput}
         value={digits}
-        $minfontsize={minfontsize}
-        fontSize={maxfontsizeRem}
-        $maxfontsize={maxfontsize}
+        style={{ fontSize: fontSizeClamp }}
         onChange={(event) => handleKeyPress(event.target.value)}
         onBlur={handleBlur}
         onFocus={handleFocus}
@@ -139,14 +140,13 @@ function SequenceEditorNumberBox({
   const boxContents = isSelected ? (
     inputNumberBox
   ) : (
-    <InnerElement
-      $minfontsize={minfontsize}
-      fontSize={maxfontsizeRem}
-      $maxfontsize={maxfontsize}
+    <p
+      className={styles.innerElement}
+      style={{ fontSize: fontSizeClamp }}
       ref={buttonRef}
     >
       {digits}
-    </InnerElement>
+    </p>
   );
 
   const closeBubble =
@@ -159,7 +159,7 @@ function SequenceEditorNumberBox({
         arrowshiftY='0'
         zidx={zIndex}
       >
-        <CloseBubble onClick={handleCloseOption}>
+        <div className={styles.closeBubble} style={{ zIndex: zIndex }} onClick={handleCloseOption}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='15'
@@ -175,102 +175,18 @@ function SequenceEditorNumberBox({
             <path d='M11.25 3.75 L3.75 11.25' />
             <path d='m3.75 3.75 7.5 7.5' />
           </svg>
-        </CloseBubble>
+        </div>
       </TooltipWrapper>
     ) : null;
 
   return (
-    <Wrapper ref={divRef} onClick={(event) => handleClick(event)}>
-      <InnerContainer>
+    <div className={styles.wrapper} ref={divRef} onClick={(event) => handleClick(event)}>
+      <div className={styles.innerContainer}>
         {closeBubble}
         {boxContents}
-      </InnerContainer>
-    </Wrapper>
+      </div>
+    </div>
   );
 }
 
 export default SequenceEditorNumberBox;
-
-const CloseBubble = styled.div`
-  position: absolute;
-  background-color: var(--number-box-background-color);
-  border: 2px dashed var(--action-box-border-color);
-  &:hover {
-    background-color: var(--bubble-hover-background-color);
-    color: white;
-    border: 2px dashed var(--bubble-hover-border-color);
-  }
-  border-radius: 15px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  top: -20px;
-  left: 37px;
-  z-index: ${(p) => p.zidx};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-  display: inline-block;
-  cursor: 'text';
-  background-color: var(--number-box-background-color);
-  &:hover {
-    background-color: var(--number-box-hover-background-color);
-  }
-  border-radius: var(--number-box-border-radius);
-  width: fit-content;
-  min-width: var(--number-box-width);
-  width: 100%;
-  height: var(--number-box-height);
-  margin: 1px;
-  border: 1px solid var(--number-box-border-color);
-  z-index: 1;
-  /* padding: 10%; */
-`;
-
-const InnerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Lato', sans-serif;
-  color: var(--number-box-font-color);
-  color: 'var(--number-box-font-color)';
-  &:hover {
-    color: 'var(--number-box-hover-font-color)';
-  }
-  width: fit-content;
-  height: 100%;
-  width: 100%;
-`;
-
-const InnerElement = styled.p`
-  width: fit-content;
-  font-size: clamp(
-    ${(p) => p.$minfontsize},
-    ${(p) => p.fontSize},
-    ${(p) => p.$maxfontsize}
-  );
-`;
-
-const StyledInput = styled.input`
-  font-family: 'Lato', sans-serif;
-  color: hsl(243, 85%, 40%);
-  font-size: clamp(
-    ${(p) => p.$minfontsize},
-    ${(p) => p.fontSize},
-    ${(p) => p.$maxfontsize}
-  );
-  height: 100%;
-  width: max(var(--number-box-width), var(--number-box-width));
-  margin-left: 2px;
-  text-align: center;
-
-  line-height: normal;
-  border: 1px solid var(--number-box-hover-font-color);
-  background-color: white;
-  box-sizing: border-box;
-`;

@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { DataContext } from '../DataProvider';
+import styles from './HSequence.module.css';
 
 function HSequence() {
   const { matrix, metaMode, hSequence, setHSequence } =
@@ -37,16 +37,17 @@ function HSequence() {
   }
 
   return (
-    <Wrapper>
-      <Title>h-sequence (custom column vector):</Title>
-      <Hint>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>h-sequence (custom column vector):</h2>
+      <p className={styles.hint}>
         Multiplies each matrix row to produce the extra column. Leave entries as
         zero to ignore.
-      </Hint>
-      <Row>
+      </p>
+      <div className={styles.row}>
         {Array.from({ length: numCols }).map((_, idx) => (
-          <HBox key={idx}>
-            <HInput
+          <div className={styles.hBox} key={idx}>
+            <input
+              className={styles.hInput}
               type='text'
               defaultValue={String(hSequence[idx] ?? 0)}
               key={`${idx}-${hSequence[idx] ?? 0}`}
@@ -71,62 +72,11 @@ function HSequence() {
                 e.target.value = cleaned;
               }}
             />
-          </HBox>
+          </div>
         ))}
-      </Row>
-    </Wrapper>
+      </div>
+    </div>
   );
 }
 
 export default HSequence;
-
-const Wrapper = styled.div`
-  margin-left: 100px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`;
-
-const Title = styled.h2`
-  font-size: 1.2rem;
-  margin: 0 0 4px 0;
-  color: var(--header-color);
-`;
-
-const Hint = styled.p`
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0 0 8px 0;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 2px;
-`;
-
-const HBox = styled.div`
-  background-color: var(--matrix-cell-h-column-background-color);
-  border: 1px solid var(--number-box-border-color);
-  border-radius: var(--number-box-border-radius);
-  min-width: var(--number-box-width);
-  height: var(--number-box-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const HInput = styled.input`
-  width: calc(var(--number-box-width) - 8px);
-  height: calc(var(--number-box-height) - 12px);
-  border: none;
-  background-color: transparent;
-  text-align: center;
-  font-family: 'Lato', sans-serif;
-  font-size: 1rem;
-  color: var(--number-box-font-color);
-
-  &:focus {
-    outline: 1px solid var(--number-box-hover-font-color);
-    background-color: white;
-  }
-`;

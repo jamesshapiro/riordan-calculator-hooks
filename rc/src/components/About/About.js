@@ -1,19 +1,19 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styles from './About.module.css';
 
 import NavBar from '../NavBar';
 import Header from '../Header';
 
 function About() {
   return (
-    <FlexColumnWrapper>
+    <div className={styles.flexColumnWrapper}>
       <NavBar />
-      <HeaderDiv>
+      <div className={styles.headerDiv}>
         <Header />
-      </HeaderDiv>
-      <VerticalSpace />
-      <P>
+      </div>
+      <div className={styles.verticalSpace} />
+      <p className={styles.p}>
         The Riordan Calculator was created by{' '}
         <a href='https://jamesshapiro.com'>James Shapiro</a> in consultation
         with his father, Riordan expert{' '}
@@ -39,46 +39,9 @@ function About() {
             transform: 'translate(2px, 5px)',
           }}
         />
-      </P>
-    </FlexColumnWrapper>
+      </p>
+    </div>
   );
 }
 
 export default About;
-
-const VerticalSpace = styled.div`
-  min-height: 150px;
-`;
-
-const P = styled.p`
-  a {
-    text-decoration: none;
-    color: blue;
-  }
-  border: 1px solid blue;
-  background-color: white;
-  max-width: 600px;
-  padding: 20px;
-`;
-
-const Wrapper = styled.div`
-  margin-left: 10px;
-  margin-top: 10px;
-  z-index: 10;
-`;
-
-const HeaderDiv = styled.div`
-  align-self: flex-start;
-  padding-left: 300px;
-`;
-
-const FlexColumnWrapper = styled.div`
-  padding-left: 35px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  /* background-color: hsl(240, 40%, 90%); */
-  margin-left: 0px;
-`;

@@ -1,0 +1,55 @@
+.styledSvg {
+}
+
+.table {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 20px;
+  background-color: white;
+  min-width: 300px;
+  width: 100px;
+  border-radius: 6px;
+  border-collapse: collapse;
+}
+
+.tBody {
+  height: 100%;
+  width: 100%;
+}
+
+.tr {
+  height: 50px;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  border-top: 1px solid var(--number-box-border-color);
+  border-left: 1px solid var(--number-box-border-color);
+  border-right: 1px solid var(--number-box-border-color);
+}
+
+.tr:last-child {
+  border-bottom: 1px solid var(--number-box-border-color);
+}
+
+.checkTd {
+  height: 100%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.td {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  text-align: center;
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+}

@@ -7,7 +7,7 @@ import Spacer from '../Spacer';
 import { motion } from 'framer-motion';
 import { range } from '../../utils';
 
-import styled from 'styled-components';
+import styles from './Sequence.module.css';
 
 function Sequence({ sequenceId }) {
   const {
@@ -173,17 +173,13 @@ function Sequence({ sequenceId }) {
   });
 
   return (
-    <Wrapper>
+    <tr className={styles.wrapper}>
       {prependZeroElement}
       <Spacer />
       {elements}
       {mysteryBoxes}
-    </Wrapper>
+    </tr>
   );
 }
 
 export default Sequence;
-
-const Wrapper = styled.tr`
-  color: var(--number-box-font-color);
-`;

@@ -1,0 +1,22 @@
+.wrapper {
+  display: inline-block;
+  cursor: none;
+  background-color: transparent;
+  min-width: var(--spacer-width);
+  width: 100%;
+  height: var(--number-box-height);
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+  width: 100%;
+}
+
+.innerElement {
+  width: fit-content;
+  font-size: 1rem;
+}

@@ -1,0 +1,86 @@
+.styledSvg {
+  cursor: pointer;
+}
+
+.preview {
+  margin-left: 15px;
+}
+
+.wrapper {
+  background-color: var(--user-history-cell-background);
+  border-collapse: collapse;
+  border: 1.5px solid var(--mini-number-box-border-color);
+  width: fit-content;
+  margin-top: 200px;
+  margin-right: 30px;
+  margin-bottom: 300px;
+}
+
+.tdWrapper {
+  border: 1px solid var(--mini-number-box-border-color);
+  padding: 8px;
+}
+
+.permalink {
+  text-decoration: none;
+  padding-left: 20px;
+}
+
+.permalink:visited {
+  color: blue;
+  text-decoration: none;
+}
+
+.miniNumberBoxWrapper {
+  position: relative;
+  display: inline-block;
+  cursor: text;
+  background-color: var(--mini-number-box-background-color);
+  border-radius: var(--mini-number-box-border-radius);
+  min-width: var(--mini-number-box-width);
+  height: var(--mini-number-box-height);
+  margin: 1px;
+  border: 1px solid var(--mini-number-box-border-color);
+  z-index: 1;
+}
+
+.miniNumberBoxWrapperDisabled {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  background-color: var(--mini-number-box-background-color);
+  border-radius: var(--mini-number-box-border-radius);
+  min-width: var(--mini-number-box-width);
+  height: var(--mini-number-box-height);
+  margin: 1px;
+  border: 1px solid var(--mini-number-box-border-color);
+  z-index: 1;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  color: var(--mini-number-box-font-color);
+  color: var(--mini-number-box-font-color);
+  width: fit-content;
+  height: 100%;
+  width: 100%;
+}
+
+.innerElement {
+  width: fit-content;
+}
+
+.matrixTable {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.matrixCell {
+  border: 1px solid var(--number-box-border-color);
+  min-width: 60px;
+  height: 50px;
+  text-align: center;
+}

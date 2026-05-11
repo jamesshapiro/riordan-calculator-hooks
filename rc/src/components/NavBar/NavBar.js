@@ -1,9 +1,10 @@
 import React from 'react';
 
-import styled from 'styled-components';
 import { UserContext } from '../UserProvider';
+import { DataContext } from '../DataProvider';
 import Link from 'next/link';
 
+import styles from './NavBar.module.css';
 
 import AuthDialog from '../AuthDialog';
 
@@ -12,13 +13,18 @@ import UserDropdown from '../UserDropdown';
 function NavBar() {
   const { isAuthenticated, user, name, handleLogout } =
     React.useContext(UserContext);
+  const {
+    discoveryMode,
+    setDiscoveryMode,
+    loadDiscovery,
+  } = React.useContext(DataContext);
 
   const LoginLogout = isAuthenticated ? (
-    <NavItem onClick={handleLogout}>Logout</NavItem>
+    <button className={styles.navItem} onClick={handleLogout}>Logout</button>
   ) : (
-    <NavItem>
+    <button className={styles.navItem}>
       <AuthDialog />
-    </NavItem>
+    </button>
   );
 
   const settingsSVG = (
@@ -76,90 +82,48 @@ function NavBar() {
   );
 
   return (
-    <FlexWrapper>
+    <div className={styles.flexWrapper}>
       {LoginLogout}
 
-      <NavLink href='/papers/'>Papers</NavLink>
+      <button
+        className={styles.navLink}
+        onClick={() => {
+          if (!discoveryMode) {
+            window.location.hash = 'discovery';
+            loadDiscovery(0);
+          } else {
+            window.location.hash = '';
+            setDiscoveryMode(false);
+          }
+        }}
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: discoveryMode ? '#FFD700' : undefined,
+          fontWeight: discoveryMode ? 700 : undefined,
+        }}
+      >
+        Discovery
+      </button>
 
-      <NavLink href='/about/'>About</NavLink>
+      <Link href='/benchmarks/' className={styles.navLink}>Benchmarks</Link>
+
+      <Link href='/live/' className={styles.navLink}>Live</Link>
+
+      <Link href='/papers/' className={styles.navLink}>Papers</Link>
+
+      <Link href='/about/' className={styles.navLink}>About</Link>
 
       {isAuthenticated && (
-        <NavItem>
+        <button className={styles.navItem}>
           <UserDropdown>
             {name} {settingsSVG}
           </UserDropdown>
-        </NavItem>
+        </button>
       )}
-    </FlexWrapper>
+    </div>
   );
 }
 
 export default NavBar;
-
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-  gap: 10px;
-`;
-
-const NavItem = styled.button`
-  background-color: var(--number-box-background-color);
-  color: var(--number-box-font-color);
-  border-left: 1px solid var(--number-box-border-color);
-  border-bottom: 1px solid var(--number-box-border-color);
-  border-right: 1px solid var(--number-box-border-color);
-  &:hover {
-    background-color: var(--number-box-border-color);
-    color: white;
-  }
-  /* width: 100px; */
-  display: flex;
-  padding: 2px 6px;
-  /* height: 50px; */
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: inherit;
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
-
-const NavLink = styled(Link)`
-  background-color: var(--number-box-background-color);
-  color: var(--number-box-font-color);
-  border-left: 1px solid var(--number-box-border-color);
-  border-bottom: 1px solid var(--number-box-border-color);
-  border-right: 1px solid var(--number-box-border-color);
-  &:hover {
-    background-color: var(--number-box-border-color);
-    color: white;
-  }
-  display: flex;
-  padding: 2px 6px;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-`;
-
-// --number-box-hover-background-color: hsl(240, 10%, 85%);
-// --matrix-cell-background-color: hsl(240, 50%, 93%);
-
-// --action-box-background-color: hsl(240 10% 95% / 50%);
-// --action-box-hover-background-color: hsl(240 10% 85% / 50%);
-// --action-box-hover-font-color: hsl(240 90% 50% / 50%);
-// --action-box-font-color: hsl(240 65% 40% / 50%);
-// --action-box-border-color: hsl(240 65% 65% / 50%);
-// --bubble-hover-background-color: hsl(240, 100%, 50%);
-
-// --number-box-hover-font-color: hsl(240, 100%, 50%);
-// --bubble-hover-border-color: hsl(240, 100%, 90%);
-// --number-box-border-radius: 8px;
-
-// --header-color: hsl(240, 85%, 35%);
-// --active-button-color: hsl(240, 85%, 35%);
-// --hover-button-color: hsl(240, 60%, 55%);
-// --mode-button-selected: hsl(240, 85%, 35%);

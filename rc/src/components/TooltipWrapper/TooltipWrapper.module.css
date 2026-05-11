@@ -1,0 +1,13 @@
+.spacerDiv {
+  min-width: 5px;
+  z-index: -1px;
+}
+
+.styledSvg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(-1px);
+}

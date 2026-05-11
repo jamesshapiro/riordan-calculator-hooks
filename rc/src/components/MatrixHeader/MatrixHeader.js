@@ -3,7 +3,7 @@ import React from 'react';
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
 
-import styled from 'styled-components';
+import styles from './MatrixHeader.module.css';
 
 import { formatDate } from '../../utils';
 
@@ -70,7 +70,8 @@ function MatrixHeader() {
   let titleHeader = <></>;
 
   const miniEditIcon = (
-    <StyledSVG
+    <svg
+      className={`${styles.styledSVG} lucide lucide-square-pen`}
       xmlns='http://www.w3.org/2000/svg'
       width='15'
       height='15'
@@ -80,15 +81,15 @@ function MatrixHeader() {
       strokeWidth='1.3'
       strokeLinecap='round'
       strokeLinejoin='round'
-      className='lucide lucide-square-pen'
     >
       <path d='M7.5 1.875H3.125a1.25 1.25 0 0 0-1.25 1.25v8.75a1.25 1.25 0 0 0 1.25 1.25h8.75a1.25 1.25 0 0 0 1.25-1.25v-4.375' />
       <path d='M11.4844 1.64062a1.32812 1.32812 0 1 1 1.875 1.875L7.5 9.375l-2.5 0.625 0.625-2.5Z' />
-    </StyledSVG>
+    </svg>
   );
 
   const editIcon = (
-    <StyledSVG
+    <svg
+      className={`${styles.styledSVG} lucide lucide-square-pen`}
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
@@ -98,11 +99,10 @@ function MatrixHeader() {
       strokeWidth='2'
       strokeLinecap='round'
       strokeLinejoin='round'
-      className='lucide lucide-square-pen'
     >
       <path d='M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7' />
       <path d='M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z' />
-    </StyledSVG>
+    </svg>
   );
   if (userIsMatrixCreator) {
     titleHeader = (
@@ -112,7 +112,8 @@ function MatrixHeader() {
           handleRequest();
         }}
       >
-        <TitleInput
+        <input
+          className={styles.titleInput}
           id='title-field'
           value={localTitle}
           placeholder='Give Your Matrix A Title!'
@@ -128,15 +129,15 @@ function MatrixHeader() {
   }
   if (title !== '' && !titleIsEditable) {
     titleHeader = (
-      <TitleBox>
-        <StyledH1>
+      <div className={styles.titleBox}>
+        <h1 className={styles.styledH1}>
           <span onClick={() => setTitleIsEditable(true)}>
-            <TitleSpan>{userIsMatrixCreator ? editIcon : null}</TitleSpan>
+            <span className={styles.titleSpan}>{userIsMatrixCreator ? editIcon : null}</span>
             {userIsMatrixCreator ? ' ' : null}
             {localTitle}
           </span>
-        </StyledH1>
-      </TitleBox>
+        </h1>
+      </div>
     );
   }
   let commentHeader = <></>;
@@ -148,7 +149,8 @@ function MatrixHeader() {
           handleRequest();
         }}
       >
-        <CommentInput
+        <input
+          className={styles.commentInput}
           id='comment-field'
           value={localComment}
           placeholder='Add A Comment!'
@@ -164,23 +166,23 @@ function MatrixHeader() {
   }
   if (localComment !== '' && !commentIsEditable) {
     commentHeader = (
-      <CommentBox>
+      <div className={styles.commentBox}>
         <span onClick={() => setCommentIsEditable(true)}>
           {userIsMatrixCreator ? miniEditIcon : null}
           {userIsMatrixCreator ? ' ' : null}
           {localComment}
         </span>
-      </CommentBox>
+      </div>
     );
   }
 
   let attributionBox = <></>;
   if (creatorName && matrixCreator && createdAt) {
     attributionBox = (
-      <AttributionBox>
-        <AttributionP>{`${creatorName} <${matrixCreator}>`}</AttributionP>
-        <AttributionP>{`${formatDate(createdAt)}`}</AttributionP>
-      </AttributionBox>
+      <div className={styles.attributionBox}>
+        <p className={styles.attributionP}>{`${creatorName} <${matrixCreator}>`}</p>
+        <p className={styles.attributionP}>{`${formatDate(createdAt)}`}</p>
+      </div>
     );
   }
   return (
@@ -193,73 +195,3 @@ function MatrixHeader() {
 }
 
 export default MatrixHeader;
-
-const TitleSpan = styled.span`
-  cursor: pointer;
-`;
-
-const StyledSVG = styled.svg`
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: translateY(2px);
-`;
-
-const TitleInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
-  min-width: 500px;
-  display: inline;
-  margin-bottom: 10px;
-  font-size: 2rem;
-`;
-
-const TitleBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
-  min-width: 500px;
-  margin-bottom: 10px;
-  display: inline;
-`;
-
-const CommentInput = styled.input`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
-  min-width: 500px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-`;
-
-const CommentBox = styled.div`
-  background-color: var(--matrix-header-field);
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 2px;
-  min-width: 500px;
-  max-width: 500px;
-  margin-bottom: 10px;
-`;
-
-const AttributionBox = styled.div`
-  text-align: center;
-  background-color: white;
-  padding: 12px;
-  border: solid 1px var(--number-box-border-color);
-  border-radius: 10px;
-`;
-
-const StyledH1 = styled.h1`
-  text-align: left;
-`;
-
-const AttributionP = styled.p`
-  cursor: default;
-`;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataContext } from '../DataProvider';
 import { UserContext } from '../UserProvider';
-import styled from 'styled-components';
+import styles from './SequenceEditorSubmitButton.module.css';
 import { SpinnerInfinity } from 'spinners-react';
 
 
@@ -45,37 +45,16 @@ function SequenceEditorSubmitButton() {
 
   return (
     // <StyledSubmitButton onClick={handleCompute}>Compute</StyledSubmitButton>
-    <StyledSubmitButton
+    <button
+      className={styles.styledSubmitButton}
       onClick={() => {
         handleAddSequence();
       }}
     >
       {buttonContents}
-    </StyledSubmitButton>
+    </button>
   );
 }
 
 export default SequenceEditorSubmitButton;
 
-const StyledSubmitButton = styled.button`
-  z-index: 10000;
-  margin-top: 55px;
-  min-width: 105px;
-  width: fit-content;
-  /* width: fit-content; */
-  height: 19px;
-  border: 1px solid var(--submit-button-border);
-  padding: 10px;
-  border-radius: var(--number-box-border-radius);
-  color: white;
-  background-color: var(--submit-button-background);
-  &:hover {
-    background-image: revert;
-    background-color: var(--hover-button-color);
-    color: white;
-  }
-  &:active {
-    background-color: var(--active-button-color);
-    color: white;
-  }
-`;
