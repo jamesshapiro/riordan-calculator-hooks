@@ -79,10 +79,6 @@ function NavBar() {
     <div className={styles.flexWrapper}>
       {LoginLogout}
 
-      <Link href='/benchmarks/' className={styles.navLink}>Benchmarks</Link>
-
-      <Link href='/live/' className={styles.navLink}>Live</Link>
-
       <Link href='/papers/' className={styles.navLink}>Papers</Link>
 
       <Link href='/about/' className={styles.navLink}>About</Link>
