@@ -244,9 +244,12 @@ function DataProvider({ children }) {
       return json;
     }
     if (computeWasRequested && !matrixWasFetched) {
-      fetchMatrix(sequenceLength, gSequence, fSequence, mode, metaMode);
-      setComputeWasRequested(false);
-      setMatrixWasFetched(true);
+      fetchMatrix(sequenceLength, gSequence, fSequence, mode, metaMode).finally(
+        () => {
+          setComputeWasRequested(false);
+          setMatrixWasFetched(true);
+        }
+      );
     }
   }, [computeWasRequested, matrixWasFetched]);
 
