@@ -54,6 +54,10 @@ function HSequence() {
               onFocus={(e) => e.target.select()}
               onBlur={(e) => commit(idx, e.target.value)}
               onKeyDown={(e) => {
+                if (e.key === 'Tab') {
+                  e.stopPropagation();
+                  return;
+                }
                 if (e.key === 'Enter') {
                   e.preventDefault();
                   e.currentTarget.blur();
