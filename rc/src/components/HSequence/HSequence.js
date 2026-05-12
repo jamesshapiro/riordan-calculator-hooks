@@ -38,7 +38,7 @@ function HSequence() {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>h-sequence (custom column vector):</h2>
+      <h2 className={styles.title}>a-star sequence (custom column vector):</h2>
       <p className={styles.hint}>
         Multiplies each matrix row to produce the extra column. Leave entries as
         zero to ignore.

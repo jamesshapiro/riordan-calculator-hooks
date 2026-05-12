@@ -413,7 +413,7 @@ function Matrix({ variant }) {
                 key={`0,${displayMatrix[0].length + 6}`}
               >
                 <TooltipWrapper
-                  message='OEIS h-Sequence Column Lookup'
+                  message='OEIS a-star Sequence Column Lookup'
                   side='top'
                   sideOffset={5}
                   arrowshiftX='-10px'

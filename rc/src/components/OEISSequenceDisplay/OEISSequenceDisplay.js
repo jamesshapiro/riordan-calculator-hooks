@@ -30,7 +30,7 @@ const OEISSequenceDisplay = ({
         </button>
         {onSetToH && (
           <button className={styles.setButton} onClick={() => onSetToH(sequence)} disabled={isLoading}>
-            Set to H Sequence
+            Set to A-star Sequence
           </button>
         )}
       </div>
