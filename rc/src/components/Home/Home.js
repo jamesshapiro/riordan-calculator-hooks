@@ -19,7 +19,6 @@ import OEISSequenceDisplay from '../OEISSequenceDisplay/OEISSequenceDisplay';
 import HSequence from '../HSequence';
 
 import { DataContext } from '../DataProvider';
-import { UserContext } from '../UserProvider';
 import styles from './Home.module.css';
 
 function Home() {
@@ -34,8 +33,6 @@ function Home() {
     setOeisToH,
   } = React.useContext(DataContext);
 
-  const { token } = React.useContext(UserContext);
-
   return (
     <div className={styles.flexColumnWrapper}>
       <NavBar />
@@ -47,7 +44,7 @@ function Home() {
       </div>
       <div className={styles.oeisContainer}>
         <OEISInput
-          onFetchSequence={(oeisId) => fetchOeisSequence(oeisId, token)}
+          onFetchSequence={fetchOeisSequence}
           isLoading={isOeisLoading}
         />
         {oeisError && <div className={styles.errorMessage}>{oeisError}</div>}

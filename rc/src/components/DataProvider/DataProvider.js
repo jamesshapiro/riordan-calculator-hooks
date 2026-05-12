@@ -53,16 +53,15 @@ function DataProvider({ children }) {
   const { isAuthenticated, isAuthModalOpen, token, userSequences } =
     React.useContext(UserContext);
 
-  // OEIS sequence fetching function
-  const fetchOeisSequence = React.useCallback(async (sequenceId, token) => {
+  // OEIS sequence fetching function — uses the public API so logged-out
+  // users can still pull OEIS sequences.
+  const fetchOeisSequence = React.useCallback(async (sequenceId) => {
     setIsOeisLoading(true);
     setOeisError('');
-    const URL = AUTH_ENDPOINT + `oeis?oeis_id=${sequenceId}`;
-    console.log(`URL=${URL}`);
-    console.log(`token=${token}`);
+    const URL = ENDPOINT + `oeis?oeis_id=${sequenceId}`;
     const HEADERS = {
       'Content-Type': 'application/json',
-      Authorization: token,
+      'x-api-key': API_KEY,
     };
     const request = new Request(URL, {
       method: 'GET',

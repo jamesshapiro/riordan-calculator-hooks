@@ -14,7 +14,9 @@ import SequenceEditorWindowControls from '../SequenceEditorWindowControls';
 import SequenceEditorSubmitButton from '../SequenceEditorSubmitButton';
 import SequenceEditorConfirmDeleteSequenceDialog from '../SequenceEditorConfirmDeleteSequenceDialog';
 
+const ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL || '';
 const AUTH_ENDPOINT = process.env.NEXT_PUBLIC_MATRIX_URL_AUTH || '';
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || '';
 
 function SequenceEditor() {
   const {
@@ -44,10 +46,10 @@ function SequenceEditor() {
   };
 
   const fetchOEIS = async (oeisId) => {
-    const URL = AUTH_ENDPOINT + `oeis?oeis_id=A${oeisId}`;
+    const URL = ENDPOINT + `oeis?oeis_id=A${oeisId}`;
     const HEADERS = {
       'Content-Type': 'application/json',
-      Authorization: token,
+      'x-api-key': API_KEY,
     };
     const request = new Request(URL, {
       method: 'GET',
