@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import '@radix-ui/colors/black-alpha.css';
 import '@radix-ui/colors/blue.css';
 import '@radix-ui/colors/green.css';
@@ -21,6 +22,9 @@ const BUILD_VERSION = '1.0.6';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <title>Riordan Calculator</title>
+      </Head>
       <Component {...pageProps} />
       <div
         style={{
