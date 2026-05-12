@@ -1,0 +1,23 @@
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Keep .terraform.lock.hcl checked in (pins provider versions)
+
+# Build artifacts
+.build/
+
+# Python virtualenv (for running db_dump_restore.py with boto3)
+.venv/
+
+# Local DDB dumps
+*-dump.json
+
+# Local var overrides
+terraform.tfvars
+*.auto.tfvars
+
+# Output capture
+.role_request_id
+.bootstrap_env
